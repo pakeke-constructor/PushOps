@@ -1,0 +1,98 @@
+
+
+
+
+02/09/2020 :::
+- Got bobbing working with motionSys
+- Created KeyPress static system
+- Finished KeyPress static system. (may add more in future though)
+- Created ImageSys
+- Finished ImageSys
+- split up drawSys to act on ALL drawables to stick to ECS conventions better
+- Added "draw" component to work with drawSys. (boolean)
+- created AnimationSys
+
+03/09/2020 :::
+- Created wall test entity
+- Created control system (player handling)
+
+04/09/2020 :::
+- Finished control system
+- Added translation into control system
+- Fixed bugs with motion system
+- Added character movement!  (I should probably tweak params to make more fluid tho)
+- Added bat, bot, and bet particle sprites
+- Completed the player animation
+- Fixed animation system
+
+10-15???/09/2020 :::
+- Added camera (StalkerX)
+- redid ControlSys to account for new Camera.
+
+19/09/2020 :::
+- Fixed controlSys
+- made PushSys
+- made and finished PartitionSys
+- Figured out how to get love console working
+- added 'boom' and 'moob' events.
+- Made char movement more fluid
+- added 'addVel' event
+
+20/09/2020 :::
+- Fixed 'boom' event
+- Fixed 'moob' event
+- Redid `speed` component
+- FIXED DRAW GLITCH ERROR!!! Finally!!
+- Added GenerationSys
+- Planned world generation
+- Made weighted_selection function
+- Creates worldTypes folder
+- Made 'basic' worldtype, for testing
+- Devised system for procedural generation of entities. (see worldTypes)
+- Got (very basic) perlin noise worldgen working
+- Made visualization for perlin noise worldgen
+
+
+21/09/2020 :::
+- Revamped love.filesystem.getDirectoryItems( ) code, made req_TREE function
+- MicroOptimized Cyan ECS with removal of ipairs 
+
+
+23/09/2020 :::
+- Did a SHIT TONNE with worldGen. Creates worldTypes, and structureGen.
+- Organized a way for them to work together cleanly (well, I think its clean)
+
+26/09/2020 :::
+- Created moveBehaviourSys
+- Planned movement AI types
+- Created `HIVE` moveBehaviour type
+- Created `LOCKON` moveBehaviour type
+- Created `ORBIT` moveBehaviour type
+- BugFixed NaNs -> created vector debug file
+
+3/10/2020 :::
+- Woops, I forgot to keep LOG for today but I did a lot:
+- created HealthSys
+- finished HealthSys
+- created GravitySys
+- finished GravitySys
+- Made blocks go up when :moob'd
+- Created new wall sprite
+- Added `airborne` event
+- Added `grounded` event
+
+4/10/2020 :::
+- Added startPush and endPush callbacks to PushSys
+- Fixed keypressSys not working sometimes
+- created "SigilSys" (probs will change name)
+- Got things working with pushing so u cant push backwards and stuff
+- Gave spacial partitioner correct velocity cap (* by dt dont forget!!!!)
+- Added :longiter() loop method to spacial partitioner
+
+19/10/2020 :::
+- Finished SigilSys
+- Added `strength` Sigil
+- Added `poison` Sigil
+- Created "AbstractSys" for abstract cyan events
+- Backed up whole project on github (finally)
+

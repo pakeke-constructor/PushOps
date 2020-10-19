@@ -1,0 +1,27 @@
+
+
+Don't forget the give the player feedback
+
+For example, when attempting to push an entity and failing,
+Give feedback with particles and sound.
+
+
+
+
+
+
+
+Make a giant worm enemy
+that would be neat
+
+
+
+
+
+game name ideas{
+    PushOPS
+    SuperPush
+    Q_Push
+}
+
+
