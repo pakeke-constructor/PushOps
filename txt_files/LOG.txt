@@ -96,3 +96,30 @@
 - Created "AbstractSys" for abstract cyan events
 - Backed up whole project on github (finally)
 
+
+16/11/2020 :::
+- Added `hit` callback (Currently unused)
+- Gave physics system a proxy to call for important (hard) collisions
+- Added `toughness` component
+
+17/11/2020 :::
+- Created `ParticleSys`.
+- Planned and created emitter object
+- Drew particles, created "guts" emitter object
+- Finished ParticleSys
+- Added :emit() callback
+- drew "shock" frames for animation
+
+18/11/2020 :::
+- Added `playAnim` callback to AnimationSys
+- Added a bunch of functions to automatically manage and execute dynamic animations
+- Created base playAnimation object
+- Created "shock" animation
+- Created `pquery` callback
+- Made gravity stronger
+
+19/11/2020 :::
+PLAN ==> 
+    Finally test and get running
+    BetterBetterBehaviourTree, export to github too
+

@@ -3,36 +3,35 @@
 TODO :::
 
 
+
+
+Check ParticleSys for memory leaks!!!
+(Best way to do this -> check that no excess ParticleSyses are being
+created when not neccessary)
+
+
+Put (More) particle emitters inside of `particles` folder in misc.
+
+
 Make guys headband more thick, also add a tiny bit of shading
 (Also try putting black outlines around it, see how that looks)
 
 
-
-remove addVel() and setVel() events, and simply change the entity velocities normally.
-( to find all the Cyan.call("setVel") calls, raise an error from all a system that uses it )
-
-
-
-Plan a way to structure behavioural state and animation state for entities
-(probably use finite state machine, with behavioural tree as component, pointing to funcs)
+automatically set ent components to nil upon being removed from systems
+(as in, each system is responsible for their respective components!
+MoveSys is responsible for removing .pos and .vel, DrawSys is responsible for removing .draw,
+BobbingSys is responsible for removing .bobbing, etc etc.)
+This will remove a LOT of pressure on GC.
 
 
-
-Extend MoveBehaviourSys to allow for more customizable parameters
-(most importantly:  sight distance)   (Alternatively, you could just
-enable the other behavioural systems to change the behaviour-movestate at will.)
+Add `drawImageEntity(ent)` callback so that entities like grass and walls don't get the
+overhead of having to check if they are in like 10 different cyan systems with `:drawEntity()`.
+NOTE ::: This also means that images won't be able to have Sigils!!!
+But it will increase performance by a bit.
 
 
 
+PLAN ON PAPER what tasks and nodes you are making with behaviourTree.
+Make it very extensible!
 
 
-Perhaps add an autotarget to physics objects upon player induced :boom(),
-so projectiles are more likely to hit enemies. (Also increase max speed, add camera:shake() )
-
-
-
-For GenerationSys:
-Instead of deleting walls that are not relevant, mark them as "psuedo walls".
-psuedo walls are still drawn, but are not assigned a physics body.
-This way the walls will still look nice but will not induce overhead.
---- IDEA !! Maybe you could also draw them differently since they are deeper in? 

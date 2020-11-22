@@ -1,4 +1,8 @@
 
+
+require("behaviourTesting")
+do return end
+
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
 
@@ -23,11 +27,11 @@ end
 
 
 
+
 setmetatable(_G, {
     __newindex = function(_,k) error("DONT MAKE GLOBALS :: "..k) end,
     __index = function(_,k) error("UNDEFINED VAR :: "..k) end
 })
-
 
 
 require("src.systems._SYSTEMS")

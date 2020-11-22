@@ -10,10 +10,16 @@ Give feedback with particles and sound.
 
 
 
+WHYYYY DOESN'T LUA ALLOW SHARED MEMORY BETWEEN LUA STATES!!!
 
-Make a giant worm enemy
-that would be neat
 
+Make a giant worm enemy.
+How should this be accomplished?
+Probably Via a `follow` component that enables an entity to follow directly behind another ent.
+
+You could also add different types of follow, i.e. "behind" follow type, for the Giant worm nodes, 
+or "orbit" follow type, like the orbitals in binding of isaac.
+A radius parameter is also probably a good idea when implementing this system as well.
 
 
 

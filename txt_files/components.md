@@ -26,6 +26,10 @@ speed = {speed = 10, max_speed = 100} -- entity speed
 strength = 10 -- entity strength (how far can push other entities. Also the range of a push.)
 
 
+toughness = 300
+-- The speed an entity can collide at before a :hit() callback is envoked.
+
+
 draw = { ox = 10, oy = 20 } -- Automatic component.
             -- NOTE: This component is given automatically by
             -- `image`, `animation`, and `motion` systems!!

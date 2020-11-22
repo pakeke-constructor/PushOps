@@ -18,6 +18,9 @@ Called every frame
 # drawEntity    ( ent )
 Called for each entity with `image` and `position` component
 
+# drawIndex ( z_depth )
+Called for every draw index, so systems can draw in order without caring for entity
+
 # translate      ()
 When love.graphics.translate() needs to be done, this is called
 
@@ -26,6 +29,15 @@ When love.graphics.translate() needs to be done, this is called
 Adds a sigil to ent
 # removeSigil( ent, sigilName )
 Removes a sigil from an ent
+
+# emit ( emitter_type, x, y, z,  num_particles )
+emits a burst of particles of `emitter_type` at x,y,z.
+-> see `src.misc.particles._types` for a list of types.
+
+# animate ( animationType, x, y, z, frame_len, track_ent )
+Plays animation at x,y,z with specified frame length, and can track an entity.
+NOTE: The animation z depth won't change even when the entity moves! So tracking is only good for short animations
+-> see `src.misc.animation._types` for a list of types
 
 
 # keydown   ( keyname )
@@ -63,6 +75,16 @@ Adds velocity to an entity.
 Sets velocity for an entity
 
 
+# hit ( ent, hardness )
+Called when an entity collides with a speed greater than it's toughness component. 
+===> hardness = collision_speed - ent.toughness 
+(if no toughness component, assume ent can never be hit)
+
+# pquery ( X, Y, callback )
+If X, Y is touching a physics object, `callback` is called with the fixture as the first argument.
+See https://love2d.org/wiki/World:queryBoundingBox
+
+
 
 # airborne ( ent )
 when entity becomes airborne
@@ -76,6 +98,10 @@ when entity becomes grounded (opposite of airborne)
 Called when an entity becomes dead.
 
 
+
+
+# purge ( )
+Frees all memory in preperation for new world gen (including destroying ents)
 
 # newWorld  {
 #   x = 70    (70 units wide) (1 unit = 64 pixels, or size of 1 wall)   
