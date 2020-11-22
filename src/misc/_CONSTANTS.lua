@@ -4,7 +4,7 @@ return{
 
     MAX_DT = 0.05 -- Maximum value `dt` will ever take.
 ,
-    GRAVITY = -400
+    GRAVITY = -981
 ,
     MAX_VEL = 2000
 ,

@@ -18,7 +18,7 @@ local floor = math.floor
 
 local effect = require("src.misc.unique.shader_effect")
 
-local push = require("libs.push.push")
+local push = require("libs.NM_push.push")
 
 --[[push:setupScreen(
     love.graphics.getWidth()/3, 
@@ -64,7 +64,7 @@ do
         --[[
             Adds entity to Indexer
         ]]
-        local zindx = floor(ent.pos.y + ent.pos.z)
+        local zindx = floor((ent.pos.y + ent.pos.z)/2)
         Indexer[zindx]:add(ent)
         Indexer_max_depth = max(Indexer_max_depth, zindx)
         Indexer_min_depth = min(Indexer_min_depth, zindx)
@@ -86,7 +86,7 @@ do
             Sets current position of entity in Indexer, to give system awareness
             of what location ent is currently in in Indexer sets.
         ]]
-        positions[ent] = floor(ent.pos.y + ent.pos.z)
+        positions[ent] = floor((ent.pos.y + ent.pos.z)/2)
     end
 end
 
@@ -119,17 +119,18 @@ local lg = love.graphics
 local getW = love.graphics.getWidth
 local getH = love.graphics.getHeight
 
+local rawget = rawget
+local ipairs = ipairs
+
 local draw_master = function()
 
     --push:start()
-    lg.setColor(0.4,1,0.4)
-    lg.rectangle("fill",0,0,getW(),getH())
+    lg.setColor(0.4,1,0.4) -- green grass
+    lg.rectangle("fill", 0, 0, getW(), getH())
     lg.setColor(1,1,1)
 
     C_call("transform")
-    
-    --lg.setBackgroundColor(0.4,1,0.4)
-    
+        
     local indx_set
 
     for z_dep = Indexer_min_depth, Indexer_max_depth do
@@ -141,6 +142,7 @@ local draw_master = function()
                 end
             end
         end
+        C_call("drawIndex", z_dep)
     end
 
     C_call("untransform")

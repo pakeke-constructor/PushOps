@@ -11,7 +11,7 @@ local Psys = love.graphics.newParticleSystem(atlas.image,2000)
 
 Psys:setColors({1,0,0}, {0.7,0,0}, {0.7,0,0.4})
 
-Psys:setQuads{  Quads.bat, Quads.bot, Quads.bit }
+Psys:setQuads{ Quads.bat, Quads.bot, Quads.bit }
 
 local _,_, pW, pH = (Psys:getQuads()[1]):getViewport( )
 Psys:setOffset(pW/2, pH/2)
@@ -39,7 +39,7 @@ return {
         else
             h = 0
         end
-        lg.draw(Psys, ent.pos.x, ent.pos.y - h)
+        lg.draw(Psys, ent.pos.x, (ent.pos.y - h) - ent.pos.z / 2)
     end
 
 }

@@ -3,7 +3,6 @@
 
 
 
-
 Cyan.call("newWorld",{
     x=600,y=50,
     tier = 1,
@@ -17,11 +16,10 @@ local Ent = require("src.entities._ENTITIES")
 local p = Ent.player(0,0)
 
 
-
 local DEBUG_SYS = Cyan.System()
 
-function DEBUG_SYS
-:draw()
+
+function DEBUG_SYS:draw()
     love.graphics.setColor(0,0,0)
     love.graphics.print(("Memory used:: " .. (math.floor(collectgarbage("count")/10)/100) .. " MB"),20,50)
     love.graphics.print(("Player speed:: %d"):format(math.floor(p.vel:len())), 20, 65)
@@ -30,12 +28,16 @@ function DEBUG_SYS
 
 end
 
+function DEBUG_SYS:hit()
+    print("HIT!")
+end
+
 
 local r = love.math.random
 
 
-for i=1,7 do
-    Ent.wall(r(-400,400),r(-400,400))
+for i=1,70 do
+    Ent.wall(r(-1000,1000),r(-1000,1000))
 end
 
 for i=1,8 do
@@ -58,7 +60,7 @@ for i=1,30 do
 end
 
 for i=1,10 do
-    Ent.enemy(math.random(-2000, 2000), math.random(-2000,2000))
+    Ent.enemy(math.random(-1000, 1000), math.random(-1000,1000))
 end
 
 

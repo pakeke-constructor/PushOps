@@ -1,6 +1,6 @@
 
 
-local SigilSys = Cyan.System("sigils")
+local SigilSys = Cyan.System("sigils", "draw", "pos")
 --[[
 
 Sigils are displayed when the entity in question is under a special effect,
@@ -35,10 +35,6 @@ end
 
 assert(Sigils, "hello??? hm")
 
-for ke,_ in pairs(Sigils) do
-    print("hello?")
-    print("SIGIL name ::::: ", ke)
-end
 
 
 local function updateSigil(ent, dt)
@@ -76,7 +72,6 @@ end
 
 function SigilSys:added(ent)
     for _,v in ipairs(ent.sigils) do
-        print("sigilSys:added ==> loop var v:  ", v)
         SigilSys:addSigil(ent, v)
     end
 end

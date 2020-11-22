@@ -9,7 +9,7 @@ local DEFAULT_WALL_THRESHOLD = 0.8-- Noise (0->1) must be >=0.8 to form a wall
 -- Noise must be 0.1 lower than the DEFAULT_WALL_THRESHOLD in order
 -- to spawn an object on this location.
 -- This is done so objects don't spawn right next to walls.
-local DEFAULT_EDGE_THRESHOLD = 0.1
+local DEFAULT_EDGE_THRESHOLD = 0.3
 
 --[[
 
@@ -23,6 +23,8 @@ i.e. '(pqe)' means spawn physics object, spiky object, and enemy
 .  :  nothing (empty space)
 
 #  :  wall
+
+%  :  A wall used to be here but was not important (surrounded by other walls)
 
 e  :  enemy spawn
 r  :  rare enemy spawn
@@ -50,6 +52,7 @@ l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant
 
 ]]
 
+
 local PROBS = {
     -- Probability of each character occuring.
     -- Each value is a weight and does not actually represent the probability.
@@ -59,11 +62,11 @@ local PROBS = {
     ["R"] = 0.005;
     ["u"] = 0.01;
     ["U"] = 0.003;
-    ["^"] = 0.7;
+    ["^"] = 0.8;
     ["l"] = 0.03;
-    ["p"] = 0.5;
+    ["p"] = 0.3;
     ["P"] = 0.01;
-    ["."] = 0.3
+    ["."] = 0.4
     -- Bossfights, artefacts, are done through special structure generator
     -- Walls, shops, player spawn, and player exit are done uniquely.
 }
@@ -141,6 +144,41 @@ local function structureFits(worldMap, structure, wX, wY)
 end
 
 
+
+
+local function isSurroundedByWalls(worldMap, X, Y)
+    for x = X-1,X+1 do 
+        for y = Y-1, Y+1 do
+            if x ~= X and y ~= Y then
+                if worldMap[x][y] ~= "#" and worldMap[x][y] ~= "%" then
+                    -- hits a non-wall! ret false
+                    return false
+                end
+            end
+        end
+    end
+    -- Makes it all the way without break condition
+    return true
+end
+
+local function removeUselessStructs(worldMap)
+    for x = 2, #worldMap - 1 do
+        for y = 2, #worldMap[1] - 1 do
+            local chr = worldMap[x][y]
+
+            if isSurroundedByWalls(worldMap, x, y) then
+                if chr == "#" then
+                    worldMap[x][y] = "%" -- % denotes a blocked wall.
+                else
+                    worldMap[x][y] = "."
+                end
+            end
+        end
+    end
+
+end
+
+
 local function genStructures(worldMap, structureRule)
 
     local amount = love.math.random( structureRule.min_structures, structureRule.max_structures )
@@ -190,7 +228,6 @@ local function genStructures(worldMap, structureRule)
             end
         end
     end
-
 end
 
 
@@ -282,17 +319,12 @@ function GenSys:newWorld(world)
 
     genStructures(worldMap, structureRule)
 
-    -- ***
-    -- Remove / change redundant walls
-    -- ***
-
+    removeUselessStructs(worldMap)
 
     -- ****
     -- Now assign entities to chars
     -- ****
 
-
-    
     --[[
     World generation visualization.
     ]]

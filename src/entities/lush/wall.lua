@@ -25,6 +25,7 @@ return function(x,y)
         magnitude = 0.1;
         value = 0
     })
+
 end
 
 

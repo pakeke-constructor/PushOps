@@ -1,7 +1,7 @@
 
 
 
-local Camera = require("libs.STALKER_X.Camera")
+local Camera = require("libs.NM_STALKER_X.Camera")
 
 
 

@@ -14,11 +14,74 @@ component is read-only.
 local World
 
 
+-- keeps ref
+local fixture_to_ent = setmetatable({}, {__mode = "kv"})
+
+--[[
+    getTangentSpeed
+getChildren
+setEnabled
+getPositions
+setRestitution
+__index
+isDestroyed
+isTouching
+setFriction
+resetRestitution
+getFixtures
+setTangentSpeed
+getFriction
+resetFriction
+getNormal
+isEnabled
+__tostring
+__eq
+type
+release
+typeOf
+getRestitution
+]]
+
+local vec3 = math.vec3
+
+local function beginContact(fixture_A, fixture_B, contact_obj)
+
+    local ent_A = fixture_to_ent[fixture_A]
+    local ent_B = fixture_to_ent[fixture_B]
+
+    -- Magnitude of collision
+    local speed = ((ent_A.vel or vec3()) + (ent_B.vel or vec3())):len()
+
+    if ent_A.toughness then
+        if ent_A.toughness < speed then
+            Cyan.call("hit", ent_A, ent_A.toughness - speed)
+        end
+    end
+
+    if ent_B.toughness then
+        if ent_B.toughness < speed then
+            Cyan.call("hit", ent_B, ent_B.toughness - speed)
+        end
+    end
+end
+
+
+
+function PhysicsSys:pquery(x, y, callback)
+    World:queryBoundingBox(x-3, y-3, x+3, y+3, callback)
+end
+
 
 
 
 function PhysicsSys:newWorld( world )
+    if World then
+        World:destroy()
+    end
+
     World = love.physics.newWorld(0,0)
+
+    World:setCallbacks(beginContact, nil, nil, nil)
 end
 
 
@@ -56,6 +119,7 @@ function PhysicsSys:added(ent)
             body = "kinetic"
         }
     ]]
+
     local body_str = ent.physics.body
     ent.physics.body = love.physics.newBody(
         World, ent.pos.x, ent.pos.y, body_str
@@ -67,6 +131,8 @@ function PhysicsSys:added(ent)
         ent.physics.body,
         ent.physics.shape
     )
+
+    fixture_to_ent[ent.physics.fixture] = ent
 end
 
 
@@ -77,6 +143,8 @@ function PhysicsSys:removed(ent)
     ent.physics.body:release()
     ent.physics.shape:release()
 end
+
+
 
 
 

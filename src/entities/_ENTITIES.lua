@@ -2,11 +2,14 @@
 
 local PATH = 'src/entities'
 
+
+local Proxy = { }
+
 local Ents = setmetatable({ }, {__newindex = function(t,k,v)
-    if rawget(t,k) then
+    if rawget(Proxy,k) then
         error("Entity file already had the name : "..k .. ". Duplicate names not allowed!")
     end
-    rawset(t,k,v)
+    rawset(Proxy,k,v)
 end})
 
 
@@ -32,4 +35,8 @@ end
 
 
 
-return req_TREE_push(PATH, Ents)
+req_TREE_push(PATH, Ents)
+
+
+-- This is actually where the entities are held
+return Proxy

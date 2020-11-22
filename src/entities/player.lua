@@ -6,7 +6,7 @@ local Quads = atlas.Quads
 
 local psys = love.graphics.newParticleSystem(atlas.image)
 psys:setQuads(Quads.beet, Quads.bat, Quads.bot, Quads.bit)
-psys:setParticleLifetime(0.5, 0.8)
+psys:setParticleLifetime(0.4, 0.8)
 --psys:setLinearAcceleration(0,0,200,200)
 psys:setDirection(180)
 psys:setSpeed(5,15)

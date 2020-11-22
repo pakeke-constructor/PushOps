@@ -32,8 +32,7 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 
-local ai_types = { "ORBIT", "LOCKON","HIVE" }
-
+local ai_types = { "ORBIT", "LOCKON" }
 
 
 return function(x,y)
@@ -45,7 +44,7 @@ return function(x,y)
     
     :add("hp", {hp = 100, max_hp = 100})
 
-    :add("speed", {speed = 4, max_speed = math.random(40,160)})
+    :add("speed", {speed = 4, max_speed = math.random(20,60)})
 
     :add("strength", 40)
 
@@ -62,11 +61,13 @@ return function(x,y)
         required_vel = 10;
     })
 
+    :add("targetID",2) -- is an enemy -> see components.md
+
     enemy:add("behaviour",{
             move = {type = Tools.rand_choice(ai_types), id=1}
     })
 
-    :add("motion",
+    enemy:add("motion",
     {
         up = motion_up;
         down = motion_down;
@@ -77,8 +78,6 @@ return function(x,y)
         interval = 0.1;
         required_vel = 20;
     })
-
-    :add("sigils", {"strength"})
 
     return enemy
 end

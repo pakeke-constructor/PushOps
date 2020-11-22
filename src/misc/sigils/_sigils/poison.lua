@@ -44,7 +44,7 @@ end
 
 function sigil:draw(ent)
     -- self in this case is the ent.
-    atlas:draw(cur_quad, ent.pos.x, ent.pos.y - draw.h)
+    atlas:draw(cur_quad, ent.pos.x, (ent.pos.y - draw.h)-ent.pos.z/2)
 end
 
 

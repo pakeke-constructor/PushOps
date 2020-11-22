@@ -42,10 +42,12 @@ local function findPushedEnt(ent, range)
         dx = ppos.x - epos.x
         dy = ppos.y - epos.y
         
-        if dist(dx, dy) < min_dist then
+        local distance = dist(dx, dy)
+        if distance < min_dist then
             -- Is a valid candidate ::
             if dot(dx, dy, vx,vy) > 0 then
                 best_ent = push_ent
+                min_dist = distance
             end
         end
     end
@@ -73,7 +75,6 @@ function PushSys:startPush(ent, range)
 
     local pushed_ent = findPushedEnt(ent, range)
 
-
     if not pushed_ent then
         return -- nah! no good ones
     end
@@ -93,6 +94,13 @@ end
 function PushSys:endPush(ent)
     currently_pushing_keys:remove(ent)
     currently_pushing[ent] = nil
+end
+
+
+
+function PushSys:removed(ent)
+    currently_pushing[ent] = nil
+    currently_pushing_keys:remove(ent)
 end
 
 
@@ -134,6 +142,7 @@ function PushSys:boom(x, y, strength, distance,
     --[[
         Pushes all entities from a point away.
     ]]
+
     local this_strength
 
     for ent in partition:foreach(x, y) do
@@ -160,6 +169,8 @@ function PushSys:boom(x, y, strength, distance,
             if should_be_pushed then
                 this_strength = (strength*AVERAGE_DT*100) / e_dis;
                 C_call("addVel", ent, (eX-x)*this_strength, (eY-y)*this_strength)
+                
+                C_call("animate", "shock", 0, 0, 50, 2.5, ent)
                 -- Push the entities away according to `strength` and distance.
             end
         end
@@ -203,6 +214,11 @@ function PushSys:moob(x, y, strength, distance)
         end
     end
 end
+
+
+
+
+
 
 
 

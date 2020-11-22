@@ -112,13 +112,22 @@ end})
 
 
 
+local NAN_police = "This is the NAN police"
+
 local function update_goto_target(ent, pos_x, pos_y)
     local sp = ent.pos
 
     local d = dist(pos_x - sp.x, pos_y - sp.y)
 
+    if d < 0.1 then -- if d is low, don't bother
+        return
+    end
+
     local vx = ((pos_x - sp.x)/d)*ent.speed.speed
     local vy = ((pos_y - sp.y)/d)*ent.speed.speed
+
+    assert(vx == vx, NAN_police)
+    assert(vy == vy, NAN_police)
 
     Cyan.call("addVel", ent, vx, vy)
 end
@@ -210,7 +219,27 @@ do
 
         set_targ_ent(self, targ_ent)
     end
+    function LOCKON:h_update()
+        local move = self.behaviour.move
 
+        local id = move.id
+
+        local targ_ent = nil
+
+        for ent in Partitions[id]:foreach(self.pos.x, self.pos.y) do
+            psh(tmp_stack, ent)
+        end
+        local stack_len = #tmp_stack 
+        local i = rand(stack_len)
+        if stack_len ~= 0 then
+            targ_ent = tmp_stack[i]
+        end
+        for _ = 1, stack_len do
+            pop(tmp_stack)
+        end
+
+        set_targ_ent(self, targ_ent)
+    end
 
 
     local ORBIT = {}
@@ -233,7 +262,30 @@ do
 
         update_goto_target(self, tp.x + 60*sin(orbit_tick), tp.y + 60*cos(orbit_tick))
     end
+
     function ORBIT:init()
+        local move = self.behaviour.move
+
+        local id = move.id
+
+        local targ_ent = nil
+
+        for ent in Partitions[id]:foreach(self.pos.x, self.pos.y) do
+            psh(tmp_stack, ent)
+        end
+
+        local stack_len = #tmp_stack 
+        local i = rand(stack_len)
+        if stack_len ~= 0 then
+            targ_ent = tmp_stack[i]
+        end
+        for ii = 1, stack_len do
+            pop(tmp_stack)
+        end
+
+        set_targ_ent(self, targ_ent)
+    end
+    function ORBIT:h_update()
         local move = self.behaviour.move
 
         local id = move.id
@@ -274,12 +326,17 @@ do
         if tot ~= 0 then
             move.target = math.vec3(sum_x/tot, sum_y/tot, 0)
         else
-            move.target = math.vec3()
+            move.target = nil
         end
     end
     function HIVE:update()
         local target = self.behaviour.move.target
-        update_goto_target(self, target.x, target.y)
+        if target then
+            update_goto_target(self, target.x, target.y)
+        else
+            -- If no goto target, stay still. (Behaviour tree should sort this shit out :/ )
+            update_goto_target(self, self.pos.x, self.pos.y)
+        end
     end
     function HIVE:h_update()
         local move = self.behaviour.move
@@ -294,10 +351,10 @@ do
             tot = tot + 1
         end
 
-        if tot ~= 0 then
+        if tot > 0 then
             move.target = math.vec3(sum_x/tot, sum_y/tot, 0)
         else
-            move.target = math.vec3()
+            move.target = nil 
         end
     end
 
@@ -308,7 +365,6 @@ do
     function IDLE:update(dt)
     end
 
-
     MoveTypes = {
         ORBIT=ORBIT,
         HIVE=HIVE,
@@ -316,7 +372,6 @@ do
         IDLE=IDLE
     }
 end
-
 
 
 
@@ -331,7 +386,16 @@ function MoveBehaviourSys:added( ent )
 end
 
 
+--[[
 
+-- DEBUG ONLY!!!!
+
+function MoveBehaviourSys:drawEntity(e)
+    if self:has(e) then
+        love.graphics.print(e.behaviour.move.type, e.pos.x, e.pos.y)
+    end
+end
+]]
 
 
 function MoveBehaviourSys:update(dt)
@@ -372,26 +436,10 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 local TargetSys = Cyan.System("targetID", "pos")
 
 local set = Tools.set
+
 local TargetGroups = setmetatable({ },
 --[[
     2d array of sets representing all the entities in each group.    
@@ -432,9 +480,9 @@ function TargetSys:removed(ent)
         -- This means we still got entities targetting this ent,
         -- So we must re-initialize all the entities that were targetting
         -- this ent.
-        for _,ent in ipairs(Targetted[ent].objects) do
-            local move = ent.behaviour.move
-            MoveTypes[move.type].init(ent)
+        for _, e in ipairs(Targetted[ent].objects) do
+            local move = e.behaviour.move
+            MoveTypes[move.type].init(e)
         end
     end
 
