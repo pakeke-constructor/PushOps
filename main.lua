@@ -1,8 +1,5 @@
 
 
-require("behaviourTesting")
-do return end
-
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
 
