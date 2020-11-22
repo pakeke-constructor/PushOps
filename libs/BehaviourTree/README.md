@@ -1,153 +1,224 @@
 
-# BehaviourTree
-
-Note: I made this library in an afternoon and it has hardly been tested, so take care!!!!
-
-Much of the API is inspired off of https://github.com/tanema/behaviourtree.lua
 
 
-# Usage:
-
-There are 2 objects in the BehaviourTree module.
-
-`Nodes`, and `Tasks`. Nodes hold Tasks. Nodes can also hold other Nodes. This is how a tree is made!
-Think of a Task like a glorified function.
-Think of a Node like a Task that has many steps, and keeps state across 
+# API:
+There are two objects in this library
+`Tasks` and `Nodes`.
 
 
+Tasks are like glorified functions.
+
+
+Nodes can hold tasks, and control the flow of functions better. Nodes can also hold other Nodes! When this happens, it becomes a Tree.
+
+
+```lua
+-- Require the folder itself- lua will automatically run `init.lua`.
+local BT = require("path.to.BehaviourTree.init")
+```
 
 # Tasks
 
-### Task creation:
-The main bit of a task is it's `run` method.
+Tasks are a collection of functions, that take the following form:
 
-`run` takes `(task, object, dt)` as its arguments, and is called every frame whilst the task is running.
-
-You must specify how the `run` method ends, to tell the Tree where to move to next. More on this in the next section, though.
-
+(Note that the table fields `start`, `finish`, and `name` are optional.)
 ```lua
-local BT = require("path.BehaviourTree")
-
-
-local obj = <...> -- some user defined object.
-
-
-
--- A task
-local task1 = BT.Task({
-    name = "task1", -- must have a name
-
-     -- OPTIONAL: Called when the task starts running
-    start = function( task, obj, dt ) end,
-
-
-    -- `run` is called every frame whilst the task is running.
-    run = function( task, obj, dt )
-        -- NOTE: `task` is a reference to `task1`.
-        
-        task:next() -- Next frame, the next task will be ran. 
-                    -- Read more about this below.
-    end
-
-
-    -- OPTIONAL: Called when the task finishes (stops running)
-    finish = function( task, obj, dt ) end
-    -- Note that calling task:resume() or anything here won't do anything.
-})
+local Example = BT.Task("example") -- Name is `example`.
+-- Note that names are optional for Tasks and Nodes.
 
 
 
-
--- Alternative way to define Tasks:
-local task2 = BT.Task("task2")
-
--- This works fine!
-function task2.run( task, obj, dt )
-    if math.random() < 0.5 then
-        task:resume()
-    else
-        task:next()
-    end
+function Example:start(obj, dt)
+    -- Called when the Task starts
+    print("example started, with obj: ", obj)
 end
+
+
+
+function Example:update(obj, dt)
+    -- Called whilst the task is running
+    print("running with obj: ", obj)
+
+    return "n" -- Return type is important, see next section.
+end
+
+
+
+
+function Example:finish(obj, dt)
+    -- Called finally when the task stops running
+    print("example task stopped!")
+end
+
+
+
 ```
+The most confusing thing about tasks is the return functionality.
+What value the `update` function returns will determine what will happen to the tree on the next step.
 
 
-### Task signals:
-As you saw in the above example, we called `task:next()` to tell the Tree to go to the next task the next frame. I call this a "Task signal".
-
-You MUST call a signal in every `run` function in a task, to let the Tree know where to go
-
-Here are all the ones you can use:
+Here are the returns the update function can use:
 ```lua
-task:resume() --> resumes same task next frame
+return "r" 
+-- The tree will resume running the same next frame
 
-task:next()  -->  quits the task next frame, runs next one (ordered by :add() order.)
 
-task:reset() --> goes to the starting task
+return "n"
+-- The tree will go onto the next task next frame
+-- (see Node paths for explanation)
 
-task:to( task_name ) --> quits the task next frame, goes to task named `task_name`.
-            -- (There must be a task called `task_name` in the current Node, else
-            -- an error will be raised.)
+
+return "k"
+-- The tree will kill it's current state (reset itself fully)
 ```
-You must call one of these when the function ends, or the tree won't know where to go!
-(And an error will be thrown)
+If the Task does not return one of these special return values, and error will be raised.
 
 
-### OPTIONAL Task functions: (not signals)
+### Getting runtime of a task:
+
+To see how long a task has been running on an object for, use
 ```lua
-task:overtime( 5 ) -- returns true if this task has been running for over 5 seconds, false otherwise
-
-task:runtime() -- returns how long the task has been running for.
+task:runtime( obj ) -- Returns how long it's been running on this object for!
 ```
+This is useful for ensuring that tasks run for X amount of time.
+For example:
+```lua
 
+local myTask = BT.Task("mytask")
+
+
+function myTask:update(task, obj, dt)
+    if task:runtime(obj) > 5 then -- (time in seconds)
+        print("I ran out of gas.")
+        return "n" -- Will move onto next task
+    end
+
+    print("Hey, I'm running!! cool")
+    return "r"
+end
+
+```
 
 # Nodes
 
-Nodes basically store Tasks.
+Nodes are the backbone of this library.
 
-They are kinda like a big array, with the exception that they keep track of names too.
-
-## Construction
+To construct:
 ```lua
 
+local Node = BT.Node("name") -- Node with name `name`
 
-local my_Node = BT.Node("my_Node")
-
-
-my_Node:add(task1) -- Add task1 to Node
-
-my_Node:add("task1") -- Same thing.
-
-
-
-local otherNode = BT.Node("otherNode")
-    :add(task2)
-    :add(my_Node) -- We can nest nodes!
 ```
-When `my_Node` is ran as a task, my_Node will just run normally as it would on it's own.
+The core of a Node is it's `choose` function.
 
-When `my_Node` completes, it passes control back to `otherNode`, which will run
-the next task in the tree. In this case, there are no more tasks, so the Tree resets.
+The `choose` function determines what path will be ran. (A path is just a simple array of tasks.) 
 
+Example:
 
-## Usage:
-
-Now all you need to do is run the root Node with an object!
-
-`object` will now behave according to `otherNode`'s behaviour Tree.
 ```lua
-function love.update(dt)
-    otherNode:run( object, dt )
+local myNode = BT.Node() -- A node with no name
+
+
+function myNode:choose(node, obj)
+    if obj.health < 50 then
+        return "angry"
+    else
+        return "normal"
+    end
 end
+
+
+
+-- Now, creation of "behaviour paths":
+
+myNode.normal = {
+    walk, -- `walk` and `eat` are task objects
+    eat
+}
+
+
+myNode.angry = {
+    run_around,-- These are also task objects
+    attack 
+}
+
+
 ```
 
-# Gotchas:
+In this example, if the object's health is below 50, the Node runs the `angry` path, which runs the tasks `run_around` and `attack`.
 
-There are two "Gotchas" with this library.
+Conversely, if the object's health is above 50, the Node runs the `normal` path, which runs the tasks `walk_around` and `eat`.
 
-- Running a behaviour tree from inside itself may not crash the program, but will cause undefined behaviour.
 
-- The Task `finish` function takes the task object as a parameter, but the task object is locked when the finish function runs.
+NOTE:
+The second tasks in both paths (`eat` and `attack`) will only be ran if the first tasks (`run_around` and `walk`) return an "n" return code, telling the tree to move onto the next Task in the path.
+If the Tasks return "k" instead, for example, the second Tasks will never be ran, as the tree will just do a full reset and run the `choose` function again.
+
+
+#### Running objects:
+
+To run an object under a behaviourTree, simply do
+```lua
+Node:update( object, dt )
+```
+the object will be ran under the tree `Node` without any side effects. You can run multiple objects under the same tree at the same time, no problem.
+
+
+
+
+## Node callbacks
+### **UNTESTED / WORK IN PROGRESS AS OF 22/11/2020**
+
+```lua
+
+Node:on("damage",
+    function(node, ent)
+        return "scared" -- Changes to `scared` path
+    end
+)
+
+Node:call("damage", ent) -- Callback!
+```
+
+
+# Extra questions
+
+#### *What happens when a task returns "n" and it is the last in the path?*
+This will cause the Node to invoke :next() on it's parent. If that Node has no parent, then it will just invoke a full reset on itself.
+
+
+#### What are names for?
+Names offer a shorthand for putting Tasks and Nodes in paths.
+
+Example:
+```lua
+local t = BT.Task("q")
+
+function t:update(obj, dt)
+        print("task q ran!")
+        return "n"
+end
+
+
+
+
+local N = BT.Node()
+
+function N:choose(node, obj)
+    return "main"
+end
+
+
+N.main = {
+    "q", -- This "q" here gets transformed into the Task above.
+    "q", 
+    "q" -- Note that this kind of thing works for Nodes also
+}
+
+```
+#### Why don't Nodes have `start` and `finish` callbacks?
+If you think about it, `node:choose(obj)` pretty much **is** a starting callback. The reason Nodes don't have ending callbacks is because they can be implemented easily with Tasks anyway
+
 
 
 

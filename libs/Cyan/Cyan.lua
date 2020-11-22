@@ -40,12 +40,16 @@ Cyan.System = System
 -- Depth is the call depth of a Cyan.call function.
 -- It tracks the `depth` of the call so automatic flushing can be done on every root call.
 local ___depth = 0
+local func_backrefs = System.func_backrefs
 
 do
     function Cyan.call(func_name,   a,b,c,d,e,f,g,h,i__)
+
         if i__ then
+            -- THIS IS ONLY FOR DEBUGGING!!!! remove upon release !!!!
             error("Maximum number of arguments exceeded.")
         end
+        
         if ___depth == 0 then
             Cyan.flush()
         end
@@ -64,7 +68,7 @@ do
             @return Cyan @
         ]]
         local sys
-        local Sys_backrefs = System.func_backrefs[func_name]
+        local Sys_backrefs = func_backrefs[func_name]
         for i = 1, Sys_backrefs.len do
             sys = Sys_backrefs[i]
             if sys.active then
@@ -73,8 +77,6 @@ do
         end
 
         ___depth = ___depth - 1 -- Depth will be zero if and ONLY IF this call was a root call. (ie called from love.update or love.draw)
-
-        return Cyan
     end
 
     Cyan.emit = Cyan.call
