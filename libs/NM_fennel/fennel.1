@@ -1,0 +1,111 @@
+.TH FENNEL 1
+
+.SH NAME
+fennel \- a lisp programming language that runs on Lua
+.SH SYNOPSIS
+.B fennel
+[\fB--repl\fR] | 
+[\fB--compile \fIfilename\fR] | 
+[\fB--eval \fIsource\fR] | 
+[\fIfilename\fP] [\fIargs ...\fR]
+
+.SH DESCRIPTION
+This manual page documents briefly the
+.B fennel
+command.
+.PP
+.B fennel
+is the main entry point for Fennel, a lisp programming language that
+runs on Lua runtimes. With no options or arguments, it runs an
+interactive Read-Eval-Print loop (REPL).
+.PP
+Given a filename as its first argument, it runs that file and passes
+it the subsequent arguments. Ahead-of-time compilation can be invoked
+with the
+.B --compile
+flag.
+
+.SH OPTIONS
+A summary of options is included below.
+.TP
+.B \-\-repl
+Start an interactive repl session.
+.TP
+.B \-\-compile \fIfilename\fP
+Perform ahead-of-time compilation on the provided file and write the
+Lua output to stdout.
+.TP
+.B \-\-eval \fIsource\fP
+Evaluate a piece of source code and print the result.
+.TP
+.B \-\-no-searcher
+When running a repl or a file,
+.B fennel.searcher
+is installed by default so that the
+.B require
+function can load Fennel files in addition to Lua files. This flag
+disables that behavior. Has no effect for ahead-of-time compilation.
+.TP
+.B \-\-indent \fIval\fP
+When compiling, use the given string as indentation for the compiler
+output. This should consist of whitespace.
+.TP
+.B \-\-add-package-path \fIpath\fP
+Add the given path to
+.B package.path
+so that the
+.B require
+function will know to look there when searching for Lua modules.
+.TP
+.B \-\-add-fennel-path \fIpath\fP
+Same as above, but for Fennel's path used when searching for Fennel
+modules.
+.TP
+.B \-\-globals \fIVAR1[,VAR2...]\fP
+Allow VAR1, VAR2, etc as globals in addition to the standard set of
+globals. This enables strict global checking even in ahead-of-time
+compilation where it otherwise would be disabled.
+.TP
+.B \-\-globals-only \fIVAR1[,VAR2...]\fP
+Same as above, but without the addition of the standard set of globals.
+.TP
+.B \-\-require-as-include
+Instead of loading required modules at runtime, compile them inline
+into the main file being compiled. Only useful during ahead-of-time
+compilation.
+.TP
+.B \-\-load \fIFILE\fP
+Load the specified file before any command is run.
+.TP
+.B \-\-compile-binary \fIFILE\fP \fIOUT\fP \fILUA_LIB\fP \fILUA_DIR\fP
+Compile FILE to a standalone binary OUT using LUA_LIB and the Lua
+header files in LUA_DIR. See
+.B \-\-compile-binary \-\-help
+for details.
+.TP
+.B \-\-no\-sandbox\-compiler
+Do not limit compiler environment to minimal sandbox.
+.TP
+.B \-h, \-\-help
+Print a help message and exit
+.TP
+.B \-v, \-\-version
+Print the version number and exit
+
+.SH DOCUMENTATION
+
+See https://fennel-lang.org for documentation on Fennel. The syntax is
+based on the lisp family of languages while the semantics are very
+close to Lua, so Lua's reference manual is helpful.
+
+.SH COMMUNITY
+
+The mailing list is at https://lists.sr.ht/~technomancy/fennel while
+the issue tracker is at https://todo.sr.ht/~technomancy/fennel.
+
+.SH AUTHOR
+Calvin Rose and contributors:
+https://git.sr.ht/~technomancy/fennel/contributors
+
+.SH LICENSE
+Copyright © 2016-2020, Released under the MIT/X11 license

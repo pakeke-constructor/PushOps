@@ -1,0 +1,24 @@
+
+
+Giant worm enemy
+
+
+One bullet type for all enemies
+(However, add `speed` parameter.)
+
+
+Walking block enemy
+(Harmless enemy that just gets in the way of player
+lots of health, v big)
+
+
+
+
+
+
+
+
+
+
+
+

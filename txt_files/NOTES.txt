@@ -1,0 +1,42 @@
+
+
+Don't forget the give the player feedback
+
+For example, when attempting to push an entity and failing,
+Give feedback with particles and sound.
+
+
+colours =>
+{
+    0 0 0   Black/outline
+    0 0 1   Special item colour (coin, shop, artefact)
+    0 1 0   Grass green
+    0 1 1   Dark green
+    1 0 0   Enemy/damage colour
+    1 0 1   Dark Enemy/damage colour
+    1 1 0   Grey
+    1 1 1   White (player colour)
+}
+
+
+WHYYYY DOESN'T LUA ALLOW SHARED MEMORY BETWEEN LUA STATES!!!
+
+
+Make a giant worm enemy.
+How should this be accomplished?
+Probably Via a `follow` component that enables an entity to follow directly behind another ent.
+
+You could also add different types of follow, i.e. "behind" follow type, for the Giant worm nodes, 
+or "orbit" follow type, like the orbitals in binding of isaac.
+A radius parameter is also probably a good idea when implementing this system as well.
+
+
+
+
+game name ideas{
+    PushOPS
+    SuperPush
+    Q_Push
+}
+
+

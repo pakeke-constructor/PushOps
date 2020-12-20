@@ -1,0 +1,60 @@
+
+
+_G.love.graphics.setDefaultFilter("nearest", "nearest")
+
+
+
+-- MONKEY BUSINESS STARTS HERE !!!
+setmetatable(_G, {})
+do
+    _G.Cyan = require "libs.Cyan.cyan"
+
+    _G.Tools = require"libs.tools.tools"
+
+    -- math altercation
+    _G.math.vec3 = require "libs.math.NM_vec3"
+    _G.math.dot  = require "libs.math.dot"
+
+    -- Entity construction helper functions
+    _G.EH = require 'src.entities._EH'
+
+    _G.CONSTANTS = require"src.misc._CONSTANTS"
+end
+
+
+
+-- NO MORE MONKEY BUSINESS PAST THIS POINT !!!
+
+setmetatable(_G, {
+    __newindex = function(_,k) error("DONT MAKE GLOBALS :: " .. tostring(k)) end,
+    __index = function(_,k)
+        if k==nil then
+            -- Fennel uses weird NIL keys in compiling 
+            -- so we gotta account. Fair enough :/
+            return
+        end
+        error("UNDEFINED VAR :: " .. tostring(k))
+    end,
+    __metatable = "defensive"
+})
+
+
+
+-- Load fennel transpiler
+local fennel = require("libs.NM_fennel.fennel")
+table.insert(package.loaders or package.searchers, fennel.searcher)
+-- Load macros first.
+require("src.MISC.unique.usrMacros")
+
+
+
+
+do return end
+
+require("src.systems._SYSTEMS")
+
+require("src.entities")
+
+require("src.misc._MISC")
+
+

@@ -1,0 +1,6 @@
+
+
+
+globals = {"love", "table", "Cyan"}
+
+
