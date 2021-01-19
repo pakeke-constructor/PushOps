@@ -119,7 +119,7 @@ Example:
 local myNode = BT.Node() -- A node with no name
 
 
-function myNode:choose(node, obj)
+function myNode:choose(obj)
     if obj.health < 50 then
         return "angry"
     else
@@ -210,7 +210,7 @@ end
 
 local N = BT.Node()
 
-function N:choose(node, obj)
+function N:choose(obj)
     return "main"
 end
 

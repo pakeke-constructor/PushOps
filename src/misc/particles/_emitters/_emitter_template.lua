@@ -40,9 +40,14 @@ do
         This bit of code is for loading the quads,
         and creating particleSystems out of each of them
     ]]
-    local ps_quads = {"bit", "bot", "bat"} -- these are the quads that get emitted:
+    local ps_quads = {"NULL CHECK", "bit", "bot", "bat"} -- these are the quads that get emitted:
 
     for i,str in ipairs(ps_quads) do
+        
+        if str == "NULL CHECK" then
+            error("Did you forget to name the quads in `ps_quads`?")
+        end
+
         local quad = Quads[str]
         assert(quad, "undefined quad :: ".. str)
 
@@ -53,7 +58,6 @@ do
     end
 end
 
-psyses = nil -- Clearing table to ensure user modifies their own psyses.
 
 
 

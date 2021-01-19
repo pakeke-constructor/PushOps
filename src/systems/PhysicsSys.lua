@@ -81,11 +81,15 @@ end
 
 
 
-function PhysicsSys:pquery(x, y, callback)
+function PhysicsSys:boxquery(x, y, callback)
     --[[
         Calls `callback` for each fixture in relative `x` `y` range.
     ]]
-    World:queryBoundingBox(x-3, y-3, x+3, y+3, callback)
+    World:queryBoundingBox(x, y, x+0.01, y+0.01, callback)
+end
+
+function PhysicsSys:rayquery(x,y,x1,y1,callback)
+    World:rayCast(x,y,x1,x2,callback)
 end
 
 
@@ -123,6 +127,15 @@ end
 
 function PhysicsSys:update(dt)
     World:update(dt)
+end
+
+
+function PhysicsSys:setPos(ent, x, y)
+    if self:has(ent) then
+        local body = ent.physics.body
+        body:setX(x)
+        body:setY(y)
+    end
 end
 
 
@@ -187,6 +200,7 @@ function PhysicsSys:removed(ent)
     ent.physics.fixture:destroy()
     ent.physics.fixture:release()
 
+    ent.physics.body:destroy()
     ent.physics.body:release()    
 
     -- Dont need to destroy the shape, 

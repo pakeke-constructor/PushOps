@@ -22,6 +22,7 @@ local NodesAndTasks = setmetatable({},
 })
 
 
+
 local runtimeMT = {
     __mode = "k"
     ;__index = function() return 0 end
@@ -37,7 +38,7 @@ local function newTask(name, copy)
     local task = {name = name}
 
     task.runtimes = setmetatable({}, runtimeMT)
-    
+ 
     if copy then
         task.start = copy.start
         task.update = copy.update
@@ -48,6 +49,7 @@ local function newTask(name, copy)
 
     if name then
         NodesAndTasks[name] = task
+        --print(name, NodesAndTasks[name])
     end
 
     return setmetatable(task, Task_mt)

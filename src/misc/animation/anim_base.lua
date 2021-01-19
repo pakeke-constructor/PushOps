@@ -4,6 +4,7 @@
 local Anim = {}
 local Anim_mt = {__index = Anim}
 
+
 --[[
 
 
@@ -53,6 +54,8 @@ local function get_z_index(y,z)
     return floor((y+z)/2)
 end
 
+
+local weak_mt = {__mode="kv"}
 
 
 
@@ -113,8 +116,11 @@ function Anim:clone()
     new.ox = self.ox
     new.oy = self.oy
 
+    new.ent_original_hidden = false -- was the entity being tracked originally hidden?
+
     return new
 end
+
 
 
 function Anim:new( type )
@@ -129,6 +135,7 @@ function Anim:new( type )
     self.type = type
     self.current = 1
     self.tracking = nil
+    self.ent_original_hidden = false
     self.len = (#self.frames)
     self.finished = true
 
@@ -140,6 +147,13 @@ function Anim:new( type )
 end
 
 
+function Anim:removed(ent)
+    -- for when the entity is destroyed halfway thru, and the
+    -- anim object is still tracking it.
+    self.tracking = nil
+end
+
+
 function Anim:release()
     self.frames = nil
     self.tracking = nil
@@ -148,7 +162,12 @@ end
 
 function Anim:finish()
     self.finished = true
-    self.tracking = nil
+
+    if self.tracking then
+        self.tracking.hidden = self.ent_original_hidden
+        self.tracking = nil
+    end
+    
     self.current = 1
     self.time = 0
 end
@@ -159,27 +178,41 @@ function Anim:isFinished()
 end
 
 
+local er_no_ent = "ccall('animate' ...), expected entity to hide, got none!"
 
-function Anim:play(x, y, z, frame_speed, ent_to_track)
+function Anim:play(x, y, z, frame_speed, ent_to_track, should_hide_ent)
     if (not self.finished) then
         error("Attempted to play an animation that wasn't already finished. This is a problem with AnimationSys, not the callback itself.")
     end
-    self.finished = false
 
+    self.finished = false
     self.frame_speed = frame_speed or self.frame_speed
 
     if ent_to_track then
         if type(ent_to_track) ~= "table" then
             error("Expected entity to track, got :: " .. tostring(type(ent_to_track)))
         end
-        self.tracking = ent_to_track
+        local e = ent_to_track
+
+        self.ent_original_hidden = e.hidden
+        
+        if should_hide_ent then
+            assert(e, er_no_ent)
+            e.hidden = true
+        end
+        self.tracking = e
     end
+
     self.x = x
     self.y = y
     self.z = z
 
     self.z_dep = get_z_index(y,z)
 end
+
+
+
+
 
 
 return Anim.new

@@ -49,7 +49,25 @@ return {
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
 
-    probabilities = nil, -- Can modify the character probabilities by setting
+    PROBS = {
+            -- World generation:
+            -- Probability of each character occuring.
+            -- Each value is a weight and does not actually represent the probability.
+            -- see `GenerationSys` for what character represents what.
+            ["e"] = 0.2;
+            ["E"] = 0.005;
+            ["r"] = 0.02; -- 0.02 weight chance of spawning on random tile.
+            ["R"] = 0.005;
+            ["u"] = 0.01;
+            ["U"] = 0.003;
+            ["^"] = 0.8;
+            ["l"] = 0.12;
+            ["p"] = 0.3;
+            ["P"] = 0.01;
+            ["."] = 0.4
+            -- Bossfights, artefacts, are done through special structure generator
+            -- Walls, shops, player spawn, and player exit are done uniquely.
+    }, -- Can modify the character probabilities by setting
                         -- this to a table. 
 
     entExclusionZones = nil, -- Can modify this table also.
@@ -66,6 +84,7 @@ return {
         function(x,y)
             Ents.blob(x,y)
             Ents.enemy(x+5,y+5)
+            Ents.mallow(x-5,y-5)
         end
     };
 
@@ -112,7 +131,11 @@ return {
     ['l'] = {
         max = 100;
         function (x, y)
-            Ents.mushroom(x,y)            
+            if rand()<0.5 then
+                Ents.mushroom(x+rand()*5,y+rand()*5)            
+            else
+                Ents.pine(x+rand()*5,y+rand()*5)
+            end
         end
     }
 }

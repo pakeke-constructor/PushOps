@@ -11,11 +11,7 @@ Split ent behaviour up into 3 systems ::
 
 MoveBehaviour -- handles motion of entities
 
-ActionBehaviour -- handles entity events, i.e. shooting.
-
-ResponseBehaviour -- handles callbacks upon entity.
-                  -- Can change ActionBehaviour and MoveBehaviour.
-
+BehaviourTree -- handles everything else
 
 
 
@@ -32,7 +28,7 @@ Cyan.call("follow", ent, target_ent)
 
 -- If FSM wants entity to go into its shell or something, it should do:
 Cyan.call("sound", ent, "shellclose")
-Cyan.call("particle", ent, )
+Cyan.call("emit", "rock", ent.x ... )
 
 ```
 

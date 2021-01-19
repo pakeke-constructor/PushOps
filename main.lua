@@ -7,11 +7,12 @@ _G.love.graphics.setDefaultFilter("nearest", "nearest")
 -- MONKEY BUSINESS STARTS HERE !!!
 setmetatable(_G, {})
 do
+    -- main ECS
     _G.Cyan = require "libs.Cyan.cyan"
 
     _G.Tools = require"libs.tools.tools"
 
-    -- math altercation
+    -- math lib additions
     _G.math.vec3 = require "libs.math.NM_vec3"
     _G.math.dot  = require "libs.math.dot"
 
@@ -28,10 +29,10 @@ end
 setmetatable(_G, {
     __newindex = function(_,k) error("DONT MAKE GLOBALS :: " .. tostring(k)) end,
     __index = function(_,k)
-        if k==nil then
-            -- Fennel uses weird NIL keys in compiling 
-            -- so we gotta account. Fair enough :/
-            return
+        if k==nil or k=="_ENV" then
+            -- Fennel uses weird _G keys in compiling.
+            -- Not gonna risk monkeypatch.
+            return nil
         end
         error("UNDEFINED VAR :: " .. tostring(k))
     end,
@@ -47,9 +48,6 @@ table.insert(package.loaders or package.searchers, fennel.searcher)
 require("src.MISC.unique.usrMacros")
 
 
-
-
-do return end
 
 require("src.systems._SYSTEMS")
 

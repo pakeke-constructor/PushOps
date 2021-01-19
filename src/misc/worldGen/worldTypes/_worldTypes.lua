@@ -68,6 +68,9 @@ end}
 
 
 
+local charProbability_mt = {
+    __index = CONSTANTS.PROBS
+}
 
 local worldTypes = { }
 

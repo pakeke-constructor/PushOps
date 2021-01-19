@@ -35,10 +35,35 @@ function EH.BOB(e)
 end
 
 
+local circleShapes = {
+    -- cache circle shape (love.physics) objects
+    -- so we don't construct duplicates with same radius.
+}
+
+
+function EH.PHYS(e, rad, type)
+    -- default type: dynamic (but could be "kinematic" or "static")
+    if not circleShapes[rad] then
+        circleShapes[rad] = love.physics.newCircleShape(rad)
+    end
+    e:add("physics",{
+        shape = circleShapes[rad];
+        body = (type or "dynamic") -- (dynamic, static, kinematic)
+    })
+    return e
+end
+
+
+Tools.req_TREE('src/misc/behaviour/tasks')
+
+
+EH.BT   = require("libs.BehaviourTree")
 EH.Node = require("libs.BehaviourTree").Node
 EH.Task = require("libs.BehaviourTree").Task
 
 
+EH.Quads = require("assets.atlas").Quads
+EH.Atlas = require("assets.atlas")
 
 return EH
 

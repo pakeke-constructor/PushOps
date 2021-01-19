@@ -2,7 +2,6 @@
 
 --[[
 
-Terrible Sprite :/
 
 
 ]]
@@ -17,7 +16,8 @@ return function(x,y)
 
     :add("pos", math.vec3(x,y,0))
 
-    :add("image", {quad= Quads.pine1})
+    :add("image", {quad= Quads.pine3, oy=230})
+    :add("swaying", {magnitude=0.03} )
 
     :add("physics",{
         body = "static";
@@ -25,7 +25,7 @@ return function(x,y)
     })
 
     :add("bobbing",{
-        magnitude = 0.1;
+        magnitude = 0.01;
         value = 0
     })
 

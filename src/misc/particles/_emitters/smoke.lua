@@ -7,16 +7,15 @@ local Quads = atlas.Quads
 
 -- This emitter's ParticleSystems must not have particles that survive for
 -- any longer than this!
-local MAX_PARTICLE_TIME = 1
+local MAX_PARTICLE_TIME = 2
 
 
 local psys = love.graphics.newParticleSystem(atlas.image)
 
-
 do
     psys:setQuads(Quads.bot)
 
-    psys:setParticleLifetime(0.6, MAX_PARTICLE_TIME)
+    psys:setParticleLifetime(1.2, 2)
     --psys:setLinearAcceleration(0,0,200,200)
     psys:setDirection(-math.pi/2)
     psys:setSpeed(60,70)
@@ -57,15 +56,13 @@ do
     end
 end
 
-psyses = nil -- Clearing table to ensure user modifies their own psyses.
-
 
 
 local emitter
 emitter = {
-    psyses = {},
+    psyses = psyses,
 
-    type = "TEMPLATE :: this name must be the same as the file name",
+    type = "smoke",
     runtime = 0
 }
 

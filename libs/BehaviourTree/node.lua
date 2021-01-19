@@ -49,7 +49,7 @@ local Node_mt = {
             end
 
             rawset(node.paths,k,v)
-            v = parsePath(node, k)
+            parsePath(node, k)
         end
     end
 }
@@ -65,8 +65,11 @@ function parsePath(node, path)
 
     for i, task in ipairs(pathArr) do
         if type(task) == "string" then
-            task = NodesAndTasks[task]
-            assert(task, "unrecognized task string")
+            local taskname = task
+            task = NodesAndTasks[taskname]
+            if not task then
+                error("unrecognized task string: "..taskname)
+            end
         end
         
         if task.type == "Node" then
@@ -90,6 +93,9 @@ end
 
 function newNode(name, copy)
     -- `copy` optional argument
+    if type(name)~= "string" then
+        error("BehaviourTree.Node( arg ) expected arg as type string, not "..type(name))
+    end
 
     local node = {name = name}
 
@@ -138,7 +144,7 @@ end
 
 
 function Node:choose()
-    error("Node `".. (self.name or '') .."` not given :choose(obj) function!")
+    error("Node `".. (tostring(self.name) or '') .."` not given :choose(obj) function!")
 end
 
 

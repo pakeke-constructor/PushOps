@@ -20,20 +20,20 @@ inside the file `MoveBehaviourSys.lua`.
 local MAX_VEL = CONSTANTS.MAX_VEL
 
 local IDS = {
-    1, -- Players / Allies
-    2, -- enemy
-    3, -- Neutral weak mob
-    4, -- physics obj
-    5, -- coin
-    
-    6, -- teleporter
-    7, -- key 
+    "player", -- Players / Allies
+    "enemy", -- enemy
+    "neutral", -- Neutral weak mob
+    "physics", -- physics obj
+    "coin", -- coin
+
+    "teleporter", -- teleporter
+    "key", -- key 
 }
 
 
 local Partitions = {}
 
-for _, val in pairs(IDS) do
+for _, val in ipairs(IDS) do
     Partitions[val] = require("libs.spacial_partition.partition")(MAX_VEL * CONSTANTS.MAX_DT, MAX_VEL * CONSTANTS.MAX_DT)
 end
 

@@ -7,6 +7,11 @@ local AnimationSys = Cyan.System("animation", "pos")
 
 
 
+-- { [ent] : anim_obj } table, this is for entities that are being tracked by
+-- anim objects. The reason we need this is because if an entity is destroyed,
+-- we need to let the animation object know.
+local ents_being_tracked = setmetatable({ }, {__mode="kv"})
+-- (this is for ccall("animate", ...) btw)
 
 
 function AnimationSys:added(ent)
@@ -41,6 +46,10 @@ function AnimationSys:removed(ent)
         for i = 1, #a.frames do
             a.frames[i] = nil
         end
+    end
+    
+    if ents_being_tracked[ent] then
+        ents_being_tracked[ent]:removed(ent)
     end
 end
 
@@ -149,13 +158,15 @@ local available_anim_objs = setmetatable(
 
 
 local sset = Tools.set
-local in_use_anim_objs = setmetatable(
+local in_use_anim_Z_index = setmetatable(
     -- `k` is the z depth of this in-use anim object
     {}, {__index = function(t,k) t[k] = sset() return t[k] end}
 )
 
+-- A SSet of all the animation objects in use.
+-- (in_use_anim_Z_index is sorted by Z depth.)
+local in_use_anim_objs = Tools.set()
 
-local in_use = Tools.set()
 
 
 local floor = math.floor
@@ -192,25 +203,31 @@ end
 
 local t_insert = table.insert
 
-function AnimationSys:animate(type, x, y, z, frame_len, track_ent)
-    if not AnimTypes[type] then
-        error("AnimationSys:animate(type, x,y,z, frame_len, track_ent=nil) ==> Unrecognised anim type ==> "..tostring(type))
+
+function AnimationSys:animate(anim_type, x, y, z, frame_len, track_ent, hide_ent)
+    if not AnimTypes[anim_type] then
+        error("AnimationSys:animate(type, x,y,z, frame_len, track_ent=nil) ==> Unrecognised anim type ==> "..tostring(anim_type))
     end
 
-    local anim = get_anim_obj(type)
+    local anim = get_anim_obj(anim_type)
 
-    anim:play(x,y,z, frame_len, (track_ent or nil))
-    in_use:add(anim)
-    
+    anim:play(x,y,z, frame_len, (track_ent or nil), (hide_ent or false))
+    in_use_anim_objs:add(anim)
+
+    if track_ent then
+        assert(track_ent.pos, "Track entity not given position. Is this even an entity?")
+        ents_being_tracked[track_ent] = anim
+    end
+        
     local z_dep = get_z_index(y,z)
 
-    in_use_anim_objs[z_dep]:add(anim)
+    in_use_anim_Z_index[z_dep]:add(anim)
 end
 
 
 
 function AnimationSys:drawIndex( z_dep )
-    for _, anim in ipairs(in_use_anim_objs[z_dep].objects) do
+    for _, anim in ipairs(in_use_anim_Z_index[z_dep].objects) do
         anim:draw()
     end
 end
@@ -237,11 +254,11 @@ function AnimationSys:update(dt)
         end
     end
 
-    for i, anim in ipairs(in_use.objects) do
+    for i, anim in ipairs(in_use_anim_objs.objects) do
         anim:update(dt)
         if anim:isFinished() then
-            in_use:remove(anim)
-            in_use_anim_objs[anim.z_dep]:remove(anim)
+            in_use_anim_objs:remove(anim)
+            in_use_anim_Z_index[anim.z_dep]:remove(anim)
             anim.runtime = 0
 
             t_insert(available_anim_objs[anim.type], anim)
@@ -257,21 +274,22 @@ function AnimationSys:purge()
     --
     -- Releases all memory
     --
-    for i,v in ipairs(in_use.objects)do
-        in_use.objects[i]:release()
+    for i,v in ipairs(in_use_anim_objs.objects)do
+        in_use_anim_objs.objects[i]:release()
     end
-    in_use:clear()
+    in_use_anim_objs:clear()
 
     --[[   Your using `pairs`???
     With this we don't care about JIT breaking. 
     This will only be called once when mass deletions need to happen
+    (i.e. world resets)
     ]]
-    for k,v in pairs(in_use_anim_objs)do
-        local ar = in_use_anim_objs[k].objects
+    for k,v in pairs(in_use_anim_Z_index)do
+        local ar = in_use_anim_Z_index[k].objects
         for i=1,#ar do
             ar[i]:release( )
         end
-        in_use_anim_objs[k]:clear()
+        in_use_anim_Z_index[k]:clear()
     end
 
     for k,v in pairs(available_anim_objs)do

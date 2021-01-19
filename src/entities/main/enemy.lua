@@ -1,7 +1,7 @@
 
 
 
-local player_shape = love.physics.newCircleShape(10)
+local player_shape = love.physics.newCircleShape(8)
 
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
@@ -32,11 +32,78 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 local col={
-    0.9,0.1,0.1
+    0.8,1,0.8
 }
 
 
+local ccall = Cyan.call
+
+local r = love.math.random
+
+
+local onDeath = function(e)
+    local p = e.pos
+    ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
+    ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+end
+
+
 local ai_types = { "ORBIT", "LOCKON" }
+
+
+local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
+
+local physColFunc = function(e1, e2, speed)
+    if speed > ENT_DMG_SPEED then
+        Cyan.emit("sound", "thud")
+        Cyan.emit("damage", e1, (speed - e1.vel:len()))
+    end
+end
+
+
+local RAND_or_IDLE = {"RAND", "IDLE"}
+
+local Tree = EH.Node 'enemy behaviour tree'
+
+Tree.choose = function(node, e)
+        local ret = "walk"
+        if e.hp.hp < e.hp.max_hp then
+            ret= "angry"
+        end;
+        if love.math.random() < 0.4 then
+            ret = "angry" -- has a chance to be angry anyway
+        end
+        return ret
+end
+
+Tree.angry ={
+    EH.BT.Task{
+        start=function(t,e)
+            ccall("setMoveBehaviour", e, Tools.rand_choice(ai_types))
+        end;
+        update=function(t,e)
+            return "n"
+        end
+    },
+    "wait::10"
+}
+
+Tree.idle = {
+    EH.BT.Task{
+        start = function(t,e)
+            ccall("setMoveBehaviour", e, Tools.rand_choice())
+        end
+    };
+    "wait::10"
+}
+
+
+
+Tree:on("damage", function(n,e)
+    return "angry"
+end)
+
+
 
 
 return function(x,y)
@@ -67,12 +134,20 @@ return function(x,y)
         required_vel = 10;
     })
 
-    :add("targetID",2) -- is an enemy -> see components.md
+    :add("targetID", "enemy") -- is an enemy
 
     enemy:add("behaviour",{
             move = {
-                type = Tools.rand_choice(ai_types), id=1
+                type = Tools.rand_choice(ai_types),
+                id="player" -- targetting player.
+                ,tree=Tree
             }
+    })
+
+    :add("onDeath", onDeath)
+
+    :add("collisions",{
+        physics = physColFunc
     })
 
     enemy:add("motion",

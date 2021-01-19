@@ -41,7 +41,7 @@ end
 
 
 local collisionsComp = {
-    area = {[1] = colFunc}
+    area = {player = colFunc}
 }
 
 

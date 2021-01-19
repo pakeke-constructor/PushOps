@@ -51,6 +51,9 @@ local Entity = {
     ;
     -- A list of user-defined types for fast entity construction.
     ___types = { }
+    ;
+    -- A set of ALL entities
+    ___all = set()
 }
 
 
@@ -100,7 +103,7 @@ function Entity:new()
     local ent = {
         ___mask = basemask * 1 -- Multiply by 1 to create memory unique copy
     }
-
+    Entity.___all:add( ent )
     return setmetatable(ent, Entity_mt)
 end
 
@@ -197,7 +200,7 @@ function Entity:remove( comp_name )
         sys:remove(self)
     end
 
-    demodmask(ent, comp_name)
+    demodmask(self, comp_name)
 
     return self
 end
@@ -237,6 +240,7 @@ function Entity:delete()
     return self
 end
 
+Entity.destroy = Entity.delete -- alias
 
 
 

@@ -16,6 +16,7 @@ local motion_right = { Quads.red_player_right_1, Quads.red_player_right_2, Quads
 
 
 
+
 return function(x,y)
     local e= Cyan.Entity()
 
@@ -27,9 +28,9 @@ return function(x,y)
 
     :add("speed", {speed = 20, max_speed = 220})
 
-    :add("strength", 70)
+    :add("strength", 100)
 
-    :add("targetID", 1)
+    :add("targetID", "player")
 
     :add("physics", {
         shape = player_shape;

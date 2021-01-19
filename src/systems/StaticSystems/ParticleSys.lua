@@ -81,8 +81,10 @@ end
 
 
 local t_insert = table.insert
+local WHITE = { 1,1,1 } -- default colour is white
+local setColour = love.graphics.setColor
 
-function PSys:emit(type, x,y,z , n_particles)
+function PSys:emit(type, x,y,z , n_particles, colour) -- default colour white
     n_particles = n_particles or DEFAULT_PARTICLES
     
     if not ParticleTypes[type] then
@@ -90,6 +92,8 @@ function PSys:emit(type, x,y,z , n_particles)
     end
 
     local emitter = get_emitter(type)
+
+    setColour(colour or WHITE)
 
     emitter:emit(x,y, n_particles)
     in_use:add(emitter)

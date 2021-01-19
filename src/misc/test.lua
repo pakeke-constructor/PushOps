@@ -24,6 +24,14 @@ function DEBUG_SYS:keypressed(k)
     if k=='p' then        
         CONSTANTS.paused = not CONSTANTS.paused
     end
+    if k=='e' then
+        Ent.pine(p.pos.x, p.pos.y)
+    end
+end
+
+
+
+function DEBUG_SYS:mousepressed()
 end
 
 

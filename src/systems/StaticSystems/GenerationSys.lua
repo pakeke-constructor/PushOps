@@ -58,26 +58,7 @@ l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant
 ]]
 
 
-local PROBS = {
-    -- Probability of each character occuring.
-    -- Each value is a weight and does not actually represent the probability.
-
-    ["e"] = 0.07; -- 0.07 weight chance of spawning on random tile.
-    ["E"] = 0.005;
-    ["r"] = 0.02; -- 0.02 weight chance of spawning on random tile.
-    ["R"] = 0.005;
-    ["u"] = 0.01;
-    ["U"] = 0.003;
-    ["^"] = 0.8;
-    ["l"] = 0.03;
-    ["p"] = 0.3;
-    ["P"] = 0.01;
-    ["."] = 0.4
-    -- Bossfights, artefacts, are done through special structure generator
-    -- Walls, shops, player spawn, and player exit are done uniquely.
-}
-
-
+local PROBS = CONSTANTS.PROBS
 
 local weighted_selection = require("libs.tools.weighted_selection")
 local default_pick_function = weighted_selection(PROBS)

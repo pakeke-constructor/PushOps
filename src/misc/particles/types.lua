@@ -1,6 +1,5 @@
 
 local PATH = Tools.Path(...)
-local template = require(PATH.."._emitters._emitter_template")
 
 local ParticleTypes = { }
 

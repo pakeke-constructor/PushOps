@@ -152,6 +152,10 @@ Sys:add(entity)
 -- This is done automatically, so it doesn't really need to be done.
 
 
+
+Cyan.exists(ent)
+-- returns true if the entity exists, false otherwise
+
 ```
 
 # *Final notes*

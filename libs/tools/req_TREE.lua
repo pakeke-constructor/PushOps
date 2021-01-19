@@ -14,19 +14,20 @@ including sub folders.
 function req_TREE(PATH, shover)
     local T = love.filesystem.getDirectoryItems(PATH)
     table.sort(T) -- Sorts by alphabetical I think?? hopefully she'll be right
+    -- (basically we just need to be consistent across different OS; because lf.getDirectoryItems isn't)
     
     local shover = shover or {}
 
     for _,fname in ipairs(T) do
         if fname:sub(1,1) ~= "_" then
-            local proper_name = fname:gsub("%.lua", "")
+            local proper_name = fname:gsub("%.lua", ""):gsub("%.fnl", "")
             fname = PATH.."/"..fname
             local info = love.filesystem.getInfo(fname)
 
             if info.type == "directory" then
                 req_TREE(fname, shover)
             else
-                shover[proper_name] = require(fname:gsub("/","."):gsub(".lua", ""))
+                shover[proper_name] = require(fname:gsub("/","."):gsub("%.lua", ""):gsub("%.fnl",""))
             end
         end
     end

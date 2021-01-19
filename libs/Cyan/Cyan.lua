@@ -83,8 +83,11 @@ do
 
 
 
-
     local non_static_sys_list = System.non_static_systems
+
+    -- set of all entities
+    local ___all = Entity.___all
+
 
     -- Flushes all entities that need to be deleted
     function Cyan.flush()
@@ -99,11 +102,20 @@ do
 
         for i = 1, remove_set_len do
             local ent = remove_set_objs[i]
+            
+            -- The set of ALL entities
+            ___all:remove(ent)
+
             for index = 1, non_static_sys_list.len do
                 sys = non_static_sys_list[index]
                 sys:remove(ent)
             end
         end
+    end
+
+    function Cyan.exists( entity )
+        -- checks whether an entity exists, or if it has been deleted.
+        return ___all:has(entity)
     end
 end
 

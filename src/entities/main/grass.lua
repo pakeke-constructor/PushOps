@@ -10,9 +10,6 @@ end
 
 local rand_choice = Tools.rand_choice
 
-
-
-
 return function(x, y)
     return Cyan.Entity()
 
@@ -21,7 +18,6 @@ return function(x, y)
     :add("image", {quad=rand_choice(grasses)})
     :add("swaying", {value=0, magnitude=0.2})
     :add("trivial", true ) -- for drawing
-
 end
 
 

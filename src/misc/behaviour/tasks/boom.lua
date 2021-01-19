@@ -4,10 +4,9 @@ local B=require'libs.BehaviourTree'
 
 
 
-B.Task{
-    name="boom"
-    ;
-    run=function(t,e)
+local task = B.Task("boom")
+
+task.run=function(t,e)
         local strength = 15 -- default is 15
 
         if e.strength then
@@ -16,7 +15,7 @@ B.Task{
 
         Cyan.call("boom", e.pos.x, e.pos.y, strength)
 
-        t:next()
-    end
-}
+        return "n"
+end
+
 

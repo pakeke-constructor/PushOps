@@ -4,8 +4,6 @@
 Handles abstract events that don't really belong to any other system,
 or events that other Systems use.
 
-(( Currently unused as of 5/12/2020 ))
-
 ]]
 
 
@@ -26,6 +24,36 @@ function AbstractSys:apply(effect, x,y)
 end
 
 
+
+local times = Tools.set()
+--[[
+Each `time` object is represented as a table:
+{
+    func = func -- The func is constructed with varargs saved as a closure (bad but oh well)
+    time = time
+}
+]]
+
+
+function AbstractSys:await(func, time, a,b,c,d,e)
+    times:add({
+        func = function()
+            func(a,b,c,d,e)
+        end;
+        time = time
+    })
+end
+
+function AbstractSys:update(dt)
+    for _,timeObj in ipairs(times.objects) do
+        timeObj.runtime = timeObj.runtime or 0
+        timeObj.runtime = timeObj.runtime + dt
+        if timeObj.runtime > timeObj.time then
+            timeObj.func()
+            times:remove(timeObj)
+        end
+    end
+end
 
 
 

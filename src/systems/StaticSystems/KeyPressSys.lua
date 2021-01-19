@@ -3,7 +3,7 @@
 local KeyPressSys = Cyan.System() -- does not take entities.
 
 
-local SHORT_THRESHOLD = 0.25 -- 0.25 seconds is considered a key tap.
+local SHORT_THRESHOLD = 0.15 -- 0.25 seconds is considered a key tap.
 
 
 
@@ -18,12 +18,21 @@ local time_between_press_and_release = {
 }
 
 
+local keyheld_called = {
+    -- A table holding whether each key has had `keyheld` called on it.
+    -- (To ensure `ccall("keyheld")` isnt done twice for the same key!)
+}
+
 
 function KeyPressSys:update(dt)
     local time
     for key, _ in pairs(keydown) do
         time = time_between_press_and_release[key] or 0
         if keydown[key] then
+            if time > SHORT_THRESHOLD then
+                keyheld_called[key] = true
+                Cyan.call("keyheld", key, time)
+            end
             time_between_press_and_release[key] = time + dt
         else
             time_between_press_and_release[key] = 0
@@ -40,8 +49,10 @@ end
 
 
 
+
 function KeyPressSys:keyreleased(key, scancode, isrepeat)
     keydown[key] = nil
+    keyheld_called[key] = false
     if time_between_press_and_release[key] then
         if time_between_press_and_release[key] < SHORT_THRESHOLD then
             Cyan.call("keytap",  key)

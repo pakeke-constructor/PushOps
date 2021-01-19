@@ -12,6 +12,8 @@ TODO: add joystick support, make more robust
 local ControlSys = Cyan.System("control")
 
 local Camera = require("src.misc.unique.camera")
+local partition = require 'src.misc.partition'
+
 
 local max, min = math.max, math.min
 
@@ -22,10 +24,61 @@ local cur_sin_amount = 0
 local cam_rot = 0
 
 
+
+local dist = Tools.dist
+local ccall = Cyan.call
+local dot = math.dot
+
+
+
     -- THIS FUNCTION IS FOR DEBUG PURPOSES ONLY !!!!!!!!!!!
 function ControlSys:wheelmoved(dx, dy)
     Camera.scale = Camera.scale + (dy/10)
 end
+
+
+
+
+local function findEntToPush(ent)
+    --[[
+        returns the closest ent that is able to be pushed by `ent`.
+    ]]
+    local min_dist
+
+    if ent.size then
+        min_dist = ent.size * 10
+    else
+        min_dist = 50
+    end
+
+    local best_ent = nil
+    local epos = ent.pos
+    local vx, vy = ent.vel.x, ent.vel.y
+
+    for candidate in partition:longiter(ent) do
+        local ppos = candidate.pos
+        local dx, dy
+
+        dx = ppos.x - epos.x
+        dy = ppos.y - epos.y
+        
+        if candidate.pushable then
+            local distance = dist(dx, dy)
+            if distance < min_dist then
+                -- Is a valid candidate ::
+                if dot(dx, dy, vx,vy) > 0 then
+                    best_ent = candidate
+                    min_dist = distance
+                end
+            end
+        end
+    end
+
+    return best_ent
+end
+
+
+
 
 
 
@@ -70,9 +123,14 @@ end
 
 
 
-
-
 local r = love.math.random 
+
+local function boomShells(player)
+    if Cyan.exists(player) then
+        Cyan.call("sound", "reload")
+        Cyan.call("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
+    end
+end
 
 function ControlSys:keytap(key)
     for _, ent in ipairs(self.group) do
@@ -81,14 +139,16 @@ function ControlSys:keytap(key)
             local x = ent.pos.x
             local y = ent.pos.y
             local z = ent.pos.z
-            Cyan.call("boom", x, y, ent.strength, 50)
+
+            -- boom will be biased towards enemies with 1.2 radians
+            Cyan.call("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
             Cyan.call("animate", "push", x,y+25,z, 0.03) 
-            Cyan.call("emit", "shell", x, y, 1, r(2,3))
             Cyan.call("sound", "boom")
-            Camera:shake(8, 1, 60)
+            Camera:shake(8, 1, 60) -- this doesnt work, RIP
+            Cyan.call("await", boomShells, 0.3+r()/4, ent)
         elseif c[key] == 'pull' then
             Cyan.call("sound", "moob")
-            Cyan.call("moob", ent.pos.x, ent.pos.y, ent.strength/1.5, 140)
+            Cyan.call("moob", ent.pos.x, ent.pos.y, ent.strength/1.5, 200)
         end
     end
 end
@@ -105,14 +165,27 @@ function ControlSys:keydown(key)
 
         if purpose then
             control[purpose] = true
-            if purpose == "push" then
-                Cyan.call("startPush", ent)
-            end
         end
     end
 end
 
 
+
+function ControlSys:keyheld(key, time)
+    for _, ent in ipairs(self.group) do
+        local control=ent.control
+        local purpose = control[key]
+        if purpose == "push" then
+            if ent.pushing then
+                ent:remove("pushing")
+            end
+            local push_ent = findEntToPush(ent)
+            if push_ent then
+                ent:add("pushing", push_ent)
+            end
+        end
+    end
+end
 
 
 
@@ -125,7 +198,9 @@ function ControlSys:keyup(key)
         if purpose then
             control[purpose] = false
             if purpose == "push" then
-                Cyan.call("endPush", ent)
+                if ent:has("pushing") then
+                    ent:remove("pushing")
+                end
             end
         end
     end

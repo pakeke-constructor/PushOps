@@ -65,10 +65,35 @@ T.deepcopy = function( tabl, shove )
     return setmetatable(new, tabl)
 end
 
+do
+    local blocked=false
+    local ccall = Cyan.call
 
+    local function setClosureTrue()
+        -- I don't like this. But there is no other way :/
+        blocked = true
+    end
+
+    function T.isBlocked(x, y)
+        -- returns whether the x,y position is blocked.
+        ccall("boxquery",x,y, setClosureTrue)
+        local ret = blocked
+        blocked = false -- We start by assuming its not blocked.
+        return ret        
+    end
+
+    function T.isIntersect(x1, y1, x2, y2)
+        -- returns whether the line segment (x1,y1) -> (x2,y2)
+        -- intersects with a solid fixture in the physics world.
+        ccall("rayquery", x1,y1, x2,y2, setClosureTrue)
+        local ret = blocked
+        blocked = false
+        return ret
+    end
+end
 
 local getWidth, getHeight = love.graphics.getWidth, love.graphics.getHeight
-local RANGE_LEIGHWAY = 200
+local RANGE_LEIGHWAY = 300
 
 function T.isOnScreen(e, cam)
     --[[

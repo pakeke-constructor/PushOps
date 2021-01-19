@@ -42,12 +42,14 @@ return function(x,y)
         shape = block_shape;
         body  = "dynamic"
     })
+    :add("pushable",true)
     :add("bobbing", {magnitude = 0.15, value = 0})
     :add("friction", {
         emitter = psys:clone();
         required_vel = 2;
         amount = 0.9
     })
+    :add("targetID", "physics")
     :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
 end
 

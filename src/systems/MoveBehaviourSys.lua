@@ -6,6 +6,7 @@ local MoveBehaviourSys = Cyan.System("behaviour", "vel", "pos", "speed")
 
 
 
+
 --[[
 There are a set of possible movement behaviours that can be
 defined for entities.
@@ -22,7 +23,7 @@ Each type has an
 
 All the move types are listed here ::
 
-HALT -->
+IDLE -->  DONE
     Stays still
 
 LOCKON -->  DONE
@@ -41,7 +42,7 @@ HIVE -->   DONE
     Moves towards center of mass of target group
         target = vec3
 
-SOLO -->
+SOLO --> 
     Moves away from ent in target group
         target = vec3
 
@@ -49,7 +50,7 @@ RAND -->
     Chooses a random walkable location and goes towards it
         target = vec3
 
-ROOK -->
+ROOK -->   DONE
     Moves in a (chess) rook-like pattern randomly
         target = vec3
 
@@ -57,7 +58,6 @@ TAUNT -->
     Chooses a target entity from group ::
         target = entity
     Moves towards the target entity, but keeps distance from ent
-
 
 
 ]]
@@ -186,11 +186,6 @@ do
 
     function LOCKON:update()
         -- self is ent
-
-        --[[
-            This function is bad as well. Is costly.
-                I dont think there is way around tho
-        ]]
         local move = self.behaviour.move
         local target = move.target
 
@@ -362,6 +357,24 @@ do
         end
     end
 
+    local RAND={}
+    local function chooseRandPos(e)
+        local x,y = e.pos.x, e.pos.y
+        local nx,ny
+        repeat 
+            nx = x+rand()*200
+            ny = y+rand()*200            
+        until (not Tools.isIntersect(x,y,nx,ny))
+        return nx,ny
+    end
+    function RAND:init()
+        local move=self.behaviour.move
+        local x,y = chooseRandPos(e)
+        move.target = math.vec3(x,y,0)
+    end
+    function RAND:update()
+    end
+
 
     local IDLE = {}
     function IDLE:init()
@@ -370,7 +383,6 @@ do
     end
 
     local ROOK = {}
-
     function ROOK:select()
         -- Selects a random cardinal direction
         local mve = self.behaviour.move
@@ -402,7 +414,7 @@ do
     function ROOK:update(dt)
         if rand() < 0.003 then
             -- Change dir!
-            ROOK.select(self)
+            ROOK.select(self) -- remember, `self` is the entity here.
         else
             -- Keep current dir.
             local pos = self.pos
@@ -434,6 +446,27 @@ function MoveBehaviourSys:added( ent )
 end
 
 
+function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
+    -- newID: optional argument. will stay same unless otherwise specified.
+    if not ent.behaviour then
+        error("attempted to change move behaviour of entity without `behaviour` component")
+    end
+    assert(ent.behaviour.move, "?")
+
+    local move = ent.behaviour.move
+    local shouldInit
+    if move.type ~= newState then
+        shouldInit = true
+    end
+    move.type = newState
+    move.id = (newID or move.id)
+
+    if shouldInit then
+        MoveTypes[move.type].init(ent)
+    end
+end
+
+
 
 --[[
 
@@ -454,7 +487,7 @@ function MoveBehaviourSys:update(dt)
         if move then
             local func = MoveTypes[e.behaviour.move.type].update
             if func then
-                func(e)
+                func(e,dt)
             end
         end
     end
@@ -469,13 +502,13 @@ end
 local function h_update(ent,dt)
     local move = ent.behaviour.move
     if MoveTypes[move.type].h_update then
-        MoveTypes[move.type].h_update(ent)
+        MoveTypes[move.type].h_update(ent,dt)
     end
 end
 
 
 function MoveBehaviourSys:heavyupdate(dt)
-    for _, ent in ipairs(self.group )do
+    for _, ent in ipairs(self.group)do
         h_update(ent,dt)
     end
 end
@@ -503,31 +536,57 @@ end})
 
 
 
+local valid_targetIDs = {
+    player=true,
+    enemy=true,
+    physics=true,
+}
 
-local er1 = "Target component was not a number"
+local er1 = "Target component is not valid"
 function TargetSys:added(ent)
-    assert(type(ent.targetID) == "number", er1)
+    assert(valid_targetIDs[ent.targetID], er1)
 
     Partitions[ent.targetID]:add(ent) -- Adds to the correct spacial partition
-
     TargetGroups[ent.targetID]:add(ent)
-
 end
 
 
 
+local partition_keys = {}
+for t_id, _ in pairs(Partitions) do
+    table.insert(partition_keys, t_id)
+end
+
+
 function TargetSys:update(dt)
-    for _, partition in ipairs(Partitions) do
+    local partition
+    for _, p_key in ipairs(partition_keys) do
+        partition = Partitions[p_key]
         partition:update(dt)
     end
 end
 
 
+function TargetSys:_setPos(ent,x,y)
+    --[[
+        Why the underscore?  See MoveSys:setPos(e, x, y).
+            (This is a private callback)
 
+        reasoning:
+        direct ent position must be set AFTER all the setPosition calls go through,
+        for every partition, or else the ent position will be too volatile PartitionSys
+        to find.
+    ]]
+    if ent.targetID then
+        Partitions[ent.targetID]:setPosition(ent,x,y)
+    end
+end
 
 
 function TargetSys:removed(ent)
     TargetGroups[ent.targetID]:remove(ent)
+
+    Partitions[ent.targetID]:remove(ent)
 
     if rawget(Targetted, ent) then
         -- This means we still got entities targetting this ent,
@@ -538,9 +597,6 @@ function TargetSys:removed(ent)
             MoveTypes[move.type].init(e)
         end
     end
-
-    Partitions[ent.targetID]:remove(ent)
-
 end
 
 

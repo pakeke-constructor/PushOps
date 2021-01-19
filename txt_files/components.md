@@ -13,6 +13,8 @@ hp = { hp = 10, max_hp = 100 }
 
 armour = 2; -- Damage reduced by 2 times (defaults to 1.)
 
+onDeath = function(e) end -- callback for when ent dies.
+onDamage = function(e, dmg) end -- callback for taking dmg
 
 pos = vec3(0 , 0 , 0) --> vec3
 
@@ -21,8 +23,6 @@ vel = vec3(vel_x, vel_y, vel_z) -->  {vel = vec3, max_vel = 123}
 acc = vec3(acc_x, acc_y, acc_z) --> vec3
 
 rot = 0 -- rotation in rads
-
-pushable = true/false
 
 
 speed = {speed = 10, max_speed = 100} -- entity speed
@@ -35,9 +35,10 @@ toughness = 300
 
 
 hardness = 10
--- If an entity is hit by an entity with a higher hardness than itself,
+-- If an entity is `hit` by an entity with a higher hardness than itself,
 -- It will take damage equal to the difference in hardness.
--- (default value is 0, player has 1 hardness. Mobs have 0 hardness.)
+-- default: 0
+-- players: 100   -- physics: 99    --
 
 
 
@@ -106,7 +107,7 @@ motion ={
 ]]
 physics = {
     body = "dynamic";
-    shape = shapeRefL
+    shape = shapeRef
 
     friction = 0.1 -- OPTIONAL!
     --  This is for when you want friction without particles.
@@ -131,6 +132,14 @@ collisions = {
 
     end
 }
+
+
+-- This entity is now pushing another entity.
+-- MAKE SURE TO USE ent:remove("pushing")!!! not `ent.pushing = nil`
+pushing = other_ent
+
+-- Whether this ent can be pushed or nah
+pushable = true/false
 
 
 size = 10.5 -- Determines how much 'area of affect' an object has.
@@ -192,16 +201,17 @@ track = true / false
 -- Behaviour (complex component)
 behaviour = { 
     move = {type="LOCKON", id=1} -- See MoveBehaviourSys
+    tree = Node() -- node object (from libs/BehaviourTree.lua)
 }
 
 
--- The target id that this entity holds.
+-- The target id that this entity holds.   MUST BE CONSTANT!!!
 -- Used by MoveBehaviourSys and TargetSys.
-targetID = 1  
--- 1 :: player / ally
--- 2 :: enemy
--- 3 :: neutral, weak mob
--- 4 :: physics object
+targetID = "player"  
+-- "player" :: player / ally
+-- "enemy" :: enemy
+-- "neutral" :: neutral / weak mob
+-- "physics" :: physics object
 
 
 

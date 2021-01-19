@@ -10,7 +10,7 @@ local Quads = atlas.Quads
 
 local ai_types = { "ORBIT", "LOCKON" }
 
-
+--[[
 local cols = {
     {0.9,0.1, 0.1};
     {0,0.8,0.7};
@@ -18,7 +18,39 @@ local cols = {
     {0.5,1,0.1};
     {0.8,0.9,0.2};
     {0.9,0.1,0.9}
-}
+}]]
+local cols = {{0.75,1,0.75}}
+
+local ccall = Cyan.call
+
+
+
+local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
+
+local physColFunc = function(ent, oth, speed)
+    if speed > ENT_DMG_SPEED then
+        -- if collides at >DMGSPEED, damage is done
+        ccall("damage", ent, (speed - ent.vel:len()))
+    end
+end
+
+
+
+local r = love.math.random
+
+local function onDamage(e)
+    local p = e.pos
+    ccall("emit", "guts", p.x, p.y, p.z, r(1,4))
+end
+
+
+local function onDeath(e)
+    local p = e.pos
+    ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
+    ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+end
+
+
 
 
 local frames = {Quads.blob1, Quads.blob2, Quads.blob3, Quads.blob2, Quads.blob1, Quads.blob0}
@@ -28,8 +60,7 @@ return function(x,y)
 
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
-    :add("acc", math.vec3(0,0,0))
-    
+
     :add("hp", {hp = 100, max_hp = 100})
 
     :add("speed", {speed = 5, max_speed = math.random(50,100)})
@@ -42,15 +73,25 @@ return function(x,y)
         friction = 0.9
     })
 
+    :add("collisions", {
+        physics = physColFunc
+    })
+
+    :add("onDamage", onDamage)
+
+    :add("onDeath", onDeath)
+
     :add("bobbing", {magnitude = 0.3 , value = 0})
 
-    :add("targetID",2) -- is an enemy -> see components.md
+    :add("targetID", "enemy") -- is an enemy
 
     blob:add("behaviour",{
             move = {
-                type = Tools.rand_choice(ai_types), id=1
+                type = Tools.rand_choice(ai_types),
+                id="player"
             }
     })
+    
     blob:add("animation",
     {
         frames = frames;
@@ -64,16 +105,4 @@ return function(x,y)
 
     return blob
 end
---[[
-animation = {
-    frames = { *quad array }
-    interval = 0.7,  -- interval of animation (seconds)
-    current = 0 -- the current value, when above `interval`, will go to next animation.
-    -- `current` is incremented each frame by `interval * dt`. It determines
-    -- what frame is drawn.
 
-    ox = 10 -- offset x & y, will be set by system otherwise
-    oy = 10
-
-    animation_len = nil -- is automatically set by system
-}]]

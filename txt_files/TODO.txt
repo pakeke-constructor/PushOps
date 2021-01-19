@@ -3,6 +3,9 @@
 TODO :::
 
 
+Refactor collisions. 
+Dont have `toughness` or `hardness` components.
+Just use collision callbacks to reduce health manually
 
 
 Check ParticleSys for memory leaks!!!
@@ -35,3 +38,7 @@ PLAN ON PAPER what tasks and nodes you are making with behaviourTree.
 Make it very extensible!
 
 
+Tools.isIntersect and Tools.isBlocked needs testing
+(best to test it with the mouse.)
+Then, use this to do   RAND moveBehaviour. This way you can make it so entities
+dont walk into walls and shit haha

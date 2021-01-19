@@ -1,151 +1,167 @@
 
 
 
-local PushSys = Cyan.System()
+local PushSys = Cyan.System("pushing")
 --[[
 
 A system that handles the pushing of entities.
 
-
 ]]
 
-local partition = require("src.misc.partition")
-local tools = require"libs.tools.tools"
+local partition = require "src.misc.partition"
 
 
 
-local dist = tools.dist
-
+local dist = Tools.dist
 local MAX_VEL = partition.MAX_VEL
 
 
-
-local C_call = Cyan.call
-
+local ccall = Cyan.call
 local dot = math.dot
 
 
 
-local function findPushedEnt(ent, range)
-    --[[
-        returns the closest ent that is able to be pushed by `ent`.
-    ]]
-    local min_dist = range
-    local best_ent = nil
-    local epos = ent.pos
-    local vx, vy = ent.vel.x, ent.vel.y
-
-    for push_ent in partition:longiter(ent) do
-        local ppos = push_ent.pos
-        local dx, dy
-
-        dx = ppos.x - epos.x
-        dy = ppos.y - epos.y
-        
-        local distance = dist(dx, dy)
-        if distance < min_dist then
-            -- Is a valid candidate ::
-            if dot(dx, dy, vx,vy) > 0 then
-                best_ent = push_ent
-                min_dist = distance
-            end
-        end
-    end
-
-    return best_ent
-end
 
 
 
+local er1 = "Attempted to push an unpushable entity. Silly idea brother"
 
 
---[[
-    An array of ents -> pushed ents
-]]
-local currently_pushing = {}
-local currently_pushing_keys = Tools.set()
-
-
-function PushSys:startPush(ent, range)
+function PushSys:added(ent)
     --[[
         Starts Pushing the closest entity to the pushing entity.
     ]]
-
-    range = range or 50 -- default range
-
-    local pushed_ent = findPushedEnt(ent, range)
-
-    if not pushed_ent then
-        return -- nah! no good ones
+    if not ent.pushing.pushable then
+        error(er1)
     end
 
-
     assert(ent.vel, "Unmoving ent attempted to push moving ent")
-    assert(pushed_ent.vel, "Unmoving ent attempted to be pushed")
+    assert(ent.pushing.vel, "Unmoving ent attempted to be pushed")
 
-    currently_pushing_keys:add(ent)
-    currently_pushing[ent] = pushed_ent
-
-    C_call("setVel", pushed_ent, ent.vel.x, ent.vel.y)
-end
-
-
-
-function PushSys:endPush(ent)
-    currently_pushing_keys:remove(ent)
-    currently_pushing[ent] = nil
+    ccall("startPush", ent, ent.pushing)
 end
 
 
 
 function PushSys:removed(ent)
-    currently_pushing[ent] = nil
-    currently_pushing_keys:remove(ent)
 end
 
 
 
 function PushSys:update(dt)
-    
-    for _, e in ipairs(currently_pushing_keys.objects) do
-        local push_ent = currently_pushing[e]
-        
-        local epos = e.pos
-        local ppos = push_ent.pos
-        local dx, dy
-        dx = ppos.x - epos.x
-        dy = ppos.y - epos.y
+    for _, e in ipairs(self.group) do
+        local push_ent = e.pushing
+        if Cyan.exists(push_ent) then
+            local range
+            if e.size then
+                range = e.size*5
+            else
+                range = 25 -- default range
+            end
 
-        local vx,vy
-        vx = e.vel.x
-        vy = e.vel.y
+            local epos = e.pos
+            local ppos = push_ent.pos
+            local dx, dy
+            dx = ppos.x - epos.x
+            dy = ppos.y - epos.y
 
-        if (dist(dx, dy) > 50) or (dot(dx, dy, vx,vy) < 0) then
-            -- is invalid so end
-            C_call("endPush", e)
+            local vx,vy
+            vx = e.vel.x
+            vy = e.vel.y
+
+            local norm_offset = math.vec3(vx,vy,0):normalize()
+
+            local ox = range * norm_offset.x
+            local oy = range * norm_offset.y
+
+            ccall("setVel", push_ent, vx, vy)
+            ccall("setPos", push_ent, epos.x + ox, epos.y + oy)
         else
-            C_call("setVel", push_ent, e.vel.x, e.vel.y)
+            -- The ent being pushed has been deleted mid-push! AH!!
+            -- quick, lets kill it before any shenanigans come about.
+            e:remove("pushing")
+        end
+    end
+end
+
+
+
+--[[
+====
+====
+
+All events after this point are static
+
+====
+====
+]]
+
+
+local AVERAGE_DT = CONSTANTS.AVERAGE_DT
+local partition_targets = require("src.misc.unique.partition_targets")
+
+local function getNormalizedBias(bX, bY, eX, eY, bias_group, bias_angle)
+    --[[
+        With :boom callbacks, entities can be biased to hit other ents
+        of other target groups.
+        This function gives a normalized corrected vector in the event
+        that a :boom callback has a bias. (according to bias_group and 
+        bias_angle)
+    ]]
+    local dot_value = math.cos(bias_angle or 0.5)
+    local potentials = { } -- a list of potential entities this
+                           -- obj could bias towards.
+                           -- (It will bias towards the closest though.)
+    local boom_to_obj = math.vec3(eX - bX, eY - bY, 0):normalize( )
+
+    for e in partition_targets[bias_group]:iter(eX, eY) do
+        local x,y = e.pos.x, e.pos.y
+        if x ~= eX and y ~= eY then
+            -- checking that we aren't comparing an ent to itself!!
+            local obj_to_target = math.vec3(x - eX, y - eY, 0):normalize( )
+            if obj_to_target:dot(boom_to_obj) > dot_value then
+                table.insert(potentials, e)
+            end
+        end
+    end
+    -- Now select closest entity from all candidates
+    local min_dist = math.huge
+    local closest_ent
+    for _, e in ipairs(potentials)do
+        local distance = Tools.dist(e.pos.x - eX, e.pos.y - eY)
+        if distance < min_dist then
+            closest_ent = e
+            min_dist = distance
         end
     end
 
+    local ret
+    if not closest_ent then
+        -- darn, no ent found.
+        ret = math.vec3(eX-bX, eY-bY, 0):normalize( )
+    else
+        local closest_pos = closest_ent.pos
+        ret = math.vec3(closest_pos.x - eX, closest_pos.y - eY, 0):normalize( )
+    end
+    return ret
 end
 
 
 
 
-local AVERAGE_DT = CONSTANTS.AVERAGE_DT
-
-
-
 function PushSys:boom(x, y, strength, distance, 
-                        vx, vy) -- optional arguments.
+                        vx, vy, bias_group, bias_angle) -- optional arguments.
     --[[
         Pushes all entities from a point away.
+
+        bias_group :: entities hit will bias 30 degrees towards ents
+            in this bias group.
+        bias_angle :: the maximum angle that the ents will bias towards.
     ]]
 
     local this_strength
 
-    for ent in partition:foreach(x, y) do
+    for ent in partition:longiter(x, y) do
         local eX, eY = ent.pos.x, ent.pos.y
 
         if not (eX == x and eY == y) then
@@ -156,26 +172,37 @@ function PushSys:boom(x, y, strength, distance,
 
             local should_be_pushed = true
 
-            if vx then -- Do not push entities that the pushing entity is moving away from.
-                if tools.dot(eX-x, eY-y, vx, vy) < 0 then
-                    should_be_pushed = false
-                end
-            end
             -- Will only push entities a certain distance away
             if not(e_dis < distance) then
                 should_be_pushed = false
             end
 
             if should_be_pushed then
+                local X = eX-x
+                local Y = eY-y
+                if bias_group then
+                    -- bias_vector will point towards the corrected position
+                    -- (i.e. will target the targetgroup properly)
+                    local bias_vector = getNormalizedBias(
+                        x, y,
+                        eX, eY,
+                        bias_group, bias_angle
+                    )
+                    X = bias_vector.x * e_dis -- bias_vector is normalized, remember.
+                    Y = bias_vector.y * e_dis
+                end
+
                 this_strength = (strength*AVERAGE_DT*100) / e_dis;
-                C_call("addVel", ent, (eX-x)*this_strength, (eY-y)*this_strength)
-                
-                C_call("animate", "shock", 0, 0, 50, 0.02, ent)
+                ccall("addVel", ent, X * this_strength + (vx or 0),
+                                     Y * this_strength + (vy or 0))
+
+                ccall("animate", "shock", 0, 0, 50, 0.02, ent)
                 -- Push the entities away according to `strength` and distance.
             end
         end
     end
 end
+
 
 
 
@@ -190,7 +217,7 @@ function PushSys:moob(x, y, strength, distance)
     ]]
     local this_strength
 
-    for ent in partition:foreach(x, y) do
+    for ent in partition:longiter(x, y) do
         local eX, eY = ent.pos.x, ent.pos.y
 
         if not (eX == x and eY == y) then

@@ -80,6 +80,20 @@ end
 
 
 
+local er_missing_pos = "cannot set position of ent that has no position"
+
+local ccall = Cyan.call
+
+
+function MoveSys:setPos(e, x, y, z)
+    assert(e.pos, er_missing_pos)
+    ccall("_setPos", e,x,y) -- This is BADD!! I hate this. I dont see a cleaner way tho.
+                            -- order must be respected, else the partitions will goof up
+    e.pos.x = x
+    e.pos.y = y
+    e.pos.z = z or e.pos.z
+end
+
 
 
 

@@ -16,6 +16,14 @@ local function checkDead(ent)
 end
 
 
+function HealthSys:dead(ent)
+    if ent.onDeath then
+        ent:onDeath()
+    end
+
+    ent:delete()
+end
+
 
 
 function HealthSys:added( ent )
@@ -32,6 +40,11 @@ function HealthSys:damage(ent, amount)
     if self:has(ent) then
         local hp = ent.hp
         hp.hp = hp.hp - amount
+
+        if ent.onDamage then
+            ent:onDamage(amount)
+        end
+        
         checkDead(ent)
     end
 end

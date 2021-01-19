@@ -1,5 +1,10 @@
 
 
+Any callback starting with `_` is a private callback.
+(Used for communicating between systems)
+
+
+
 # update   ( dt )
 Called every frame
 
@@ -37,11 +42,12 @@ Adds a sigil to ent
 # removeSigil( ent, sigilName )
 Removes a sigil from an ent
 
-# emit ( emitter_type, x, y, z,  num_particles )
+# emit ( emitter_type, x, y, z,  num_particles, colour={1,1,1})
 emits a burst of particles of `emitter_type` at x,y,z.
--> see `src.misc.particles._types` for a list of types.
+types:  {  guts  beam  shell  smoke  }
 
-# animate ( animationType, x, y, z, frame_len, track_ent )
+
+# animate ( animationType, x, y, z, frame_len, track_ent, hide_ent=false )
 Plays animation at x,y,z with specified frame length, and can track an entity.
 NOTE: The animation z depth won't change even when the entity moves! So tracking is only good for short animations
 -> see `src.misc.animation._types` for a list of types
@@ -68,18 +74,23 @@ See `soundSys` for a more detailed explanation on how sound files are handled
 
 
 
-# boom (x, y, strength)
+# boom (x, y, strength, distance, 
+#                       [vx, vy, bias_group, bias_angle]  )  -- optional args
 Pushes all close entities away from pos
+bias_group allows you to target certain groups
+bias_angle is the angle in radians that `boom` will target.
+vx, vy is velocity of the `boom`.
 
-# moob (x, y, strength)
+# moob (x, y, strength, distance)
 Pulls all close entities to pos
 
 
-# startPush ( ent )
-This entity starts pushing the closest entity 
-# endPush ( ent )                   
+# startPush ( ent, pushed_ent )
+For when an entity starts pushing another
+
+# endPush ( ent, pushed_ent )                   
 This entity stops pushing whatever entity it was pushing
-### (Oli, you should redo these. It is not friendly towards other systems that want information about what entity is being pushed.)
+
 
 
 # addVel( ent, vx, vy )
@@ -88,6 +99,10 @@ Adds velocity to an entity.
 # setVel( ent, vx, vy )
 Sets velocity for an entity
 
+# setMoveBehaviour( ent, newMoveBehaviour, target_ID )
+Sets moveBehaviour state for entity.
+newMoveBehaviour => { "IDLE", "ORBIT", "ROOK", "RAND", "LOCKON" ... }
+Target ID is the target group that the moveBehaviour acts upon. (optional)
 
 # hit ( ent_A, ent_B, hardness )
 Called when an entity collides with a speed greater than it's toughness component. 
@@ -98,10 +113,14 @@ Called when an entity collides with a speed greater than it's toughness componen
 Called when 2 entities collide regardless of conditions
 
 
-# pquery ( X, Y, callback )
+# boxquery ( X, Y, callback )
 If X, Y is touching a physics object, `callback` is called with the fixture as the first argument.
 See https://love2d.org/wiki/World:queryBoundingBox
 
+# rayquery ( x1, y1, x2, y2, callback )
+If ray intersects physics fixture, "callback" is called with
+the fixture as the first argument.
+See https://love2d.org/wiki/World:raycast
 
 
 # airborne ( ent )
