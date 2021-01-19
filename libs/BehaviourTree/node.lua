@@ -113,7 +113,7 @@ function newNode(name, copy)
         
         node.callbacks = copy.callbacks
         node.choose = copy.choose
-
+        
         for pathname, task_arr in pairs(copy.paths) do
             local newArr = {}
             for i, t_or_n in ipairs(task_arr) do
