@@ -18,7 +18,17 @@ local NodesAndTasks = setmetatable({},
         end
         PROXY[k] = v
     end,
-    __index = PROXY
+    __index = function(t,k)
+        if not PROXY[k] then
+            local availables = {}
+            for tn,_ in pairs(PROXY) do
+                table.insert(availables, tostring(tn))
+            end
+            local available_str = table.concat(availables, "\n")
+            error("Unknown task or node:   " .. k .. "\nHere are all possible options: \n\n" .. available_str)
+        end
+        return PROXY[k]
+    end
 })
 
 

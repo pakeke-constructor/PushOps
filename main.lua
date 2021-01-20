@@ -1,5 +1,16 @@
 
+--[[
 
+
+How to push to github:
+
+
+git add .
+git commit -m"Message here"
+git push origin master
+
+
+]]
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
 

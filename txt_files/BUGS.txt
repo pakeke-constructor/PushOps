@@ -6,5 +6,11 @@ Task strings not being added correctly.
 I am pretty (99% sure) this is to do with behaviourTree's
 Task module
 
+SOURCE OF BUG DISCOVERED!!!!  (I think, double check this)
+For some reason, the Node and Task objects are being deleted from PROXY
+whenever they are used as a string in another Node object.
+
+
+
 
 
