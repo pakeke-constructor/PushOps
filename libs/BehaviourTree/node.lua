@@ -135,6 +135,7 @@ function newNode(name, copy)
     end
 
     if name then
+        assert(node, "Node is nil??")
         NodesAndTasks[name] = node
     end
 

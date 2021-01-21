@@ -12,9 +12,7 @@ There are a set of possible movement behaviours that can be
 defined for entities.
 Each type has an 
 
-:init()
-    Should always select a valid target, or set to nil.
-
+:init()   called upon initialization (or reset)
 :update()
 :s_update()    (sparse update)
 :h_update()    (heavy update)
@@ -58,7 +56,6 @@ TAUNT -->
     Chooses a target entity from group ::
         target = entity
     Moves towards the target entity, but keeps distance from ent
-
 
 ]]
 
@@ -118,7 +115,7 @@ end})
 
 local NAN_police = "This is the NAN police"
 
-local function update_goto_target(ent, pos_x, pos_y)
+local function updateGotoTarget(ent, pos_x, pos_y, dt)
     local sp = ent.pos
 
     local d = dist(pos_x - sp.x, pos_y - sp.y)
@@ -127,8 +124,8 @@ local function update_goto_target(ent, pos_x, pos_y)
         return
     end
 
-    local vx = ((pos_x - sp.x)/d)*ent.speed.speed
-    local vy = ((pos_y - sp.y)/d)*ent.speed.speed
+    local vx = ((pos_x - sp.x)/d) * ent.speed.speed * dt
+    local vy = ((pos_y - sp.y)/d) * ent.speed.speed * dt
 
     assert(vx == vx, NAN_police)
     assert(vy == vy, NAN_police)
@@ -155,7 +152,7 @@ do
 
     local tmp_stack = {len=0}
 
-    local function set_targ_ent(ent, target_ent)
+    local function setTargEnt(ent, target_ent)
         -- Bit costly but oh well, no better way
         -- Calling with `nil` as the target_ent will simply remove the target ent
         -- appropriately
@@ -184,7 +181,7 @@ do
 
     local LOCKON = {}
 
-    function LOCKON:update()
+    function LOCKON:update(dt)
         -- self is ent
         local move = self.behaviour.move
         local target = move.target
@@ -195,7 +192,7 @@ do
 
         local tp = target.pos
 
-        update_goto_target(self, tp.x, tp.y)
+        updateGotoTarget(self, tp.x, tp.y,dt)
     end
     function LOCKON:init()
         local move = self.behaviour.move
@@ -216,7 +213,7 @@ do
             pop(tmp_stack)
         end
 
-        set_targ_ent(self, targ_ent)
+        setTargEnt(self, targ_ent)
     end
     function LOCKON:h_update()
         local move = self.behaviour.move
@@ -237,13 +234,13 @@ do
             pop(tmp_stack)
         end
 
-        set_targ_ent(self, targ_ent)
+        setTargEnt(self, targ_ent)
     end
 
 
     local ORBIT = {}
 
-    function ORBIT:update()
+    function ORBIT:update(dt)
         -- self is ent
 
         --[[
@@ -259,7 +256,7 @@ do
 
         local tp = target.pos
 
-        update_goto_target(self, tp.x + 60*sin(orbit_tick), tp.y + 60*cos(orbit_tick))
+        updateGotoTarget(self, tp.x + 60*sin(orbit_tick), tp.y + 60*cos(orbit_tick),dt)
     end
 
     function ORBIT:init()
@@ -282,7 +279,7 @@ do
             pop(tmp_stack)
         end
 
-        set_targ_ent(self, targ_ent)
+        setTargEnt(self, targ_ent)
     end
     function ORBIT:h_update()
         local move = self.behaviour.move
@@ -304,7 +301,7 @@ do
             pop(tmp_stack)
         end
 
-        set_targ_ent(self, targ_ent)
+        setTargEnt(self, targ_ent)
     end
 
     local HIVE={}
@@ -328,13 +325,13 @@ do
             move.target = nil
         end
     end
-    function HIVE:update()
+    function HIVE:update(dt)
         local target = self.behaviour.move.target
         if target then
-            update_goto_target(self, target.x, target.y)
+            updateGotoTarget(self, target.x, target.y, dt)
         else
             -- If no goto target, stay still. (Behaviour tree should sort this shit out :/ )
-            update_goto_target(self, self.pos.x, self.pos.y)
+            updateGotoTarget(self, self.pos.x, self.pos.y, dt)
         end
     end
     function HIVE:h_update()
@@ -358,21 +355,23 @@ do
     end
 
     local RAND={}
-    local function chooseRandPos(e)
+    local function chooseRandPos(e,dist)
         local x,y = e.pos.x, e.pos.y
         local nx,ny
         repeat 
-            nx = x+rand()*200
-            ny = y+rand()*200            
+            nx = x+rand()*dist
+            ny = y+rand()*dist
         until (not Tools.isIntersect(x,y,nx,ny))
         return nx,ny
     end
     function RAND:init()
         local move=self.behaviour.move
-        local x,y = chooseRandPos(e)
+        local x,y = chooseRandPos(self, 400)
         move.target = math.vec3(x,y,0)
     end
-    function RAND:update()
+    function RAND:update(dt)
+        local target = self.behaviour.move.target
+        updateGotoTarget(self, move.target.x, move.target.y, dt)
     end
 
 
@@ -420,7 +419,7 @@ do
             local pos = self.pos
             local dir = self.behaviour.move.dir
 
-            update_goto_target(self, pos.x + dir.x*100, pos.y + dir.y*100)
+            updateGotoTarget(self, pos.x + dir.x*100, pos.y + dir.y*100, dt)
         end
     end
 
@@ -429,7 +428,8 @@ do
         HIVE=HIVE,
         LOCKON=LOCKON,
         IDLE=IDLE,
-        ROOK=ROOK
+        ROOK=ROOK,
+        RAND=RAND
     }
 end
 
@@ -462,7 +462,9 @@ function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     move.id = (newID or move.id)
 
     if shouldInit then
-        MoveTypes[move.type].init(ent)
+        local type = MoveTypes[move.type]
+        assert(type, "? undefined moveBehaviour: " .. tostring(move.type))
+        type.init(ent)
     end
 end
 

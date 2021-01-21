@@ -1,11 +1,13 @@
 
 
-local BT = require("libs.behaviourTree")
+local BT = require("libs.BehaviourTree")
 
 local ccall=Cyan.call
 
+local tab = {"IDLE","ROOK","LOCKON","ORBIT","RAND"}
+local f = function() return "n" end
 
-for _,t in ipairs{"IDLE","ROOK","LOCKON","ORBIT","RAND"} do
+for _,t in ipairs(tab) do
     local task = BT.Task("move::"..t)
     -- We dont need to do xtra permutations for targetIDs,
     -- because targetID can be changed at runtime no problemo.
@@ -13,9 +15,9 @@ for _,t in ipairs{"IDLE","ROOK","LOCKON","ORBIT","RAND"} do
     task.start = function(T, e)
         assert(e.behaviour, "you made mistake")
         assert(e.behaviour.move, "you made mistake")
-        ccall("setMoveBehaviour", t, object.behaviour.move, e.behaviour.move.id)
+        ccall("setMoveBehaviour", e, t, e.behaviour.move.id)
     end
-    task.update = function() return "n" end;
+    task.update = f;
 end
 
 

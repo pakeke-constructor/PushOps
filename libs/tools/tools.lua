@@ -72,6 +72,7 @@ do
     local function setClosureTrue()
         -- I don't like this. But there is no other way :/
         blocked = true
+        return 0
     end
 
     function T.isBlocked(x, y)
@@ -113,6 +114,16 @@ function T.isOnScreen(e, cam)
     and (-RANGE_LEIGHWAY < y) and (y < h + RANGE_LEIGHWAY)
 end
 
+
+function T.assertNoDuplicateRequires()
+    local cache = {}
+    for k,v in pairs(package.loaded) do
+        if cache[k:lower()] then
+            error("DUPLICATE LUA FILE IN PACKAGE.LOADED:  "..k)
+        end
+        cache[k:lower()]=k
+    end
+end
 
 
 return T

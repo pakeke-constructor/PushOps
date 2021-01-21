@@ -24,39 +24,46 @@ end
 local Tree = EH.Node("mallow behaviour tree")
 
 function Tree.choose(tree, e)
-    print("HELLO???????")
     if e.hp.hp < e.hp.max_hp then
         if rand() < 0.5 then
+            --print("mallow tree: angry")
             return "angry"
         else
+            --print("mallow tree: spin")
             return "spin"
         end
     else
+        --print("mallow tree: idle")
         return "idle"
     end
 end
 
-Tree.spin = {
-    EH.Task{
-        start=function(t,e)
-            ccall("setMoveBehaviour", e,"IDLE")
-            local p=e.pos
-            ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1*9, e,true)
-        end,
-        update=function(t,e)
-            if not e.hidden and t:runtime(e)<5 then
-                -- Repeat animation for 5 seconds.
-                -- (last arg=true -> this will hide the entity. We can then 
-                -- check if the anim is still running by checking whether ent is hidden)
-                return "n"
-            else
-                if not e.hidden then
-                    ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1, e, true)
-                end
-                return "r"
-            end
+
+
+local mallow_spin_task = EH.Task("mallow spin task")
+
+mallow_spin_task.start = function(t,e)
+    ccall("setMoveBehaviour", e,"IDLE")
+    local p=e.pos
+    ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1*9, e,true)
+end
+
+mallow_spin_task.update=function(t,e)
+    if not e.hidden and t:runtime(e)<5 then
+        -- Repeat animation for 5 seconds.
+        -- (last arg=true -> this will hide the entity. We can then 
+        -- check if the anim is still running by checking whether ent is hidden)
+        return "n"
+    else
+        if not e.hidden then
+            ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1, e, true)
         end
-        }
+        return "r"
+    end
+end
+
+Tree.spin = {
+    mallow_spin_task
 }
 
 Tree.angry = {
@@ -66,7 +73,7 @@ Tree.angry = {
 
 Tree.idle = {
     "move::RAND",
-    "wait::20"
+    "wait::10"
 }
 
 

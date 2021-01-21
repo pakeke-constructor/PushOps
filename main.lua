@@ -11,13 +11,20 @@ git push origin master
 
 
 ]]
+
+
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
+
+local function monkeypatchRequire(path)
+    --if package.loaded[]
+end
 
 
 -- MONKEY BUSINESS STARTS HERE !!!
 setmetatable(_G, {})
 do
+    --_G.require = monkeypatchRequire
     -- main ECS
     _G.Cyan = require "libs.Cyan.cyan"
 

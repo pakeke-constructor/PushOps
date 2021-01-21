@@ -10,15 +10,23 @@ local Task_mt = {__index = Task}
 
 
 local PROXY = { }
-local NodesAndTasks = setmetatable({},
+
+
+local NodesAndTasks = setmetatable({ },
 {
     __newindex = function(t,k,v)
+        if v == nil then
+            error("This is an error with BT lib. Tell Oli!")
+        end
         if PROXY[k] then
             error("Attempted to overwrite Node or task name: `".. k .."`")
         end
-        PROXY[k] = v
+        if not(k:sub(1,1)=="_") then
+            -- `_` at start of name denotes private name.
+            PROXY[k] = v
+        end
     end,
-    __index = function(t,k)
+    __index = function(_,k)
         if not PROXY[k] then
             local availables = {}
             for tn,_ in pairs(PROXY) do
@@ -44,6 +52,11 @@ local runtimeMT = {
 
 local function newTask(name, copy)
     -- `copy` optional argument
+    if name then
+        if type(name) ~= "string" then
+            error("Expected string for BT.Task( str ), got: "..type(name))
+        end
+    end
 
     local task = {name = name}
 
@@ -53,13 +66,15 @@ local function newTask(name, copy)
         task.start = copy.start
         task.update = copy.update
         task.finish = copy.finish
+        task.name = "_copy_" .. copy.name
     end
 
     task.parent = nil -- Parent node this task belongs to
 
     if name then
-        NodesAndTasks[name] = task
-        --print(name, NodesAndTasks[name])
+        if not copy then
+            NodesAndTasks[name] = task
+        end
     end
 
     return setmetatable(task, Task_mt)
@@ -116,8 +131,6 @@ local closing_funcs = {
 
 
 
-local er_noclose = "Incorrect task close. return either `r`, `k`, or `n`."
-
 function Task:_update(ent, dt)
     local runtime = self.runtimes[ent]
     
@@ -127,10 +140,14 @@ function Task:_update(ent, dt)
 
     self.runtimes[ent] = runtime + dt
 
+    if not self.update then
+        error("Task `" .. tostring(self.name) .. "` not given .update function")
+    end
+
     local outcome = self:update(ent, dt)
 
     if not closing_funcs[outcome] then
-        error(er_noclose)
+        error("Incorrect task close. return either `r`, `k`, or `n`.")
     end
 
     closing_funcs[outcome](self, ent, dt)

@@ -89,7 +89,7 @@ function PhysicsSys:boxquery(x, y, callback)
 end
 
 function PhysicsSys:rayquery(x,y,x1,y1,callback)
-    World:rayCast(x,y,x1,x2,callback)
+    World:rayCast(x,y,x1,y1,callback)
 end
 
 

@@ -164,7 +164,7 @@ function PushSys:boom(x, y, strength, distance,
     for ent in partition:longiter(x, y) do
         local eX, eY = ent.pos.x, ent.pos.y
 
-        if not (eX == x and eY == y) then
+        if (not (eX == x and eY == y)) and ent.pushable then
             -- If x and y position of ent is same as boom position:
                 -- Dont apply the force. This entity is (probably)
                 -- the entity that enacted the force.

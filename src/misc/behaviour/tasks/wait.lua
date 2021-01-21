@@ -24,9 +24,9 @@ for N = 1, 10 do
     task.start = function(t,e)
     end
 
-    task.run = function(t, e, dt)
+    task.update = function(t, e, dt)
         local ret
-        if t:overtime(e,N) then
+        if t:runtime(e)>N then
             ret= "n"
         else
             ret="r"

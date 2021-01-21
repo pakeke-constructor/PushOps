@@ -76,25 +76,24 @@ Tree.choose = function(node, e)
         return ret
 end
 
-Tree.angry ={
-    EH.BT.Task{
-        start=function(t,e)
-            ccall("setMoveBehaviour", e, Tools.rand_choice(ai_types))
-        end;
-        update=function(t,e)
-            return "n"
-        end
-    },
+local rand_move_task = EH.Task("_enemy move task")
+rand_move_task.start = function(t,e)
+    ccall("setMoveBehaviour", e, Tools.rand_choice(ai_types))
+end
+rand_move_task.update=function(t,e)
+    return "n"
+end
+
+
+Tree.angry = {
+    rand_move_task,
     "wait::10"
 }
 
+
 Tree.idle = {
-    EH.BT.Task{
-        start = function(t,e)
-            ccall("setMoveBehaviour", e, Tools.rand_choice())
-        end
-    };
-    "wait::10"
+    "move::IDLE",
+    "wait::4"
 }
 
 
@@ -115,7 +114,7 @@ return function(x,y)
     
     :add("hp", {hp = 100, max_hp = 100})
 
-    :add("speed", {speed = 4, max_speed = math.random(90,120)})
+    :add("speed", {speed = 145, max_speed = math.random(200,240)})
 
     :add("strength", 40)
 

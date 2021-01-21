@@ -25,6 +25,7 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k=='e' then
+        _G.require = error
         Ent.pine(p.pos.x, p.pos.y)
     end
 end

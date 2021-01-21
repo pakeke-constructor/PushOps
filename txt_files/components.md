@@ -200,7 +200,7 @@ track = true / false
 
 -- Behaviour (complex component)
 behaviour = { 
-    move = {type="LOCKON", id=1} -- See MoveBehaviourSys
+    move = {type="LOCKON", id=1} -- See MoveBehaviourSys for custom params
     tree = Node() -- node object (from libs/BehaviourTree.lua)
 }
 

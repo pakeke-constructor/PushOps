@@ -63,7 +63,7 @@ return function(x,y)
 
     :add("hp", {hp = 100, max_hp = 100})
 
-    :add("speed", {speed = 5, max_speed = math.random(50,100)})
+    :add("speed", {speed = 100, max_speed = math.random(150,200)})
 
     :add("strength", 40)
 
