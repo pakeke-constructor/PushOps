@@ -31,8 +31,9 @@ function DEBUG_SYS:keypressed(k)
 end
 
 
-
+local ccall=Cyan.call
 function DEBUG_SYS:mousepressed()
+    --ccall("animate", "mallowspin", 0,0,0)
 end
 
 

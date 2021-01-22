@@ -8,5 +8,5 @@ Some things to know:
 
 Clojure is not actually used here! The language used is Fennel, a lisp dialect that compiles to lua
 
-Files starting with `NM` 
+Files starting with `NM` are not my own. (i.e. other people's code.)
 

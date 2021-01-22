@@ -45,16 +45,17 @@ local mallow_spin_task = EH.Task("mallow spin task")
 mallow_spin_task.start = function(t,e)
     ccall("setMoveBehaviour", e,"IDLE")
     local p=e.pos
-    ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1*9, e,true)
+    ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1*9, e, true)
 end
 
 mallow_spin_task.update=function(t,e)
-    if not e.hidden and t:runtime(e)<5 then
+    if not e.hidden and t:runtime(e)<3 then
         -- Repeat animation for 5 seconds.
         -- (last arg=true -> this will hide the entity. We can then 
         -- check if the anim is still running by checking whether ent is hidden)
         return "n"
     else
+        local p = e.pos
         if not e.hidden then
             ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1, e, true)
         end
@@ -68,12 +69,12 @@ Tree.spin = {
 
 Tree.angry = {
     "move::ORBIT",
-    "wait::6"
+    "wait::5"
 }
 
 Tree.idle = {
     "move::RAND",
-    "wait::10"
+    "wait::3"
 }
 
 
@@ -83,20 +84,37 @@ end)
 
 local colour={0.7,1,0.7}
 
+
+local physColFunc = function(e1, e2, speed)
+    if speed > CONSTANTS.ENT_DMG_SPEED then
+        Cyan.emit("sound", "thud")
+        Cyan.emit("damage", e1, (speed - e1.vel:len()))
+    end
+end
+
+
 -- ctor
 return function(x, y)
 
     local e = Cyan.Entity()
     EH.PV(e,x,y)
 
-    e.hp={hp=300,max_hp=300}
+    e.hp={hp=2000,max_hp=2000}
         
     e.bobbing={magnitude=0.25}
 
+    e.speed = {speed = 90, max_speed = 100}
+
     e.pushable=false
+
+    e.targetID = "enemy"
 
     EH.PHYS(e,5,"dynamic")
     EH.FR(e)
+
+    e.collisions = {
+        physics = physColFunc
+    }
 
     e.motion = {
         up=up;
@@ -112,7 +130,7 @@ return function(x, y)
     e.colour = colour
 
     e.behaviour = {
-        move={type="IDLE", id=1};
+        move={type="IDLE", id="player"};
         tree=Tree
     }
 

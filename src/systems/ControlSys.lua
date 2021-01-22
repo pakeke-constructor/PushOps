@@ -127,10 +127,11 @@ local r = love.math.random
 
 local function boomShells(player)
     if Cyan.exists(player) then
-        Cyan.call("sound", "reload")
+        Cyan.call("sound", "reload", 1, 0.1)
         Cyan.call("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
     end
 end
+
 
 function ControlSys:keytap(key)
     for _, ent in ipairs(self.group) do

@@ -87,7 +87,7 @@ return function(x,y)
 
     blob:add("behaviour",{
             move = {
-                type = Tools.rand_choice(ai_types),
+                type = "RAND",  --Tools.rand_choice(ai_types),
                 id="player"
             }
     })

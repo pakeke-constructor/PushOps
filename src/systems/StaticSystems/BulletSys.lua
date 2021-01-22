@@ -15,8 +15,4 @@ function BulletSys:shoot(x, y, vx, vy)
 end
 
 
-function BulletSys:mousepressed()
-    ccall("shoot", 10,10,240,240)
-end
-
 

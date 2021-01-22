@@ -3,6 +3,35 @@
 
 local MoveBehaviourSys = Cyan.System("behaviour", "vel", "pos", "speed")
 
+--[[
+
+Custom `move` params:
+]]
+
+local ent_behaviour = { 
+    move = {
+        type = "LOCKON",
+        id = "player",
+        radius = 40, -- for ORBIT and TAUNT
+        wait_time = 3, -- how long the RAND and ROOK waits when switching,
+        distance = 200, -- how far RAND and ROOK travel
+
+
+         -- Fields that are added by system ::::
+        -- In the case of LOCKON, ORBIT, TAUNT, target will equal an entity
+        target = nil,
+        -- whether this ent is waiting to move again (used by ROOK, RAND)
+        is_waiting = false,
+        -- time spent waiting
+        time = 5
+    }
+}
+
+--[[
+
+
+]]
+
 
 
 
@@ -61,27 +90,10 @@ TAUNT -->
 
 
 
--- Planning ::::
-
--- Behaviour (complex component)
-local ent_behaviour = { -- (planning)
-    move = {
-        type = "LOCKON",
-        id = 1, -- targets group 1 ents
 
 
-
-        -- Fields that are added by system ::::
-
-        -- In the case of LOCKON, target will equal an entity
-        target = nil
-    }
-}
-ent_behaviour = nil
-
-
-
-
+-- The default distance ROOK and RAND will travel
+local DEFAULT_DIST = 400
 
 local MAX_VEL = require("src.misc.partition").MAX_VEL
 
@@ -359,19 +371,23 @@ do
         local x,y = e.pos.x, e.pos.y
         local nx,ny
         repeat 
-            nx = x+rand()*dist
-            ny = y+rand()*dist
+            nx = x+(rand()-0.5)*dist*2
+            ny = y+(rand()-0.5)*dist*2
         until (not Tools.isIntersect(x,y,nx,ny))
         return nx,ny
     end
     function RAND:init()
         local move=self.behaviour.move
-        local x,y = chooseRandPos(self, 400)
+        local x,y = chooseRandPos(self, move.distance or DEFAULT_DIST)
         move.target = math.vec3(x,y,0)
     end
     function RAND:update(dt)
+        local pos = self.pos
         local target = self.behaviour.move.target
-        updateGotoTarget(self, move.target.x, move.target.y, dt)
+        updateGotoTarget(self, target.x, target.y, dt)
+        if dist(target.x - pos.x, target.y - pos.y) < 40 then
+            RAND.init(self)
+        end
     end
 
 
@@ -382,10 +398,12 @@ do
     end
 
     local ROOK = {}
-    function ROOK:select()
+    function ROOK:select(distance)
         -- Selects a random cardinal direction
         local mve = self.behaviour.move
+        local pos = self.pos
         local r = rand()
+        local target = math.vec3(0,0,0)
 
         local x,y = 0,0
         if r<0.5 then
@@ -398,28 +416,40 @@ do
             y = y * -1
             x = x * -1 
         end
-
-        mve.dir.x = x
-        mve.dir.y = y
+        local r = rand()
+        target.x = pos.x + x * distance * r
+        target.y = pos.y + x * distance * r
+        return target 
     end
 
     function ROOK:init()
         local mve = self.behaviour.move;
-        
+        mve.time = 0
         mve.target = nil
-        mve.dir = math.vec3(0,0,0)
+        mve.is_waiting = false
     end
 
     function ROOK:update(dt)
-        if rand() < 0.003 then
+        local move = self.behaviour.move
+        if move.is_waiting then
+            if move.time >= move.wait then
+                move.is_waiting = false
+                move.time = 0
+            else
+                move.time = move.time + dt
+            end
+        elseif rand() < 0.003 then
             -- Change dir!
-            ROOK.select(self) -- remember, `self` is the entity here.
+            move.target = ROOK.select(self) -- remember, `self` is the entity here.
+            move.is_waiting = true
+            move.time = move.wait
         else
             -- Keep current dir.
             local pos = self.pos
             local dir = self.behaviour.move.dir
+            local target = move.target
 
-            updateGotoTarget(self, pos.x + dir.x*100, pos.y + dir.y*100, dt)
+            updateGotoTarget(self, target.x, target.y, dt)
         end
     end
 
@@ -451,7 +481,6 @@ function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     if not ent.behaviour then
         error("attempted to change move behaviour of entity without `behaviour` component")
     end
-    assert(ent.behaviour.move, "?")
 
     local move = ent.behaviour.move
     local shouldInit
