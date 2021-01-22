@@ -44,8 +44,7 @@ local mallow_spin_task = EH.Task("mallow spin task")
 
 mallow_spin_task.start = function(t,e)
     ccall("setMoveBehaviour", e,"IDLE")
-    local p=e.pos
-    ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1*9, e, true)
+    ccall("animate", 'mallowspin', 0,0,0, 0.1, e, true)
 end
 
 mallow_spin_task.update=function(t,e)
@@ -55,9 +54,8 @@ mallow_spin_task.update=function(t,e)
         -- check if the anim is still running by checking whether ent is hidden)
         return "n"
     else
-        local p = e.pos
         if not e.hidden then
-            ccall("animate", 'mallowspin', p.x, p.y, p.z, 0.1, e, true)
+            ccall("animate", 'mallowspin', 0,0,0, 0.1, e, true)
         end
         return "r"
     end

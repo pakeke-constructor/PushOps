@@ -478,8 +478,8 @@ end
 
 function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     -- newID: optional argument. will stay same unless otherwise specified.
-    if not ent.behaviour then
-        error("attempted to change move behaviour of entity without `behaviour` component")
+    if not MoveBehaviourSys:has(ent) then
+        error("attempted to change move behaviour of entity not in MoveBehaviourSys")
     end
 
     local move = ent.behaviour.move
