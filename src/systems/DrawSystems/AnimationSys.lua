@@ -14,6 +14,7 @@ local ents_being_tracked = setmetatable({ }, {__mode="kv"})
 -- (this is for ccall("animate", ...) btw)
 
 
+
 function AnimationSys:added(ent)
     ent.draw = {}
 
@@ -156,8 +157,12 @@ local available_anim_objs = setmetatable(
     -- Arrays of available animation objs, keyworded by type
 )
 
-
 local sset = Tools.set
+
+-- Holds all the anim objects that are tracking an entity
+local tracking_anim_objs = sset()
+
+
 local in_use_anim_Z_index = setmetatable(
     -- `k` is the z depth of this in-use anim object
     {}, {__index = function(t,k) t[k] = sset() return t[k] end}
@@ -201,25 +206,38 @@ end
 
 
 
+
 local t_insert = table.insert
+local WHITE = {1,1,1}
 
 
-function AnimationSys:animate(anim_type, x, y, z, frame_len, track_ent, hide_ent)
+function AnimationSys:animate(anim_type, x, y, z, frame_len, cycles,
+                              colour, track_ent, hide_ent)
+    if colour and colour.pos then
+        -- colours should not have a position! This is an entity instead
+        error[[Incorrect signature for ccall('animate'). 
+Expected  ccall('animate', x, y, z, frame_len, cycles, colour = WHITE, track_ent = nil, hide_ent = false)]]
+    end
+
     if not AnimTypes[anim_type] then
         error("AnimationSys:animate(type, x,y,z, frame_len, track_ent=nil) ==> Unrecognised anim type ==> "..tostring(anim_type))
     end
 
     local anim = get_anim_obj(anim_type)
 
-    anim:play(x,y,z, frame_len, (track_ent or nil), (hide_ent or false))
+    anim:play(x,y,z, frame_len, repeats, (colour or WHITE), (track_ent or nil), (hide_ent or false))
     in_use_anim_objs:add(anim)
 
+    local z_dep 
     if track_ent then
         assert(track_ent.pos, "Track entity not given position. Is this even an entity?")
         ents_being_tracked[track_ent] = anim
+        tracking_anim_objs:add(anim)
+        z_dep = get_z_index(y + track_ent.pos.y, z + track_ent.pos.z)
+
+    else
+        z_dep = get_z_index(y,z)
     end
-        
-    local z_dep = get_z_index(y,z)
 
     in_use_anim_Z_index[z_dep]:add(anim)
 end
@@ -233,6 +251,9 @@ function AnimationSys:drawIndex( z_dep )
 end
 
 
+function AnimationSys:heavyupdate(dt)
+
+end
 
 
 

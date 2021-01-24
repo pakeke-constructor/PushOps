@@ -14,6 +14,7 @@ frames.oy = -40
 
 local q = { }
 
+local setColour = love.graphics.setColor
 
 
 function q:draw()
@@ -28,6 +29,8 @@ function q:draw()
             return
         end
     end
+
+    setColour(self.colour)
 
     Atlas:draw(self.frames[self.current],
         self.x, -30 + self.y - self.z/2, 0, 1, 1, self.ox, self.oy)

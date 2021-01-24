@@ -58,7 +58,7 @@ end
 local weak_mt = {__mode="kv"}
 
 
-
+local setColour = love.graphics.setColor
 
 local image = require("assets.atlas").image
 local draw=love.graphics.draw
@@ -76,6 +76,7 @@ function Anim:draw()
         end
     end
 
+    setColour(self.colour)
     draw(image, self.frames[self.current],
         self.x, self.y - self.z/2, 0, 1, 1, self.ox, self.oy)
 end
@@ -89,7 +90,11 @@ function Anim:update(dt)
         self.time = 0
         self.current = self.current + 1
         if self.current > (#self.frames) then
-            self:finish( )
+            self.current = 1
+            self.cycles = self.cycles - 1
+            if self.cycles == 0 then
+                self:finish( )
+            end
         end
     end
 end
@@ -138,6 +143,8 @@ function Anim:new( type )
     self.ent_original_hidden = false
     self.len = (#self.frames)
     self.finished = true
+    self.colour = nil
+    self.cycles = 1 -- how many times this AnimObj plays
 
     local _,_, W, H = self.frames[1]:getViewport( )
     self.ox = W/2
@@ -180,13 +187,16 @@ end
 
 local er_no_ent = "ccall('animate' ...), expected entity to hide, got none!"
 
-function Anim:play(x, y, z, frame_speed, ent_to_track, should_hide_ent)
+function Anim:play(x, y, z, frame_speed, cycles,
+                    colour, ent_to_track, should_hide_ent)
     if (not self.finished) then
         error("Attempted to play an animation that wasn't already finished. This is a problem with AnimationSys, not the callback itself.")
     end
 
     self.finished = false
+    self.colour = colour
     self.frame_speed = frame_speed or self.frame_speed
+    self.cycles = cycles or 1
 
     if ent_to_track then
         if type(ent_to_track) ~= "table" then

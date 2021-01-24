@@ -115,6 +115,12 @@ function T.isOnScreen(e, cam)
 end
 
 
+function T.distToPlayer(e, cam)
+    assert(cam, "Not given camera object! Tools.distToPlayer( ent, camera ) ")
+    return T.dist(e.pos.x - cam.x, e.pos.y - cam.y)
+end
+
+
 function T.assertNoDuplicateRequires()
     local cache = {}
     for k,v in pairs(package.loaded) do

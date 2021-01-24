@@ -1,4 +1,5 @@
 
+
 --[[
 
 
@@ -14,11 +15,6 @@ git push origin master
 
 
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
-
-
-local function monkeypatchRequire(path)
-    --if package.loaded[]
-end
 
 
 -- MONKEY BUSINESS STARTS HERE !!!
@@ -63,7 +59,7 @@ setmetatable(_G, {
 local fennel = require("libs.NM_fennel.fennel")
 table.insert(package.loaders or package.searchers, fennel.searcher)
 -- Load macros first.
-require("src.MISC.unique.usrMacros")
+require("src.misc.unique.usrMacros")
 
 
 
@@ -73,4 +69,4 @@ require("src.entities")
 
 require("src.misc._MISC")
 
-
+Tools.assertNoDuplicateRequires()

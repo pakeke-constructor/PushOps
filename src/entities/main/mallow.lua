@@ -20,16 +20,45 @@ for i=1,4 do
     ti(right, EH.Quads["mallow_right_"..tostring(i)])
 end
 
+local COLOUR={0.7,1,0.7}
+
+
+
+local atlas = EH.Atlas
+local Quads= atlas.Quads
+
+local psys = love.graphics.newParticleSystem(atlas.image)
+psys:setQuads(Quads.beet, Quads.bat, Quads.bot)
+psys:setParticleLifetime(0.4, 0.8)
+--psys:setLinearAcceleration(0,0,200,200)
+psys:setDirection(180)
+psys:setSpeed(5,15)
+psys:setEmissionRate(50)
+psys:setSpread(math.pi/2)
+psys:setEmissionArea("uniform", 6,0)
+psys:setColors({0.5,0.5,0.5})
+psys:setSpin(-40,40)
+psys:setRotation(0, 2*math.pi)
+psys:setRelativeRotation(false)
+local _,_, pW, pH = psys:getQuads()[1]:getViewport( )
+psys:setOffset(pW/2, pH/2)
+
+
+
+
+
 
 local Tree = EH.Node("mallow behaviour tree")
 
+
+local Camera = require("src.misc.unique.camera")
+
 function Tree.choose(tree, e)
-    if e.hp.hp < e.hp.max_hp then
+    if (e.hp.hp < e.hp.max_hp) or (Tools.distToPlayer(e, Camera) < 150) then
         if rand() < 0.5 then
             --print("mallow tree: angry")
             return "angry"
         else
-            --print("mallow tree: spin")
             return "spin"
         end
     else
@@ -44,18 +73,19 @@ local mallow_spin_task = EH.Task("mallow spin task")
 
 mallow_spin_task.start = function(t,e)
     ccall("setMoveBehaviour", e,"IDLE")
-    ccall("animate", 'mallowspin', 0,0,0, 0.1, e, true)
+    ccall("animate", 'mallowspin', 0,0,0, 0.1, COLOUR, e, true)
 end
 
 mallow_spin_task.update=function(t,e)
-    if not e.hidden and t:runtime(e)<3 then
-        -- Repeat animation for 5 seconds.
+    if (not e.hidden) and t:runtime(e)>4 then
+        -- Repeat animation for 3 seconds.
         -- (last arg=true -> this will hide the entity. We can then 
         -- check if the anim is still running by checking whether ent is hidden)
         return "n"
     else
         if not e.hidden then
-            ccall("animate", 'mallowspin', 0,0,0, 0.1, e, true)
+            -- entity is not hidden, so this means animation is still playing
+            ccall("animate", 'mallowspin', 0,0,0, 0.1, COLOUR, e, true)
         end
         return "r"
     end
@@ -67,7 +97,7 @@ Tree.spin = {
 
 Tree.angry = {
     "move::ORBIT",
-    "wait::5"
+    "wait::6"
 }
 
 Tree.idle = {
@@ -80,7 +110,6 @@ Tree:on("damage",function(e)
     return "angry"
 end)
 
-local colour={0.7,1,0.7}
 
 
 local physColFunc = function(e1, e2, speed)
@@ -108,7 +137,12 @@ return function(x, y)
     e.targetID = "enemy"
 
     EH.PHYS(e,5,"dynamic")
-    EH.FR(e)
+
+    e:add("friction", {
+        amount = 6;
+        emitter = psys:clone();
+        required_vel = 10;
+    })
 
     e.collisions = {
         physics = physColFunc
@@ -121,11 +155,11 @@ return function(x, y)
         right=right;
 
         current=0;
-        interval=0.8;
+        interval=0.3;
         required_vel=1
     }
 
-    e.colour = colour
+    e.colour = COLOUR
 
     e.behaviour = {
         move={type="IDLE", id="player"};
