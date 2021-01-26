@@ -196,7 +196,7 @@ function PushSys:boom(x, y, strength, distance,
                 ccall("addVel", ent, X * this_strength + (vx or 0),
                                      Y * this_strength + (vy or 0))
 
-                ccall("animate", "shock", 0, 0, 50, 0.02, nil, ent)
+                ccall("animate", "shock", 0, 0, 50, 0.02, nil, nil, ent)
                 -- Push the entities away according to `strength` and distance.
             end
         end

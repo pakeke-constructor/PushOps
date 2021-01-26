@@ -13,6 +13,7 @@ local AnimationSys = Cyan.System("animation", "pos")
 local ents_being_tracked = setmetatable({ }, {__mode="kv"})
 -- (this is for ccall("animate", ...) btw)
 
+local cexists = Cyan.exists
 
 
 function AnimationSys:added(ent)
@@ -176,7 +177,7 @@ local in_use_anim_objs = Tools.set()
 
 local floor = math.floor
 
-local function get_z_index(y,z)
+local function getZIndex(y,z)
     return floor((y+z)/2)
 end
 
@@ -225,7 +226,7 @@ Expected  ccall('animate', x, y, z, frame_len, cycles, colour = WHITE, track_ent
 
     local anim = get_anim_obj(anim_type)
 
-    anim:play(x,y,z, frame_len, repeats, (colour or WHITE), (track_ent or nil), (hide_ent or false))
+    anim:play(x,y,z, frame_len, cycles, (colour or WHITE), (track_ent or nil), (hide_ent or false))
     in_use_anim_objs:add(anim)
 
     local z_dep 
@@ -233,12 +234,12 @@ Expected  ccall('animate', x, y, z, frame_len, cycles, colour = WHITE, track_ent
         assert(track_ent.pos, "Track entity not given position. Is this even an entity?")
         ents_being_tracked[track_ent] = anim
         tracking_anim_objs:add(anim)
-        z_dep = get_z_index(y + track_ent.pos.y, z + track_ent.pos.z)
-
+        z_dep = getZIndex(y + track_ent.pos.y, z + track_ent.pos.z)
     else
-        z_dep = get_z_index(y,z)
+        z_dep = getZIndex(y,z)
     end
 
+    anim.z_dep = z_dep
     in_use_anim_Z_index[z_dep]:add(anim)
 end
 
@@ -278,12 +279,21 @@ function AnimationSys:update(dt)
     for i, anim in ipairs(in_use_anim_objs.objects) do
         anim:update(dt)
         if anim:isFinished() then
+            tracking_anim_objs:remove(anim)
             in_use_anim_objs:remove(anim)
             in_use_anim_Z_index[anim.z_dep]:remove(anim)
             anim.runtime = 0
-
             t_insert(available_anim_objs[anim.type], anim)
         end
+    end
+
+    for _, anim in ipairs(tracking_anim_objs.objects) do
+        -- For tracking animations that need to track their objects
+        in_use_anim_Z_index[anim.z_dep]:remove(anim)
+        local tpos = anim.tracking.pos
+        local new_z_dep = getZIndex(anim.y + tpos.y, anim.z + tpos.z)
+        anim.z_dep = new_z_dep
+        in_use_anim_Z_index[anim.z_dep]:add(anim)
     end
 end
 
@@ -313,6 +323,8 @@ function AnimationSys:purge()
         in_use_anim_Z_index[k]:clear()
     end
 
+    tracking_anim_objs:clear()
+
     for k,v in pairs(available_anim_objs)do
         local ar = available_anim_objs[k]
         for i=1,#ar do
@@ -321,6 +333,13 @@ function AnimationSys:purge()
         end
     end
 end
+
+
+
+
+
+
+
 
 
 

@@ -119,11 +119,11 @@ collisions = {
     -- Area for non-physics objects, collision depends on `size` components of
     -- the interacting entities
     area = {
-        [1] = function(ent, collide_ent, dt)
-            ... -- Collides with targetgroup [1]!!
-        end
-        [2] = function(ent, collide_ent, dt)
-            ...-- callback upon overlap with ent from targetgroup [2].
+        player = function(ent, collide_ent, dt)
+            ... -- Collides with targetgroup "player"!!
+        end,
+        enemy = function(ent, collide_ent, dt)
+            ...-- callback upon overlap with ent from targetgroup "enemy".
         end 
     }
 

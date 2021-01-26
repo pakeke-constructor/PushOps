@@ -80,7 +80,7 @@ return {
     };
     
     ["e"] = {
-        max = 20;
+        max = 200;
         function(x,y)
             Ents.blob(x,y)
             Ents.enemy(x+5,y+5)

@@ -69,46 +69,40 @@ end
 
 
 
-local mallow_spin_task = EH.Task("mallow spin task")
+local mallow_spin_task = EH.Task("_mallow spin task")
 
 mallow_spin_task.start = function(t,e)
     ccall("setMoveBehaviour", e,"IDLE")
-    ccall("animate", 'mallowspin', 0,0,0, 0.1, COLOUR, e, true)
+    ccall("setVel", e, 0,0)
+    ccall("animate", 'mallowspin', 0,0,0, 0.1, 3, COLOUR, e, true)
 end
 
 mallow_spin_task.update=function(t,e)
-    if (not e.hidden) and t:runtime(e)>4 then
-        -- Repeat animation for 3 seconds.
-        -- (last arg=true -> this will hide the entity. We can then 
-        -- check if the anim is still running by checking whether ent is hidden)
-        return "n"
-    else
-        if not e.hidden then
-            -- entity is not hidden, so this means animation is still playing
-            ccall("animate", 'mallowspin', 0,0,0, 0.1, COLOUR, e, true)
-        end
+    ccall("setVel",e,0,0)
+    if e.hidden then
+        -- Repeat until the entity is no longer hidden.
         return "r"
+    else
+        return "n"
     end
 end
 
+
 Tree.spin = {
-    mallow_spin_task
+    mallow_spin_task,
+    "move::LOCKON",
+    "wait::3"
 }
 
 Tree.angry = {
     "move::ORBIT",
-    "wait::6"
+    "wait::4"
 }
 
 Tree.idle = {
     "move::RAND",
     "wait::3"
 }
-
-
-Tree:on("damage",function(e)
-    return "angry"
-end)
 
 
 
@@ -136,7 +130,7 @@ return function(x, y)
 
     e.targetID = "enemy"
 
-    EH.PHYS(e,5,"dynamic")
+    EH.PHYS(e,7,"dynamic")
 
     e:add("friction", {
         amount = 6;

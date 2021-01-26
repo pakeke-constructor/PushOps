@@ -43,13 +43,7 @@ local ___depth = 0
 local func_backrefs = System.func_backrefs
 
 do
-    function Cyan.call(func_name,   a,b,c,d,e,f,g,h,i__)
-
-        if i__ then
-            -- THIS IS ONLY FOR DEBUGGING!!!! remove upon release !!!!
-            error("Maximum number of arguments exceeded.")
-        end
-        
+    function Cyan.call(func_name, ...)
         if ___depth == 0 then
             Cyan.flush()
         end
@@ -72,7 +66,7 @@ do
         for i = 1, Sys_backrefs.len do
             sys = Sys_backrefs[i]
             if sys.active then
-                sys[func_name](sys, a,b,c,d,e,f,g,h)
+                sys[func_name](sys, ...)
             end
         end
 

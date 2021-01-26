@@ -236,13 +236,15 @@ end
 
 
 function Node:call(cb_name, ent, ...)
-    local ret = self.callbacks[cb_name](self, ent, ...)
-
-    if ret then
-        -- Can change path!
-        self:_reset(ent)
-        assert(self.paths[ret], "Path does not exist in this Node.")
-        self._ent_paths[ent] = ret
+    local f = self.callbacks[cb_name]
+    if f then 
+        local ret = f(self, ent, ...)
+        if ret then
+            -- Can change path!
+            self:_reset(ent)
+            assert(self.paths[ret], "Path does not exist in this Node.")
+            self._ent_paths[ent] = ret
+        end
     end
 end
 

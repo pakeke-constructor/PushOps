@@ -50,7 +50,7 @@ Anim.oy = 10 -- offset X, offset Y
 
 
 local floor=math.floor
-local function get_z_index(y,z)
+local function getZIndex(y,z)
     return floor((y+z)/2)
 end
 
@@ -62,12 +62,21 @@ local setColour = love.graphics.setColor
 
 local image = require("assets.atlas").image
 local draw=love.graphics.draw
+local cexists = Cyan.exists
+
 
 function Anim:draw()
     if self.finished then return end
     --    love.graphics.draw(drawable,x,y,r,sx,sy,ox,oy)
+    
+    setColour(self.colour)
 
     if self.tracking then
+        if (not cexists(self.tracking)) then
+            -- The ent has been deleted mid-track! stop the count!
+            self:finish()
+            return
+        end
         local pos = self.tracking.pos
         if pos then
             -- In case entity position component has been deleted
@@ -76,7 +85,6 @@ function Anim:draw()
         end
     end
 
-    setColour(self.colour)
     draw(image, self.frames[self.current],
         self.x, self.y - self.z/2, 0, 1, 1, self.ox, self.oy)
 end
@@ -177,6 +185,7 @@ function Anim:finish()
     
     self.current = 1
     self.time = 0
+    self.cycles = 1
 end
 
 
@@ -216,8 +225,6 @@ function Anim:play(x, y, z, frame_speed, cycles,
     self.x = x
     self.y = y
     self.z = z
-
-    self.z_dep = get_z_index(y,z)
 end
 
 

@@ -510,15 +510,19 @@ function MoveBehaviourSys:drawEntity(e)
 end
 ]]
 
+local camera = require("src.misc.unique.camera")
 
 function MoveBehaviourSys:update(dt)
     orbit_tick = orbit_tick + dt
     for _,e in ipairs(self.group) do
-        local move = e.behaviour.move
-        if move then
-            local func = MoveTypes[e.behaviour.move.type].update
-            if func then
-                func(e,dt)
+        if Tools.isOnScreen(e, camera) then
+            local move = e.behaviour.move
+            if move then
+                local func = MoveTypes[e.behaviour.move.type].update
+                if func then
+                    -- moveType may not have an :update func
+                    func(e,dt)
+                end
             end
         end
     end

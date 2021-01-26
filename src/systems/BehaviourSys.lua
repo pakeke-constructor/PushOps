@@ -30,6 +30,7 @@ function BehaviourSys:update(dt)
 end
 
 
+
 function BehaviourSys:damage(ent, amount)
     if self:has(ent) then
         if ent.behaviour.tree then
