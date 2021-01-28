@@ -134,6 +134,10 @@ collisions = {
 }
 
 
+diggable = false/true 
+-- Is this entity able to go underground?
+
+
 -- This entity is now pushing another entity.
 -- MAKE SURE TO USE ent:remove("pushing")!!! not `ent.pushing = nil`
 pushing = other_ent
@@ -212,7 +216,8 @@ targetID = "player"
 -- "enemy" :: enemy
 -- "neutral" :: neutral / weak mob
 -- "physics" :: physics object
-
+-- "coin"    :: coin
+-- "interact" :: shop, portal, artefact
 
 
 

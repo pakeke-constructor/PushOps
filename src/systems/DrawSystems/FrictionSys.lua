@@ -47,17 +47,19 @@ function FrictionSys:update( dt )
     for _, ent in ipairs(self.group) do
         local friction = ent.friction
         local emitter = friction.emitter
-        emitter:update(dt)
-        emitter:setPosition(ent.pos.x + ent.vel.x/50, ent.pos.y + ent.vel.y/50)
+        if emitter then
+            emitter:update(dt)
+            emitter:setPosition(ent.pos.x + ent.vel.x/50, ent.pos.y + ent.vel.y/50)
 
-        if ent.vel:len() > THRESHOLD and friction.on then
-            emitter:start()
-        else
-            emitter:stop()
-        end
+            if ent.vel:len() > THRESHOLD and friction.on then
+                emitter:start()
+            else
+                emitter:stop()
+            end
 
-        if not ent:has("physics") then
-            ent.vel = ent.vel - (ent.vel * (ent.friction.amount * dt))
+            if not ent:has("physics") then
+                ent.vel = ent.vel - (ent.vel * (ent.friction.amount * dt))
+            end
         end
     end
 end
@@ -68,8 +70,10 @@ local lgdraw = love.graphics.draw
 
 function FrictionSys:drawEntity(ent)
     if self:has(ent) then
-        if not(ent.friction.emitter:isStopped()) then
-            lgdraw(ent.friction.emitter, 0, 8) -- Draw at 0, 8. (at bottom of ent)
+        if ent.friction.emitter then
+            if not(ent.friction.emitter:isStopped()) then
+                lgdraw(ent.friction.emitter, 0, 8) -- Draw at 0, 8. (at bottom of ent)
+            end
         end
     end
 end
@@ -78,7 +82,9 @@ end
 
 
 function FrictionSys:removed(ent)
-    ent.friction.emitter:release()
+    if ent.friction.emitter then
+        ent.friction.emitter:release()
+    end
 end
 
 

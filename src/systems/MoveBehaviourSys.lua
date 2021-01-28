@@ -575,6 +575,9 @@ local valid_targetIDs = {
     player=true,
     enemy=true,
     physics=true,
+    neutral=true,
+    coin=true,
+    interactable=true
 }
 
 local er1 = "Target component is not valid"

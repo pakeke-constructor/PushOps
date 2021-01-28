@@ -57,6 +57,15 @@ end
 Tools.req_TREE('src/misc/behaviour/tasks')
 
 
+local PROXY = { }
+EH.entities = setmetatable({___PROXY = PROXY}, {__newindex = function(t,k,v)
+    if rawget(PROXY,k) then
+        error("Entity file already had the name : "..k .. ". Duplicate names not allowed!")
+    end
+    rawset(PROXY,k,v)
+end})
+
+
 EH.BT   = require("libs.BehaviourTree")
 EH.Node = require("libs.BehaviourTree").Node
 EH.Task = require("libs.BehaviourTree").Task

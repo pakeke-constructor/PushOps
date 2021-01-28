@@ -25,8 +25,7 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k=='e' then
-        _G.require = error
-        Ent.pine(p.pos.x, p.pos.y)
+        Ent.coin(p.pos.x+5,p.pos.y+5)
     end
 end
 

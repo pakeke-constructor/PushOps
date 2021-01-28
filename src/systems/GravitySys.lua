@@ -28,6 +28,9 @@ end
 
 
 
+local ccall = Cyan.call
+
+
 
 
 
@@ -43,7 +46,7 @@ function GravitySys:update(dt)
             pos.z = pos.z + (vel.z * dt)
             if pos.z > 0.1 then
                 ent.grounded = false
-                Cyan.call("airborne", ent)
+                ccall("airborne", ent)
             end
         else
             vel.z = vel.z + GRAVITY*dt
@@ -52,7 +55,7 @@ function GravitySys:update(dt)
                 ent.grounded = true
                 pos.z = 0
                 vel.z = 0
-                Cyan.call("grounded", ent)
+                ccall("grounded", ent)
             end
         end
     end
