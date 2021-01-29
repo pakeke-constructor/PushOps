@@ -6,7 +6,7 @@
 import os
 from os.path import isfile
 
-PATH = 'D:\PROGRAMMING\LUA\SCRIPTS\push_game'
+PATH = 'D:\PROGRAMMING\LUA\SCRIPTS'
 
 
 

@@ -97,7 +97,6 @@ function DrawSys:added( ent )
     -- Callback for entity addition
     set(ent)
     add(ent)
-
 end
 
 
@@ -115,7 +114,7 @@ end
 
 
 
-local C_call = Cyan.call
+local ccall = Cyan.call
 local lg = love.graphics
 
 local getW = love.graphics.getWidth
@@ -135,8 +134,8 @@ local draw_master = function()
     local isOnScreen = Tools.isOnScreen
     local camera = require("src.misc.unique.camera")
 
-    C_call("transform")
-        
+    ccall("transform")
+
     local indx_set
 
     for z_dep = Indexer_min_depth, Indexer_max_depth do
@@ -147,22 +146,22 @@ local draw_master = function()
                     setColor(1,1,1)
                     if not ent.hidden then
                         if ent.trivial then
-                            C_call("drawTrivial", ent)
+                            ccall("drawTrivial", ent)
                         else
                             if ent.colour then
                                 setColor(ent.colour)
                             end
-                            C_call("drawEntity", ent)
+                            ccall("drawEntity", ent)
                         end
                     end
                 end
             end
         end
-        C_call("drawIndex", z_dep)
+        ccall("drawIndex", z_dep)
     end
 
     Atlas:flush( )
-    C_call("untransform")
+    ccall("untransform")
 end
 
 
@@ -173,7 +172,7 @@ function DrawSys:draw()
     
     lg.push()
     lg.scale(4)
-    C_call("drawUI")
+    ccall("drawUI")
     lg.pop()
 end
 
