@@ -27,7 +27,11 @@ function req_TREE(PATH, shover)
             if info.type == "directory" then
                 req_TREE(fname, shover)
             else
-                shover[proper_name] = require(fname:gsub("/","."):gsub("%.lua", ""):gsub("%.fnl",""))
+                local ending = fname:sub(-4,-1)
+                if (ending==".lua" or ending==".fnl") then
+                    -- ignoring python and glsl files
+                    shover[proper_name] = require(fname:gsub("/","."):gsub("%.lua", ""):gsub("%.fnl",""))
+                end
             end
         end
     end

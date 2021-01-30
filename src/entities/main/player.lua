@@ -66,6 +66,11 @@ return function(x,y)
     j = 'zoomOut'
     })
 
+    :add('light',{
+        colour = {1,1,1,1};
+        distance = 600
+    })
+
     :add("sigils", {"strength"})
 
     return e

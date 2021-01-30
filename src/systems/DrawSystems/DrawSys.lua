@@ -17,8 +17,6 @@ local Set = require ("libs.tools.sets")
 local floor = math.floor
 local Atlas = require("assets.atlas")
 
-local effect = require("src.misc.unique.shader_effect")
-
 local push = require("libs.NM_push.push")
 
 --[[push:setupScreen(
@@ -124,17 +122,18 @@ local rawget = rawget
 local ipairs = ipairs
 
 local draw_master = function()
-
-    --push:start()
-    lg.setColor(0.1,1,0.1) -- green grass (0.4, 1, 0.4)
-    lg.rectangle("fill", 0, 0, getW(), getH())
-    lg.setColor(1,1,1)
-
     local setColor = lg.setColor
     local isOnScreen = Tools.isOnScreen
     local camera = require("src.misc.unique.camera")
 
     ccall("transform")
+    
+    setColor(0.1,1,0.1) -- green grass (0.1, 1, 0.1)
+    local w,h = getW(), getH()
+    local camx, camy = camera.x, camera.y
+    lg.rectangle("fill", -1000,-1000, 5000,5000)
+
+    setColor(1,1,1)
 
     local indx_set
 
@@ -166,9 +165,7 @@ end
 
 
 function DrawSys:draw()
-    effect.draw(
-        draw_master
-    )
+    draw_master()
     
     lg.push()
     lg.scale(4)

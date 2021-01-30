@@ -5,8 +5,10 @@
 // lights
 uniform vec4 light_colours[20]; // max 20 lights at once
 uniform vec2 light_positions[20];
+uniform int  light_distances[20]; // this distance a light can be bright
+
 uniform int  num_lights;
-uniform float max_light_strength // the max light strength (good number is like 0.2 or something)
+uniform float max_light_strength; // the max light strength (good number is like 0.2 or something)
 uniform vec4 base_lighting; // base_lighting will be something like <0.7, 0.7, 0.7>
 
 
@@ -15,22 +17,27 @@ uniform float amount;
 uniform float period;
 
 
+// thanks to stackoverflow.com/users/350875/appas for this function!
+// very good pseudorandom generator
 float rand(vec2 co){
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
 
+
 vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
 {
-    int dist_modifier = length(screen_coords) / 10;
-
 
     // Lighting :::
     vec4 light_mod = base_lighting;
-    vec2 middle_of_screen = love_ScreenSize.xy/2;
+    //vec2 middle_of_screen = love_ScreenSize.xy/2;
     vec4 adding_light;
 
-    for(int i=1; i++; i<=num_lights){
-        adding_light = (light_colours[i] * dist_modifier)/sqrt(length(screen_coords - middle_of_screen));
+    for(int i=0; i<=num_lights; i++){
+        adding_light = vec4(0,0,0,1);
+        // adding_light = (light_colours[i]*light_distances[i])/(length(screen_coords - light_positions[i]));
+        if (length(screen_coords - light_positions[i]) < light_distances[i]){
+            adding_light = light_colours[i];
+        }
         // Cap the light brightness so it cannot be too bright
         adding_light.x = min(max_light_strength, adding_light.x);
         adding_light.y = min(max_light_strength, adding_light.y);
@@ -47,22 +54,22 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     sc.x = floor(sc.x/period);
     sc.y = floor(sc.y/period);
 
-    float r = 0.95 + amount * rand(sc);
-    float g = 0.95 + amount * rand(sc + 100);
-    float b = 0.95 + amount * rand(sc + 200);
-    
+    float r = 0.9 + amount * rand(sc);
+    float g = 0.9 + amount * rand(sc + 91);
+    float b = 0.9 + amount * rand(sc + 213);
+ 
     // ORIGINAL ::
     // float am = 0.9 + amount * rand(sc);
-        
+   
     //color = Texel(texture, tc);
     //return  (color*am);
 
-    color = Texel(texture, texture_coords);
+    vec4 colour = Texel(texture, texture_coords);
 
     color[0] *= r;
     color[1] *= g;
     color[2] *= b;
-    return color * light_mod;
+    return colour * color * light_mod;
 }
 
 

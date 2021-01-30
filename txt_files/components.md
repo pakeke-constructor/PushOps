@@ -41,6 +41,11 @@ hardness = 10
 -- players: 100   -- physics: 99    --
 
 
+light = {
+    colour = {1,1,1,1};
+    brightness = 100 -- radius of 100 pixels
+}
+
 
 draw = { ox = 10, oy = 20 } -- Automatic component.
             -- NOTE: This component is given automatically by

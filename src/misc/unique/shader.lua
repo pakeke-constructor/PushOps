@@ -11,11 +11,10 @@ return effect
 
 
 
-local PATH = Tools.Path(...)
 
-local f = io.open(PATH:gsub("%.","/").."/main_shader.glsl","r")
-local code = f:read()
-f:close()
+local pth = "src/misc/unique/shader.glsl"
+local code,e = love.filesystem.read(pth)
+assert(code, e)
 
 
 return love.graphics.newShader(code)
