@@ -15,8 +15,9 @@ local MAX_LEN = 13 -- min and max lengths for worm.
 
 local rocks = {}
 for x=1,10 do
-    if Quads['rock'..tostring(x)] then
-        table.insert(rocks, Quads[x])
+    local quad_name = 'rock' .. tostring(x)
+    if Quads[quad_name] then
+        table.insert(rocks, Quads[quad_name])
     end
 end
 
@@ -53,7 +54,7 @@ Use Tools.isIntersect() to find an adequate path for the worm to jump.
 TP worm to that position and jump the gap
 
 But what move behaviour do we use here???????????
-
+TODO:::: Think about this!!!!!
 ]]
 
 

@@ -107,7 +107,6 @@ end)
 
 return function(x,y)
     local enemy = Cyan.Entity()
-
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
@@ -147,6 +146,11 @@ return function(x,y)
 
     :add("collisions",{
         physics = physColFunc
+    })
+
+    :add('light',{
+        colour = {1,0.5,0.5,1};
+        distance = 200
     })
 
     enemy:add("motion",

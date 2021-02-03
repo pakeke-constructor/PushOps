@@ -43,7 +43,7 @@ hardness = 10
 
 light = {
     colour = {1,1,1,1};
-    brightness = 100 -- radius of 100 pixels
+    brightness = 100; -- radius of 100 pixels
 }
 
 

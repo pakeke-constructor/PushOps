@@ -67,8 +67,8 @@ return function(x,y)
     })
 
     :add('light',{
-        colour = {1,1,1,1};
-        distance = 600
+          colour = {1,1,1,1};
+          distance = 300
     })
 
     :add("sigils", {"strength"})

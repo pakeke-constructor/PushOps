@@ -26,24 +26,26 @@ float rand(vec2 co){
 
 vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
 {
-
     // Lighting :::
     vec4 light_mod = base_lighting;
     //vec2 middle_of_screen = love_ScreenSize.xy/2;
     vec4 adding_light;
 
-    for(int i=0; i<=num_lights; i++){
-        adding_light = vec4(0,0,0,1);
-        // adding_light = (light_colours[i]*light_distances[i])/(length(screen_coords - light_positions[i]));
-        if (length(screen_coords - light_positions[i]) < light_distances[i]){
-            adding_light = light_colours[i];
-        }
+    for(int i=0; i<num_lights; i++){
+        //adding_light = vec4(0,0,0,1);
+        float dist_to_light = length(screen_coords - light_positions[i]);
+        //if (dist_to_light < light_distances[i]){
+        
+        adding_light = (light_colours[i]*light_distances[i]) / (dist_to_light*dist_to_light);
         // Cap the light brightness so it cannot be too bright
         adding_light.x = min(max_light_strength, adding_light.x);
         adding_light.y = min(max_light_strength, adding_light.y);
         adding_light.z = min(max_light_strength, adding_light.z);
+        
+        //}
         light_mod += adding_light;
     }
+    light_mod.w = 1;
 
 
     // filmgrain :::
@@ -57,7 +59,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     float r = 0.9 + amount * rand(sc);
     float g = 0.9 + amount * rand(sc + 91);
     float b = 0.9 + amount * rand(sc + 213);
- 
+
     // ORIGINAL ::
     // float am = 0.9 + amount * rand(sc);
    
