@@ -1,6 +1,1 @@
-
-
-
 globals = {"love", "table", "Cyan"}
-
-

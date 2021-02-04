@@ -370,7 +370,7 @@ do
     local function chooseRandPos(e,dist)
         local x,y = e.pos.x, e.pos.y
         local nx,ny
-        repeat 
+        repeat
             nx = x+(rand()-0.5)*dist*2
             ny = y+(rand()-0.5)*dist*2
         until (not Tools.isIntersect(x,y,nx,ny))

@@ -121,10 +121,12 @@ local getH = love.graphics.getHeight
 local rawget = rawget
 local ipairs = ipairs
 
+local camera = require("src.misc.unique.camera")
+
+
 local draw_master = function()
     local setColor = lg.setColor
     local isOnScreen = Tools.isOnScreen
-    local camera = require("src.misc.unique.camera")
 
     ccall("transform")
     
@@ -168,7 +170,7 @@ function DrawSys:draw()
     draw_master()
     
     lg.push()
-    lg.scale(4)
+    lg.scale(camera.scale)
     ccall("drawUI")
     lg.pop()
 end

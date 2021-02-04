@@ -36,7 +36,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
         float dist_to_light = length(screen_coords - light_positions[i]);
         //if (dist_to_light < light_distances[i]){
         
-        adding_light = (light_colours[i]*light_distances[i]) / (dist_to_light*dist_to_light);
+        adding_light = (light_colours[i]*light_distances[i]) / (dist_to_light);
         // Cap the light brightness so it cannot be too bright
         adding_light.x = min(max_light_strength, adding_light.x);
         adding_light.y = min(max_light_strength, adding_light.y);
@@ -67,6 +67,10 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     //return  (color*am);
 
     vec4 colour = Texel(texture, texture_coords);
+
+    for (int n=0;n<4;n++){
+        light_mod[n] = min(1,light_mod[n]);
+    }
 
     color[0] *= r;
     color[1] *= g;

@@ -3,11 +3,6 @@
 TODO :::
 
 
-Refactor collisions. 
-Dont have `toughness` or `hardness` components.
-Just use collision callbacks to reduce health manually
-
-
 Check ParticleSys for memory leaks!!!
 (Best way to do this -> check that no excess ParticleSyses are being
 created when not neccessary)
@@ -27,18 +22,12 @@ BobbingSys is responsible for removing .bobbing, etc etc.)
 This will remove a LOT of pressure on GC.
 
 
-Add `drawImageEntity(ent)` callback so that entities like grass and walls don't get the
-overhead of having to check if they are in like 10 different cyan systems with `:drawEntity()`.
-NOTE ::: This also means that images won't be able to have Sigils!!!
-But it will increase performance by a bit.
-
-
-
-PLAN ON PAPER what tasks and nodes you are making with behaviourTree.
-Make it very extensible!
-
 
 Tools.isIntersect and Tools.isBlocked needs testing
 (best to test it with the mouse.)
 Then, use this to do   RAND moveBehaviour. This way you can make it so entities
 dont walk into walls and shit haha
+---> note: I did this, this isnt working! I have no idea why. NEED TO DEBUG
+
+
+

@@ -65,7 +65,7 @@ TODO:::: Think about this!!!!!
 
 return function(x,y)
     local e = Entity()
-    e.PV(e,x,y)
+    EH.PV(e,x,y)
 
     local len = math.floor(love.math.random(MIN_LEN, MAX_LEN))
     

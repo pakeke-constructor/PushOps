@@ -100,6 +100,9 @@ Adds velocity to an entity.
 # setVel( ent, vx, vy )
 Sets velocity for an entity
 
+# setPos(ent, x, y, z=0)
+Sets position for entity
+
 # setMoveBehaviour( ent, newMoveBehaviour, target_ID )
 Sets moveBehaviour state for entity.
 newMoveBehaviour => { "IDLE", "ORBIT", "ROOK", "RAND", "LOCKON" ... }

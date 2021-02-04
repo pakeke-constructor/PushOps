@@ -149,8 +149,8 @@ return function(x,y)
     })
 
     :add('light',{
-        colour = {0,0.5,0.5,1};
-        distance = 2000
+        colour = {0.5,0.5,0.5,1};
+        distance = 20
     })
 
     enemy:add("motion",

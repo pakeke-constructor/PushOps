@@ -46,7 +46,15 @@ local sounds = require("src.misc.sound")
 local soundGroups = { }
 
 
-for k,v in pairs(sounds) do
+local availableSourceClones = {
+    -- hasher of:
+    --  {  [src] = set()   }
+    -- to allow us to play the same sound
+    -- multiple times at the same time
+}
+
+
+for k,src in pairs(sounds) do
     if k:find("_") then
         local s = k:find("_")
         local groupName = k:sub(1,s-1)
@@ -58,12 +66,14 @@ for k,v in pairs(sounds) do
             backgroundSounds = { }
         }
 
+        availableSourceClones[src] = Tools.set()
+
         local group = soundGroups[groupName]
 
         if k:sub(s+1,s+2)=="bg" then
-            table.insert(group.backgroundSounds, v)  
+            table.insert(group.backgroundSounds, src)  
         else
-            table.insert(group.mainSounds, v)
+            table.insert(group.mainSounds, src)
         end
     end
 end
@@ -77,9 +87,26 @@ local play = love.audio.play
 
 
 
+local function getFreeSource(src)
+    if not src:isPlaying() then
+        return src
+    else
+        for _, clone in ipairs(availableSourceClones[src].objects) do
+            if not clone:isPlaying() then
+                return clone
+            end
+        end
+        local newSrcClone = src:clone()
+        availableSourceClones[src]:add(newSrcClone)
+        return newSrcClone
+    end
+end
+
+
 
 
 local function playSound(src, vol, pitch, vol_v, p_v)
+    src = getFreeSource(src)
     local origPitch = src:getPitch ( )
     local origVol = src:getVolume  ( )
     src:setVolume(vol + (vol_v) * sin(rand()*3.14))
@@ -118,6 +145,7 @@ function SoundSys:sound(sound, volume, pitch,
         playSound(sounds[sound], volume, pitch, volume_variance, pitch_variance)
     end
 end
+
 
 
 

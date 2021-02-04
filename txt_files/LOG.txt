@@ -132,3 +132,10 @@
 - Been very slack documenting progress
 - Modified `collision` component to allow for entity-specific
 physics-based collision callbacks.
+
+
+
+4/02/2021
+- Stopped documenting progress on here,
+all progress is on github now.
+

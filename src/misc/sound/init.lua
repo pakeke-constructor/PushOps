@@ -51,7 +51,7 @@ exampleSoundGroup {
 ]]
 
 
-local newSound = love.audio.newSource
+local newSource = love.audio.newSource
 
 
 local function sound_TREE_push(PATH, tabl)
@@ -67,9 +67,9 @@ local function sound_TREE_push(PATH, tabl)
                 sound_TREE_push(fname, tabl)
             else
                 if fname:find("LONG") then
-                    tabl[proper_name:gsub("LONG", "")] = newSound(PATH.."/"..fname)
+                    tabl[proper_name:gsub("LONG", "")] = newSource(fname, "stream")
                 else
-                    tabl[proper_name] = newSound(fname, "static")
+                    tabl[proper_name] = newSource(fname, "static")
                 end
             end
         end
