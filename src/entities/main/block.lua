@@ -33,6 +33,16 @@ local sprites = {
 }
 
 
+local ccall = Cyan.call
+local rand = love.math.random
+local collisions = {
+    physics = function(ent,col, speed)
+        if speed > 150 and rand()<0.2 then
+            ccall("sound", "deepthud") -- this sounds bad!
+        end
+    end
+}
+
 return function(x,y)
     return Cyan.Entity()
     :add("pos", math.vec3(x,y,0))
@@ -49,6 +59,7 @@ return function(x,y)
         required_vel = 2;
         amount = 0.9
     })
+    :add("collisions",collisions)
     :add("targetID", "physics")
     :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
 end
