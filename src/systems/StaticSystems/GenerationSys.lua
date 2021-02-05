@@ -310,6 +310,24 @@ local function makeEnts(worldMap, worldType)
 end
 
 
+local function makeWalls(worldMap)
+    for _,ar in ipairs(worldMap) do
+        table.insert(ar, "#")
+        table.insert(ar, 1, "#")
+    end
+    
+    local q1 = {}
+    local q2 = {}
+
+    for i=1, #worldMap[1] do
+        table.insert(q1, "#")
+        table.insert(q2, "#")
+    end
+
+    table.insert(worldMap, 1, q1)
+    table.insert(worldMap, q2)
+end
+
 
 function GenSys:newWorld(world)
 
@@ -378,12 +396,12 @@ function GenSys:newWorld(world)
     end
 
     genStructures(worldMap, structureRule)
+    makeWalls(worldMap)
     removeUselessWalls(worldMap)
     makeEnts(worldMap, worldType)
 
-    --[[ 
+    --[[ ]]
     for _,tab in ipairs(worldMap) do
-        
         print(table.concat(tab, " "))
     end
     --]]

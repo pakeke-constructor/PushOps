@@ -202,9 +202,9 @@ do
             return nil -- No target given, fine by me
         end
 
-        local tp = target.pos
+        local tp = target.pos -- BUG:: for some reason, `tp` is a vector in this case
 
-        updateGotoTarget(self, tp.x, tp.y,dt)
+        updateGotoTarget(self, tp.x, tp.y, dt)
     end
     function LOCKON:init()
         local move = self.behaviour.move

@@ -11,7 +11,7 @@ local Ent = require("src.entities")
 
 
 
-local p = Ent.player(0,0)
+local p = Ent.player(400,400)
 local cam = require("src.misc.unique.camera")
 
 

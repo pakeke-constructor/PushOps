@@ -133,7 +133,7 @@ local draw_master = function()
     setColor(0.1,1,0.1) -- green grass (0.1, 1, 0.1)
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
-    lg.rectangle("fill", -1000,-1000, 5000,5000)
+    lg.rectangle("fill", 0,0, 9000,5000)
 
     setColor(1,1,1)
 

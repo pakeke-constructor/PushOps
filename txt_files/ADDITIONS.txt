@@ -12,7 +12,10 @@ Walking block enemy
 lots of health, v big)
 
 
+Crosshairs when damaging enemy
 
+
+Discrete HP bar for enemies (above their head)
 
 
 

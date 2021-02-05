@@ -1,16 +1,24 @@
 
 
+Error
+src/systems/MoveBehaviourSys.lua:205: 'struct 263' has no member named 'pos'
 
+Traceback
+src/systems/MoveBehaviourSys.lua:205: in function 'func'
+src/systems/MoveBehaviourSys.lua:524: in function <src/systems/MoveBehaviourSys.lua:515>
+libs/Cyan/cyan.lua:69: in function 'call'
+src/misc/unique/gamestate.lua:19: in function 'update'
+[C]: in function 'xpcall'
 
-Task strings not being added correctly.
-I am pretty (99% sure) this is to do with behaviourTree's
-Task module
+ORIGIN OF THE BUG AND SOLUTION:
+pretty much all MoveBehaviour Systems use `ent.behaviour.move.target` as a vec3 value.
+LOCKON, however, uses `.target` as a `Entity` type to track ents. We can fix this
+by changing `target` to a vec3 quantity, and allocating an extra field to store
+the entity. (This way we can use `cexists(ent)` to check whether the ent that is
+being followed still exists.)
 
-SOURCE OF BUG DISCOVERED!!!!  (I think, double check this)
-For some reason, the Node and Task objects are being deleted from PROXY
-whenever they are used as a string in another Node object.
-
-
-
-
-
+FOR FUTURE TODO ::::
+DOCUMENT THE MoveBehaviourSys FIELDS WAYYYY BETTER!!!! BE MORE RIGOUROUS, and be
+consistent. Ensure to do background checks on data passed into each moveBehaviour,
+and just be super rigorous when switching moveBehaviours.
+(Add a tonne of assertions into ccall("setMoveBehaviour", ... ) )
