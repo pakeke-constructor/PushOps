@@ -182,7 +182,12 @@ function Node:update(ent, dt)
         self._ent_paths[ent] = self:choose(ent)
     end
 
-    local t_or_n = self.paths[self._ent_paths[ent]][self._ent_indexes[ent]]
+    local path = self.paths[self._ent_paths[ent]]
+    if not path then
+        error("Unrecognized path: "..tostring(self._ent_paths[ent]))
+    end
+    
+    local t_or_n = path[self._ent_indexes[ent]]
 
     if t_or_n.type == "Node" then
         t_or_n:update(ent, dt)

@@ -37,11 +37,13 @@ local ccall = Cyan.call
 local rand = love.math.random
 local collisions = {
     physics = function(ent,col, speed)
-        if speed > 150 and rand()<0.2 then
+        if speed > 150  and col.targetID ~= "physics" then
             ccall("sound", "deepthud") -- this sounds bad!
         end
     end
 }
+
+
 
 return function(x,y)
     return Cyan.Entity()

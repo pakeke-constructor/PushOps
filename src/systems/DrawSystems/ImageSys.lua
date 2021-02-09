@@ -57,8 +57,9 @@ function ImageSys:drawEntity(ent)
         if not (ent.animation or ent.motion) then -- Else, other systems will do the drawing.
             local img = ent.image
             local draw = ent.draw
+            local pos = ent.pos
 
-            atlas:draw(img.quad, ent.pos.x, ent.pos.y - ent.pos.z/2,
+            atlas:draw(img.quad, pos.x, pos.y - pos.z/2,
                 ent.rot or 0, 1,
                 bob_comp.scale,
                 draw.ox + sway_comp.ox, 

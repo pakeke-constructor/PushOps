@@ -20,6 +20,9 @@ function ShaderSys:update(dt)
     ]]
     shader:send("amount", 0.06)
     shader:send("period", 2)
+    shader:send("colourblind", CONSTANTS.COLOURBLIND)
 end
+
+
 
 

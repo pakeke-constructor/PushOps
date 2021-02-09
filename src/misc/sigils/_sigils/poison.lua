@@ -1,51 +1,42 @@
 
 
-
 local atlas = require("assets.atlas")
+
 local Quads = atlas.Quads
 
-
-local sigil = {}
-
-
-local frames = {Quads.grass1}-- TODO:: ADD STUFF HERE!!
+local Psys = love.graphics.newParticleSystem(atlas.image,2000)
 
 
-local cur_quad = frames[1]
+Psys:setColors({0,0,0.3}, {0,0,0.5}, {0.1,0.1,0.5})
 
-local len = #frames
+Psys:setQuads{ Quads.bat, Quads.bot, Quads.bit }
 
-local counter = 0
+local _,_, pW, pH = (Psys:getQuads()[1]):getViewport( )
+Psys:setOffset(pW/2, pH/2)
 
-local timestep = 0.3 -- 0.3 per frame
+Psys:setEmissionRate(150)
+Psys:setParticleLifetime(0.1, 0.5)
+Psys:setDirection(-math.pi/2)
+Psys:setRotation(0, 2*math.pi)
+Psys:setRelativeRotation(false)
+Psys:setSpeed(30,45)
+Psys:setEmissionArea("uniform", 2,0)
 
+local lg=love.graphics
 
+return {
+    staticUpdate = function(dt)
+        Psys:update(dt)
+    end,
 
-local tot_time = ((#frames) * timestep)
-
-
-
-local floor = math.floor
-
-function sigil.staticUpdate(dt)
-    -- self in this case is the ent.
-    counter = counter + dt
-    local i = floor(counter / timestep)
-
-    if i > len then
-        i=1
+    draw = function(ent)
+        local h
+        if ent.draw then
+            h = ent.draw.h/1.3
+        else
+            h = 0
+        end
+        lg.draw(Psys, ent.pos.x, (ent.pos.y - h) - ent.pos.z / 2)
     end
+}
 
-    cur_quad = frames[i]
-end
-
-
-
-
-function sigil:draw(ent)
-    -- self in this case is the ent.
-    atlas:draw(cur_quad, ent.pos.x, (ent.pos.y - draw.h)-ent.pos.z/2)
-end
-
-
-return sigil

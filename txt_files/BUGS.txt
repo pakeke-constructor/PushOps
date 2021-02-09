@@ -1,14 +1,14 @@
 
 
-Error
-src/systems/MoveBehaviourSys.lua:205: 'struct 263' has no member named 'pos'
-
-Traceback
-src/systems/MoveBehaviourSys.lua:205: in function 'func'
-src/systems/MoveBehaviourSys.lua:524: in function <src/systems/MoveBehaviourSys.lua:515>
-libs/Cyan/cyan.lua:69: in function 'call'
-src/misc/unique/gamestate.lua:19: in function 'update'
-[C]: in function 'xpcall'
+Error: src/misc/behaviour/movebehaviours/orbit.lua:38: 'struct 263' has no member named 'pos'
+stack traceback:
+        [string "boot.lua"]:777: in function '__index'
+        src/misc/behaviour/movebehaviours/orbit.lua:38: in function 'update'
+        src/systems/MoveBehaviourSys.lua:526: in function <src/systems/MoveBehaviourSys.lua:517>
+        libs/Cyan/cyan.lua:69: in function 'call'
+        src/misc/unique/gamestate.lua:19: in function 'update'
+        [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
+        [C]: in function 'xpcall'
 
 ORIGIN OF THE BUG AND SOLUTION:
 pretty much all MoveBehaviour Systems use `ent.behaviour.move.target` as a vec3 value.
@@ -22,3 +22,30 @@ DOCUMENT THE MoveBehaviourSys FIELDS WAYYYY BETTER!!!! BE MORE RIGOUROUS, and be
 consistent. Ensure to do background checks on data passed into each moveBehaviour,
 and just be super rigorous when switching moveBehaviours.
 (Add a tonne of assertions into ccall("setMoveBehaviour", ... ) )
+
+===> HAVE SPLIT THEM UP, NEED TO DO MORE ASSERTIONS AND DOCUMENTATION
+
+
+
+
+
+
+
+
+
+
+
+Bug2:
+in `RAND` moveBehaviour, ents are being stupid and walking into walls.
+This is because, although Tools.isIntersect() works fine, the interior walls
+dont have a physics body!!!! So if a random position is selected inside a walled
+off area, there is a chance that the intersection function will just miss the
+intersections by a very slight amount
+possible solutions:
+- Create own intersection function
+- Dont use physics intersection to select a random position, and instead have
+    MoveBehaviourSys subscribe to the `collide` callback
+
+!!! ON SECOND THOUGHT, This probably isnt the reason!
+
+

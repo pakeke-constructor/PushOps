@@ -9,7 +9,13 @@
 
 
 
-hp = { hp = 10, max_hp = 100 }
+hp = { 
+    hp = 10,
+    max_hp = 100,
+    regen = 0, -- default=0
+    draw_hp = true -- Draws an HP bar if true  (NOT CURRENTLY IMPLIMENTED.)
+}
+
 
 armour = 2; -- Damage reduced by 2 times (defaults to 1.)
 
@@ -209,7 +215,10 @@ track = true / false
 
 -- Behaviour (complex component)
 behaviour = { 
-    move = {type="LOCKON", id=1} -- See MoveBehaviourSys for custom params
+    move = {
+        type="LOCKON",  -- See MoveBehaviourSys for custom params
+        id=1        -- ( Also see src/misc/behaviour/movebehaviours/ )
+    }
     tree = Node() -- node object (from libs/BehaviourTree.lua)
 }
 

@@ -17,6 +17,12 @@ uniform float amount;
 uniform float period;
 
 
+// protan colourblindness mode
+uniform bool colourblind;
+
+
+
+
 // thanks to stackoverflow.com/users/350875/appas for this function!
 // very good pseudorandom generator
 float rand(vec2 co){
@@ -75,7 +81,19 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     color[0] *= r;
     color[1] *= g;
     color[2] *= b;
-    return colour * color * light_mod;
+
+    vec4 final;
+    final = colour * color * light_mod;
+
+    if (colourblind){
+        // switch blue and green
+        float b_temp;
+        b_temp = final[2];
+        final[2] = final[1];
+        final[1] = b_temp;
+    }
+
+    return final;
 }
 
 

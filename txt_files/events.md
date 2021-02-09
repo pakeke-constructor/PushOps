@@ -148,12 +148,12 @@ Called when an entity becomes dead.
 # purge ( )
 Frees all memory in preperation for new world gen (including destroying ents)
 
-# newWorld  {
+# newWorld({
 #   x = 70    (70 units wide) (1 unit = 64 pixels, or size of 1 wall)   
 #   y = 70    (70 units tall)
 #   type = "basic" 
 #   tier = 1  (1 = easy, 2 = harder, 3 = hardest)
-# }
+# }, worldMap=nil)
 Changes the world to a new world. New parameters will be added to this in future.
 
 

@@ -113,6 +113,12 @@ local physColFunc = function(e1, e2, speed)
     end
 end
 
+local r = love.math.random
+local function onDeath(e)
+    local p = e.pos
+    ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
+end
+
 
 -- ctor
 return function(x, y)
@@ -120,7 +126,10 @@ return function(x, y)
     local e = Cyan.Entity()
     EH.PV(e,x,y)
 
-    e.hp={hp=2000,max_hp=2000}
+    e.hp={
+        hp=700,
+        max_hp=700
+    }
         
     e.bobbing={magnitude=0.25}
 
@@ -153,10 +162,18 @@ return function(x, y)
         required_vel=1
     }
 
+    e.onDeath = onDeath
+
     e.colour = COLOUR
 
     e.behaviour = {
-        move={type="IDLE", id="player"};
+        move={
+            type="IDLE",
+            id="player",
+            
+            orbit_tick = 0,
+            orbit_speed = 1.2
+        };
         tree=Tree
     }
 

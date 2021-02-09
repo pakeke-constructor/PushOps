@@ -259,7 +259,7 @@ end
 
 
 
-local worldMap, worldMap_mt
+local worldMap_mt
 do
     worldMap_mt =  { -- Just a simple 2d array
         __index = function(t, k)
@@ -329,23 +329,11 @@ local function makeWalls(worldMap)
 end
 
 
-function GenSys:newWorld(world)
 
-    -- These are now safe to be initialized, as we know All systems
-    -- will have been initialized
-    StructureRules = require("src.misc.worldGen.structureGen._StructureGen")
-    WorldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
-
-
-    local tier = world.tier
-    assert(tier, "world type was not given a tier")
-    local type = world.type
-    assert(type, "world type was not given a type")
-
-    local worldType = WorldTypes[type][tier]
-
-    worldMap = setmetatable({ }, worldMap_mt)
-
+local function procGenerateWorld(world, worldMap, worldType)
+    --[[
+        generates world from scratch, according to the structureRule
+    ]]
     local pick_function
     if worldType.probabilities then
         pick_function = weighted_selection(
@@ -397,6 +385,27 @@ function GenSys:newWorld(world)
 
     genStructures(worldMap, structureRule)
     makeWalls(worldMap)
+end
+
+
+function GenSys:newWorld(world, worldMap)
+    -- These are now safe to be initialized, as we know All systems
+    -- will have been initialized
+    StructureRules = require("src.misc.worldGen.structureGen._StructureGen")
+    WorldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
+
+    local tier = world.tier
+    assert(tier, "world type was not given a tier")
+    local type = world.type
+    assert(type, "world type was not given a type")
+
+    local worldType = WorldTypes[type][tier]
+
+    if not worldMap then
+        worldMap = setmetatable({ }, worldMap_mt)
+        procGenerateWorld(world, worldMap, worldType)
+    end
+
     removeUselessWalls(worldMap)
     makeEnts(worldMap, worldType)
 

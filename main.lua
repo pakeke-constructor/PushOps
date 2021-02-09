@@ -21,7 +21,6 @@ _G.love.graphics.setDefaultFilter("nearest", "nearest")
 -- MONKEY BUSINESS STARTS HERE !!!
 setmetatable(_G, {})
 do
-    --_G.require = monkeypatchRequire
     -- main ECS
     _G.Cyan = require "libs.Cyan.cyan"
 

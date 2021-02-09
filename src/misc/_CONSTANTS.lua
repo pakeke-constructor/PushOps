@@ -37,5 +37,9 @@ return{
     }
 ,
     paused = false -- debug only  (if not debug only, make an cyan.call event for this)
+,
+    COLOURBLIND = false
+,
+    DEBUG = true
 }
 

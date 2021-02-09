@@ -1,0 +1,14 @@
+
+
+
+9/02 ->
+Fix up MoveBehaviourSys
+Get basic menu running
+Perfect deletion system, remove any bugs with that.
+Check for memory leaks
+
+
+10/02 -> 
+Set up spawn position in world Gen
+set up pathfinding so spawn position is always valid
+

@@ -89,7 +89,10 @@ return function(x,y)
     blob:add("behaviour",{
             move = {
                 type = "RAND",  --Tools.rand_choice(ai_types),
-                id="player"
+                id="player",
+
+                orbit_tick = 0,
+                orbit_speed = 0.5
             }
     })
     

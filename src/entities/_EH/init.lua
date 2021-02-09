@@ -1,6 +1,15 @@
 
 
-local EH={ }
+local EH={ 
+    --[[
+
+Entity constructor helper functions.
+
+Most of these have relatively small names,
+in order to keep coding entities fast and easy and concise.
+
+    ]]
+}
 
 local vec3=math.vec3
 function EH.PV(e,x,y,z)

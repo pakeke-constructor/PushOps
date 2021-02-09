@@ -35,6 +35,45 @@ function HealthSys:added( ent )
 end
 
 
+--[[
+
+-- Should we do health bars, or will it add too much clutter??
+
+
+local Atlas = require("assets.atlas")
+local mob_hp_bars = {}
+for i=1,20 do 
+    local mob_hp_bar_str = "mob_hp_"..tostring(i)
+    if Atlas.Quads[mob_hp_bar_str] then
+        table.insert(mob_hp_bars, Atlas.Quads[mob_hp_bar_str])
+    end
+end
+
+
+local getColour, setColour = love.graphics.getColor, love.graphics.setColor
+
+function HealthSys:drawEntity(e)
+    if self:has(e) then
+        local hp = e.hp
+        if hp.draw_hp and hp.hp < hp.max_hp then
+            local r,g,b,a = getColour()
+            setColour(1,0.2,0.2)
+
+            local ratio = hp.hp / hp.max_hp
+            local index = math.ceil((#mob_hp_bars) * ratio)
+            local pos = e.pos
+            local draw = e.draw
+            assert(draw,"??")
+
+            Atlas:draw(mob_hp_bars[index], pos.x, pos.y - pos.z/2,
+                        0, 1, 1, draw.ox, draw.oy)
+
+            setColour(r,g,b,a)
+        end
+    end
+end
+]]
+
 
 function HealthSys:damage(ent, amount)
     if self:has(ent) then

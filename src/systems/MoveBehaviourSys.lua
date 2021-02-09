@@ -12,9 +12,13 @@ local ent_behaviour = {
     move = {
         type = "LOCKON",
         id = "player",
+        
         radius = 40, -- for ORBIT and TAUNT
-        wait_time = 3, -- how long the RAND and ROOK waits when switching,
-        distance = 200, -- how far RAND and ROOK travel
+            -- how far away they will veer from their target
+
+        wait_time = 3, -- how long the RAND and ROOK waits when switching
+
+        distance = 200, -- how far RAND and ROOK travel (on average)
 
 
          -- Fields that are added by system ::::
@@ -92,7 +96,6 @@ TAUNT -->
 
 
 
--- The default distance ROOK and RAND will travel
 local DEFAULT_DIST = 400
 
 local MAX_VEL = require("src.misc.partition").MAX_VEL
@@ -110,16 +113,6 @@ local set = Tools.set
 
 -- Array of spacial partitions for each target group
 local Partitions = require("src.misc.unique.partition_targets") 
-
-
-local Targetted = setmetatable({ },
---[[
-    2d array of sets, keyed with entities that have been targetted.
-    On entity deletion, all entities in the targetted set must be removed
-]]
-{__index = function(t,k)
-    t[k] = set() return t[k]
-end})
 
 
 
@@ -149,7 +142,7 @@ end
 
 local MoveTypes
 
-
+--[===[
 do
     local rand = love.math.random
 
@@ -175,16 +168,16 @@ do
 
         if move.target then
             local targ = move.target
-            if rawget(Targetted, targ) then
-                Targetted[targ]:remove(ent)
-                if Targetted[targ].size == 0 then
-                    rawset(Targetted, targ, nil)
+            if rawget(TargettedEntities, targ) then
+                TargettedEntities[targ]:remove(ent)
+                if TargettedEntities[targ].size == 0 then
+                    rawset(TargettedEntities, targ, nil)
                 end
             end
         end
 
         if target_ent then
-            Targetted[target_ent]:add(ent)
+            TargettedEntities[target_ent]:add(ent)
             move.target = target_ent
         end
     end
@@ -195,7 +188,7 @@ do
 
     function LOCKON:update(dt)
         -- self is ent
-        local move = self.behaviour.move
+        local move = e.behaviour.move
         local target = move.target
 
         if not target then
@@ -204,16 +197,16 @@ do
 
         local tp = target.pos -- BUG:: for some reason, `tp` is a vector in this case
 
-        updateGotoTarget(self, tp.x, tp.y, dt)
+        updateGotoTarget(e, tp.x, tp.y, dt)
     end
     function LOCKON:init()
-        local move = self.behaviour.move
+        local move = e.behaviour.move
 
         local id = move.id
 
         local targ_ent = nil
 
-        for ent in Partitions[id]:foreach(self.pos.x, self.pos.y) do
+        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
             psh(tmp_stack, ent)
         end
         local stack_len = #tmp_stack 
@@ -225,16 +218,17 @@ do
             pop(tmp_stack)
         end
 
-        setTargEnt(self, targ_ent)
+        setTargEnt(e, targ_ent)
     end
+
     function LOCKON:h_update()
-        local move = self.behaviour.move
+        local move = e.behaviour.move
 
         local id = move.id
 
         local targ_ent = nil
 
-        for ent in Partitions[id]:foreach(self.pos.x, self.pos.y) do
+        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
             psh(tmp_stack, ent)
         end
         local stack_len = #tmp_stack 
@@ -246,7 +240,7 @@ do
             pop(tmp_stack)
         end
 
-        setTargEnt(self, targ_ent)
+        setTargEnt(e, targ_ent)
     end
 
 
@@ -259,7 +253,7 @@ do
             This function is bad as well. Is costly.
                 I dont think there is way around tho
         ]]
-        local move = self.behaviour.move
+        local move = e.behaviour.move
         local target = move.target
 
         if not target then
@@ -268,17 +262,17 @@ do
 
         local tp = target.pos
 
-        updateGotoTarget(self, tp.x + 60*sin(orbit_tick), tp.y + 60*cos(orbit_tick),dt)
+        updateGotoTarget(e, tp.x + 60*sin(orbit_tick), tp.y + 60*cos(orbit_tick),dt)
     end
 
     function ORBIT:init()
-        local move = self.behaviour.move
+        local move = e.behaviour.move
 
         local id = move.id
 
         local targ_ent = nil
 
-        for ent in Partitions[id]:foreach(self.pos.x, self.pos.y) do
+        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
             psh(tmp_stack, ent)
         end
 
@@ -291,16 +285,16 @@ do
             pop(tmp_stack)
         end
 
-        setTargEnt(self, targ_ent)
+        setTargEnt(e, targ_ent)
     end
     function ORBIT:h_update()
-        local move = self.behaviour.move
+        local move = e.behaviour.move
 
         local id = move.id
 
         local targ_ent = nil
 
-        for ent in Partitions[id]:foreach(self.pos.x, self.pos.y) do
+        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
             psh(tmp_stack, ent)
         end
 
@@ -313,19 +307,19 @@ do
             pop(tmp_stack)
         end
 
-        setTargEnt(self, targ_ent)
+        setTargEnt(e, targ_ent)
     end
 
     local HIVE={}
 
     function HIVE:init()
-        local move = self.behaviour.move
+        local move = e.behaviour.move
 
         local sum_x = 0
         local sum_y = 0
         local tot = 0
 
-        for ent in Partitions[move.id]:foreach(self.pos.x, self.pos.y) do
+        for ent in Partitions[move.id]:foreach(e.pos.x, e.pos.y) do
             sum_x = sum_x + ent.pos.x
             sum_y = sum_y + ent.pos.y
             tot = tot + 1
@@ -338,22 +332,22 @@ do
         end
     end
     function HIVE:update(dt)
-        local target = self.behaviour.move.target
+        local target = e.behaviour.move.target
         if target then
-            updateGotoTarget(self, target.x, target.y, dt)
+            updateGotoTarget(e, target.x, target.y, dt)
         else
             -- If no goto target, stay still. (Behaviour tree should sort this shit out :/ )
-            updateGotoTarget(self, self.pos.x, self.pos.y, dt)
+            updateGotoTarget(e, e.pos.x, e.pos.y, dt)
         end
     end
     function HIVE:h_update()
-        local move = self.behaviour.move
+        local move = e.behaviour.move
 
         local sum_x = 0
         local sum_y = 0
         local tot = 0
 
-        for ent in Partitions[move.id]:foreach(self.pos.x, self.pos.y) do
+        for ent in Partitions[move.id]:foreach(e.pos.x, e.pos.y) do
             sum_x = sum_x + ent.pos.x
             sum_y = sum_y + ent.pos.y
             tot = tot + 1
@@ -382,11 +376,11 @@ do
         move.target = math.vec3(x,y,0)
     end
     function RAND:update(dt)
-        local pos = self.pos
-        local target = self.behaviour.move.target
-        updateGotoTarget(self, target.x, target.y, dt)
+        local pos = e.pos
+        local target = e.behaviour.move.target
+        updateGotoTarget(e, target.x, target.y, dt)
         if dist(target.x - pos.x, target.y - pos.y) < 40 then
-            RAND.init(self)
+            RAND.init(e)
         end
     end
 
@@ -400,8 +394,8 @@ do
     local ROOK = {}
     function ROOK:select(distance)
         -- Selects a random cardinal direction
-        local mve = self.behaviour.move
-        local pos = self.pos
+        local mve = e.behaviour.move
+        local pos = e.pos
         local r = rand()
         local target = math.vec3(0,0,0)
 
@@ -423,14 +417,14 @@ do
     end
 
     function ROOK:init()
-        local mve = self.behaviour.move;
+        local mve = e.behaviour.move;
         mve.time = 0
         mve.target = nil
         mve.is_waiting = false
     end
 
     function ROOK:update(dt)
-        local move = self.behaviour.move
+        local move = e.behaviour.move
         if move.is_waiting then
             if move.time >= move.wait then
                 move.is_waiting = false
@@ -440,16 +434,16 @@ do
             end
         elseif rand() < 0.003 then
             -- Change dir!
-            move.target = ROOK.select(self) -- remember, `self` is the entity here.
+            move.target = ROOK.select(e) -- remember, `self` is the entity here.
             move.is_waiting = true
             move.time = move.wait
         else
             -- Keep current dir.
-            local pos = self.pos
-            local dir = self.behaviour.move.dir
+            local pos = e.pos
+            local dir = e.behaviour.move.dir
             local target = move.target
 
-            updateGotoTarget(self, target.x, target.y, dt)
+            updateGotoTarget(e, target.x, target.y, dt)
         end
     end
 
@@ -462,6 +456,14 @@ do
         RAND=RAND
     }
 end
+]===]
+
+MoveTypes = {"RAND", "IDLE", "ORBIT", "HIVE", "LOCKON"}
+
+for i,v in ipairs(MoveTypes) do
+    MoveTypes[v] = require("src.misc.behaviour.movebehaviours."..v:lower())
+    MoveTypes[i] = nil
+end
 
 
 
@@ -472,7 +474,7 @@ function MoveBehaviourSys:added( ent )
         ent.behaviour.move.type = "IDLE"
         ent.behaviour.move.id = -0xDEAD
     end
-    MoveTypes[ent.behaviour.move.type].init(ent)
+    MoveTypes[ent.behaviour.move.type]:init(ent)
 end
 
 
@@ -493,7 +495,7 @@ function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     if shouldInit then
         local type = MoveTypes[move.type]
         assert(type, "? undefined moveBehaviour: " .. tostring(move.type))
-        type.init(ent)
+        type:init(ent)
     end
 end
 
@@ -518,10 +520,10 @@ function MoveBehaviourSys:update(dt)
         if Tools.isOnScreen(e, camera) then
             local move = e.behaviour.move
             if move then
-                local func = MoveTypes[e.behaviour.move.type].update
-                if func then
-                    -- moveType may not have an :update func
-                    func(e,dt)
+                local move_type = MoveTypes[e.behaviour.move.type]
+                if move_type.update then
+                    -- some moveBehaviours may not have :update
+                    move_type:update(e,dt)
                 end
             end
         end
@@ -537,7 +539,7 @@ end
 local function h_update(ent,dt)
     local move = ent.behaviour.move
     if MoveTypes[move.type].h_update then
-        MoveTypes[move.type].h_update(ent,dt)
+        MoveTypes[move.type]:h_update(ent,dt)
     end
 end
 
@@ -561,13 +563,7 @@ local TargetSys = Cyan.System("targetID", "pos")
 
 local set = Tools.set
 
-local TargetGroups = setmetatable({ },
---[[
-    2d array of sets representing all the entities in each group.    
-]]
-{__index = function(t,k)
-    t[k] = set() return t[k]
-end})
+local TargettedEntities = require("src.misc.behaviour.movebehaviours.targetted_entities")
 
 
 
@@ -585,7 +581,6 @@ function TargetSys:added(ent)
     assert(valid_targetIDs[ent.targetID], er1)
 
     Partitions[ent.targetID]:add(ent) -- Adds to the correct spacial partition
-    TargetGroups[ent.targetID]:add(ent)
 end
 
 
@@ -622,18 +617,18 @@ end
 
 
 function TargetSys:removed(ent)
-    TargetGroups[ent.targetID]:remove(ent)
-
     Partitions[ent.targetID]:remove(ent)
 
-    if rawget(Targetted, ent) then
+    if rawget(TargettedEntities, ent) then
         -- This means we still got entities targetting this ent,
         -- So we must re-initialize all the entities that were targetting
         -- this ent.
-        for _, e in ipairs(Targetted[ent].objects) do
+        for _, e in ipairs(TargettedEntities[ent].objects) do
             local move = e.behaviour.move
             MoveTypes[move.type].init(e)
+            TargettedEntities[ent]:remove(e)
         end
+        rawset(TargettedEntities, ent, nil)
     end
 end
 

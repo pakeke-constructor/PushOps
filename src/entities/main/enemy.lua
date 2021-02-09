@@ -63,10 +63,12 @@ end
 
 local RAND_or_IDLE = {"RAND", "IDLE"}
 
-local Tree = EH.Node 'enemy behaviour tree'
+
+
+local Tree = EH.Node '_enemy behaviour tree'
 
 Tree.choose = function(node, e)
-        local ret = "walk"
+        local ret = "idle"
         if e.hp.hp < e.hp.max_hp then
             ret= "angry"
         end;
@@ -110,6 +112,8 @@ return function(x,y)
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
+
+    :add("sigils",{"poison"})
     
     :add("hp", {hp = 100, max_hp = 100})
 
@@ -137,9 +141,12 @@ return function(x,y)
     enemy:add("behaviour",{
             move = {
                 type = Tools.rand_choice(ai_types),
-                id="player" -- targetting player.
-                ,tree=Tree
-            }
+                id="player", -- targetting player.
+                
+                orbit_speed = 2;
+                orbit_tick = 0
+            };
+            tree=Tree
     })
 
     :add("onDeath", onDeath)
