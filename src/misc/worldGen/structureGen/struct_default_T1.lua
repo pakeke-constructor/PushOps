@@ -12,6 +12,21 @@ local default_T1 = {
     max_structures = 40,
     -- Note that after the number of structures has been chosen,
 
+
+    -- These are the required structures. (e.g. player spawn, etc)
+    required = {
+        [
+            {"???",
+             "???",
+             "???"}
+             ,
+             {"^^^"
+              "^@^"
+              "^^^"}
+        ] = 1,
+
+    }
+
     structures = {
 
     [  -- Small room structure with coin inside,
@@ -170,6 +185,20 @@ local default_T1 = {
             "? # . ? . # ?",
             "? # # # # # ?",
             "? ? ? ? ? ? ?"}
+        }
+    ] = 0.1
+    ,
+    [
+        {
+            {"????",
+             "????",
+             "????",
+             "????"},
+
+             {"????",
+              "??l?",
+              "?l??",
+              "????"}
         }
     ] = 0.1
 }

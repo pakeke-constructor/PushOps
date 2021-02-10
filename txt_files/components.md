@@ -21,6 +21,9 @@ armour = 2; -- Damage reduced by 2 times (defaults to 1.)
 
 onDeath = function(e) end -- callback for when ent dies.
 onDamage = function(e, dmg) end -- callback for taking dmg
+onBoom   = function(e, strength) end -- callback for `boom`.
+                                     -- when `moob` is invoked, `strength` is negative.
+
 
 pos = vec3(0 , 0 , 0) --> vec3
 

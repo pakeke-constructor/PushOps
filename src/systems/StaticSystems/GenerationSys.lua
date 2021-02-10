@@ -3,7 +3,7 @@
 local GenSys = Cyan.System( )
 
 
-local DEFAULT_WALL_THRESHOLD = 0.8-- Noise (0->1) must be >=0.8 to form a wall
+local DEFAULT_WALL_THRESHOLD = 0.7-- Noise (0->1) must be >=0.8 to form a wall
 
 
 -- Noise must be 0.1 lower than the DEFAULT_WALL_THRESHOLD in order
@@ -207,7 +207,6 @@ end
 
 
 local function genStructures(worldMap, structureRule)
-
     local amount = love.math.random( structureRule.min_structures, structureRule.max_structures )
     
     local rand_x
@@ -329,6 +328,48 @@ local function makeWalls(worldMap)
 end
 
 
+local function genRequiredStructures(worldMap, structureRule)
+    do
+        -- Need to do this function up
+        return nil
+    end
+    
+    local amount = love.math.random( structureRule.min_structures, structureRule.max_structures )
+    
+    local rand_x
+    local rand_y
+
+    for i = 1, amount do 
+
+        local structure = structureRule.random()
+
+        -- structure size on the X
+        local sX = #(structure[1][1])
+        -- structure size on the Y
+        local sY = #(structure[1])
+        -- Now, try to fit structure in X and Y position.
+        for try = 1, structureRule.tries do
+            rand_x = love.math.random(2, (#worldMap)-(sX+1))
+            -- remember- spaces are ignored during world gen.
+            rand_y = love.math.random(2, (#worldMap[1]) - (sY+1))
+
+            if structureFits(worldMap, structure, rand_x, rand_y) then
+                local transform = structure[2]
+
+                for x = 1, #transform[1] do
+                    for y = 1, #transform do
+                        local chr = transform[y]:sub(x,x)
+                        if (chr ~= "?") then
+                            worldMap[rand_x + x][rand_y + y] = chr
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+
 
 local function procGenerateWorld(world, worldMap, worldType)
     --[[
@@ -383,6 +424,7 @@ local function procGenerateWorld(world, worldMap, worldType)
         end
     end
 
+    genRequiredStructures(worldMap, structureRule)
     genStructures(worldMap, structureRule)
     makeWalls(worldMap)
 end

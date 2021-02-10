@@ -196,6 +196,10 @@ function PushSys:boom(x, y, strength, distance,
                 ccall("addVel", ent, X * this_strength + (vx or 0),
                                      Y * this_strength + (vy or 0))
 
+                if ent.onBoom then
+                    ent:onBoom(this_strength)
+                end
+
                 ccall("animate", "shock", 0, 0, 50, 0.02, nil, nil, ent)
                 -- Push the entities away according to `strength` and distance.
             end
@@ -234,6 +238,11 @@ function PushSys:moob(x, y, strength, distance)
                 ((x-eX)*this_strength),
                 (y-eY)*this_strength)
                 -- Push the entities away according to `strength` and distance.
+
+                if ent.onBoom then
+                    -- is negative, because this is `moob` callback
+                    ent:onBoom(-this_strength)
+                end
 
                 -- Add Z velocity to bounce em up.
                 ent.vel.z = rand(100,300)
