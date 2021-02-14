@@ -23,6 +23,11 @@ onDeath = function(e) end -- callback for when ent dies.
 onDamage = function(e, dmg) end -- callback for taking dmg
 onBoom   = function(e, strength) end -- callback for `boom`.
                                      -- when `moob` is invoked, `strength` is negative.
+onInteract = function(e, interacting_ent, type)
+-- callback for when `pull` or `push` is done next to a targetID="interact" ent.
+-- type is either `pull` or `push`.
+-- (interacting_ent is usually the player).
+end
 
 
 pos = vec3(0 , 0 , 0) --> vec3
@@ -146,6 +151,13 @@ collisions = {
 
     end
 }
+
+
+
+-- If the player invokes
+boomFunction = function(e)
+    ...
+end
 
 
 diggable = false/true 

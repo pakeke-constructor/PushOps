@@ -12,7 +12,8 @@ TODO: add joystick support, make more robust
 local ControlSys = Cyan.System("control")
 
 local Camera = require("src.misc.unique.camera")
-local partition = require 'src.misc.partition'
+local Partition = require 'src.misc.partition'
+local TargetPartitions = require("src.misc.unique.partition_targets")
 
 
 local max, min = math.max, math.min
@@ -55,7 +56,7 @@ local function findEntToPush(ent)
     local epos = ent.pos
     local vx, vy = ent.vel.x, ent.vel.y
 
-    for candidate in partition:longiter(ent) do
+    for candidate in Partition:longiter(ent) do
         local ppos = candidate.pos
         local dx, dy
 
@@ -133,23 +134,54 @@ local function boomShells(player)
 end
 
 
+
+
+local function push(ent)
+    local x = ent.pos.x
+    local y = ent.pos.y
+    local z = ent.pos.z
+
+    -- boom will be biased towards enemies with 1.2 radians
+    Cyan.call("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
+    Cyan.call("animate", "push", x,y+25,z, 0.03) 
+    Cyan.call("sound", "boom")
+    Camera:shake(8, 1, 60) -- this doesnt work, RIP
+    Cyan.call("await", boomShells, 0.3+r()/4, ent)
+    
+    for e in (TargetPartitions.interact):iter(ent) do
+        if e ~= ent then
+            if e.onInteract then
+                -- ents cannot interact with themself
+                e:onInteract(ent, "push")
+            end
+        end
+    end
+end
+
+
+
+local function pull(ent)
+    Cyan.call("sound", "moob")
+    Cyan.call("moob", ent.pos.x, ent.pos.y, ent.strength/1.5, 200)
+
+    for e in (TargetPartitions.interact):iter(ent) do
+        if e ~= ent then
+            -- ents cannot interact with themself
+            if e.onInteract then
+                e:onInteract(ent, "pull")
+            end
+        end
+    end
+end
+
+
 function ControlSys:keytap(key)
     for _, ent in ipairs(self.group) do
         local c = ent.control
         if c[key] == 'push' then
-            local x = ent.pos.x
-            local y = ent.pos.y
-            local z = ent.pos.z
-
-            -- boom will be biased towards enemies with 1.2 radians
-            Cyan.call("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
-            Cyan.call("animate", "push", x,y+25,z, 0.03) 
-            Cyan.call("sound", "boom")
-            Camera:shake(8, 1, 60) -- this doesnt work, RIP
-            Cyan.call("await", boomShells, 0.3+r()/4, ent)
+            push(ent)
         elseif c[key] == 'pull' then
-            Cyan.call("sound", "moob")
-            Cyan.call("moob", ent.pos.x, ent.pos.y, ent.strength/1.5, 200)
+            pull(ent)
         end
     end
 end
