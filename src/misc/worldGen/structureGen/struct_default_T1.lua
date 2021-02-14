@@ -15,17 +15,16 @@ local default_T1 = {
 
     -- These are the required structures. (e.g. player spawn, etc)
     required = {
-        [
-            {"???",
-             "???",
-             "???"}
-             ,
-             {"^^^"
-              "^@^"
+        [{
+             {"???",
+              "???",
+              "???"}
+             ,  
+             {"^^^",
+              "^@^",
               "^^^"}
-        ] = 1,
-
-    }
+        }] = 1
+    },
 
     structures = {
 

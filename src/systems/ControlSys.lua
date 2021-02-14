@@ -235,13 +235,16 @@ local tick = 0
 local sin = math.sin
 
 function ControlSys:drawUI()
-    -- At the moment, we only support 1 health bar.
-    local hp = self.group[1].hp
-    tick = tick + 0.01
-    setColor( 0.7 + 0.1*sin(tick) ,0,0)
-    rect("fill", HP_X+2, HP_Y+2, 26 * (hp.hp / (hp.max_hp)), 10)
-    setColor(1,1,1)
-    atlas:draw(Quads.hp_bar, HP_X, HP_Y)
+    -- check that a player exists
+    if self.group[1] then
+        -- At the moment, we only support 1 health bar.
+        local hp = self.group[1].hp
+        tick = tick + 0.01
+        setColor( 0.7 + 0.1*sin(tick) ,0,0)
+        rect("fill", HP_X+2, HP_Y+2, 26 * (hp.hp / (hp.max_hp)), 10)
+        setColor(1,1,1)
+        atlas:draw(Quads.hp_bar, HP_X, HP_Y)
+    end
 end
 
 

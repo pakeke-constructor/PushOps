@@ -54,7 +54,7 @@ local Tree = EH.Node("mallow behaviour tree")
 local Camera = require("src.misc.unique.camera")
 
 function Tree.choose(tree, e)
-    if (e.hp.hp < e.hp.max_hp) or (Tools.distToPlayer(e, Camera) < 150) then
+    if (e.hp.hp < e.hp.max_hp) or (Tools.distToPlayer(e, Camera) < 250) then
         if rand() < 0.5 then
             --print("mallow tree: angry")
             return "angry"

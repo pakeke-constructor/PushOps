@@ -333,14 +333,13 @@ local function genRequiredStructures(worldMap, structureRule)
         -- Need to do this function up
         return nil
     end
-    
+
     local amount = love.math.random( structureRule.min_structures, structureRule.max_structures )
     
     local rand_x
     local rand_y
 
     for i = 1, amount do 
-
         local structure = structureRule.random()
 
         -- structure size on the X

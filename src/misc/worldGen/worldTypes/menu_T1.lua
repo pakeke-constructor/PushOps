@@ -11,10 +11,15 @@ return {
     tier = 1;
 
     entities = {
-            ["#"] = { -- For wall entity.
+        ["#"] = { -- For wall entity.
             max = 999999, --No max.
             Ents.wall
         };
+
+        ["@"] = {
+            max = 1,
+            Ents.player
+        },
         
         ["e"] = {
             max = 200;
