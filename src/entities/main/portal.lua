@@ -78,7 +78,9 @@ Tree.main = {
     update_task
 }
 
-Tree.choose = function()return "main"end
+Tree.choose = function()
+    return "main"
+end
 
 local portal_image = {
     quad = Quads.portal

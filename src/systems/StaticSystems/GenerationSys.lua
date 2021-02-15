@@ -62,6 +62,7 @@ local PROBS = CONSTANTS.PROBS
 
 local weighted_selection = require("libs.tools.weighted_selection")
 local default_pick_function = weighted_selection(PROBS)
+local rand = love.math.random
 
 
 
@@ -370,6 +371,20 @@ end
 
 
 
+
+local function addPlayer(worldMap)
+    for x=rand(4,10), #worldMap do
+        for y=rand(4,10), #worldMap[1] do
+            if worldMap[x][y] ~= "%" and worldMap[x][y] ~= "#" then
+                worldMap[x][y] = "@"
+                return
+            end
+        end
+    end
+end
+
+
+
 local function procGenerateWorld(world, worldMap, worldType)
     --[[
         generates world from scratch, according to the structureRule
@@ -426,6 +441,7 @@ local function procGenerateWorld(world, worldMap, worldType)
     genRequiredStructures(worldMap, structureRule)
     genStructures(worldMap, structureRule)
     makeWalls(worldMap)
+    addPlayer(worldMap)
 end
 
 

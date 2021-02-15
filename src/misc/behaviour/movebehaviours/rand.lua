@@ -11,6 +11,9 @@ end
 
 function RAND:update(e,dt)
     local pos = e.pos
+    if not e.behaviour.move.target then
+        self:init(e)
+    end
     local target = e.behaviour.move.target
     self.updateGotoTarget(e, target.x, target.y, dt)
     if self.dist(target.x - pos.x, target.y - pos.y) < 40 then

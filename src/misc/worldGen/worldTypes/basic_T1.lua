@@ -137,6 +137,12 @@ return {
                 Ents.pine(x+rand()*5,y+rand()*5)
             end
         end
+    };
+    ["@"] = {
+        max = 1;
+        function(x,y)
+            return Ents.player(x,y)
+        end
     }
 }
 }

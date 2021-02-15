@@ -43,6 +43,7 @@ local t = {1,2,3,4,5,6}
 
 function BobSys:added(ent)
     ent.bobbing.phase = rand_choice(t)
+    ent.bobbing.oy = 0
     if not ent.bobbing.magnitude then
         ent.bobbing.magnitude = 5
     end

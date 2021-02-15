@@ -23,6 +23,7 @@ function AnimationSys:added(ent)
     local anim = ent.animation
 
     anim.animation_len = #anim.frames
+    anim.current = 0
 
     local _,_, w,h = anim.frames[1]:getViewport( )
 
@@ -78,6 +79,12 @@ function AnimationSys:drawEntity( ent )
         -- img.oy must be modified for bobbing entities
         local sway_comp = ent.swaying or default_sway
         local oy = ent.animation.oy
+
+        if not anim.frames[index] then
+            print("exists: ", Cyan.exists(ent))
+            print("len frames: ", #anim.frames)
+            print("index: ", index)
+        end
 
         atlas:draw(
             anim.frames[index],
@@ -253,7 +260,6 @@ end
 
 
 function AnimationSys:heavyupdate(dt)
-
 end
 
 

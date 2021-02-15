@@ -48,6 +48,7 @@ local t = {1,2,3,4,5,6}
 
 function SwaySys:added(ent)
     ent.swaying.phase = rand_choice(t)
+    ent.swaying.ox = 0
     if not ent.swaying.magnitude then
         ent.swaying.magnitude = 5
     end

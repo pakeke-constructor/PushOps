@@ -30,11 +30,6 @@ and just be super rigorous when switching moveBehaviours.
 
 
 
-
-
-
-
-
 Bug2:
 in `RAND` moveBehaviour, ents are being stupid and walking into walls.
 This is because, although Tools.isIntersect() works fine, the interior walls
@@ -55,7 +50,19 @@ whole map has finished generating
 
 
 
+Bug 3: 
 
+Error: src/misc/behaviour/movebehaviours/base.lua:37: attempt to perform arithmetic on local 'pos_x' (a nil value)
+stack traceback:
+        [string "boot.lua"]:777: in function '__sub'
+        src/misc/behaviour/movebehaviours/base.lua:37: in function 'updateGotoTarget'
+        src/misc/behaviour/movebehaviours/rand.lua:18: in function 'update'
+        src/systems/MoveBehaviourSys.lua:528: in function <src/systems/MoveBehaviourSys.lua:519>
+        libs/Cyan/cyan.lua:69: in function 'call'
+        src/misc/unique/gamestate.lua:19: in function 'update'
+        [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
+        [C]: in function 'xpcall'
 
+^^^^ THIS IS THE SAME AS Bug 1 !!!
 
 
