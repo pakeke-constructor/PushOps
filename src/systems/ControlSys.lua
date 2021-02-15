@@ -114,10 +114,10 @@ function ControlSys:update(dt)
         Cyan.call("addVel", ent, dx, dy)
 
         if c.zoomIn then
-            Camera.scale = max(Camera.scale * 0.99, 1.5)
+            Camera.scale = max(Camera.scale * (1-dt), 1.5)
         end
         if c.zoomOut then
-            Camera.scale = min(Camera.scale * 1.01, 3)
+            Camera.scale = min(Camera.scale * (1+dt), 3)
         end
     end
 end
@@ -147,10 +147,10 @@ local function push(ent)
     Cyan.call("sound", "boom")
     Camera:shake(8, 1, 60) -- this doesnt work, RIP
     Cyan.call("await", boomShells, 0.3+r()/4, ent)
-    
-    for e in (TargetPartitions.interact):iter(ent) do
+
+    for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
         if e ~= ent then
-            if e.onInteract then
+            if e.onInteract and Tools.edist(ent, e) < e.size then
                 -- ents cannot interact with themself
                 e:onInteract(ent, "push")
             end
@@ -164,15 +164,16 @@ local function pull(ent)
     Cyan.call("sound", "moob")
     Cyan.call("moob", ent.pos.x, ent.pos.y, ent.strength/1.5, 200)
 
-    for e in (TargetPartitions.interact):iter(ent) do
+    for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
         if e ~= ent then
             -- ents cannot interact with themself
-            if e.onInteract then
+            if e.onInteract and Tools.edist(ent, e) < e.size then
                 e:onInteract(ent, "pull")
             end
         end
     end
 end
+
 
 
 function ControlSys:keytap(key)
@@ -247,6 +248,12 @@ function ControlSys:newWorld(world)
     --local w,h = love.graphics.getDimensions( )
 end
 
+
+
+function ControlSys:purge()
+    Cyan.clear( ) -- Deletes all entities.
+    -- big operation
+end
 
 
 --[[

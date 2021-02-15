@@ -36,6 +36,15 @@ return{
         -- Walls, shops, player spawn, and player exit are done uniquely.
     }
 ,
+    TARGET_GROUPS = {
+        "player";
+        "physics";
+        "enemy";
+        "neutral";
+        "interact";
+        "coin"
+    }
+,
     paused = false -- debug only  (if not debug only, make an cyan.call event for this)
 ,
     COLOURBLIND = true

@@ -3,6 +3,7 @@
 local Ents = require("src.entities")
 local rand = love.math.random
 
+local PortalInteracts = require("src.misc.unique.portal_interactions")
 
 
 
@@ -78,6 +79,14 @@ return {
                 else
                     Ents.pine(x+rand()*5,y+rand()*5)
                 end
+            end
+        },
+
+        ['&'] = {
+            max = 0xfff;
+            function(x,y)
+                local portal = Ents.portal(x,y)
+                portal.onInteract = PortalInteracts.newLushLevel
             end
         }
     }

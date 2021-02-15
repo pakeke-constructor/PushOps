@@ -56,6 +56,11 @@ function AbstractSys:update(dt)
 end
 
 
+function AbstractSys:purge()
+    times:clear()
+end
+
+
 
 
 

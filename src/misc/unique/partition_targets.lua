@@ -19,21 +19,24 @@ inside the file `MoveBehaviourSys.lua`.
 
 local MAX_VEL = CONSTANTS.MAX_VEL
 
-local IDS = {
-    "player", -- Players / Allies
-    "enemy", -- enemy
-    "neutral", -- Neutral weak mob
-    "physics", -- physics obj
-    "coin", -- coin
+--[[
+Target groups: 
 
-    "teleporter", -- teleporter
-    "key", -- key 
-}
+
+-- "player" :: player / ally
+-- "enemy" :: enemy
+-- "neutral" :: neutral / weak mob
+-- "physics" :: physics object
+-- "coin"    :: coin
+-- "interact" :: shop, portal, artefact
+
+
+]]
 
 
 local Partitions = {}
 
-for _, val in ipairs(IDS) do
+for _, val in ipairs(CONSTANTS.TARGET_GROUPS) do
     Partitions[val] = require("libs.spacial_partition.partition")(MAX_VEL * CONSTANTS.MAX_DT, MAX_VEL * CONSTANTS.MAX_DT)
 end
 

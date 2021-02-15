@@ -148,6 +148,7 @@ Called when an entity becomes dead.
 # purge ( )
 Frees all memory in preperation for new world gen (including destroying ents)
 
+
 # newWorld({
 #   x = 70    (70 units wide) (1 unit = 64 pixels, or size of 1 wall)   
 #   y = 70    (70 units tall)

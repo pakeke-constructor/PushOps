@@ -60,7 +60,7 @@ end
 
 local x = 0
 function SwaySys:update(dt)
-    x = x + (dt * speed)
+    x = (x + (dt * speed)) % (2*math.pi)
 
     for indx, func in ipairs(functions) do
         values[indx] = func(x)

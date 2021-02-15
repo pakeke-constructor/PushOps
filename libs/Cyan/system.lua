@@ -234,7 +234,6 @@ end
 
 
 
-
 function System:add( ent )
     --[[
         Adds an entity to a system
@@ -291,6 +290,14 @@ function System:deactivate( )
     return self
 end
 
+
+
+
+function System:clear()
+    for _, e in ipairs(self.group)do
+        self:remove(e)
+    end
+end
 
 
 

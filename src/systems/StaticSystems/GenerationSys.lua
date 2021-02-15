@@ -42,7 +42,7 @@ $  :  shop (add this at the end)
 c  :  coin (add this at the end)
 
 @  :  player spawn
-&  :  exit level / next level
+&  :  portal
 
 
 p  :  physics object

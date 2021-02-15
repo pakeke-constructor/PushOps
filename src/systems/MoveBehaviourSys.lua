@@ -114,6 +114,10 @@ local set = Tools.set
 -- Array of spacial partitions for each target group
 local Partitions = require("src.misc.unique.partition_targets") 
 
+-- a hasher { [ent] => set() } 
+-- that lists all the entities that are targetting another entity
+local TargettedEntities = require("src.misc.behaviour.movebehaviours.targetted_entities")
+
 
 
 
@@ -485,10 +489,8 @@ function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     end
 
     local move = ent.behaviour.move
-    local shouldInit
-    if move.type ~= newState then
-        shouldInit = true
-    end
+    local shouldInit = ((move.type ~= newState) and (newID ~= move.id))
+    
     move.type = newState
     move.id = (newID or move.id)
 
@@ -563,24 +565,28 @@ local TargetSys = Cyan.System("targetID", "pos")
 
 local set = Tools.set
 
-local TargettedEntities = require("src.misc.behaviour.movebehaviours.targetted_entities")
 
 
 
-local valid_targetIDs = {
-    player=true,
-    enemy=true,
-    physics=true,
-    neutral=true,
-    coin=true,
-    interactable=true
-}
+local valid_targetIDs--[[ = {
+    player    =true,
+    enemy     =true,
+    physics   =true,
+    neutral   =true,
+    coin      =true,
+    interact  =true
+}]]
+valid_targetIDs = {}
+for _,t_group in ipairs(CONSTANTS.TARGET_GROUPS) do
+    valid_targetIDs[t_group] = true
+end
+
 
 local er1 = "Target component is not valid"
 function TargetSys:added(ent)
     assert(valid_targetIDs[ent.targetID], er1)
 
-    Partitions[ent.targetID]:add(ent) -- Adds to the correct spacial partition
+    Partitions[ent.targetID]:add(ent) -- Adds to the correct spatial partition
 end
 
 
@@ -625,7 +631,7 @@ function TargetSys:removed(ent)
         -- this ent.
         for _, e in ipairs(TargettedEntities[ent].objects) do
             local move = e.behaviour.move
-            MoveTypes[move.type].init(e)
+            MoveTypes[move.type]:init(e)
             TargettedEntities[ent]:remove(e)
         end
         rawset(TargettedEntities, ent, nil)

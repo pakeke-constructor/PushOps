@@ -52,3 +52,10 @@ BEFORE the map has been fully initialized. So their path IS valid, but not when 
 whole map has finished generating
 
 
+
+
+
+
+
+
+

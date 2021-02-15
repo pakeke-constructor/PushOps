@@ -197,11 +197,13 @@ end
 function PhysicsSys:removed(ent)
     fixture_to_ent[ent.physics.fixture] = nil
 
-    ent.physics.fixture:destroy()
-    ent.physics.fixture:release()
+    if not ent.physics.fixture:isDestroyed() then
+        ent.physics.fixture:destroy()
+    end
 
-    ent.physics.body:destroy()
-    ent.physics.body:release()    
+    if not ent.physics.body:isDestroyed() then
+        ent.physics.body:destroy()
+    end
 
     -- Dont need to destroy the shape, 
     -- as it is shared between all ent instances.

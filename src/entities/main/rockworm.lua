@@ -16,7 +16,7 @@ local MAX_LEN = 13 -- min and max lengths for worm.
 local rocks = {}
 for x=1,10 do
     local quad_name = 'rock' .. tostring(x)
-    if Quads[quad_name] then
+    if rawget(Quads, quad_name) then
         table.insert(rocks, Quads[quad_name])
     end
 end

@@ -8,11 +8,14 @@ local ccall = Cyan.call
 
 
 local RING_ROT_SPEED = 2
-local RING_DISTANCE = 40
+local RING_DISTANCE = 14
+local PORTAL_DISTANCE = 50
+local COLOUR = {0.8,1,0.8}
+
 
 --[[
 
-Base teleporter
+Base portal
 
 
 
@@ -28,24 +31,26 @@ local function portalRing(period_start)
     :add("pos", math.vec3(0,0,0))
     :add("image", ring_img_comp)
     e._cur_portal_period = period_start
+    e.colour = COLOUR
+    return e
 end
 
 
 
-local Tree = BT.Node()
+local Tree = BT.Node("_portal_update_tree")
 --[[
 This tree effectively serves *only* as an update function for
-the teleporter entity.
+the portal entity.
 This is a horrid way of doing this Oh well :D
 ]]
 
-local update_task = BT.Task()
+local update_task = BT.Task("_portal_update_task")
 
 update_task.update = function(t,e,dt)
     local sin = math.sin
     local cos = math.cos
     local reset=false
-    if t[1]._cur_portal_period > math.pi*2 then
+    if e.portalRings[1]._cur_portal_period > math.pi*2 then
         -- reset so floating point err dont screw over and have
         -- overlap of periods
         reset=true
@@ -66,6 +71,9 @@ update_task.update = function(t,e,dt)
 end
 
 
+
+
+
 Tree.main = {
     update_task
 }
@@ -80,6 +88,7 @@ local portal_image = {
 
 return function(x, y)
     local e = Cyan.Entity()
+    e.colour = COLOUR
     e.portalRings = {}
     for i=1,3 do
         table.insert(e.portalRings, portalRing((i-1) * (math.pi*2)/3))
@@ -88,7 +97,13 @@ return function(x, y)
     EH.PV(e,x,y)
     e.targetID = "interact"
 
-    e.portalFunc = nil -- override this
+    e.size = PORTAL_DISTANCE
+
+    e.behaviour = {
+        tree = Tree
+    }
+
+    e.portalFunc = nil -- override this in WorldGen.
 
     return e
 end

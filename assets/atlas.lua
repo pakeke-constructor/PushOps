@@ -15,11 +15,14 @@ local atlas = Atlas(4096,4096)--size = 4096 pixels^2
 atlas.path = "assets/sprites/"
 
 
-local PROXY = { }
+local PROXY = setmetatable({}, {__index = function(_,n)
+    error("Attempted to access unknown quad =>  " .. tostring(n))
+end})
+
 atlas.quads = setmetatable({},
 {
     __newindex = function(t,k,v)
-        assert(not PROXY[k], "This image file " ..k .. " is already in the atlas. No duplicate names allowed!")
+        assert(not rawget(PROXY, k), "This image file " ..k .. " is already in the atlas. No duplicate names allowed!")
         rawset(PROXY, k, v)
     end; __index = PROXY
 })

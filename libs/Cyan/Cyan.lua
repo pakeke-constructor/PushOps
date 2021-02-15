@@ -111,6 +111,15 @@ do
         -- checks whether an entity exists, or if it has been deleted.
         return ___all:has(entity)
     end
+
+    function Cyan.clear()
+        --[[
+            Clears all entities
+        ]]
+        for _,e in ipairs(___all.objects) do
+            e:delete( )
+        end
+    end
 end
 
 

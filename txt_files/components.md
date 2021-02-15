@@ -27,6 +27,7 @@ onInteract = function(e, interacting_ent, type)
 -- callback for when `pull` or `push` is done next to a targetID="interact" ent.
 -- type is either `pull` or `push`.
 -- (interacting_ent is usually the player).
+-- ALSO, e.size must be bigger than interacting distance!
 end
 
 
