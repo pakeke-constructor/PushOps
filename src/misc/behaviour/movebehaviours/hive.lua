@@ -25,11 +25,19 @@ function HIVE:init(e)
     else
         move.target = nil
     end
+    
+    move.initialized = true
 end
 
 
 function HIVE:update(e,dt)
-    local target = e.behaviour.move.target
+    local move = e.behaviour.move
+    
+    if not move.initialized then
+        self:init(e)
+    end
+
+    local target = move.target
     if target then
         self.updateGotoTarget(e, target.x, target.y, dt)
     else

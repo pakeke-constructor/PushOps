@@ -24,6 +24,7 @@ setmetatable(_G, {})
 do
     -- main ECS
     _G.Cyan = require "libs.Cyan.cyan"
+    _G.ccall = _G.Cyan.call -- quality of life
 
     _G.Tools = require"libs.tools.tools"
 

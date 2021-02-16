@@ -21,7 +21,7 @@ armour = 2; -- Damage reduced by 2 times (defaults to 1.)
 
 onDeath = function(e) end -- callback for when ent dies.
 onDamage = function(e, dmg) end -- callback for taking dmg
-onBoom   = function(e, strength) end -- callback for `boom`.
+onBoom   = function(e, x,y, strength) end -- callback for `boom`.
                                      -- when `moob` is invoked, `strength` is negative.
 onInteract = function(e, interacting_ent, type)
 -- callback for when `pull` or `push` is done next to a targetID="interact" ent.
@@ -232,8 +232,9 @@ track = true / false
 -- Behaviour (complex component)
 behaviour = { 
     move = {
-        type="LOCKON",  -- See MoveBehaviourSys for custom params
+        type="LOCKON"  -- See MoveBehaviourSys for custom params
         id=1        -- ( Also see src/misc/behaviour/movebehaviours/ )
+        initialized=false -- whether the moveBehaviour has been :init'd.
     }
     tree = Node() -- node object (from libs/BehaviourTree.lua)
 }

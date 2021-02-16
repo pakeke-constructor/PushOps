@@ -7,6 +7,7 @@ Cyan.call("newWorld",{
     type = 'menu'
 }, require("src.misc.worldGen.menu"))
 
+
 local Ent = require("src.entities")
 local cam = require("src.misc.unique.camera")
 
@@ -24,7 +25,6 @@ end
 
 local ccall=Cyan.call
 function DEBUG_SYS:mousepressed()
-    --ccall("animate", "mallowspin", 0,0,0)
 end
 
 

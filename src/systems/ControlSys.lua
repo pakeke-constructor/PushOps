@@ -18,7 +18,7 @@ local TargetPartitions = require("src.misc.unique.partition_targets")
 
 local max, min = math.max, math.min
 
-local ROT_AMPLITUDE = 0.05
+local ROT_AMPLITUDE = 0.03
 local ROT_FREQ = 0.07
 
 local cur_sin_amount = 0
@@ -57,19 +57,22 @@ local function findEntToPush(ent)
     local vx, vy = ent.vel.x, ent.vel.y
 
     for candidate in Partition:longiter(ent) do
-        local ppos = candidate.pos
-        local dx, dy
+        -- if its not moving, it wont be pushed
+        if candidate.vel then
+            local ppos = candidate.pos
+            local dx, dy
 
-        dx = ppos.x - epos.x
-        dy = ppos.y - epos.y
-        
-        if candidate.pushable then
-            local distance = dist(dx, dy)
-            if distance < min_dist then
-                -- Is a valid candidate ::
-                if dot(dx, dy, vx,vy) > 0 then
-                    best_ent = candidate
-                    min_dist = distance
+            dx = ppos.x - epos.x
+            dy = ppos.y - epos.y
+            
+            if candidate.pushable then
+                local distance = dist(dx, dy)
+                if distance < min_dist then
+                    -- Is a valid candidate ::
+                    if dot(dx, dy, vx,vy) > 0 then
+                        best_ent = candidate
+                        min_dist = distance
+                    end
                 end
             end
         end
@@ -144,6 +147,7 @@ local function push(ent)
     -- boom will be biased towards enemies with 1.2 radians
     Cyan.call("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
     Cyan.call("animate", "push", x,y+25,z, 0.03) 
+    Cyan.call("shockwave", x, y, 4, 130, 7, 0.3)
     Cyan.call("sound", "boom")
     Camera:shake(8, 1, 60) -- this doesnt work, RIP
     Cyan.call("await", boomShells, 0.3+r()/4, ent)
@@ -161,10 +165,13 @@ end
 
 
 local function pull(ent)
-    Cyan.call("sound", "moob")
-    Cyan.call("moob", ent.pos.x, ent.pos.y, ent.strength/1.5, 200)
+    local x,y = ent.pos.x, ent.pos.y
 
-    for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
+    Cyan.call("sound", "moob")
+    Cyan.call("shockwave", x, y, 130, 4, 7, 0.3)
+    Cyan.call("moob", x, y, ent.strength/1.5, 200)
+
+    for e in (TargetPartitions.interact):iter(x, y) do
         if e ~= ent then
             -- ents cannot interact with themself
             if e.onInteract and Tools.edist(ent, e) < e.size then

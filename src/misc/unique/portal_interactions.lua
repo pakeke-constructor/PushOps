@@ -19,8 +19,8 @@ local BUF_TIME = 1.8 -- wait 1.8 seconds then spawn new world
 local nLL = function(e)
     ccall("purge")
     ccall("newWorld",{
-        x = rand(60,80);
-        y = rand(60,80);
+        x = rand(60,80)-40;
+        y = rand(60,80)-40;
         type = "basic";
         tier = 1
     })

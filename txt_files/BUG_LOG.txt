@@ -1,0 +1,79 @@
+[[[[[]]]]]
+[[[[[]]]]]
+[[[[[]]]]]
+[[[[[]]]]]
+[[[[[]]]]]
+
+This file serves as an archive for old bugs.
+
+If a bug arises again, check here to ensure that it hasn't been solved previously
+
+[[[[[]]]]]
+[[[[[]]]]]
+[[[[[]]]]]
+[[[[[]]]]]
+[[[[[]]]]]
+
+
+
+
+
+
+
+
+
+
+Error: src/misc/behaviour/movebehaviours/orbit.lua:38: 'struct 263' has no member named 'pos'
+stack traceback:
+        [string "boot.lua"]:777: in function '__index'
+        src/misc/behaviour/movebehaviours/orbit.lua:38: in function 'update'
+        src/systems/MoveBehaviourSys.lua:526: in function <src/systems/MoveBehaviourSys.lua:517>
+        libs/Cyan/cyan.lua:69: in function 'call'
+        src/misc/unique/gamestate.lua:19: in function 'update'
+        [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
+        [C]: in function 'xpcall'
+ORIGIN OF THE BUG AND SOLUTION:
+pretty much all MoveBehaviour Systems use `ent.behaviour.move.target` as a vec3 value.
+LOCKON, however, uses `.target` as a `Entity` type to track ents. We can fix this
+by changing `target` to a vec3 quantity, and allocating an extra field to store
+the entity. (This way we can use `cexists(ent)` to check whether the ent that is
+being followed still exists.)
+
+FOR FUTURE TODO ::::
+DOCUMENT THE MoveBehaviourSys FIELDS WAYYYY BETTER!!!! BE MORE RIGOUROUS, and be
+consistent. Ensure to do background checks on data passed into each moveBehaviour,
+and just be super rigorous when switching moveBehaviours.
+(Add a tonne of assertions into ccall("setMoveBehaviour", ... ) )
+
+===> HAVE SPLIT THEM UP, NEED TO DO MORE ASSERTIONS AND DOCUMENTATION
+Should be fixed as of 16/02/2021
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Error: src/misc/behaviour/movebehaviours/base.lua:37: attempt to perform arithmetic on local 'pos_x' (a nil value)
+stack traceback:
+        [string "boot.lua"]:777: in function '__sub'
+        src/misc/behaviour/movebehaviours/base.lua:37: in function 'updateGotoTarget'
+        src/misc/behaviour/movebehaviours/rand.lua:18: in function 'update'
+        src/systems/MoveBehaviourSys.lua:528: in function <src/systems/MoveBehaviourSys.lua:519>
+        libs/Cyan/cyan.lua:69: in function 'call'
+        src/misc/unique/gamestate.lua:19: in function 'update'
+        [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
+        [C]: in function 'xpcall'
+This should be fixed as of 16/02/2021
+

@@ -145,256 +145,7 @@ end
 
 
 local MoveTypes
-
 --[===[
-do
-    local rand = love.math.random
-
-    local function psh(stk, item) --Stack push
-        stk.len = stk.len + 1
-        stk[stk.len] = item
-    end
-    local function pop(stk, item) -- Stack pop
-        stk[stk.len] = nil
-        stk.len = stk.len - 1
-    end
-
-    local tmp_stack = {len=0}
-
-    local function setTargEnt(ent, target_ent)
-        -- Bit costly but oh well, no better way
-        -- Calling with `nil` as the target_ent will simply remove the target ent
-        -- appropriately
-
-        -- This function is important as it ensures no memory leaks.
-    
-        local move = ent.behaviour.move
-
-        if move.target then
-            local targ = move.target
-            if rawget(TargettedEntities, targ) then
-                TargettedEntities[targ]:remove(ent)
-                if TargettedEntities[targ].size == 0 then
-                    rawset(TargettedEntities, targ, nil)
-                end
-            end
-        end
-
-        if target_ent then
-            TargettedEntities[target_ent]:add(ent)
-            move.target = target_ent
-        end
-    end
-
-    local rand_choice = Tools.rand_choice
-
-    local LOCKON = {}
-
-    function LOCKON:update(dt)
-        -- self is ent
-        local move = e.behaviour.move
-        local target = move.target
-
-        if not target then
-            return nil -- No target given, fine by me
-        end
-
-        local tp = target.pos -- BUG:: for some reason, `tp` is a vector in this case
-
-        updateGotoTarget(e, tp.x, tp.y, dt)
-    end
-    function LOCKON:init()
-        local move = e.behaviour.move
-
-        local id = move.id
-
-        local targ_ent = nil
-
-        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
-            psh(tmp_stack, ent)
-        end
-        local stack_len = #tmp_stack 
-        local i = rand(stack_len)
-        if stack_len ~= 0 then
-            targ_ent = tmp_stack[i]
-        end
-        for _ = 1, stack_len do
-            pop(tmp_stack)
-        end
-
-        setTargEnt(e, targ_ent)
-    end
-
-    function LOCKON:h_update()
-        local move = e.behaviour.move
-
-        local id = move.id
-
-        local targ_ent = nil
-
-        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
-            psh(tmp_stack, ent)
-        end
-        local stack_len = #tmp_stack 
-        local i = rand(stack_len)
-        if stack_len ~= 0 then
-            targ_ent = tmp_stack[i]
-        end
-        for _ = 1, stack_len do
-            pop(tmp_stack)
-        end
-
-        setTargEnt(e, targ_ent)
-    end
-
-
-    local ORBIT = {}
-
-    function ORBIT:update(dt)
-        -- self is ent
-
-        --[[
-            This function is bad as well. Is costly.
-                I dont think there is way around tho
-        ]]
-        local move = e.behaviour.move
-        local target = move.target
-
-        if not target then
-            return nil -- No target given, fine by me
-        end
-
-        local tp = target.pos
-
-        updateGotoTarget(e, tp.x + 60*sin(orbit_tick), tp.y + 60*cos(orbit_tick),dt)
-    end
-
-    function ORBIT:init()
-        local move = e.behaviour.move
-
-        local id = move.id
-
-        local targ_ent = nil
-
-        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
-            psh(tmp_stack, ent)
-        end
-
-        local stack_len = #tmp_stack 
-        local i = rand(stack_len)
-        if stack_len ~= 0 then
-            targ_ent = tmp_stack[i]
-        end
-        for ii = 1, stack_len do
-            pop(tmp_stack)
-        end
-
-        setTargEnt(e, targ_ent)
-    end
-    function ORBIT:h_update()
-        local move = e.behaviour.move
-
-        local id = move.id
-
-        local targ_ent = nil
-
-        for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
-            psh(tmp_stack, ent)
-        end
-
-        local stack_len = #tmp_stack 
-        local i = rand(stack_len)
-        if stack_len ~= 0 then
-            targ_ent = tmp_stack[i]
-        end
-        for ii = 1, stack_len do
-            pop(tmp_stack)
-        end
-
-        setTargEnt(e, targ_ent)
-    end
-
-    local HIVE={}
-
-    function HIVE:init()
-        local move = e.behaviour.move
-
-        local sum_x = 0
-        local sum_y = 0
-        local tot = 0
-
-        for ent in Partitions[move.id]:foreach(e.pos.x, e.pos.y) do
-            sum_x = sum_x + ent.pos.x
-            sum_y = sum_y + ent.pos.y
-            tot = tot + 1
-        end
-
-        if tot ~= 0 then
-            move.target = math.vec3(sum_x/tot, sum_y/tot, 0)
-        else
-            move.target = nil
-        end
-    end
-    function HIVE:update(dt)
-        local target = e.behaviour.move.target
-        if target then
-            updateGotoTarget(e, target.x, target.y, dt)
-        else
-            -- If no goto target, stay still. (Behaviour tree should sort this shit out :/ )
-            updateGotoTarget(e, e.pos.x, e.pos.y, dt)
-        end
-    end
-    function HIVE:h_update()
-        local move = e.behaviour.move
-
-        local sum_x = 0
-        local sum_y = 0
-        local tot = 0
-
-        for ent in Partitions[move.id]:foreach(e.pos.x, e.pos.y) do
-            sum_x = sum_x + ent.pos.x
-            sum_y = sum_y + ent.pos.y
-            tot = tot + 1
-        end
-
-        if tot > 0 then
-            move.target = math.vec3(sum_x/tot, sum_y/tot, 0)
-        else
-            move.target = nil 
-        end
-    end
-
-    local RAND={}
-    local function chooseRandPos(e,dist)
-        local x,y = e.pos.x, e.pos.y
-        local nx,ny
-        repeat
-            nx = x+(rand()-0.5)*dist*2
-            ny = y+(rand()-0.5)*dist*2
-        until (not Tools.isIntersect(x,y,nx,ny))
-        return nx,ny
-    end
-    function RAND:init()
-        local move=self.behaviour.move
-        local x,y = chooseRandPos(self, move.distance or DEFAULT_DIST)
-        move.target = math.vec3(x,y,0)
-    end
-    function RAND:update(dt)
-        local pos = e.pos
-        local target = e.behaviour.move.target
-        updateGotoTarget(e, target.x, target.y, dt)
-        if dist(target.x - pos.x, target.y - pos.y) < 40 then
-            RAND.init(e)
-        end
-    end
-
-
-    local IDLE = {}
-    function IDLE:init()
-    end
-    function IDLE:update(dt)
-    end
-
     local ROOK = {}
     function ROOK:select(distance)
         -- Selects a random cardinal direction
@@ -478,7 +229,6 @@ function MoveBehaviourSys:added( ent )
         ent.behaviour.move.type = "IDLE"
         ent.behaviour.move.id = -0xDEAD
     end
-    MoveTypes[ent.behaviour.move.type]:init(ent)
 end
 
 
@@ -489,7 +239,7 @@ function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     end
 
     local move = ent.behaviour.move
-    local shouldInit = ((move.type ~= newState) and (newID ~= move.id))
+    local shouldInit = ((move.type ~= newState) or (newID ~= move.id))
     
     move.type = newState
     move.id = (newID or move.id)
@@ -497,7 +247,7 @@ function MoveBehaviourSys:setMoveBehaviour(ent, newState, newID)
     if shouldInit then
         local type = MoveTypes[move.type]
         assert(type, "? undefined moveBehaviour: " .. tostring(move.type))
-        type:init(ent)
+        move.initialized = false
     end
 end
 
@@ -631,12 +381,14 @@ function TargetSys:removed(ent)
         -- this ent.
         for _, e in ipairs(TargettedEntities[ent].objects) do
             local move = e.behaviour.move
-            MoveTypes[move.type]:init(e)
+            move.initialized = false
+            --MoveTypes[move.type]:init(e)  -- We shouldn't call :init directly like this!
             TargettedEntities[ent]:remove(e)
         end
         rawset(TargettedEntities, ent, nil)
     end
 end
+
 
 
 

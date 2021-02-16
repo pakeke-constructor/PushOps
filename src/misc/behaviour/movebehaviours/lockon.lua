@@ -9,14 +9,18 @@ local Partitions = require("src.misc.unique.partition_targets")
 function LOCKON:update(e, dt)
     -- self is ent
     local move = e.behaviour.move
-    local target = move.target
+    
+    if not move.initialized then
+        self:init(e)
+    end
 
-    if not target then
+    local target_ent = move.target_ent
+
+    if not target_ent then
         return nil -- No target given, fine by me
     end
 
-    local tp = target.pos -- BUG:: for some reason, `tp` is a vector in this case
-
+    local tp = target_ent.pos -- BUG:: for some reason, `tp` is a vector in this case
     self.updateGotoTarget(e, tp.x, tp.y, dt)
 end
 
@@ -44,6 +48,7 @@ function LOCKON:init(e)
 
     assert(#tmp_stack == 0,"BUG!")
     self.setTargEnt(e, targ_ent)
+    move.initialized = true
 end
 
 

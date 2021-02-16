@@ -56,6 +56,12 @@ local min = math.min
 local max = math.max
 
 
+-- a Set for all shockwave objects that are being drawn
+local ShockWaves = Tools.set()
+
+
+
+
 
 local set, add, get, remove
 do
@@ -109,6 +115,15 @@ end
 
 
 
+function DrawSys:update(dt)
+    for _,sw in ipairs(ShockWaves.objects)do
+        sw:update(dt)
+        if sw.isFinished then
+            ShockWaves:remove(sw)
+        end
+    end
+end
+
 
 
 
@@ -122,6 +137,7 @@ local rawget = rawget
 local ipairs = ipairs
 
 local camera = require("src.misc.unique.camera")
+local drawShockWaves
 
 
 local draw_master = function()
@@ -162,6 +178,9 @@ local draw_master = function()
     end
 
     Atlas:flush( )
+
+    drawShockWaves()
+
     ccall("untransform")
 end
 
@@ -175,6 +194,22 @@ function DrawSys:draw()
     lg.pop()
 end
 
+
+
+
+
+local newShockWave = require("src.misc.unique.shockwave")
+
+function DrawSys:shockwave(x, y, start_size, end_size, thickness, time, colour)
+    local sw = newShockWave(x,y,start_size, end_size, thickness, time, colour or {1,1,1,1})
+    ShockWaves:add(sw)
+end
+
+function drawShockWaves()
+    for _,sw in ipairs(ShockWaves.objects) do
+        sw:draw(  )
+    end
+end
 
 
 

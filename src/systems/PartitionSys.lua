@@ -2,7 +2,9 @@
 
 
 
-local PartitionSys = Cyan.System("pos", "vel")
+local PartitionSys = Cyan.System("pos")  --, "vel" )
+                            -- This is dumb!!! Grass should not be looped over
+                            -- when doing a `:moob` or `:boom` callback.
 
 local partition = require("src.misc.partition")
 

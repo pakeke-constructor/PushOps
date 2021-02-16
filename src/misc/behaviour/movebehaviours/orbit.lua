@@ -10,6 +10,7 @@ required fields:
 .move = {
     orbit_tick = 0;
     orbit_speed = 0.2;   -- how many orbits is done per second
+    orbit_radius = 60; -- the radius of which the ent will orbit around
 }
 
 
@@ -17,9 +18,11 @@ required fields:
 }
 
 
+
+
 local Partitions = require("src.misc.unique.partition_targets")
 local sin, cos = math.sin, math.cos
-
+local DEFAULT_RADIUS = 60
 
 function ORBIT:update(e, dt)
     --[[
@@ -28,15 +31,21 @@ function ORBIT:update(e, dt)
     ]]
     local move = e.behaviour.move
 
-    move.orbit_tick = (move.orbit_tick + move.orbit_speed * dt) % (math.pi*2)
-    local target = move.target
+    if not move.initialized then
+        self:init(e)
+    end
 
-    if not target then
+    move.orbit_tick = (move.orbit_tick + move.orbit_speed * dt) % (math.pi*2)
+    local target_ent = move.target_ent
+
+    if not target_ent then
         return nil -- No target given, fine by me
     end
 
-    local tp = target.pos
-    self.updateGotoTarget(e, tp.x + 60*sin(move.orbit_tick), tp.y + 60*cos(move.orbit_tick),dt)
+    local rad = move.orbit_radius or DEFAULT_RADIUS
+    local tp = target_ent.pos
+    self.updateGotoTarget(e, tp.x + rad*sin(move.orbit_tick),
+                            tp.y + rad*cos(move.orbit_tick),dt)
 end
 
 
@@ -67,6 +76,8 @@ function ORBIT:init(e)
 
     assert(#tmp_stack == 0, "caught bug!")
     self.setTargEnt(e, targ_ent)
+
+    move.initialized = true
 end
 
 

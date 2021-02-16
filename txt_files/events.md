@@ -53,6 +53,9 @@ Plays animation at x,y,z with specified frame length, and can track an entity.
 NOTE: The animation z depth won't change even when the entity moves! So tracking is only good for short animations
 -> see `src.misc.animation._types` for a list of types
 
+# shockwave ( x, y, start_size, end_size, thickness, time, colour=WHITE )
+Sends out (or in) a cool shockwave
+
 
 # keydown   ( keyname )
 Called when a key is pressed.

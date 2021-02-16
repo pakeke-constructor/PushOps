@@ -36,6 +36,8 @@ function PushSys:added(ent)
     end
 
     assert(ent.vel, "Unmoving ent attempted to push moving ent")
+
+    -- FUTURE OLI HERE: THANKKKK YOU FOR DOING THIS ASSERTION. DO MORE OF THESE
     assert(ent.pushing.vel, "Unmoving ent attempted to be pushed")
 
     ccall("startPush", ent, ent.pushing)
@@ -158,26 +160,25 @@ function PushSys:boom(x, y, strength, distance,
             in this bias group.
         bias_angle :: the maximum angle that the ents will bias towards.
     ]]
-
     local this_strength
-
     for ent in partition:longiter(x, y) do
-        local eX, eY = ent.pos.x, ent.pos.y
 
-        if (not (eX == x and eY == y)) and ent.pushable then
+        if ent.onBoom then
+            ent:onBoom(x,y,strength)
+        end
+
+        local eX, eY = ent.pos.x, ent.pos.y
+                                         -- ugh! I hate this.
+        if ent.vel and ent.pushable and (not (eX == x and eY == y)) then
             -- If x and y position of ent is same as boom position:
                 -- Dont apply the force. This entity is (probably)
                 -- the entity that enacted the force.
             local e_dis = dist(x-eX, y-eY)
 
-            local should_be_pushed = true
+            this_strength = (strength*AVERAGE_DT*100) / e_dis;
 
-            -- Will only push entities a certain distance away
-            if not(e_dis < distance) then
-                should_be_pushed = false
-            end
-
-            if should_be_pushed then
+            -- will only push entities a certain distance away
+            if (e_dis < distance) then
                 local X = eX-x
                 local Y = eY-y
                 if bias_group then
@@ -192,13 +193,8 @@ function PushSys:boom(x, y, strength, distance,
                     Y = bias_vector.y * e_dis
                 end
 
-                this_strength = (strength*AVERAGE_DT*100) / e_dis;
                 ccall("addVel", ent, X * this_strength + (vx or 0),
                                      Y * this_strength + (vy or 0))
-
-                if ent.onBoom then
-                    ent:onBoom(this_strength)
-                end
 
                 ccall("animate", "shock", 0, 0, 50, 0.02, nil, nil, ent)
                 -- Push the entities away according to `strength` and distance.
@@ -220,29 +216,31 @@ function PushSys:moob(x, y, strength, distance)
         Pulls all entities from a point towards itself
     ]]
     local this_strength
+    
 
     for ent in partition:longiter(x, y) do
         local eX, eY = ent.pos.x, ent.pos.y
 
-        if not (eX == x and eY == y) then
+        if ent.onBoom then
+            -- is negative, because this is `moob` callback
+            ent:onBoom(x,y,-strength)
+        end
+
+        if ent.vel and ent.pushable and (eX ~= x and eY ~= y) then
             -- If x and y position of ent is same as boom position:
                 -- Dont apply the force. This entity is (probably)
                 -- the entity that enacted the force.
             local e_dis = dist(x-eX, y-eY)
 
+            this_strength = (AVERAGE_DT*strength*100) / e_dis;
+
             -- Will only push entities a certain distance away
             
             if e_dis < distance then
-                this_strength = (AVERAGE_DT*strength*100) / e_dis;
                 Cyan.call("addVel", ent,
                 ((x-eX)*this_strength),
                 (y-eY)*this_strength)
                 -- Push the entities away according to `strength` and distance.
-
-                if ent.onBoom then
-                    -- is negative, because this is `moob` callback
-                    ent:onBoom(-this_strength)
-                end
 
                 -- Add Z velocity to bounce em up.
                 ent.vel.z = rand(100,300)

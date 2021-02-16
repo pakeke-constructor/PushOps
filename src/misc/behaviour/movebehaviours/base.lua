@@ -62,8 +62,8 @@ function base.setTargEnt(ent, target_ent)
     -- This function is important as it ensures no memory leaks.
     local move = ent.behaviour.move
 
-    if move.target then
-        local targ = move.target
+    if move.target_ent then
+        local targ = move.target_ent
         if rawget(TargettedEntities, targ) then
             TargettedEntities[targ]:remove(ent)
             if TargettedEntities[targ].size == 0 then
@@ -72,9 +72,9 @@ function base.setTargEnt(ent, target_ent)
         end
     end
 
+    move.target_ent = target_ent
     if target_ent then
         TargettedEntities[target_ent]:add(ent)
-        move.target = target_ent
     end
 end
 

@@ -6,7 +6,7 @@
 import os
 from os.path import isfile
 
-PATH = 'D:\PROGRAMMING\LUA\SCRIPTS'
+PATH = 'D:\\PROGRAMMING\\LUA\\SCRIPTS\\push_game'
 
 
 
@@ -15,6 +15,9 @@ def count(fpath):
     tot = 0
     
     if not (fpath.endswith(".lua") or fpath.endswith(".fnl") or fpath.endswith(".glsl")):
+        return 0
+
+    if fpath==".git":
         return 0
     
     with open(fpath, "r") as f:
