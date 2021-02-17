@@ -7,12 +7,13 @@ local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
 local fpsys = love.graphics.newParticleSystem(atlas.image)
-fpsys:setQuads(Quads.beet, Quads.bot, Quads.bit)
-fpsys:setParticleLifetime(0.4, 0.6)
+--fpsys:setQuads(Quads.beet, Quads.bot, Quads.bit)
+fpsys:setQuads(Quads.circ4,Quads.circ3,Quads.circ2,Quads.circ1)
+fpsys:setParticleLifetime(0.1, 0.2)
 --fpsys:setLinearAcceleration(0,0,200,200)
 fpsys:setDirection(180)
 fpsys:setSpeed(0,0)
-fpsys:setEmissionRate(90)
+fpsys:setEmissionRate(190)
 fpsys:setSpread(math.pi/2)
 fpsys:setEmissionArea("uniform", 6,0)
 fpsys:setColors({1,0,0}, {0.5,0,0,0.8})
@@ -29,44 +30,45 @@ local ccall = Cyan.call
 local r = love.math.random
 
 
-local function colFunc(self, player)
-    local pos = player.pos
-
-    if player.armour == 0 then
-        error("Player armour 0?? wat")
-    end
-    self:delete()
-    ccall("damage", player, 10 / (player.armour or 1))
-end
-
 
 local collisionsComp = {
-    area = {player = colFunc}
+    physics = function(self, e, speed)
+        if e.targetID=="player" then
+            if e.armour == 0 then
+                error("Player armour 0?? wat")
+            end
+            ccall("damage",e,10/(e.armour or 1))
+        end
+        ccall("damage",self,0xfffffffff)
+    end
+}
+
+local friction_comp = {
+    emitter = fpsys;
+    required_vel = 0;
+    amount=0
 }
 
 
 return function(x,y)
-    return Cyan.Entity()
+    local e = Cyan.Entity()
 
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     
-    :add("hp", {hp = 100, max_hp = 100})
+    :add("hp", {hp = 100, max_hp = 100, regen=-100/4})
     
-    :add("size",0) -- Smol bullet! trust me this is a good size
+    :add("size",16)
 
-    --[[
-    :add("physics", {
-        shape = shape;
-        body  = "dynamic"
+    :add("friction", {
+        emitter = fpsys:clone();
+        required_vel = 0;
+        amount=0
     })
-    ]]
-
-    :add("image", Quads.bullet)
-
-    :add("size", 0)
-
+    EH.PHYS(e,5)
+    :add("draw",{oy=0})
     :add("collisions", collisionsComp)
+    return e
 end
 
 

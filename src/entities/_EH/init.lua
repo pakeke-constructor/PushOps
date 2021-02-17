@@ -27,12 +27,11 @@ function EH.FR(e)
     --[[
         Standard friction component
     ]]
-    e:add("friction", {
+    return e:add("friction", {
         amount = 6; -- The amount of friction given to this entity
         emitter = basePsys:clone();
         required_vel = 10;
     })
-    return e
 end
 
 

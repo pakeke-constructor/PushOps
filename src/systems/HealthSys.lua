@@ -117,6 +117,10 @@ end
 function HealthSys:update(dt)
     for _, ent in ipairs(self.group )do
         checkDead(ent)
+        local hp = ent.hp
+        if hp.regen then
+            hp.hp = hp.hp + (hp.regen * dt)
+        end
     end
 end
 

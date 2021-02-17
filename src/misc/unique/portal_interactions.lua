@@ -26,8 +26,15 @@ local nLL = function(e)
     })
 end
 
+local function feedBack(e)
+    ccall("shockwave", e.pos.x, e.pos.y, 16, 260, 5, BUF_TIME/2, {0.4,0.1,0.4})
+end
+
+
 function PortalInteracts.newLushLevel(e)
-    ccall("await", nLL, BUF_TIME, e) -- wait  seconds    
+    ccall("shockwave", e.pos.x, e.pos.y, 16, 260, 5, BUF_TIME/2, {0.4,0.1,0.4})
+    ccall("await", nLL, BUF_TIME, e) -- wait  seconds
+    ccall("await", feedBack, BUF_TIME/2, e)  
 end
 
 

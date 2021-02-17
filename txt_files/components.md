@@ -192,7 +192,7 @@ emitter = love.graphics.newParticleSystem()
 
 
 friction = {
-    emitter = <emitter comp>
+    emitter = particleSys:clone()    -- MUST be cloned!
     reqiured_vel = 9 -- the required velocity to emit particles.
     amount = 0.5 -- The friction imposed on the rigidbody.
 

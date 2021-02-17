@@ -162,7 +162,7 @@ function PushSys:boom(x, y, strength, distance,
     ]]
     local this_strength
     for ent in partition:longiter(x, y) do
-
+ 
         if ent.onBoom then
             ent:onBoom(x,y,strength)
         end

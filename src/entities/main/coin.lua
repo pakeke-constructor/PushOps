@@ -15,7 +15,7 @@ end
 
 
 return function(x, y)
-    local e = Cyan.Entity()
+    local e = Cyan.Entity() 
     e:add("animation", {
         frames = quad_arr;
         interval = 0.3;
@@ -30,4 +30,5 @@ return function(x, y)
     }
     e.pushable=true
 end
+
 

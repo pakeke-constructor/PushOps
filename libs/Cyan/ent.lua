@@ -182,6 +182,8 @@ end
 
 
 
+
+
 -- Immediately destroys entity component and removes from systems.
 -- (Does not account for whether it's safe or not.)
 function Entity:remove( comp_name )

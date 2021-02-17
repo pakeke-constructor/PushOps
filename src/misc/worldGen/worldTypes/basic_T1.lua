@@ -125,7 +125,7 @@ return {
 
     ['%'] = {
         max = 999999; --no max;
-        Ents.fakeWall -- Nothing :) waste of space, you!
+        Ents.wall -- had to change to regular wall due to destruction
     };
 
     ['l'] = {
