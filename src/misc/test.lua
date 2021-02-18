@@ -18,8 +18,7 @@ local lg = love.graphics
 
 function DEBUG_SYS:keypressed(k)
     if k=="e" then
-        print("ttt")
-        Ent.coin(400,400)
+
     end
     if k=='p' then        
         CONSTANTS.paused = not CONSTANTS.paused

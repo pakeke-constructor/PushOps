@@ -144,7 +144,7 @@ if ent has no HP component, nothing happens
 
 # dead ( ent )
 Called when an entity becomes dead.
-
+# ALIAS:    kill ( ent )
 
 
 

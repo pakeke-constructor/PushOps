@@ -18,7 +18,7 @@ local motion_right = { Quads.red_player_right_1, Quads.red_player_right_2, Quads
 
 
 return function(x,y)
-    local e= Cyan.Entity()
+    local e = Cyan.Entity()
 
     EH.PV(e, x,y)
     
@@ -31,6 +31,8 @@ return function(x,y)
     :add("strength", 100)
 
     :add("targetID", "player")
+
+    :add("pushable",true)
 
     :add("physics", {
         shape = player_shape;

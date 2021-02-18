@@ -21,13 +21,3 @@ MoveSys is responsible for removing .pos and .vel, DrawSys is responsible for re
 BobbingSys is responsible for removing .bobbing, etc etc.)
 This will remove a LOT of pressure on GC.
 
-
-
-Tools.isIntersect and Tools.isBlocked needs testing
-(best to test it with the mouse.)
-Then, use this to do   RAND moveBehaviour. This way you can make it so entities
-dont walk into walls and shit haha
----> note: I did this, this isnt working! I have no idea why. NEED TO DEBUG
-
-
-

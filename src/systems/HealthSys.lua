@@ -17,12 +17,18 @@ end
 
 
 function HealthSys:dead(ent)
+    --[[
+        NOTE that the entity doesn't need to have HP for this
+        callback to come into effect.
+    ]]
     if ent.onDeath then
         ent:onDeath()
     end
 
     ent:delete()
 end
+
+HealthSys.kill = HealthSys.dead
 
 
 
