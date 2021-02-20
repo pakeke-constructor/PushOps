@@ -213,7 +213,7 @@ local MoveTypes
 end
 ]===]
 
-MoveTypes = {"RAND", "IDLE", "ORBIT", "HIVE", "LOCKON"}
+MoveTypes = {"RAND", "IDLE", "ORBIT", "HIVE", "LOCKON","VECLOCKON","VECORBIT"}
 
 for i,v in ipairs(MoveTypes) do
     MoveTypes[v] = require("src.misc.behaviour.movebehaviours."..v:lower())
@@ -223,11 +223,10 @@ end
 
 
 function MoveBehaviourSys:added( ent )
-    if not ent.behaviour.move then -- hopefully -0xdead will never be a target group
-        ent.behaviour.move = { type="IDLE", id=-0xDEAD }
+    if not ent.behaviour.move then 
+        ent.behaviour.move = { type="IDLE" }
     elseif not ent.behaviour.move.type then
         ent.behaviour.move.type = "IDLE"
-        ent.behaviour.move.id = -0xDEAD
     end
 end
 

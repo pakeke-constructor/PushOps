@@ -20,6 +20,8 @@ MoveBehaviour :: VECORBIT
 local sin, cos = math.sin, math.cos
 local DEFAULT_RADIUS = 60
 
+local VECORBIT = { }
+
 function VECORBIT:update(e, dt)
     local move = e.behaviour.move
 

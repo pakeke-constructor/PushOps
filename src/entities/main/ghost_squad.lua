@@ -12,6 +12,13 @@ local GHOST_CHILD_COL = {0.9,1,0.9, 0.4}
 local GHOST_CHILD_DMG = 10
 
 
+local GHOST_FRAMES = {}
+for iii=1, 9 do
+    table.insert(GHOST_FRAMES, Quads["ghost"..tostring(iii)])
+end
+
+
+
 local function invisGhostColFunc(e,player)
     ccall("damage",player, 10)
 end
@@ -39,12 +46,15 @@ local function invisGhost(x,y, parent)
         move = {
             type = "VECORBIT"; -- We keep still until parent ghost
                             -- is unobstructed to player
-            id="player";
             orbit_speed = rand()*2;
             orbit_tick=0;
             orbit_radius = rand(30,100);
             target = parent.pos  -- this is allowed, because VECORBIT is safely mutable
         }}
+    e.animation = {
+        frames = GHOST_FRAMES;
+        interval = 0.05
+    }
     e.onDeath = invisGhostOnDeath
     e.collisions = {
         area = {
@@ -57,45 +67,20 @@ end
 
 
 
-
-local angerChildGhosts = EH.Task("_anger child ghosts")
-function angerChildGhosts:start(e)
-    --TODO: play a sound here as well
-    ccall("shockwave", e.pos.x,e.pos.y, 3, 80, 4, 0.3, {0.9,0.1,0.1})
-    for _,c in ipairs(e.child_ghost_ents) do
-        ccall("setMoveBehaviour", c, "ORBIT", "player")
-    end
-end
-function angerChildGhosts:update(e,dt)
-    return "n"
-end
-
-
-local pacifyChildGhosts = EH.Task("_pacify child ghosts")
-function pacifyChildGhosts:start(e)
-    for _,c in ipairs(e.child_ghost_ents) do
-        ccall("setMoveBehaviour", c, "VECORBIT")
-        c.behaviour.move.target = e.pos
-        -- assert that child ghosts go back to their parent
-    end
-end
-function pacifyChildGhosts:update(e,dt)
-    return "n"
-end
-
+--[[
+    it was better without the child ghosts being on their own
+]]
 
 
 local Tree = EH.Node("_ghost behaviour tree")
 
 Tree.angry = {
     "move::ORBIT";
-    angerChildGhosts;
     "wait::10"
 }
 
 Tree.normal = {
     "move::RAND";
-    pacifyChildGhosts;
     "wait::3"
 }
 
@@ -107,28 +92,44 @@ function Tree:choose(ent)
 end
 
 
+local onDeath = function(e)
+    ccall("shockwave", e.pos.x,e.pos.y, 4,240,4, 0.9, {1,0.1,0.1})
+    for _,u in ipairs(e.child_ghost_ents)do
+        ccall("kill",u)
+    end
+end
+
+
 
 return function(x, y)
     local e = Cyan.Entity()
     EH.PV(e,x,y)
     EH.PHYS(e,10)
+    local spd = rand(80,100)
     e.speed = {
-        speed=rand(80,160);
-        max_speed = rand(100,200)
+        speed=spd;
+        max_speed = spd
     }
     e.behaviour = {
         tree=Tree;
         move={
-            orbit_radius = 100;
+            orbit_radius = 50;
             orbit_tick = 0;
-            orbit_speed = rand()*4
+            orbit_speed = rand()*4;
+            id='player'
         }
     }
     e.hp = {
         hp=1000;
         max_hp=1000
     }
-
+    e.animation = {
+        frames = GHOST_FRAMES;
+        interval = 0.05
+    }
+    e.sigils ={
+        "crown"
+    }
     e.child_ghost_ents = { }
     for u=1,rand(4,7)do
         -- constructing children
@@ -136,7 +137,8 @@ return function(x, y)
             invisGhost(x + 5*rand(), y+ 5*rand(), e)
         )
     end
-
+    e.collisions = {physics=EH.PC}
+    e.onDeath=onDeath
     e.colour = GHOST_COL
 end
 

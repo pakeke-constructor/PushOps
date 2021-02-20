@@ -62,7 +62,11 @@ function ORBIT:init(e)
     local targ_ent = nil
     local tmp_stack = self.tmp_stack
 
-    for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
+    assert(e.pos)
+    assert(id)
+    local partition = Partitions[id]
+    assert(partition,id)
+    for ent in partition:foreach(e.pos.x, e.pos.y) do
         self.psh(tmp_stack, ent)
     end
 
@@ -89,6 +93,7 @@ function ORBIT:h_update(e)
     local targ_ent = nil
     local tmp_stack = self.tmp_stack
     assert(#tmp_stack == 0, "bug!")
+    assert(id,"ent had no id")
 
     for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
         self.psh(tmp_stack, ent)

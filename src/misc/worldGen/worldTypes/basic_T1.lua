@@ -82,9 +82,13 @@ return {
     ["e"] = {
         max = 200;
         function(x,y)
-            Ents.blob(x,y)
-            Ents.enemy(x+5,y+5)
-            Ents.mallow(x-5,y-5)
+            if rand()<0.5 then
+                Ents.blob(x,y)
+                Ents.enemy(x+5,y+5)
+                Ents.mallow(x-5,y-5)
+            else
+                Ents.ghost_squad(x,y)
+            end
         end
     };
 
