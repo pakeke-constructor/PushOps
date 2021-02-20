@@ -62,6 +62,22 @@ function EH.PHYS(e, rad, type)
 end
 
 
+function EH.PC(e1,e2,speed)
+    --[[
+        default physics collision function.
+        Entity takes damage from a source and makes a `hit` noise
+    ]]
+    if speed > CONSTANTS.ENT_DMG_SPEED then
+        ccall("sound", "thud")
+        if e1.vel then
+            ccall("damage", e1, (speed - e1.vel:len()))
+        else
+            ccall("damage",e1,speed)
+        end
+    end
+end
+
+
 Tools.req_TREE('src/misc/behaviour/tasks')
 
 
@@ -72,6 +88,8 @@ EH.entities = setmetatable({___PROXY = PROXY}, {__newindex = function(t,k,v)
     end
     rawset(PROXY,k,v)
 end})
+
+
 
 
 EH.BT   = require("libs.BehaviourTree")

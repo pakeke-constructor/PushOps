@@ -31,7 +31,7 @@ do
     _G.math.vec3 = require "libs.math.NM_vec3"
     _G.math.dot  = require "libs.math.dot"
 
-    -- Entity construction helper functions
+    -- Entity construction helper functions / util
     _G.EH = require 'src.entities._EH'
 
     _G.CONSTANTS = require"src.misc._CONSTANTS"

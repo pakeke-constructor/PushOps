@@ -108,8 +108,8 @@ Tree.idle = {
 
 local physColFunc = function(e1, e2, speed)
     if speed > CONSTANTS.ENT_DMG_SPEED then
-        Cyan.emit("sound", "thud")
-        Cyan.emit("damage", e1, (speed - e1.vel:len()))
+        ccall("sound", "thud")
+        ccall("damage", e1, (speed - e1.vel:len()))
     end
 end
 

@@ -8,6 +8,7 @@ MoveBehaviour :: ORBIT
 required fields:
 
 .move = {
+    id = <target id>
     orbit_tick = 0;
     orbit_speed = 0.2;   -- how many orbits is done per second
     orbit_radius = 60; -- the radius of which the ent will orbit around
@@ -87,6 +88,7 @@ function ORBIT:h_update(e)
     local id = move.id
     local targ_ent = nil
     local tmp_stack = self.tmp_stack
+    assert(#tmp_stack == 0, "bug!")
 
     for ent in Partitions[id]:foreach(e.pos.x, e.pos.y) do
         self.psh(tmp_stack, ent)

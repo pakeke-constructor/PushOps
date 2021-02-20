@@ -1,4 +1,16 @@
 
+--[[
+MoveBehaviour :: LOCKON
+
+required fields:
+
+
+
+.move = {
+    id = <target id>
+}
+
+]]
 
 local LOCKON = { }
 
