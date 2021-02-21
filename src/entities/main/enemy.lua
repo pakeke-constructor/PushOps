@@ -43,6 +43,7 @@ local r = love.math.random
 
 local onDeath = function(e)
     local p = e.pos
+    EH.TOK(e,4)
     ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
     ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
 end

@@ -37,9 +37,10 @@ local function invisGhost(x,y, parent)
     ]]
     local e = Cyan.Entity()
     EH.PV(e,x,y)
+    local spd = rand(110,200)
     e.speed = {
-        speed = rand(70,110);
-        max_speed = rand(90,120)
+        speed = spd;
+        max_speed = spd
     }
     e.ghost_parent_e = parent
     e.behaviour = {
@@ -120,13 +121,14 @@ return function(x, y)
         }
     }
     e.hp = {
-        hp=1000;
-        max_hp=1000
+        hp=400;
+        max_hp=400
     }
     e.animation = {
         frames = GHOST_FRAMES;
         interval = 0.05
     }
+    e.targetID = "enemy"
     e.sigils ={
         "crown"
     }
@@ -134,11 +136,16 @@ return function(x, y)
     for u=1,rand(4,7)do
         -- constructing children
         table.insert(e.child_ghost_ents,
-            invisGhost(x + 5*rand(), y+ 5*rand(), e)
+            invisGhost(x, y, e)
         )
     end
+    assert(e.child_ghost_ents~=0,"?????????")
     e.collisions = {physics=EH.PC}
     e.onDeath=onDeath
     e.colour = GHOST_COL
+    e.light = {
+        colour = {0.5,0.5,0.5,1};
+        distance = 20; -- radius of 100 pixels
+    }
 end
 

@@ -1,5 +1,16 @@
 
-local ShockWave = {}
+local ShockWave = {
+    --[[
+
+Shockwave objects represented as a class, with :new and :update
+and :draw methods.
+
+
+
+
+
+    ]]
+}
 
 local mt = {__index = ShockWave}
 

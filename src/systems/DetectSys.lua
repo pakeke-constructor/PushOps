@@ -95,7 +95,7 @@ end
 
 
 
-function DetectSys:heavyupdate(dt)
+function DetectSys:update(dt)
     for _, e in ipairs(self.group) do
         S_update(e, dt)
     end

@@ -1,39 +1,17 @@
 
 
+Ghost followers arent following their parent.
 
+This is probably because somewhere in the code,
+`ent.vel = X` is being done.
+So when child ghosts look at the vector they were assigned, it is no longer
+being mutated as they expect (which leaves children ghosts following a dead vector)
 
-
-
-
-Bug2:
-in `RAND` moveBehaviour, ents are being stupid and walking into walls.
-This is because, although Tools.isIntersect() works fine, the interior walls
-dont have a physics body!!!! So if a random position is selected inside a walled
-off area, there is a chance that the intersection function will just miss the
-intersections by a very slight amount
-possible solutions:
-- Create own intersection function
-- Dont use physics intersection to select a random position, and instead have
-    MoveBehaviourSys subscribe to the `collide` callback
-
-!!! ON SECOND THOUGHT, This probably isnt the reason!
-===> The reason is probably due to entities initializing their physics path
-BEFORE the map has been fully initialized. So their path IS valid, but not when the 
-whole map has finished generating
+Only way to salvage this is to make a dumb behaviour tree update function unfortunetely :/
 
 
 
 
 
 
-
-
-
-  Entities
-  {
-      
-  }
-  
-
-  Systems
 

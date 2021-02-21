@@ -55,6 +55,13 @@ return {
                 end
             end
         };
+
+        ['w'] = {
+            max = 1;
+            function(x,y)
+                Ents.bigwall(x,y)
+            end
+        };
         
         ['^'] = {
             max = 0xFFFFFFF;

@@ -11,6 +11,9 @@ in order to keep coding entities fast and easy and concise.
     ]]
 }
 
+
+local rand=love.math.random
+
 local vec3=math.vec3
 function EH.PV(e,x,y,z)
     -- position : velocity comp adding/
@@ -78,6 +81,7 @@ function EH.PC(e1,e2,speed)
 end
 
 
+
 Tools.req_TREE('src/misc/behaviour/tasks')
 
 
@@ -87,7 +91,23 @@ EH.entities = setmetatable({___PROXY = PROXY}, {__newindex = function(t,k,v)
         error("Entity file already had the name : "..k .. ". Duplicate names not allowed!")
     end
     rawset(PROXY,k,v)
-end})
+end;
+__index = PROXY
+})
+EH.Ents=EH.entities
+
+
+
+function EH.TOK(e, amount)
+    --[[
+        spawns `amount` tokens around an entity.
+    ]]
+    local x,y = e.pos.x,e.pos.y
+    for i=1,amount do
+        EH.Ents.tok(x+(5*rand()), y+(5*rand()))
+    end
+end
+
 
 
 

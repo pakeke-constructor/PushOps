@@ -46,11 +46,29 @@ function base.updateGotoTarget(ent, pos_x, pos_y, dt)
     assert(vx == vx, NAN_police)
     assert(vy == vy, NAN_police)
 
+    --previously ccall("addVel") was used here. 
     Cyan.call("addVel", ent, vx, vy)
 end
 
 
+function base.controlledGotoTarget(ent, pos_x, pos_y, dt)
+    local sp = ent.pos
 
+    local d = dist(pos_x - sp.x, pos_y - sp.y)
+
+    if d < 0.1 then -- if d is low, don't bother
+        return
+    end
+
+    local vx = ((pos_x - sp.x)/d) * ent.speed.speed
+    local vy = ((pos_y - sp.y)/d) * ent.speed.speed
+
+    assert(vx == vx, NAN_police)
+    assert(vy == vy, NAN_police)
+
+    --previously ccall("addVel") was used here. 
+    Cyan.call("setVel", ent, vx, vy)
+end
 
 
 

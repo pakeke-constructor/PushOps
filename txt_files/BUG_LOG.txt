@@ -65,6 +65,46 @@ Should be fixed as of 16/02/2021
 
 
 
+Bug2:
+in `RAND` moveBehaviour, ents are being stupid and walking into walls.
+This is because, although Tools.isIntersect() works fine, the interior walls
+dont have a physics body!!!! So if a random position is selected inside a walled
+off area, there is a chance that the intersection function will just miss the
+intersections by a very slight amount
+possible solutions:
+- Create own intersection function
+- Dont use physics intersection to select a random position, and instead have
+    MoveBehaviourSys subscribe to the `collide` callback
+
+!!! ON SECOND THOUGHT, This probably isnt the reason!
+===> The reason is probably due to entities initializing their physics path
+BEFORE the map has been fully initialized. So their path IS valid, but not when the 
+whole map has finished generating
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Error: src/misc/behaviour/movebehaviours/base.lua:37: attempt to perform arithmetic on local 'pos_x' (a nil value)
 stack traceback:
         [string "boot.lua"]:777: in function '__sub'

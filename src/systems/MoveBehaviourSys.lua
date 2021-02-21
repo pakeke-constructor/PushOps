@@ -213,7 +213,9 @@ local MoveTypes
 end
 ]===]
 
-MoveTypes = {"RAND", "IDLE", "ORBIT", "HIVE", "LOCKON","VECLOCKON","VECORBIT"}
+MoveTypes = {"RAND", "IDLE", "ORBIT", "HIVE", "LOCKON",
+            "VECLOCKON","VECORBIT",
+            "CLOCKON","CORBIT"}
 
 for i,v in ipairs(MoveTypes) do
     MoveTypes[v] = require("src.misc.behaviour.movebehaviours."..v:lower())

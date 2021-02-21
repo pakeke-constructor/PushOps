@@ -2,8 +2,15 @@
 
 local atlas = require("assets.atlas")
 
+--[[
+This is a really dumb fix....
 
-local AnimationSys = Cyan.System("animation", "pos")
+But I had to rename this filename and system to `LinearAnimationSys` so
+FrictionSys would be drawn before this.
+
+]]
+
+local LinearAnimationSys = Cyan.System("animation", "pos")
 
 
 
@@ -16,12 +23,8 @@ local ents_being_tracked = setmetatable({ }, {__mode="kv"})
 local cexists = Cyan.exists
 
 
-function AnimationSys:added(ent)
-    ent.draw = {}
-
-    local draw = ent.draw
+function LinearAnimationSys:added(ent)
     local anim = ent.animation
-
     anim.animation_len = #anim.frames
     anim.current = 0
 
@@ -34,16 +37,17 @@ function AnimationSys:added(ent)
         anim.oy = h/2
     end
 
-    draw.ox = anim.ox
-    draw.oy = anim.oy
-
-    draw.w = w
-    draw.h = h
+    ent:add("draw",{
+        ox=anim.ox;
+        oy=anim.oy;
+        w=w;
+        h=h
+    })
 end
 
 
 
-function AnimationSys:removed(ent)
+function LinearAnimationSys:removed(ent)
     if ent.anim then
         local a = ent.anim
         for i = 1, #a.frames do
@@ -66,7 +70,7 @@ local default_bob = {scale = 1, magnitude = 0, oy=0}
 local default_sway = {value = 0, ox=0}
 
 
-function AnimationSys:drawEntity( ent )
+function LinearAnimationSys:drawEntity( ent )
     if self:has(ent) then
         local index
 
@@ -219,7 +223,7 @@ local t_insert = table.insert
 local WHITE = {1,1,1}
 
 
-function AnimationSys:animate(anim_type, x, y, z, frame_len, cycles,
+function LinearAnimationSys:animate(anim_type, x, y, z, frame_len, cycles,
                               colour, track_ent, hide_ent)
     if colour and colour.pos then
         -- colours should not have a position! This is an entity instead
@@ -228,7 +232,7 @@ Expected  ccall('animate', x, y, z, frame_len, cycles, colour = WHITE, track_ent
     end
 
     if not AnimTypes[anim_type] then
-        error("AnimationSys:animate(type, x,y,z, frame_len, track_ent=nil) ==> Unrecognised anim type ==> "..tostring(anim_type))
+        error("LinearAnimationSys:animate(type, x,y,z, frame_len, track_ent=nil) ==> Unrecognised anim type ==> "..tostring(anim_type))
     end
 
     local anim = get_anim_obj(anim_type)
@@ -252,19 +256,19 @@ end
 
 
 
-function AnimationSys:drawIndex( z_dep )
+function LinearAnimationSys:drawIndex( z_dep )
     for _, anim in ipairs(in_use_anim_Z_index[z_dep].objects) do
         anim:draw()
     end
 end
 
 
-function AnimationSys:heavyupdate(dt)
+function LinearAnimationSys:heavyupdate(dt)
 end
 
 
 
-function AnimationSys:update(dt)
+function LinearAnimationSys:update(dt)
     for _, ent in ipairs(self.group) do
         local anim = ent.animation
 
@@ -307,7 +311,7 @@ end
 
 
 
-function AnimationSys:purge()
+function LinearAnimationSys:purge()
     --
     -- Releases all memory
     --
