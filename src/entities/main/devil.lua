@@ -1,5 +1,13 @@
 
 
+--[[
+
+
+Just like regular enemies, but with high HP.
+
+Tests :: passed
+]]
+
 
 local player_shape = love.physics.newCircleShape(8)
 
@@ -32,7 +40,7 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 local col={
-    0.8,1,0.8
+    0.7,0,0
 }
 
 
@@ -41,12 +49,22 @@ local ccall = Cyan.call
 local r = love.math.random
 
 
+local function spawnAfterDeath(x,y,z)
+    ccall("emit", "dust", x, y, z, r(13,18))
+    local e1=EH.Ents.enemy(x+5,y)
+    local e2=EH.Ents.enemy(x-5,y)
+end
+
+
+--# shockwave ( x, y, start_size, end_size, thickness, time, colour=WHITE )
 local onDeath = function(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
-    ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+    ccall("shockwave", p.x,p.y, 160, 3, 9, 0.8, col)
+    ccall("await", spawnAfterDeath, 1.2, p.x,p.y,p.z)
     EH.TOK(e,r(1,2))
 end
+
 
 
 local ai_types = { "ORBIT", "LOCKON" }
@@ -56,7 +74,9 @@ local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
 
 local physColFunc = function(e1, e2, speed)
     if EH.PC(e1,e2,speed) then
-        ccall("sound","thud")
+        local p =e1.pos
+        ccall("emit","guts",p.x,p.y,p.z, r(8,12))
+        ccall("sound", "thud")
     end
 end
 
@@ -65,13 +85,21 @@ local RAND_or_IDLE = {"RAND", "IDLE"}
 
 
 
-local Tree = EH.Node '_enemy behaviour tree'
+local Tree = EH.Node '_devil behaviour tree'
 
 Tree.choose = function(node, e)
-        return "angry" -- we removed tree, no point. `LOCKON` and `ORBIT` is just better.
+        local ret = "idle"
+        if e.hp.hp < e.hp.max_hp then
+            ret= "angry"
+        end;
+        if love.math.random() < 0.4 then
+            ret = "angry" -- has a chance to be angry anyway
+        end
+        return ret
 end
 
-local rand_move_task = EH.Task("_enemy move task")
+
+local rand_move_task = EH.Task("_devil move task")
 rand_move_task.start = function(t,e)
     ccall("setMoveBehaviour", e, Tools.rand_choice(ai_types))
 end
@@ -85,6 +113,11 @@ Tree.angry = {
     "wait::10"
 }
 
+
+Tree.idle = {
+    "move::IDLE",
+    "wait::4"
+}
 
 
 
@@ -101,9 +134,9 @@ return function(x,y)
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
 
-    :add("sigils",{"poison"})
+    :add("sigils",{"strength"})
     
-    :add("hp", {hp = 100, max_hp = 100})
+    :add("hp", {hp = 900, max_hp = 900})
 
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
 
@@ -144,7 +177,7 @@ return function(x,y)
     })
 
     :add('light',{
-        colour = {0.5,0.5,0.5,1};
+        colour = {0.5,0.2,0.2,1};
         distance = 20
     })
 

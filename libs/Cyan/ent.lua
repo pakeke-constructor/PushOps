@@ -101,7 +101,8 @@ function Entity:new()
         @return Entity entity@
     ]]
     local ent = {
-        ___mask = basemask * 1 -- Multiply by 1 to create memory unique copy
+        ___mask = basemask * 1 -- Multiply by 1 to create memory unique copy 
+                               -- (shouldnt matter for non-ffi data)
     }
     Entity.___all:add( ent )
     return setmetatable(ent, Entity_mt)

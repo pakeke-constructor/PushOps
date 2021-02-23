@@ -28,10 +28,7 @@ local ccall = Cyan.call
 local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
 
 local physColFunc = function(ent, oth, speed)
-    if speed > ENT_DMG_SPEED then
-        -- if collides at >DMGSPEED, damage is done
-        ccall("damage", ent, (speed - ent.vel:len()))
-    end
+    EH.PC(ent,oth,speed)
 end
 
 
@@ -48,6 +45,7 @@ local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
     ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+    EH.TOK(e,1,3)
 end
 
 

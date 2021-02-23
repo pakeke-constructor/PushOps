@@ -12,6 +12,19 @@ return {
     tier = 1;
 
     entities = {
+
+        ["X"] = {
+            --[[
+                Experimental entity slot.
+                This ent could refer to any entity type, it just depends what I
+                am testing rn!
+            ]]
+            max = 0xfffff;
+            function(x,y)
+                Ents.devil(x,y)
+            end
+        };
+
         ["#"] = { -- For wall entity.
             max = 999999, --No max.
             Ents.wall
@@ -34,7 +47,7 @@ return {
         ["p"] = {
             max = 300, -- 60 max
             function(x, y)
-                for i = 1, rand(1,3) do
+                for i = 1, rand(3,6) do
                     Ents.block(
                         x + rand(-10, 10),
                         y + rand(-10, 10)
@@ -44,7 +57,7 @@ return {
         };
 
         ["P"] = {
-            max = 6, -- Max spawns :: 6
+            max = 12, -- Max spawns :: 6
             function(x, y)
                 local block_ctor = Ents.block
                 for i = 1, rand(3,6) do
@@ -98,3 +111,5 @@ return {
         }
     }
 }
+
+

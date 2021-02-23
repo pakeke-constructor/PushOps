@@ -98,8 +98,15 @@ local onDeath = function(e)
     for _,u in ipairs(e.child_ghost_ents)do
         ccall("kill",u)
     end
+    EH.TOK(e,rand(2,3))
 end
 
+
+local function pCF(e,e1,s)
+    if EH.PC(e,e1,s) then
+        ccall("sound","thud")
+    end
+end
 
 
 return function(x, y)
@@ -140,7 +147,7 @@ return function(x, y)
         )
     end
     assert(e.child_ghost_ents~=0,"?????????")
-    e.collisions = {physics=EH.PC}
+    e.collisions = {physics=pCF}
     e.onDeath=onDeath
     e.colour = GHOST_COL
     e.light = {

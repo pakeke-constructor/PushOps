@@ -1,4 +1,12 @@
 
+--[[
+
+Hell-ish version of `mallow` ent.
+
+
+]]
+
+
 local Atlas = require("assets.atlas")
 local Quads = Atlas.Quads
 local EH = EH
@@ -20,7 +28,7 @@ for i=1,4 do
     ti(right, EH.Quads["mallow_right_"..tostring(i)])
 end
 
-local COLOUR={0.7,1,0.7}
+local COLOUR={0.6,0.02,0.02}
 
 
 
@@ -48,7 +56,7 @@ psys:setOffset(pW/2, pH/2)
 
 
 
-local Tree = EH.Node("mallow behaviour tree")
+local Tree = EH.Node("demon behaviour tree")
 
 
 local Camera = require("src.misc.unique.camera")
@@ -69,7 +77,7 @@ end
 
 
 
-local mallow_spin_task = EH.Task("_mallow spin task")
+local mallow_spin_task = EH.Task("_demon spin task")
 
 mallow_spin_task.start = function(t,e)
     ccall("setMoveBehaviour", e,"IDLE")
@@ -113,17 +121,28 @@ local physColFunc = function(e1, e2, speed)
 end
 
 
+local function spawnAfterDeath(x,y,z)
+    local e1=EH.Ents.mallow(x,y+5)
+    local e2=EH.Ents.mallow(x,y-5)
+    ccall("emit", "guts", r(13,18))
+    ccall("damage",e1,e1.hp.max_hp/2) -- Lets weaken em a bit so they aren't OP!
+    ccall("damage",e2,e2.hp.max_hp/2)
+end
+
+
 local r = love.math.random
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
+    ccall("shockwave", p.x,p.y, 160, 3, 9, .8)
+    ccall("await", spawnAfterDeath, 1.2, p.x,p.y,p.z)
     EH.TOK(e,r(4,6))
 end
 
 
+
 -- ctor
 return function(x, y)
-
     local e = Cyan.Entity()
     EH.PV(e,x,y)
 

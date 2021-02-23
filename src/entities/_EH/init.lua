@@ -68,17 +68,43 @@ end
 function EH.PC(e1,e2,speed)
     --[[
         default physics collision function.
-        Entity takes damage from a source and makes a `hit` noise
+        Entity takes damage from source, and damages player if applicable.
+
+        Returns `true` if the collision was a hard collision,
+        `false` otherwise.
     ]]
+    if e1.targetID=="enemy" then
+        if e2.targetID=="player" then
+            ccall("damage", e2, (e1.strength or 10))
+        end
+    end
+
     if speed > CONSTANTS.ENT_DMG_SPEED then
-        ccall("sound", "thud")
         if e1.vel then
             ccall("damage", e1, (speed - e1.vel:len()))
         else
             ccall("damage",e1,speed)
         end
+        return true -- Yes, the speed collision is greater than required
+    end
+    return false -- No, the collision speed was not enough to warrant hard collision
+end
+--[[
+Common idiom here:
+
+
+local function entColFunc( e1, e2, spd )
+    
+    if EH.PC( e1, e2, spd ) then
+
+        ... Do stuff here, like make noise, spawn tokens, IDK.
     end
 end
+
+]]
+
+
+
 
 
 
@@ -104,7 +130,7 @@ function EH.TOK(e, amount)
     ]]
     local x,y = e.pos.x,e.pos.y
     for i=1,amount do
-        EH.Ents.tok(x+(5*rand()), y+(5*rand()))
+        EH.Ents.tok(x+(12*rand()), y+(12*rand()))
     end
 end
 
