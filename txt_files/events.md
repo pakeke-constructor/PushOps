@@ -33,8 +33,11 @@ Called for each entity with `image` and `position` component
 # drawIndex ( z_depth )
 Called for every draw index, so systems can draw in order without caring for entity
 
-# translate      ()
-When love.graphics.translate() needs to be done, this is called
+# transform  
+When all the transformations need to be applied, this func is called
+
+# untransform
+Removes all draw transformations/shaders (basically just pops from lg.push stack.)
 
 
 # addSigil( ent, sigilName )

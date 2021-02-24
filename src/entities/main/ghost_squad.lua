@@ -20,7 +20,7 @@ end
 
 
 local function invisGhostColFunc(e,player)
-    ccall("damage",player, 10)
+    ccall("damage", player, 10)
 end
 
 local function invisGhostOnDeath(e)

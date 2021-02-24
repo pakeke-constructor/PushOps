@@ -43,6 +43,8 @@ local Indexer = setmetatable({},
     end}
 )
 
+
+
 -- This table holds Entities that point to `y+z` values that ensure that
 -- Entities in Indexer can always be found.  (y+z positions are updated only when system is ready.)
 local positions = {}
@@ -120,6 +122,7 @@ function DrawSys:update(dt)
         sw:update(dt)
         if sw.isFinished then
             ShockWaves:remove(sw)
+            sw.colour = nil -- easier on GC
         end
     end
 end
@@ -146,7 +149,7 @@ local draw_master = function()
 
     ccall("transform")
     
-    setColor(0.1,1,0.1) -- green grass (0.1, 1, 0.1)
+    setColor(CONSTANTS.GRASS_COLOUR)
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
     lg.rectangle("fill", 0,0, 9000,5000)

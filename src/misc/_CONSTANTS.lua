@@ -1,7 +1,6 @@
 
 
 return{
-
     MAX_DT = 0.05 -- Maximum value `dt` will ever take.
 ,
     GRAVITY = -981
@@ -46,6 +45,8 @@ return{
     }
 ,
     paused = false -- debug only  (if not debug only, make an cyan.call event for this)
+,
+    GRASS_COLOUR = {0.2,1,0.2} -- colour of ground grass
 ,
     COLOURBLIND = false
 ,

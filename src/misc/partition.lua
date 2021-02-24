@@ -22,7 +22,7 @@ local p_MAX_VEL = MAX_VEL + 0.01
 
 
 
-local partition = require("libs.spacial_partition.partition")(
+local partition = require("libs.spatial_partition.partition")(
     p_MAX_VEL * CONSTANTS.MAX_DT,  p_MAX_VEL * CONSTANTS.MAX_DT
 )
 

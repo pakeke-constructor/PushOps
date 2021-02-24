@@ -44,6 +44,7 @@ do
     end
 
     compbitbase_shiftnum = 1 -- number of bit shifts currently
+                             -- (We start at 1 and cap at 31 for safety)
 end
 
 

@@ -9,7 +9,7 @@ local partition = require("src.misc.partition")
 local ccall = Cyan.call
 local rand = love.math.random
 
-local BUF_TIME = 1.8 -- wait 1.8 seconds then spawn new world
+local BUF_TIME = 1.2 -- wait 1.2 seconds then spawn new world
 
 
 
@@ -19,22 +19,26 @@ local BUF_TIME = 1.8 -- wait 1.8 seconds then spawn new world
 local nLL = function(e)
     ccall("purge")
     ccall("newWorld",{
-        x = rand(60,80)-40;
-        y = rand(60,80)-40;
+        x = rand(20,40);
+        y = rand(20,40);
         type = "basic";
         tier = 1
     })
 end
 
-local function feedBack(e)
-    ccall("shockwave", e.pos.x, e.pos.y, 16, 260, 5, BUF_TIME/2, {0.4,0.1,0.4})
+local function regularShockwave(x,y, col)
+    ccall("shockwave", x, y, 120, 25, 3, 0.4, col)
 end
 
 
 function PortalInteracts.newLushLevel(e)
-    ccall("shockwave", e.pos.x, e.pos.y, 16, 260, 5, BUF_TIME/2, {0.4,0.1,0.4})
-    ccall("await", nLL, BUF_TIME, e) -- wait  seconds
-    ccall("await", feedBack, BUF_TIME/2, e)  
+    --[[
+        creates new level with feedback
+    ]]
+    for i=0, 7 do
+        ccall("await", regularShockwave, i*(BUF_TIME/8), e.pos.x, e.pos.y, {1,0,1})
+    end
+    ccall("await", nLL, BUF_TIME+0.05, e) -- wait  seconds
 end
 
 

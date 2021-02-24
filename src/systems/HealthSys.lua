@@ -1,13 +1,14 @@
 
 
-
-
-
-
 local HealthSys = Cyan.System("hp")
 
-
 local ccall = Cyan.call
+
+
+local DEFAULT_IFRAMES = 0 -- default invincibility of 0 seconds
+                    -- (Just so we can get lovely chain reaction :booms going :p)
+
+
 
 local function checkDead(ent)
     if ent.hp.hp <= 0 then
@@ -37,6 +38,11 @@ function HealthSys:added( ent )
 
     if not hp.regen then -- default 0.
         hp.regen = 0
+    end
+
+    if not hp.iframe_count then
+        -- invincibility frame counter.  <0 means that the ent isnt invincible.
+        hp.iframe_count = -.1
     end
 end
 
@@ -82,7 +88,7 @@ end
 
 
 function HealthSys:damage(ent, amount)
-    if self:has(ent) then
+    if self:has(ent) and ent.hp.iframe_count < 0 then
         local hp = ent.hp
         hp.hp = hp.hp - amount
 
@@ -90,6 +96,7 @@ function HealthSys:damage(ent, amount)
             ent:onDamage(amount)
         end
         
+        hp.iframe_count = hp.iframe_count + (hp.iframes or DEFAULT_IFRAMES)
         checkDead(ent)
     end
 end
@@ -126,6 +133,9 @@ function HealthSys:update(dt)
         local hp = ent.hp
         if hp.regen then
             hp.hp = hp.hp + (hp.regen * dt)
+        end
+        if hp.iframe_count > 0 then
+            hp.iframe_count = hp.iframe_count - dt  -- reduce iframes
         end
     end
 end

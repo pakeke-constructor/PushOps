@@ -121,21 +121,24 @@ local physColFunc = function(e1, e2, speed)
 end
 
 
+
+local r = love.math.random
+
 local function spawnAfterDeath(x,y,z)
     local e1=EH.Ents.mallow(x,y+5)
     local e2=EH.Ents.mallow(x,y-5)
-    ccall("emit", "guts", r(13,18))
+    ccall("emit", "guts", x,y,z,r(13,18))
+    ccall("animate", "push", x,y+25,z, 0.03)
     ccall("damage",e1,e1.hp.max_hp/2) -- Lets weaken em a bit so they aren't OP!
     ccall("damage",e2,e2.hp.max_hp/2)
 end
 
 
-local r = love.math.random
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
-    ccall("shockwave", p.x,p.y, 160, 3, 9, .8)
-    ccall("await", spawnAfterDeath, 1.2, p.x,p.y,p.z)
+    ccall("shockwave", p.x,p.y, 160, 3, 9, .4)
+    ccall("await", spawnAfterDeath, .7, p.x,p.y,p.z)
     EH.TOK(e,r(4,6))
 end
 

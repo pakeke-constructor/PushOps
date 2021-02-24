@@ -14,6 +14,8 @@ hp = {
     max_hp = 100,
     regen = 0, -- default=0
     draw_hp = true -- Draws an HP bar if true  (NOT CURRENTLY IMPLIMENTED.)
+    iframes = 0.5 -- How long the entity is invincible for after getting damaged
+                -- (default 0)
 }
 
 

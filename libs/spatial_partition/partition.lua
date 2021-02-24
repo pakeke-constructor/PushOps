@@ -1,6 +1,6 @@
 
 --[[
-    @module spacial_partition
+    @module spatial_partition
     partition expects all objects added to have a `x` and `y` component
 
 

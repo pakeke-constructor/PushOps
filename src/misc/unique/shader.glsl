@@ -75,7 +75,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     vec4 colour = Texel(texture, texture_coords);
 
     for (int n=0;n<4;n++){
-        light_mod[n] = min(1,light_mod[n]);
+        light_mod[n] = min(1, light_mod[n]);
     }
 
     color[0] *= r;
@@ -83,7 +83,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     color[2] *= b;
 
     vec4 final;
-    final = colour * color * light_mod;
+    final = colour * color * light_mod; // originally  colour * color * light_mod
 
     if (colourblind){
         // switch blue and green

@@ -6,11 +6,3 @@ TODO tasks that are unimportant
 
 ========================================================================
 
-
-
-
-Extend MoveBehaviourSys to allow for more customizable parameters
-(most importantly:  sight distance)   (Alternatively, you could just
-enable the other behavioural systems to change the behaviour-movestate at will.)
-
-

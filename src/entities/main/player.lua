@@ -24,7 +24,11 @@ return function(x,y)
     
     :add("acc", math.vec3(0,0,0))
     
-    :add("hp", {hp = 100, max_hp = 100})
+    :add("hp", {
+        hp = 100,
+        max_hp = 100,
+        iframes = 1 -- we want iframes to be high to let player respond
+    })
 
     :add("speed", {speed = 20, max_speed = 220})
 

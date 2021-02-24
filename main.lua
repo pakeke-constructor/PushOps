@@ -19,6 +19,8 @@ _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
 -- MONKEY BUSINESS STARTS HERE !!!
 setmetatable(_G, {})
+
+
 do
     -- main ECS
     _G.Cyan = require "libs.Cyan.cyan"
@@ -37,9 +39,7 @@ do
 end
 
 
-
 -- NO MORE MONKEY BUSINESS PAST THIS POINT !!!
-
 setmetatable(_G, {
     __newindex = function(_,k) error("DONT MAKE GLOBALS :: " .. tostring(k)) end,
     __index = function(_,k)

@@ -263,9 +263,6 @@ function LinearAnimationSys:drawIndex( z_dep )
 end
 
 
-function LinearAnimationSys:heavyupdate(dt)
-end
-
 
 
 function LinearAnimationSys:update(dt)
@@ -343,13 +340,5 @@ function LinearAnimationSys:purge()
         end
     end
 end
-
-
-
-
-
-
-
-
 
 

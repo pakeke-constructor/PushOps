@@ -13,7 +13,7 @@ local shape = love.physics.newRectangleShape(w/1.3,h/2)
 local ccall = Cyan.call
 
 
-local WALL_HP = 300;
+local WALL_HP = 200;
 local WALL_DMG_RANGE = 80
 
 

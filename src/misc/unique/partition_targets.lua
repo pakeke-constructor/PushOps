@@ -37,7 +37,7 @@ Target groups:
 local Partitions = {}
 
 for _, val in ipairs(CONSTANTS.TARGET_GROUPS) do
-    Partitions[val] = require("libs.spacial_partition.partition")(MAX_VEL * CONSTANTS.MAX_DT, MAX_VEL * CONSTANTS.MAX_DT)
+    Partitions[val] = require("libs.spatial_partition.partition")(MAX_VEL * CONSTANTS.MAX_DT, MAX_VEL * CONSTANTS.MAX_DT)
 end
 
 

@@ -300,7 +300,12 @@ local function makeEnts(worldMap, worldType)
             end
             entCounter[eType] = entCounter[eType] + 1
             if not(entCounter[eType] > ents[eType].max) then
-                ents[worldMap[x][y]][1](x*64, y*64)
+                ents[worldMap[x][y]][1](y*64, x*64)
+                -- What? you have `(y*64, x*64)` as opposed to `(x*64, y*64)`?
+                -- This is because for some reason, the "map matrix" for lack of a better word,
+                -- was transposed. 
+                -- flipping around X and Y will not do anything in theory, it just
+                -- makes menus a lot easier to design
             end
             ::skip::
         end

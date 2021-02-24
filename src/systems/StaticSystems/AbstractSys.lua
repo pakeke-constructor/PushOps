@@ -35,11 +35,16 @@ Each `time` object is represented as a table:
 ]]
 
 
-function AbstractSys:await(func, time, a,b,c,d,e)
+function AbstractSys:await(func, time, ...)
+    local args={...}
+    
+    if CONSTANTS.DEBUG then
+        assert(#args<7,"sorry, you broke the arg cap on ccall('await'). \n Extend the arg number in AbstractSys")
+    end
+
     times:add({
-        func = function()
-            func(a,b,c,d,e)
-        end;
+        args = args;
+        func = func;
         time = time
     })
 end
@@ -49,7 +54,9 @@ function AbstractSys:update(dt)
         timeObj.runtime = timeObj.runtime or 0
         timeObj.runtime = timeObj.runtime + dt
         if timeObj.runtime > timeObj.time then
-            timeObj.func()
+            local args = timeObj.args
+            timeObj.func(args[1],args[2],args[3],args[4],args[5],args[6],args[7])
+            timeObj.args=nil
             times:remove(timeObj)
         end
     end

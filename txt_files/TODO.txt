@@ -8,8 +8,6 @@ Check ParticleSys for memory leaks!!!
 created when not neccessary)
 
 
-Put (More) particle emitters inside of `particles` folder in misc.
-
 
 Make guys headband more thick, also add a tiny bit of shading
 (Also try putting black outlines around it, see how that looks)
@@ -20,4 +18,16 @@ automatically set ent components to nil upon being removed from systems
 MoveSys is responsible for removing .pos and .vel, DrawSys is responsible for removing .draw,
 BobbingSys is responsible for removing .bobbing, etc etc.)
 This will remove a LOT of pressure on GC.
+(especially upon ccall("purge") events.)
+
+
+Tiny blob ent (drops 1 token)
+
+Big blob ent  
+-   can break walls
+-   splits into regular blobs, except the regular blobs split into 3 or 4 Tiny blobs
+        - (regular blobs shouldnt do that)
+        -  This regular blob variant also shouldnt drop any tokens, as the tiny blob
+                ents that it splits into will drop plenty.
+
 

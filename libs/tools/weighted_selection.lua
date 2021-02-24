@@ -48,7 +48,7 @@ return function(tab)
     assert(#v_order > 0, "Need more options for weighted_selection!")
 
     return function()
-        local R = r() -- get random val
+        local R = r() -- get random val (uniformly made double: 0 -> 1 )
 
         for i = 1, #k_order do
             local ke = k_order[i] / SUM

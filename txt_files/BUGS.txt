@@ -20,18 +20,69 @@ Only way to salvage this is to make a dumb behaviour tree update function unfort
 
 
 
-
-
-
-
-
-
-
-
 `RAND` MoveBehaviour is STILL walking into walls!!!!!
 WTF????? Ensure to give area leighway upon switching target positions for `RAND`.
 (i.e, Ent physics object could have a larger radii thus making it impossible to 
 reach the destined position)
 
+OK, just realized something....
+in `base.lua`, with `base.chooseRandPos(e,dist)` for RAND MoveBehaviour, 
+The Tools.isIntersect() should ALWAYS return True, as it is intersecting with the entity
+itself. So how are random paths even being generated? There potentially may be an issue
+with Tools.isIntersect(), as you initially thought quite a while ago
 
 
+
+
+
+
+
+
+Entities can walk through walls again. NICE!
+Do more research in how physics objects can be temporarily suspended whilst keeping
+their physical properties (primarily, velocity) intact and cached correctly.
+There will probably be a box2d function for it. Ask of the love2d discord if need be
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OH SHIT!
+We cannot construct some entities when the physics world is locked.
+That really aint good. Especially given lots of `onDeath` calls are done
+during the physics callbacks. I gotta find a real good solution for this
+(Maybe `awaitsys`? I dont like it but it may have to be an option)
+
+Error
+src/systems/PhysicsSys.lua:176: Box2D assertion failed: IsLocked() == false
+
+Traceback
+conf.lua:112: in function 'handler'
+[C]: in function 'newBody'
+src/systems/PhysicsSys.lua:176: in function 'added'
+libs/Cyan/system.lua:249: in function 'add'
+libs/Cyan/ent.lua:282: in function '_send_to_systems'
+libs/Cyan/ent.lua:154: in function 'add'
+src/entities/main/blob.lua:69: in function 'blob'
+src/entities/main/bigblob.lua:60: in function 'onDeath'
+src/systems/HealthSys.lua:26: in function <src/systems/HealthSys.lua:20>
+libs/Cyan/cyan.lua:69: in function 'ccall'
+...
+src/systems/DetectSys.lua:59: in function <src/systems/DetectSys.lua:55>
+libs/Cyan/cyan.lua:69: in function 'ccall'
+src/systems/PhysicsSys.lua:66: in function <src/systems/PhysicsSys.lua:52>
+[C]: in function 'update'
+src/systems/PhysicsSys.lua:129: in function <src/systems/PhysicsSys.lua:128>
+libs/Cyan/cyan.lua:69: in function 'call'
+src/misc/unique/gamestate.lua:19: in function 'update'
+[C]: in function 'xpcall'

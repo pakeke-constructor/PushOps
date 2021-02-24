@@ -51,8 +51,9 @@ local r = love.math.random
 
 local function spawnAfterDeath(x,y,z)
     ccall("emit", "dust", x, y, z, r(13,18))
-    local e1=EH.Ents.enemy(x+5,y)
-    local e2=EH.Ents.enemy(x-5,y)
+    EH.Ents.enemy(x+5,y)
+    EH.Ents.enemy(x-5,y)
+    EH.Ents.enemy(x,y-7)
 end
 
 
@@ -60,8 +61,8 @@ end
 local onDeath = function(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
-    ccall("shockwave", p.x,p.y, 160, 3, 9, 0.8, col)
-    ccall("await", spawnAfterDeath, 1.2, p.x,p.y,p.z)
+    ccall("shockwave", p.x,p.y, 160, 3, 9, .4, col)
+    ccall("await", spawnAfterDeath, .6, p.x,p.y,p.z)
     EH.TOK(e,r(1,2))
 end
 
@@ -177,7 +178,7 @@ return function(x,y)
     })
 
     :add('light',{
-        colour = {0.5,0.2,0.2,1};
+        colour = {1,0.1,0.1,1};
         distance = 20
     })
 

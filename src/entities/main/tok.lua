@@ -18,15 +18,31 @@ local f={1,2,3,4}
 for i,v in ipairs(f) do
     f[i]=Quads["tok"..tostring(v)]
 end
+local f_rv = {4,3,2,1}
+for ii,vv in ipairs(f_rv) do
+    f_rv[ii]=Quads["tok"..tostring(vv)]
+end
 
+
+local ANIM_INTERVAL = 0.1
+
+
+local r = love.math.random
 
 return function(x, y)
     local e = Cyan.Entity()
     EH.PV(e,x,y)
     e.animation = {
         frames=f,
-        interval=0.2
+        interval = ANIM_INTERVAL
     }
+    
+    if r()<0.5 then
+        -- 50% chance for animation to run backwards
+        -- (gives nice variation)
+        e.animation.frames = f_rv
+    end
+    
     e.speed={
         speed=250;
         max_speed=250

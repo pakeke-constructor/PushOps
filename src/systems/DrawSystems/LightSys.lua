@@ -4,7 +4,7 @@ local LightSys = Cyan.System("light")
 
 -- shader consts.
 local BASE_LIGHTING = {0.45, 0.45, 0.45, 1}
-local MAX_LIGHT_STRENGTH = 0.5
+local MAX_LIGHT_STRENGTH = 0.3
 local NUM_LIGHTS = 20 -- max N
 
 
