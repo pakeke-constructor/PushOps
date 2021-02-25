@@ -43,8 +43,8 @@ end
 
 local function splitterOnDeath(e)
     local p = e.pos
-    ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
-    ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+    ccall("emit", "guts", p.x, p.y, p.z, rand(4,7))
+    ccall("emit", "smoke", p.x, p.y, p.z, rand(3,5))
     EH.TOK(e,1,3)
     for i=1,rand(2,3) do
         local w=EH.Ents.bloblet(e.pos.x + 10*(rand()-0.5), e.pos.y + 10*(rand()-0.5))
@@ -52,15 +52,19 @@ local function splitterOnDeath(e)
     end
 end
 
-local onDeath = function(e)
-    -- TODO: roar and stuff, big shockwave, big deal yada yada.
-    -- player just killed a boss!
+local spawnLittleBlobs = function(e)
     local x,y = e.pos.x,e.pos.y
     for i=1,rand(4,5) do
         local u=EH.Ents.blob(x + 20*(rand()-0.5), y + 20*(rand()-0.5))
         u.onDeath = splitterOnDeath
         u.colour = COLOUR
     end
+end
+
+local onDeath = function(e)
+    -- TODO: roar and stuff, big shockwave, big deal yada yada.
+    -- player just killed a boss!
+    ccall("await", spawnLittleBlobs, 0, e)
 end
 
 

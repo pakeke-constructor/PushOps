@@ -9,6 +9,10 @@ created when not neccessary)
 
 
 
+Rework followSys (see note at top of file)
+
+
+
 Make guys headband more thick, also add a tiny bit of shading
 (Also try putting black outlines around it, see how that looks)
 

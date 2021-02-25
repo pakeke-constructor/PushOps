@@ -1,4 +1,21 @@
 
+--[[
+
+WTF????
+
+THIS IS TERRRRRIBLE.
+
+TODO
+TODO
+TODO
+
+Redo this.
+Dont cache position/velocity vectors, instead, just set entity 
+velocities to direct towards the entity they are following,
+if they happen to fall too far behind
+
+]]
+
 
 
 local FollowSys = Cyan.System("follow", "pos")

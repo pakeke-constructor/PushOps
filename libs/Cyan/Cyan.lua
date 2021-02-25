@@ -42,11 +42,15 @@ Cyan.System = System
 local ___depth = 0
 local func_backrefs = System.func_backrefs
 
+
+
 do
     function Cyan.call(func_name, ...)
-        if ___depth == 0 then
+        if ___depth <= 0 then
             Cyan.flush()
+            ___depth = 0
         end
+
         ___depth = ___depth + 1
         --[[
             Calls all systems with the given function. Alias: Cyan.emit

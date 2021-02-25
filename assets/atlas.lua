@@ -5,7 +5,7 @@ local Atlas = require("libs.auto_atlas.init")
 
 
 
-local atlas = Atlas(4096,4096)--size = 4096 pixels^2
+local atlas = Atlas(2048,2048)--size = 4096 pixels^2
 -- 99% of GPUs will support this.
 -- if not.....   :/
 

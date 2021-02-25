@@ -7,7 +7,7 @@ local ccall = Cyan.call
 local rand = love.math.random
 
 local GHOST_COL = {0.9,1,0.9}
-local GHOST_CHILD_COL = {0.9,1,0.9, 0.4}
+local GHOST_CHILD_COL = {0.9,1,0.9, 0.7}
 
 local GHOST_CHILD_DMG = 10
 
