@@ -215,7 +215,7 @@ end
 
 MoveTypes = {"RAND", "IDLE", "ORBIT", "HIVE", "LOCKON",
             "VECLOCKON","VECORBIT",
-            "CLOCKON","CORBIT"}
+            "CLOCKON","CORBIT","SOLO"}
 
 for i,v in ipairs(MoveTypes) do
     MoveTypes[v] = require("src.misc.behaviour.movebehaviours."..v:lower())

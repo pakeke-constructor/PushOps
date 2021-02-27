@@ -261,6 +261,17 @@ sigils = { "poison", "strength" }
 
 
 
+
+hybrid = true -- Added to `HybridSys`. This bridges the gap, 
+             -- allows for OOP-ECS hybrid architecture
+
+onUpdate = function(e,dt)end -- part of hybridsys
+onHeavyUpdate = function(e,dt)end -- part of hybridsys
+onDraw = function(e,dt)end -- part of hybridsys
+
+
+
+
 ```
 
 

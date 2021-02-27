@@ -29,7 +29,7 @@ function LinearAnimationSys:added(ent)
     anim.current = 0
 
     local _,_, w,h = anim.frames[1]:getViewport( )
-
+    
     if not anim.ox then
         anim.ox = w/2
     end

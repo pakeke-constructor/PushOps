@@ -4,7 +4,7 @@ local Quads = Atlas.Quads
 local EH = EH
 local BT = EH.BT
 local ccall = Cyan.call
-
+local rand = love.math.random
 
 local onDeath = function(e)
     EH.TOK(e,1)
@@ -38,6 +38,11 @@ return function(x, y)
     e.targetID="enemy"
     e.speed = speed
     e.strength = 5
+    e.hp = {
+        hp=50;
+        max_hp=50
+    }
+    e.onDeath=onDeath
     e.behaviour={
         move={
             type="ORBIT";
@@ -53,5 +58,7 @@ return function(x, y)
     }
     EH.BOB(e)
     e.colour = colour
+
+    return e
 end
 

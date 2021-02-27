@@ -8,7 +8,6 @@ local rand = love.math.random
 
 
 
-
 local COLOUR = {0.75,1,0.75,0.8}
 local COLOUR_F = {80/256,38/256,99/256,0}
 
@@ -41,25 +40,34 @@ local function colF(e,e2,s)
 end
 
 
+local function spawnBloblets(e)
+    for i=1,rand(2,3) do
+        local w=EH.Ents.bloblet(e.pos.x + 10*(rand()-0.5), e.pos.y + 10*(rand()-0.5))
+        assert(w,"???")
+        w.colour=e.colour
+    end
+end
+
 local function splitterOnDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, rand(4,7))
     ccall("emit", "smoke", p.x, p.y, p.z, rand(3,5))
     EH.TOK(e,1,3)
-    for i=1,rand(2,3) do
-        local w=EH.Ents.bloblet(e.pos.x + 10*(rand()-0.5), e.pos.y + 10*(rand()-0.5))
-        w.colour=e.colour
-    end
+    ccall("await", spawnBloblets, 0, e)
 end
+
 
 local spawnLittleBlobs = function(e)
     local x,y = e.pos.x,e.pos.y
     for i=1,rand(4,5) do
         local u=EH.Ents.blob(x + 20*(rand()-0.5), y + 20*(rand()-0.5))
+        u.hp.hp = 700
+        u.hp.max_hp = 700
         u.onDeath = splitterOnDeath
         u.colour = COLOUR
     end
 end
+
 
 local onDeath = function(e)
     -- TODO: roar and stuff, big shockwave, big deal yada yada.

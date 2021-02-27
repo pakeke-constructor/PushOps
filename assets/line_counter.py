@@ -73,10 +73,11 @@ def count_lines(path):
     
 
 TOT, INCLUSIVE, FTOT, FINCLUSIVE = count_lines(PATH)
-print("Your project has " + str(TOT) + " lines of code that you wrote,")
-print("spread across " + str(FTOT) + " files.\n")
+print("\n"+("="*50))
+print("\nYour project has " + str(TOT) + " lines of code that you wrote,")
+print("spread across " + str(FTOT) + " of your files.\n")
 print("However, there are " + str(INCLUSIVE) + " lines of code total, including other's code.")
-print("This code is spread across " + str(FINCLUSIVE) + " files.")
-
+print("All the code is spread across " + str(FINCLUSIVE) + " files.")
+print("\n" + "="*50)
 
 
