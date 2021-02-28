@@ -86,7 +86,7 @@ function _G.love.errorhandler(msg)
 			return
 		end
 	end
- 
+
 	-- Reset state.
 	if love.mouse then
 		love.mouse.setVisible(true)
@@ -121,7 +121,7 @@ function _G.love.errorhandler(msg)
  
 	local err = {}
  
-	table.insert(err, "Error\n")
+	table.insert(err, "Oh no, there has been an Error.\nIf you can, please contact Oli and show a full screenshot of this error screen. TY!\n")
 	table.insert(err, sanitizedmsg)
  
 	if #sanitizedmsg ~= #msg then
@@ -136,7 +136,7 @@ function _G.love.errorhandler(msg)
 			table.insert(err, l)
 		end
 	end
- 
+
 	local p = table.concat(err, "\n")
  
 	p = p:gsub("\t", "")

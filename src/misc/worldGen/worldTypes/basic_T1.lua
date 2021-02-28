@@ -78,7 +78,7 @@ return {
         max = 999999, --No max.
         Ents.wall
     };
-    
+
     ["e"] = {
         max = 200;
         function(x,y)
@@ -88,6 +88,7 @@ return {
                 Ents.mallow(x-5,y-5)
             else
                 Ents.ghost_squad(x,y)
+                Ents.devil(x+10,y+10)
             end
         end
     };

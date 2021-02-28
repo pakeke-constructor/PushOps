@@ -25,7 +25,6 @@ function DetectSys:added(e)
         error("You are using `collisions` component incorrectly, see `components.md`")
     end
 
-    
     if e.collisions.area then
         local targets = { }
 

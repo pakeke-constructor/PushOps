@@ -144,7 +144,7 @@ return function(x,y)
     })
 
     :add('light',{
-        colour = {0.5,0.5,0.5,1};
+        colour = {0.5, 0.5, 0.5,1};
         distance = 20
     })
 

@@ -40,7 +40,7 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 local col={
-    0.7,0,0
+    0.68,1,0.57
 }
 
 
@@ -49,11 +49,20 @@ local ccall = Cyan.call
 local r = love.math.random
 
 
+
+local pi=math.pi
+
+local BULLET_SPEED = 250
+
 local function spawnAfterDeath(x,y,z)
     ccall("emit", "dust", x, y, z, r(13,18))
-    EH.Ents.enemy(x+5,y)
-    EH.Ents.enemy(x-5,y)
-    EH.Ents.enemy(x,y-7)
+    local offset = r()*2
+    for l=0,2 do
+        local dy,dx
+        dy = math.cos(((l*pi*2)/3)   +  offset)
+        dx = math.sin(((l*pi*2)/3)   +  offset)
+        ccall("shoot",x+30*dx,y+30*dy, dx*250, dy*250)
+    end
 end
 
 
@@ -61,8 +70,8 @@ end
 local onDeath = function(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
-    ccall("shockwave", p.x,p.y, 160, 3, 9, .4, col)
-    ccall("await", spawnAfterDeath, .6, p.x,p.y,p.z)
+    ccall("shockwave", p.x,p.y, 160, 3, 9, .1, {0.68,1,0.57})
+    ccall("await", spawnAfterDeath, 0, p.x,p.y,p.z )
     EH.TOK(e,r(1,2))
 end
 
@@ -178,7 +187,7 @@ return function(x,y)
     })
 
     :add('light',{
-        colour = {1,0.1,0.1,1};
+        colour = {0.76,1,0.85,1};
         distance = 20
     })
 
@@ -193,6 +202,8 @@ return function(x,y)
         interval = 0.1;
         required_vel = 20;
     })
+
+    :add("sigils",{"horns"})
 
     return enemy
 end

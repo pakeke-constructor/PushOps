@@ -219,12 +219,11 @@ function ControlSys:keyheld(key, time)
         local control=ent.control
         local purpose = control[key]
         if purpose == "push" then
-            if ent.pushing then
-                ent:remove("pushing")
-            end
-            local push_ent = findEntToPush(ent)
-            if push_ent then
-                ent:add("pushing", push_ent)
+            if not ent.pushing then
+                local push_ent = findEntToPush(ent)
+                if push_ent then
+                    ent:add("pushing", push_ent)
+                end
             end
         end
     end

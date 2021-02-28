@@ -15,38 +15,17 @@ component is read-only.
 local World
 
 
+local vec3 = math.vec3
+local ccall = Cyan.call
+
+
 -- keeps ref
 local fixture_to_ent = setmetatable({}, {__mode = "kv"})
 
---[[
-    getTangentSpeed
-getChildren
-setEnabled
-getPositions
-setRestitution
-__index
-isDestroyed
-isTouching
-setFriction
-resetRestitution
-getFixtures
-setTangentSpeed
-getFriction
-resetFriction
-getNormal
-isEnabled
-__tostring
-__eq
-type
-release
-typeOf
-getRestitution
-]]
+-- function to init new ents
+local initNewEntities
 
-local vec3 = math.vec3
-
-local ccall = Cyan.call
-
+local init_set = Tools.set()
 
 
 local function beginContact(fixture_A, fixture_B, contact_obj)
@@ -125,6 +104,8 @@ end
 
 
 
+
+
 function PhysicsSys:update(dt)
     World:update(dt)
 end
@@ -163,19 +144,15 @@ end
 
 
 
-function PhysicsSys:added(ent)
-    --[[
-        will be in form:
-        ent.physics = {
-            shape = love.physics.newShape( )
-            body = "kinetic"
-        }
-    ]]
-
+local function initialize(ent)
     local body_str = ent.physics.body
     ent.physics.body = love.physics.newBody(
         World, ent.pos.x, ent.pos.y, body_str
     )
+
+    if body_str == "dynamic" or body_str == "kinematic" then
+        ent.physics.body:setLinearVelocity(ent.vel.x, ent.vel.y)
+    end
 
     ent.physics.body:setLinearDamping(CONSTANTS.PHYSICS_LINEAR_DAMPING)
 
@@ -189,6 +166,28 @@ function PhysicsSys:added(ent)
     end
 
     fixture_to_ent[ent.physics.fixture] = ent
+end
+
+
+local er1 = [[
+Attempted to construct ent when physics world was locked.
+This kinda sucks; there is no good solution.
+The best thing to do is `ccall("await", 0, entCtor)` so the ent will be constructed the next frame.
+Sorry, this really does suck :(
+]]
+function PhysicsSys:added(ent)
+    --[[
+        will be in form:
+        ent.physics = {
+            shape = love.physics.newShape( )
+            body = "kinetic"
+        }
+    ]]
+    if World:isLocked( ) then 
+        error(er1)  
+    end
+
+    initialize(ent)
 end
 
 
@@ -208,10 +207,6 @@ function PhysicsSys:removed(ent)
     -- Dont need to destroy the shape, 
     -- as it is shared between all ent instances.
 end
-
-
-
-
 
 
 

@@ -56,7 +56,6 @@ There will probably be a box2d function for it. Ask of the love2d discord if nee
 
 
 
-
 OH SHIT!
 We cannot construct some entities when the physics world is locked.
 That really aint good. Especially given lots of `onDeath` calls are done
@@ -86,3 +85,8 @@ src/systems/PhysicsSys.lua:129: in function <src/systems/PhysicsSys.lua:128>
 libs/Cyan/cyan.lua:69: in function 'call'
 src/misc/unique/gamestate.lua:19: in function 'update'
 [C]: in function 'xpcall'
+
+
+
+
+

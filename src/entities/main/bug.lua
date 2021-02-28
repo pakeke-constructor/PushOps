@@ -23,7 +23,7 @@ local COLOUR = {
     0.4,0.4,1,0.6
 }
 local LIGHT_COLOUR = {
-    0.3,0.3,1,1
+    1,1,1,1
 }
 
 

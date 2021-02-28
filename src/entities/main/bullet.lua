@@ -39,7 +39,7 @@ local collisionsComp = {
             end
             ccall("damage",e,10/(e.armour or 1))
         end
-        ccall("damage",self,0xfffffffff)
+        ccall("kill",self)
     end
 }
 

@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.bug(x,y)
+                Ents.devil(x,y)
             end
         };
 

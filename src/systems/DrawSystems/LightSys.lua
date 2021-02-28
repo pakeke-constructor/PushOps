@@ -19,6 +19,11 @@ local getW = love.graphics.getWidth
 local getH = love.graphics.getHeight
 
 
+function LightSys:setBaseLighting(newValue)
+    BASE_LIGHTING = newValue
+end
+
+
 function LightSys:added(e)
     if (not e.light.colour) or (not e.light.distance) then
         error("LightSys: entity added is missing a required field")
@@ -66,6 +71,9 @@ function LightSys:update()
     end
 
     local unpack = table.unpack or unpack -- F**CK. This breaks JIT, I didnt want to do this. No choice tho
+    -- TODO:
+    -- NOTE: You can fix this unpacking by packing values into a matrix!
+    -- maybe leave it for now, see how this game performs on machines with slower pipeline
     shader:send("light_positions", unpack(light_positions))
     shader:send("light_colours"  , unpack(light_colours))
     shader:send("light_distances", unpack(light_distances))

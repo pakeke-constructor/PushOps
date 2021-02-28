@@ -150,6 +150,8 @@ Called when an entity becomes dead.
 # ALIAS:    kill ( ent )
 
 
+# shoot ( x, y, vx, vy )
+Shoots a bullet in a direction
 
 # purge ( )
 Frees all memory in preperation for new world gen (including destroying ents)

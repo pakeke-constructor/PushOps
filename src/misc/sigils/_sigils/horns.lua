@@ -2,10 +2,10 @@
 
 local Atlas = require("assets.atlas")
 
-local CROWN_OFFSET=13/2 -- crown is 13 pixels wide
+local CROWN_OFFSET=16/2
 local RED = {0.6,0,0}
 
-local ADDED_HEIGHT = 6 -- add some height to crown to make it floating
+local ADDED_HEIGHT = 2-- add some height to horn to make it floating
                        --  ((by default tho, this sigil will use `ent.size`.))
 
 local setColour = love.graphics.setColor
@@ -21,7 +21,7 @@ return {
             w = 0
         end
         setColour(RED)
-        Atlas:draw(Atlas.Quads.crown, (ent.pos.x - (CROWN_OFFSET)), ((ent.pos.y - h) - ent.pos.z / 2)-(e.size or ADDED_HEIGHT))
+        Atlas:draw(Atlas.Quads.horns, (ent.pos.x - (CROWN_OFFSET)), ((ent.pos.y - h) - ent.pos.z / 2)-(ent.size or ADDED_HEIGHT))
     end
 }
 
