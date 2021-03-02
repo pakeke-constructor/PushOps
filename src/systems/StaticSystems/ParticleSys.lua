@@ -81,7 +81,7 @@ end
 
 
 local t_insert = table.insert
-local WHITE = { 1,1,1 } -- default colour is white
+local WHITE = { 1,1,1,1 } -- default colour is white
 local setColour = love.graphics.setColor
 
 function PSys:emit(type, x,y,z , n_particles, colour) -- default colour white
@@ -112,6 +112,7 @@ end
 
 function PSys:drawIndex( z_dep )
     for _, emtr in ipairs(indexed_emitters[z_dep].objects) do
+        setColour(1,1,1)
         emtr:draw(emtr.x, emtr.y, emtr.z)
     end
 end

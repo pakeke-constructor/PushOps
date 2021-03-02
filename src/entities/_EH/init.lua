@@ -137,11 +137,9 @@ end
 
 
 
-
 EH.BT   = require("libs.BehaviourTree")
 EH.Node = require("libs.BehaviourTree").Node
 EH.Task = require("libs.BehaviourTree").Task
-
 
 EH.Quads = require("assets.atlas").Quads
 EH.Atlas = require("assets.atlas")

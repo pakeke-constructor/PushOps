@@ -55,6 +55,7 @@ return function(x, y)
             type="RAND"
         }
     }
+    return e
 end
 
 

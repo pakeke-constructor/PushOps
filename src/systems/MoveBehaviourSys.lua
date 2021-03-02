@@ -333,9 +333,11 @@ for _,t_group in ipairs(CONSTANTS.TARGET_GROUPS) do
 end
 
 
-local er1 = "Target component is not valid"
+local er1 = "Target component is not valid:  "
 function TargetSys:added(ent)
-    assert(valid_targetIDs[ent.targetID], er1)
+    if not valid_targetIDs[ent.targetID] then
+        error(er1 .. tostring(ent.targetID))
+    end
 
     Partitions[ent.targetID]:add(ent) -- Adds to the correct spatial partition
 end
