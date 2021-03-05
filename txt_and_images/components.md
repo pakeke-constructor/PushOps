@@ -174,6 +174,17 @@ pushing = other_ent
 -- Whether this ent can be pushed or nah
 pushable = true/false
 
+follow = {
+    -- For when an entity is following another ent. NOTE: THIS KINDA EXPENSIVE
+    following = e;
+    distance = 10;   -- Follows 10 units behind `e`.
+
+    detatch = function(e)
+        -- called when ent detatches from following ent.
+        -- (I.e. when following ent gets deleted)
+    end
+}
+
 
 size = 10.5 -- Determines how much 'area of affect' an object has.
 -- (By default, entities will have a size of 5.)

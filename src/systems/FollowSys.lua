@@ -1,20 +1,5 @@
 
---[[
 
-WTF????
-
-THIS IS TERRRRRIBLE.
-
-TODO
-TODO
-TODO
-
-Redo this.
-Dont cache position/velocity vectors, instead, just set entity 
-velocities to direct towards the entity they are following,
-if they happen to fall too far behind
-
-]]
 
 
 
@@ -26,9 +11,12 @@ follow comp ::
 
 e.follow = {
     following = e;
-    frameGap = 10;   -- Follows 10 frames behind `e`.
+    distance = 10;   -- Follows 10 units behind `e`.
 
-    vectors = { };   --Set by system, used by system.
+    detatch = function(e)
+        -- called when ent detatches from following ent.
+        -- (I.e. when following ent gets deleted)
+    end
 }
 
 ]]
@@ -36,25 +24,47 @@ e.follow = {
 
 local vec3 = math.vec3
 
+local ccall = Cyan.call
 
 
-function FollowSys:added(E)
-    E.follow.vectors = {}
+
+
+local function project(e, x, y, distance)
+    local ep = e.pos
+    local proj_x = x - ep.x
+    local proj_y = y - ep.y
+
+    local norm = vec3(proj_x, proj_y, 0):normalize()
+    norm.x = norm.x * distance
+    norm.y = norm.y * distance
+
+    ccall("setPos", e, ep.x + norm.x, ep.y + norm.y)
 end
 
 
 
+
+local er1 = "Ent not following an entity"
+
+local cexists = Cyan.exists
+
+
 local function update(e,dt)
     local follow = e.follow
-    local vecs = follow.vectors
-    if not(#vecs < follow.frameGap) then
-        local newvec = table.remove(vecs, 1)
-        e.pos = newvec
+    assert(follow.following, er1)
+    if not cexists(follow.following) then
+        if follow.detatch then
+            follow.detatch(e)
+        end
+        e:remove("follow")
+    else
+        local edist = Tools.edist(follow.following, e)
+        if edist > follow.distance then
+            -- project ents position towards the following ent
+            local p = follow.following.pos
+            project(e, p.x, p.y, edist - follow.distance)
+        end
     end
-    local pos = follow.following.pos
-    
-    -- Gotta make a copy
-    vecs[#vecs+1] = vec3(pos.x, pos.y, pos.z)
 end
 
 

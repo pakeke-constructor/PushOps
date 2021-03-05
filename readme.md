@@ -3,6 +3,11 @@
 Hi, this is my game. Not sure if it will be finished
 
 
+![menu](https://github.com/pakeke-constructor/PUSH_GAME/blob/master/txt_and_images/screenshots/menu.jpg?raw=true)
+
+![in game](https://github.com/pakeke-constructor/PUSH_GAME/blob/master/txt_and_images/screenshots/ingame.jpg?raw=true)
+
+
 # Controls:
 
 `WASD` to move.
