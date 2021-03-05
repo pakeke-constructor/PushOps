@@ -3,9 +3,9 @@
 Hi, this is my game. Not sure if it will be finished
 
 
-![menu](https://github.com/pakeke-constructor/PUSH_GAME/blob/master/menu.jpg?raw=true)
+![alt text](txt_and_images/screenshots/menu.jpg?raw=true)
 
-![in game](https://github.com/pakeke-constructor/PUSH_GAME/blob/master/ingame.jpg?raw=true)
+![in game](txt_and_images/screenshots/ingame.jpg?raw=true)
 
 
 # Controls:
