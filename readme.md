@@ -2,10 +2,9 @@
 # superPush
 Hi, this is my game. Not sure if it will be finished
 
+![menu](https://i.ibb.co/nqXV7pV/menu.png)
 
-![alt text](txt_and_images/screenshots/menu.jpg?raw=true)
-
-![in game](txt_and_images/screenshots/ingame.jpg?raw=true)
+![ingame](https://i.ibb.co/rG5xbkt/ingame.png)
 
 
 # Controls:
