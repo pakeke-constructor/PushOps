@@ -19,19 +19,25 @@ Spawns mushroom on death
 
 ]]
 
-local function onBoom(e,x,y)
-    if Tools.dist(e.pos.x-x, e.pos.y-y) < 200 then
+local function onBoom(e,x,y, strength)
+    if Tools.dist(e.pos.x-x, e.pos.y-y) < 60 and strength>1 then
         ccall("damage",e,100)
         local p = e.pos
         ccall("emit","smoke",p.x, p.y, p.z, 18)
     end
 end
 
-local function onDeath(e)
-    ccall("emit","smoke",p.x, p.y, p.z, 18)
+
+local function spawnMidgets(p)
     for i=1, rand(2,5)do
-        Ents.shroom(e.pos.x + (rand()-0.5)*20, e.pos.y + (rand()-0.5)*50)
+        EH.Ents.shroom(p.x + (rand()-0.5)*100, p.y + (rand()-0.5)*100)
     end
+end
+
+local function onDeath(e)
+    local p = e.pos
+    ccall("emit","smoke",p.x, p.y, p.z, 18)
+    ccall("await", spawnMidgets, 0, p)
 end
 
 return function(x,y)
@@ -42,7 +48,8 @@ return function(x,y)
         body = "static";
         shape = shape
     })
-
+    
+    :add("onDeath", onDeath)
 
     :add("hp",{
         hp=160;

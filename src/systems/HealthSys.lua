@@ -125,14 +125,14 @@ end
 
 
 
-
+local min = math.min
 
 function HealthSys:update(dt)
     for _, ent in ipairs(self.group )do
         checkDead(ent)
         local hp = ent.hp
         if hp.regen then
-            hp.hp = hp.hp + (hp.regen * dt)
+            hp.hp = min(hp.max_hp, hp.hp + (hp.regen * dt))
         end
         if hp.iframe_count > 0 then
             hp.iframe_count = hp.iframe_count - dt  -- reduce iframes

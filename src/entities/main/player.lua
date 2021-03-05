@@ -12,6 +12,14 @@ local motion_left = { Quads.red_player_left_1, Quads.red_player_left_2, Quads.re
 local motion_right = { Quads.red_player_right_1, Quads.red_player_right_2, Quads.red_player_right_3, Quads.red_player_right_4 }
 
 
+local ccall = Cyan.call
+local rand = love.math.random
+
+
+local function onDamage(e)
+    local p = e.pos
+    ccall("emit", "guts", p.x, p.y, p.z, rand(7,11))
+end
 
 
 
@@ -25,8 +33,9 @@ return function(x,y)
     :add("acc", math.vec3(0,0,0))
     
     :add("hp", {
-        hp = 100,
-        max_hp = 100,
+        hp = 1000,
+        max_hp = 1000,
+        regen = 200,
         iframes = 1 -- we want iframes to be high to let player respond
     })
 
@@ -35,6 +44,8 @@ return function(x,y)
     :add("strength", 100)
 
     :add("targetID", "player")
+
+    :add("onDamage", onDamage)
 
     :add("pushable",true)
 

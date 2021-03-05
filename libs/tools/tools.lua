@@ -1,45 +1,45 @@
 
 
-local T = {}
+local Tools = {}
 
 
 
 
-T.set = require "libs.tools.sets"
+Tools.set = require "libs.tools.sets"
 
 
 local rand = love.math.random
 local floor = math.floor
 
 
-T.dist = function(x, y)
+Tools.dist = function(x, y)
     return (x^2 + y^2)^0.5
 end
 
-T.edist = function(e1, e2)
+Tools.edist = function(e1, e2)
     return (e1.pos - e2.pos):len()
 end
 
-T.rand_choice = function(t)
-    return t[floor(rand(1, #t))]
+Tools.rand_choice = function(Tools)
+    return Tools[floor(rand(1, #Tools))]
 end
 
-T.dot = function(x1,y1,x2,y2)
+Tools.dot = function(x1,y1,x2,y2)
     return (x1*x2) + (y1*y2)
 end
 
-T.Path = function(str)
+Tools.Path = function(str)
     return str:gsub('%.[^%.]+$', '')
 end
 
-local this_pth = T.Path(...)
+local this_pth = Tools.Path(...)
 
-T.req_TREE = require(this_pth .. ".req_TREE")
+Tools.req_TREE = require(this_pth .. ".req_TREE")
 
-T.weighted_selection = require("libs.tools.weighted_selection")
+Tools.weighted_selection = require("libs.tools.weighted_selection")
 
 
-T.deepcopy = function( tabl, shove )
+Tools.deepcopy = function( tabl, shove )
     local new = {}
     shove = shove or {[tabl] = tabl}
 
@@ -70,12 +70,12 @@ do
     local ccall = Cyan.call
 
     local function setClosureTrue()
-        -- I don't like this. But there is no other way :/
+        -- I don'Tools like this. But there is no other way :/
         blocked = true
         return 0
     end
 
-    function T.isBlocked(x, y)
+    function Tools.isBlocked(x, y)
         -- returns whether the x,y position is blocked.
         ccall("boxquery",x,y, setClosureTrue)
         local ret = blocked
@@ -83,7 +83,7 @@ do
         return ret        
     end
 
-    function T.isIntersect(x1, y1, x2, y2)
+    function Tools.isIntersect(x1, y1, x2, y2)
         -- returns whether the line segment (x1,y1) -> (x2,y2)
         -- intersects with a solid fixture in the physics world.
         ccall("rayquery", x1,y1, x2,y2, setClosureTrue)
@@ -96,7 +96,7 @@ end
 local getWidth, getHeight = love.graphics.getWidth, love.graphics.getHeight
 local RANGE_LEIGHWAY = 300
 
-function T.isOnScreen(e, cam)
+function Tools.isOnScreen(e, cam)
     --[[
         Is the ent close to being on screen?
         
@@ -115,15 +115,15 @@ function T.isOnScreen(e, cam)
 end
 
 
-function T.distToPlayer(e, cam)
+function Tools.distToPlayer(e, cam)
     assert(cam, "Not given camera object! Tools.distToPlayer( ent, camera ) ")
-    return T.dist(e.pos.x - cam.x, e.pos.y - cam.y)
+    return Tools.dist(e.pos.x - cam.x, e.pos.y - cam.y)
 end
 
 
 
 
-function T.assertNoDuplicateRequires()
+function Tools.assertNoDuplicateRequires()
     local cache = {}
     for k,v in pairs(package.loaded) do
         if cache[k:lower()] then
@@ -134,6 +134,6 @@ function T.assertNoDuplicateRequires()
 end
 
 
-return T
+return Tools
 
 

@@ -42,6 +42,12 @@ entity will be placed.
 local Ents = require("src.entities")
 local rand = love.math.random
 
+local enemySpawns = Tools.weighted_selection{
+    [Ents.enemy] = 0.5;
+    [Ents.mallow] = 0.3;
+    [Ents.boxenemy] = 0.05
+}
+
 return {
     type = 'basic',
     tier = 1,

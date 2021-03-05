@@ -150,6 +150,10 @@ local function initialize(ent)
         World, ent.pos.x, ent.pos.y, body_str
     )
 
+    if body_str == "static" and ent.vel then
+        error("Entity physics body assigned static, but has velocity component")
+    end
+
     if body_str == "dynamic" or body_str == "kinematic" then
         ent.physics.body:setLinearVelocity(ent.vel.x, ent.vel.y)
     end

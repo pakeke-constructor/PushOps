@@ -105,6 +105,7 @@ whole map has finished generating
 
 
 
+
 Error: src/misc/behaviour/movebehaviours/base.lua:37: attempt to perform arithmetic on local 'pos_x' (a nil value)
 stack traceback:
         [string "boot.lua"]:777: in function '__sub'
@@ -116,4 +117,91 @@ stack traceback:
         [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
         [C]: in function 'xpcall'
 This should be fixed as of 16/02/2021
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+We cannot construct some entities when the physics world is locked.
+That really aint good. Especially given lots of `onDeath` calls are done
+during the physics callbacks. I gotta find a real good solution for this
+(Maybe `awaitsys`? I dont like it but it may have to be an option)
+
+Error
+src/systems/PhysicsSys.lua:176: Box2D assertion failed: IsLocked() == false
+
+Traceback
+conf.lua:112: in function 'handler'
+[C]: in function 'newBody'
+src/systems/PhysicsSys.lua:176: in function 'added'
+libs/Cyan/system.lua:249: in function 'add'
+libs/Cyan/ent.lua:282: in function '_send_to_systems'
+libs/Cyan/ent.lua:154: in function 'add'
+src/entities/main/blob.lua:69: in function 'blob'
+src/entities/main/bigblob.lua:60: in function 'onDeath'
+src/systems/HealthSys.lua:26: in function <src/systems/HealthSys.lua:20>
+libs/Cyan/cyan.lua:69: in function 'ccall'
+...
+src/systems/DetectSys.lua:59: in function <src/systems/DetectSys.lua:55>
+libs/Cyan/cyan.lua:69: in function 'ccall'
+src/systems/PhysicsSys.lua:66: in function <src/systems/PhysicsSys.lua:52>
+[C]: in function 'update'
+src/systems/PhysicsSys.lua:129: in function <src/systems/PhysicsSys.lua:128>
+libs/Cyan/cyan.lua:69: in function 'call'
+src/misc/unique/gamestate.lua:19: in function 'update'
+[C]: in function 'xpcall'
+
+
+
+
+
+
+
+
+
+
+
+This error occured when I exploded a block towards a devil entity
+(I think)
+
+Okay, I *THINK* This bug happened when a Node:callback(obj) was invoked on
+an object that hadn't ran its first frame. (And thus hadn't had its initial
+:choose() function ran -> no `node._path[e]` or `node._index[e]` field granted)
+Its fixed for now, I am pretty sure. Pretty sketchy error though, I will never
+really know if this was the bug 
+
+
+Oh no, there has been an Error.
+If you can, please contact Oli and show a full screenshot of this error screen. TY!
+libs/BehaviourTree/node.lua:161: attempt to index a nil value
+Traceback
+conf.lua:112: in function 'handler'
+libs/BehaviourTree/node.lua:161: in function '_reset'
+libs/BehaviourTree/node.lua:249: in function 'call'
+src/systems/BehaviourSys.lua:37: in function <src/systems/BehaviourSys.lua:34>
+libs/Cyan/cyan.lua:73: in function 'ccall'
+src/entities/_EH/init.lua:84: in function 'PC'
+src/entities/main/enemy.lua:58: in function 'physics'
+src/systems/DetectSys.lua:58: in function <src/systems/DetectSys.lua:54>
+libs/Cyan/cyan.lua:73: in function 'ccall'
+src/systems/PhysicsSys.lua:45: in function <src/systems/PhysicsSys.lua:31>
+[C]: in function 'update'
+src/systems/PhysicsSys.lua:110: in function <src/systems/PhysicsSys.lua:109>
+libs/Cyan/cyan.lua:73: in function 'call'
+src/misc/unique/gamestate.lua:21: in function 'update'
+[C]: in function 'xpcall'
 

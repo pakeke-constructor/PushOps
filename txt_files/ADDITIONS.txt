@@ -8,11 +8,12 @@ One bullet type for all enemies
 
 
 
-Crosshairs when damaging enemy
+Crosshairs (+ satisfying hit sound) when damaging enemy
+
 
 
 Discrete HP bar for enemies (above their head)
-
+  --- future note: maybe dont do this
 
 
 

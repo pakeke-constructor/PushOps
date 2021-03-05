@@ -156,16 +156,19 @@ function Node:_reset(ent)
         _reset node state and child state
     ]]
     local i = self._ent_indexes[ent]
+    i = i or 1
+
     local path = self._ent_paths[ent]
+        if path then
+        local current = self.paths[path][i]
 
-    local current = self.paths[path][i]
-
-    if current.type == "Node" then
-        -- Then its a Node, recursive _reset
-        current:_reset(ent)
-    else
-        -- Then its a Task, _reset as well
-        current:_reset(ent)
+        if current.type == "Node" then
+            -- Then its a Node, recursive _reset
+            current:_reset(ent)
+        else
+            -- Then its a Task, _reset as well
+            current:_reset(ent)
+        end
     end
 
     self._ent_indexes[ent] = 1

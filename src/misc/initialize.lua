@@ -2,7 +2,7 @@
 
 
 Cyan.call("newWorld",{
-    x=80,y=40,
+    x=100,y=100,
     tier = 1,
     type = 'menu'
 }, require("src.misc.worldGen.menu"))
@@ -27,6 +27,21 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
 end
+
+--[[
+
+local tick = 0
+
+local sin = function(x)
+    return math.abs(math.sin(x))
+end
+
+function DEBUG_SYS:update(dt)
+    tick = (tick + dt*3) % (2*math.pi)
+    CONSTANTS.GRASS_COLOUR = {sin(tick + 1), sin(tick + 2), sin(tick +3)}
+end
+
+]]
 
 
 local ccall=Cyan.call

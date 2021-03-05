@@ -44,12 +44,19 @@ local collisions = {
 }
 
 
+local colours = {}
+for i=120,0,-5 do
+    local u = (300 - i)/300
+    table.insert(colours, {u,u,u})
+end
+
 
 return function(x,y)
     return Cyan.Entity()
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
+    :add("colour", Tools.rand_choice(colours))
     :add("physics", {
         shape = block_shape;
         body  = "dynamic"

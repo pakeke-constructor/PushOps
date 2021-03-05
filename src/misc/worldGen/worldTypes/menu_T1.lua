@@ -21,14 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                local r = love.math.random
-                
-                local e = Ents.bigwall(x,y)
-                e.targetID="player"
-
-                for i=1,10 do
-                    Ents.shroom(x+r()*100, y+r()*100)
-                end
+                Ents.boxmallow(x,y)
             end
         };
 

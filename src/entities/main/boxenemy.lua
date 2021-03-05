@@ -1,18 +1,25 @@
 
-
 --[[
 
+Same as enemy, but explodes into blocks upon death
+and does not emit light
 
-Just like regular enemies, but with high HP.
 
-Tests :: passed
 ]]
+
+
+local Atlas = require("assets.atlas")
+local Quads = Atlas.Quads
+local EH = EH
+local BT = EH.BT
+local ccall = Cyan.call
+
+
 
 
 local player_shape = love.physics.newCircleShape(8)
 
 local atlas = require "assets.atlas"
-local Quads = atlas.Quads
 
 local psys = love.graphics.newParticleSystem(atlas.image)
 psys:setQuads(Quads.bat, Quads.bot, Quads.bit)
@@ -40,41 +47,29 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 local col={
-    0.68,1,0.57
+    0.4,0.5,0.4
 }
 
 
-local ccall = Cyan.call
 
 local r = love.math.random
 
 
-
-local pi=math.pi
-
-local BULLET_SPEED = 250
-
-local function spawnAfterDeath(x,y,z)
-    ccall("emit", "dust", x, y, z, r(13,18))
-    local offset = r()*2
-    for l=0,2 do
-        local dy,dx
-        dy = math.cos(((l*pi*2)/3)   +  offset)
-        dx = math.sin(((l*pi*2)/3)   +  offset)
-        ccall("shoot",x+30*dx,y+30*dy, dx*250, dy*250)
+local function makeBlocks(p)
+    -- p is position vector
+    local u = r(3,4)
+    for i=1,u do
+        EH.Ents.block(p.x + i*6 - u*3, p.y + i*6 - u*3)
     end
 end
 
-
---# shockwave ( x, y, start_size, end_size, thickness, time, colour=WHITE )
 local onDeath = function(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
-    ccall("shockwave", p.x,p.y, 160, 3, 9, .1, {0.68,1,0.57})
-    ccall("await", spawnAfterDeath, 0, p.x,p.y,p.z )
-    EH.TOK(e,r(1,2))
+    ccall("emit", "smoke", p.x, p.y, p.z, r(4,6))
+    ccall("await", makeBlocks, 0, p)
+    EH.TOK(e,1)
 end
-
 
 
 local ai_types = { "ORBIT", "LOCKON" }
@@ -84,9 +79,7 @@ local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
 
 local physColFunc = function(e1, e2, speed)
     if EH.PC(e1,e2,speed) then
-        local p =e1.pos
-        ccall("emit","guts",p.x,p.y,p.z, r(8,12))
-        ccall("sound", "thud")
+        ccall("sound","thud")
     end
 end
 
@@ -95,21 +88,13 @@ local RAND_or_IDLE = {"RAND", "IDLE"}
 
 
 
-local Tree = EH.Node '_devil behaviour tree'
+local Tree = EH.Node '_enemy behaviour tree'
 
 Tree.choose = function(node, e)
-        local ret = "idle"
-        if e.hp.hp < e.hp.max_hp then
-            ret= "angry"
-        end;
-        if love.math.random() < 0.4 then
-            ret = "angry" -- has a chance to be angry anyway
-        end
-        return ret
+        return "angry" -- we removed tree, no point. `LOCKON` and `ORBIT` is just better.
 end
 
-
-local rand_move_task = EH.Task("_devil move task")
+local rand_move_task = EH.Task("_enemy move task")
 rand_move_task.start = function(t,e)
     ccall("setMoveBehaviour", e, Tools.rand_choice(ai_types))
 end
@@ -124,18 +109,6 @@ Tree.angry = {
 }
 
 
-Tree.idle = {
-    "move::IDLE",
-    "wait::3"
-}
-
-
-
-Tree:on("damage", function(n,e)
-    return "angry"
-end)
-
-
 
 
 return function(x,y)
@@ -143,10 +116,8 @@ return function(x,y)
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
-
-    :add("sigils",{"strength"})
     
-    :add("hp", {hp = 900, max_hp = 900})
+    :add("hp", {hp = 1200, max_hp = 1200})
 
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
 
@@ -186,11 +157,6 @@ return function(x,y)
         physics = physColFunc
     })
 
-    :add('light',{
-        colour = {0.76,1,0.85,1};
-        distance = 20
-    })
-
     enemy:add("motion",
     {
         up = motion_up;
@@ -203,8 +169,7 @@ return function(x,y)
         required_vel = 20;
     })
 
-    :add("sigils",{"horns"})
-
     return enemy
 end
+
 
