@@ -9,6 +9,8 @@ local ccall = Cyan.call
 return function(x, y)
 
     local e = Cyan.Entity()
+    EH.PV(e,x,y)
+
     
 
 end

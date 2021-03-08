@@ -1,4 +1,6 @@
 
+
+
 local Atlas = require("assets.atlas")
 local Quads = Atlas.Quads
 local EH = EH
@@ -6,8 +8,15 @@ local BT = EH.BT
 local ccall = Cyan.call
 local rand = love.math.random
 
+
+local function spawnBlock(pos)
+    EH.Ents.block(pos.x,pos.y)
+end
+
+
 local onDeath = function(e)
     EH.TOK(e,1)
+    ccall("await", spawnBlock,0,e.pos)
 end
 
 
@@ -20,7 +29,7 @@ local colComp={
 }
 
 
-local colour = {0.75,1,0.75}
+local colour = {0.4,0.4,0.4,0.6}
 
 local f = {Quads.bloblet1, Quads.bloblet2}
 

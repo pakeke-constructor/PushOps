@@ -3,7 +3,6 @@
 
 
 
-
 Ghost followers arent following their parent.
 
 This is probably because somewhere in the code,

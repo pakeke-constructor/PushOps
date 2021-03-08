@@ -100,13 +100,16 @@ return function(x,y)
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
-
-    :add("sigils",{"poison"})
-    
     :add("hp", {hp = 100, max_hp = 100})
-
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
 
+    if r() < 0.3 then
+        enemy:add("sigils",{"poison"})
+        enemy.speed.max_speed = 300
+        enemy.speed.speed = 210
+    end
+
+    enemy
     :add("strength", 40)
 
     :add("physics", {

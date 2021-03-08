@@ -33,9 +33,9 @@ return function(x,y)
     :add("acc", math.vec3(0,0,0))
     
     :add("hp", {
-        hp = 1000,
-        max_hp = 1000,
-        regen = 200,
+        hp = 100,
+        max_hp = 100,
+        regen = 1,
         iframes = 1 -- we want iframes to be high to let player respond
     })
 
@@ -72,6 +72,8 @@ return function(x,y)
 
     -- Player controller
     :add("control",{
+    canPush = true;
+    canPull = true;
     w = 'up';
     a = 'left';
     s = 'down';

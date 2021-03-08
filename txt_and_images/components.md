@@ -217,6 +217,9 @@ friction = {
 
 -- Player controller
 control = {
+        canPush = false -- is push on cooldown, or nah?
+        canPull = false -- is pull on cooldown
+
         w = 'up'
         a = 'left'
         s = 'down'

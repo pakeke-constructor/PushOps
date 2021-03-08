@@ -2,7 +2,10 @@
 --[[
 ControlSys:
 
-Handles camera motion and player motion.
+Handles camera transformations and player motion.
+
+Also handles `pushing` and `pulling` by player,
+and HealthBars etc.
 
 TODO: add joystick support, make more robust
 
@@ -14,6 +17,7 @@ local ControlSys = Cyan.System("control")
 local Camera = require("src.misc.unique.camera")
 local Partition = require 'src.misc.partition'
 local TargetPartitions = require("src.misc.unique.partition_targets")
+
 
 
 local max, min = math.max, math.min
@@ -37,6 +41,13 @@ function ControlSys:wheelmoved(dx, dy)
     Camera.scale = Camera.scale + (dy/30)
 end
 
+
+
+function ControlSys:added(e)
+    -- just some sanity checks
+    e.control.canPush = true
+    e.control.canPull = true
+end
 
 
 
@@ -129,10 +140,11 @@ end
 
 local r = love.math.random 
 
-local function boomShells(player)
+local function afterPush(player)
     if Cyan.exists(player) then
         ccall("sound", "reload", 1, 0.1)
         ccall("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
+        player.control.canPush = true
     end
 end
 
@@ -140,44 +152,68 @@ end
 
 
 local function push(ent)
-    local x = ent.pos.x
-    local y = ent.pos.y
-    local z = ent.pos.z
+    assert(ent.control,"??????????")
+    
+    if ent.control.canPush then
+        local x = ent.pos.x
+        local y = ent.pos.y
+        local z = ent.pos.z
 
-    -- boom will be biased towards enemies with 1.2 radians
-    ccall("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
-    ccall("animate", "push", x,y+25,z, 0.03) 
-    ccall("shockwave", x, y, 4, 130, 7, 0.3)
-    ccall("sound", "boom")
-    Camera:shake(8, 1, 60) -- this doesnt work, RIP
-    ccall("await", boomShells, 0.3+r()/4, ent)
+        -- boom will be biased towards enemies with 1.2 radians
+        ccall("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
+        ccall("animate", "push", x,y+25,z, 0.03) 
+        ccall("shockwave", x, y, 4, 130, 7, 0.3)
+        ccall("sound", "boom")
+        Camera:shake(8, 1, 60) -- this doesnt work, RIP
 
-    for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
-        if e ~= ent then
-            if e.onInteract and Tools.edist(ent, e) < e.size then
-                -- ents cannot interact with themself
-                e:onInteract(ent, "push")
+        ent.control.canPush = false
+        ccall("await", afterPush, CONSTANTS.PUSH_COOLDOWN + r()/5, ent)
+
+        for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
+            if e ~= ent then
+            -- ents cannot interact with themself
+                if e.onInteract and Tools.edist(ent, e) < e.size then
+                    e:onInteract(ent, "push")
+                end
             end
         end
+    else
+        --TODO ::: add feedback here!
+        -- the player just tried to push on cooldown
     end
 end
 
 
 
+
+local function afterPull(player)
+    if Cyan.exists(player) then
+        player.control.canPull = true
+    end
+end
+
 local function pull(ent)
-    local x,y = ent.pos.x, ent.pos.y
+    assert(ent.control, "?????")
 
-    ccall("sound", "moob")
-    ccall("shockwave", x, y, 130, 4, 7, 0.3)
-    ccall("moob", x, y, ent.strength/1.5, 200)
+    if ent.control.canPull then
+        local x,y = ent.pos.x, ent.pos.y
 
-    for e in (TargetPartitions.interact):iter(x, y) do
-        if e ~= ent then
-            -- ents cannot interact with themself
-            if e.onInteract and Tools.edist(ent, e) < e.size then
-                e:onInteract(ent, "pull")
+        ccall("sound", "moob")
+        ccall("shockwave", x, y, 130, 4, 7, 0.3)
+        ccall("moob", x, y, ent.strength/1.5, 200)
+        ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN + r()/5, ent)
+
+        for e in (TargetPartitions.interact):iter(x, y) do
+            if e ~= ent then
+                -- ents cannot interact with themself
+                if e.onInteract and Tools.edist(ent, e) < e.size then
+                    e:onInteract(ent, "pull")
+                end
             end
         end
+    else
+        --TODO ::: add feedback here!
+        -- the player just tried to pull on cooldown
     end
 end
 

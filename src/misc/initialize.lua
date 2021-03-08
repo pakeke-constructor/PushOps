@@ -28,6 +28,15 @@ function DEBUG_SYS:keypressed(k)
     end
 end
 
+
+function DEBUG_SYS:draw()
+    lg.push()
+    lg.reset()
+    lg.setColor(0,0,0)
+    love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,60)
+    lg.pop()
+end
+
 --[[
 
 local tick = 0

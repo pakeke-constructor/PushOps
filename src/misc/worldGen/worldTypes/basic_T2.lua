@@ -1,3 +1,4 @@
+
 --[[
 
 TYPE :: 'basic'
@@ -43,7 +44,7 @@ local Ents = require("src.entities")
 local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
-    [Ents.enemy]    = 0.5;
+    [Ents.devil]    = 0.5;
     [Ents.mallow]   = 0.3;
     [Ents.boxenemy] = 0.2;
     [Ents.blob]     = 0.3;

@@ -18,6 +18,10 @@ Called every 3 frames
 Applies function `func` `time` seconds later with args `...`
 (KINDA EXPENSIVE)
 
+# apply ( func, x, y, targetID = <all> )
+Applies function `func` to all ents in spatial partition at x,y,
+with signature:    func( ent, x, y )
+
 
 
 # draw     ()

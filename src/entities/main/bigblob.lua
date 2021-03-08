@@ -11,7 +11,15 @@ local rand = love.math.random
 local COLOUR = {0.75,1,0.75,0.8}
 local COLOUR_F = {80/256,38/256,99/256,0}
 
-local COLOUR_RES = {0.5,0.5,0.5, 0.8}
+
+
+local MAX_MINI_BLOBS = 16
+
+
+-- This number keeps track of the number of mini blobs on the screen.
+-- Its shared across all instances of `bigblob`, to ensure that not too many
+-- small blobs are spawned with the `wallbreak` attack.
+local num_mini_blobs = 0;
 
 
 
@@ -109,8 +117,8 @@ end
 function wallbreak_task:start(e)
     ccall("setMoveBehaviour",e,"IDLE")
     ccall("shockwave",e.pos.x,e.pos.y,130,4,17,0.3)
-    e.colour = COLOUR_RES
 end
+
 
 function wallbreak_task:update(e,dt)
     if self:runtime(e)>0.6 then
@@ -119,20 +127,41 @@ function wallbreak_task:update(e,dt)
     return "r"
 end
 
-function wallbreak_task:finish(e,dt)
-    error()
-    e.colour = COLOUR
+local function playerDmgFunc(e, x, y)
+    if Tools.dist(e.pos.x - x, e.pos.y - y) < 120 then
+        ccall("damage", e, 10)
+    end
 end
+
+
+
+
+local function miniBlobOnDeath(e)
+    num_mini_blobs = num_mini_blobs - 1
+    local p = e.pos
+    ccall("emit", "guts", p.x, p.y, p.z, rand(4,7))
+    ccall("emit", "smoke", p.x, p.y, p.z, rand(3,5))
+    EH.TOK(e,1)
+end
+
+
 
 
 local function boomTime(x,y,z)
     --[[
-        Creates explosion
+        Creates explosion,
+        spawns a capped blob
     ]]
-    Cyan.call("boom", x, y, 40, 100, 0,0, "player", 1.2)
-    Cyan.call("animate", "push", x,y+25,z, 0.03) 
-    Cyan.call("shockwave", x, y, 4, 130, 7, 0.3)
-    Cyan.call("sound", "boom")
+    ccall("boom", x, y, 40, 100, 0,0, "player", 1.2)
+    ccall("animate", "push", x,y+25,z, 0.03, nil, COLOUR) 
+    ccall("shockwave", x, y, 4, 130, 7, 0.3)
+    ccall("apply", playerDmgFunc, x, y, "player")
+    ccall("sound", "boom")
+    if MAX_MINI_BLOBS >= num_mini_blobs then
+        local blob = EH.Ents.blob(x,y)
+        blob.onDeath = miniBlobOnDeath
+        num_mini_blobs = num_mini_blobs + 1
+    end
 end
 
 
@@ -142,6 +171,7 @@ function wallbreak_task:finish(e)
         ccall("await", boomTime, i/(6+ (4*rand())), x + 300*(rand()-0.5), y + 300*(rand()-0.5), z)
     end
 end
+
 
 
 Tree.chase={

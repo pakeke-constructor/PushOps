@@ -17,6 +17,11 @@ A radius parameter is also probably a good idea when implementing this system as
 
 
 
+Slime bossfight explosions should damage player.
+Use `ccall("apply")` for this probably 
+
+
+
 game name ideas{
     PushOPS
     SuperPush

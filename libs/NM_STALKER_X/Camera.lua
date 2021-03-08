@@ -125,10 +125,17 @@ function Camera:toWorldCoords(x, y)
 end
 
 function Camera:toCameraCoords(x, y)
+    --[[
+        aggressive localization,
+        because this function is likely being called
+        > 5000 times per frame
+    ]]
+    local scale = self.scale
+    local self_x, self_y = self.x, self.y
     local c, s = math.cos(self.rotation), math.sin(self.rotation)
-    x, y = x - self.x, y - self.y
+    x, y = x - self_x, y - self_y
     x, y = c*x - s*y, s*x + c*y
-    return x*self.scale + self.w/2, y*self.scale + self.h/2
+    return x*scale + self.w/2, y*scale + self.h/2
 end
 
 

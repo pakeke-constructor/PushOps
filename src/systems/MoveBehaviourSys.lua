@@ -265,12 +265,17 @@ function MoveBehaviourSys:drawEntity(e)
 end
 ]]
 
+
+
+local isOnScreen = Tools.isOnScreen -- sig: ( e, cam )
+
 local camera = require("src.misc.unique.camera")
+
 
 function MoveBehaviourSys:update(dt)
     orbit_tick = orbit_tick + dt
     for _,e in ipairs(self.group) do
-        if Tools.isOnScreen(e, camera) then
+        if isOnScreen(e, camera) then
             local move = e.behaviour.move
             if move then
                 local move_type = MoveTypes[e.behaviour.move.type]
@@ -297,9 +302,12 @@ local function h_update(ent,dt)
 end
 
 
+
 function MoveBehaviourSys:heavyupdate(dt)
     for _, ent in ipairs(self.group)do
-        h_update(ent,dt)
+        if isOnScreen(ent, camera) then
+            h_update(ent,dt)
+        end
     end
 end
 

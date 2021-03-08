@@ -11,6 +11,10 @@ return{
 ,
     PUSH_RANGE = 50
 ,
+    PUSH_COOLDOWN = 0.44
+,
+    PULL_COOLDOWN = 0.3
+,
     PHYSICS_LINEAR_DAMPING = 0.05
 ,
     ENT_DMG_SPEED = 260 -- ents hit faster than this will be damaged (except player!)

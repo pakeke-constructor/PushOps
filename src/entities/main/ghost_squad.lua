@@ -6,8 +6,8 @@ local BT = EH.BT
 local ccall = Cyan.call
 local rand = love.math.random
 
-local GHOST_COL = {0.9,1,0.9}
-local GHOST_CHILD_COL = {0.9,1,0.9, 0.7}
+local GHOST_COL = {0.9,1,0.9,0.8}
+local GHOST_CHILD_COL = {0.9,1,0.9, 0.6}
 
 local GHOST_CHILD_DMG = 10
 

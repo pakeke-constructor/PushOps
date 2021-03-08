@@ -12,14 +12,26 @@ local AbstractSys = Cyan.System()
 
 local Partition = require("src.misc.partition")
 
+local PartitionTargets = require("src.misc.unique.partition_targets")
 
-function AbstractSys:apply(effect, x,y)
+
+
+local er1 = "Invalid targetID"
+
+function AbstractSys:apply(effect, x, y, targetID)
     --[[
         Applys `effect` function to all entities within
         relative range of `x` and `y`.
     ]]
-    for ent in Partition:iter(x,y)do
-        effect(ent)
+    if targetID then
+        assert(PartitionTargets[targetID], er1)
+        for ent in PartitionTargets[targetID]:iter(x,y)do
+            effect(ent, x, y)
+        end
+    else
+        for ent in Partition:iter(x,y)do
+            effect(ent, x, y)
+        end
     end
 end
 

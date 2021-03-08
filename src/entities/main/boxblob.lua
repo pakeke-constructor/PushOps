@@ -1,6 +1,9 @@
 
 
 
+
+
+
 local shape = love.physics.newCircleShape(10)
 
 local atlas = require "assets.atlas"
@@ -19,7 +22,7 @@ local cols = {
     {0.8,0.9,0.2};
     {0.9,0.1,0.9}
 }]]
-local cols = {{0.75,1,0.75}}
+local cols = {{0.5,0.5,0.5,0.7},{0.7,0.7,0.7}, {0.3,0.3,0.3,0.7}}
 
 local ccall = Cyan.call
 
@@ -41,10 +44,20 @@ local function onDamage(e)
 end
 
 
+local function spawnBoxBloblets(pos)
+    EH.Ents.block(pos.x, pos.y)
+    EH.Ents.block(pos.x, pos.y)
+    for i=1, r(2,3) do
+        EH.Ents.boxbloblet(pos.x,pos.y)
+    end
+end
+
+
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
     ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+    ccall("await", spawnBoxBloblets, 0, p)
     EH.TOK(e,r(1,3))
 end
 
@@ -107,4 +120,6 @@ return function(x,y)
 
     return blob
 end
+
+
 
