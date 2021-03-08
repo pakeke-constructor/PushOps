@@ -9,10 +9,10 @@ local ccall = Cyan.call
 
 local RING_ROT_SPEED = 2
 local RING_DISTANCE = 14
-local PORTAL_DISTANCE = 50
+local PORTAL_DISTANCE = 70
 local COLOUR = {0.8,1,0.8}
 
-local OY = -40
+local OZ = -30
 
 
 --[[
@@ -30,7 +30,7 @@ local ring_img_comp = {
 
 local function portalRing(period_start)
     local e = Cyan.Entity()
-    :add("pos", math.vec3(0,0,OY))
+    :add("pos", math.vec3(0,0,OZ))
     :add("image", ring_img_comp)
     e._cur_portal_period = period_start
     return e
@@ -78,8 +78,9 @@ return function(x, y)
     for i=1,3 do
         table.insert(e.portalRings, portalRing((i-1) * (math.pi*2)/3))
     end
+
     e:add("image",portal_image)
-    EH.PV(e,x,y,OY)
+    EH.PV(e,x,y,OZ)
     e.targetID = "interact"
 
     e.size = PORTAL_DISTANCE

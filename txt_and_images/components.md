@@ -30,6 +30,7 @@ onInteract = function(e, interacting_ent, type)
 -- type is either `pull` or `push`.
 -- (interacting_ent is usually the player).
 -- ALSO, e.size must be bigger than interacting distance!
+    -- (NOTE: THIS IS DONE IN `ControlSys`! I know, its weird, I know)
 end
 
 

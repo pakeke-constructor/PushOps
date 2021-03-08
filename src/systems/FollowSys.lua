@@ -29,17 +29,16 @@ local ccall = Cyan.call
 
 
 
-local function project(e, x, y, distance)
+local function project(e, other, distance)
+    --[[
+        projects `e` towards `other` for distance `distance`
+    ]]
     local ep = e.pos
-    local proj_x = x - ep.x
-    local proj_y = y - ep.y
-
-    local norm = vec3(proj_x, proj_y, 0):normalize()
-    norm.x = norm.x * distance
-    norm.y = norm.y * distance
-
-    ccall("setPos", e, ep.x + norm.x, ep.y + norm.y)
+    local op = other.pos
+    local norm = ((op - ep):normalize() * distance)
+    ccall("setPos", e, ep.x + norm.x, ep.y + norm.y, ep.z + norm.z)
 end
+
 
 
 

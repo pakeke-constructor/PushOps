@@ -26,8 +26,17 @@ local function onBoom(e, x,y, strength)
     end
 end
 
+local rand = love.math.random
+
+local function spawnFunc(p)
+    for i=1,rand(3,5) do
+        EH.Ents.block(p.x + (rand()-0.5)*30, p.y + (rand()-0.5)*30)
+    end 
+end
+
 local function onDeath(e)
     ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 10)
+    ccall("await", spawnFunc, 0, e.pos)
 end
 
 

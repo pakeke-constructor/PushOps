@@ -114,7 +114,7 @@ function ControlSys:update(dt)
         if c.right then
             dx = speed
         end
-        Cyan.call("addVel", ent, dx, dy)
+        ccall("addVel", ent, dx, dy)
 
         if c.zoomIn then
             Camera.scale = max(Camera.scale * (1-dt), 1.5)
@@ -131,8 +131,8 @@ local r = love.math.random
 
 local function boomShells(player)
     if Cyan.exists(player) then
-        Cyan.call("sound", "reload", 1, 0.1)
-        Cyan.call("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
+        ccall("sound", "reload", 1, 0.1)
+        ccall("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
     end
 end
 
@@ -145,12 +145,12 @@ local function push(ent)
     local z = ent.pos.z
 
     -- boom will be biased towards enemies with 1.2 radians
-    Cyan.call("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
-    Cyan.call("animate", "push", x,y+25,z, 0.03) 
-    Cyan.call("shockwave", x, y, 4, 130, 7, 0.3)
-    Cyan.call("sound", "boom")
+    ccall("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
+    ccall("animate", "push", x,y+25,z, 0.03) 
+    ccall("shockwave", x, y, 4, 130, 7, 0.3)
+    ccall("sound", "boom")
     Camera:shake(8, 1, 60) -- this doesnt work, RIP
-    Cyan.call("await", boomShells, 0.3+r()/4, ent)
+    ccall("await", boomShells, 0.3+r()/4, ent)
 
     for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
         if e ~= ent then
@@ -167,9 +167,9 @@ end
 local function pull(ent)
     local x,y = ent.pos.x, ent.pos.y
 
-    Cyan.call("sound", "moob")
-    Cyan.call("shockwave", x, y, 130, 4, 7, 0.3)
-    Cyan.call("moob", x, y, ent.strength/1.5, 200)
+    ccall("sound", "moob")
+    ccall("shockwave", x, y, 130, 4, 7, 0.3)
+    ccall("moob", x, y, ent.strength/1.5, 200)
 
     for e in (TargetPartitions.interact):iter(x, y) do
         if e ~= ent then

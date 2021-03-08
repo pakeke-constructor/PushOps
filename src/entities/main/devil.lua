@@ -146,7 +146,7 @@ return function(x,y)
 
     :add("sigils",{"strength"})
     
-    :add("hp", {hp = 900, max_hp = 900})
+    :add("hp", {hp = 400, max_hp = 400})
 
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
 

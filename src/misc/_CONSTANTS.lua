@@ -49,7 +49,7 @@ return{
     GRASS_COLOUR = {0.3,1,0.4} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,
-    COLOURBLIND = true
+    COLOURBLIND = false
 ,
     DEBUG = true
 }

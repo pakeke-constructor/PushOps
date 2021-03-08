@@ -70,10 +70,6 @@ Called when key is released  (same as above)
 # keytap    ( keyname )
 Called when key is tapped. Only works for "pull" and "push"
 
-# changeKey  ( keyname, scancode  )
-Changes a keyname to a different scancode. "wasd" and "kl" are used by default
-
-
 
 # sound ( sound, volume=1, pitch=1,  volume_variance=0,  pitch_variance=0)
 Plays a sound.

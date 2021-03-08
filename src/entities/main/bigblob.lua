@@ -11,6 +11,8 @@ local rand = love.math.random
 local COLOUR = {0.75,1,0.75,0.8}
 local COLOUR_F = {80/256,38/256,99/256,0}
 
+local COLOUR_RES = {0.5,0.5,0.5, 0.8}
+
 
 
 local emitter,_,pW,pH
@@ -106,14 +108,20 @@ end
 
 function wallbreak_task:start(e)
     ccall("setMoveBehaviour",e,"IDLE")
-    ccall("shockwave",e.pos.x,e.pos.y,130,4,7,0.3)
+    ccall("shockwave",e.pos.x,e.pos.y,130,4,17,0.3)
+    e.colour = COLOUR_RES
 end
 
 function wallbreak_task:update(e,dt)
     if self:runtime(e)>0.6 then
-        return"n"
+        return "n"
     end
-    return"r"
+    return "r"
+end
+
+function wallbreak_task:finish(e,dt)
+    error()
+    e.colour = COLOUR
 end
 
 
@@ -138,7 +146,7 @@ end
 
 Tree.chase={
     "move::LOCKON",
-    "wait::8"
+    "wait::5"
 }
 
 
@@ -167,8 +175,8 @@ return function(x, y)
         magnitude=0.3
     }
     e.hp={
-        hp=100;
-        max_hp=100
+        hp=10000;
+        max_hp=10000
     }
     e.speed = speed
     e.behaviour={

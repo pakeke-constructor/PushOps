@@ -7,10 +7,12 @@ local ccall = Cyan.call
 
 local Entity = Cyan.Entity
 
-local FRAME_GAP = 11 -- The frame gap between following worm nodes.
+local DISTANCE = 11 -- The distance between worm nodes
+
 
 local MIN_LEN = 5
 local MAX_LEN = 13 -- min and max lengths for worm.
+
 
 
 local rocks = {}
@@ -22,6 +24,11 @@ for x=1,10 do
 end
 
 
+local function onDetatch(e)
+    -- yeah just kill em
+    ccall("kill",e)
+end
+
 
 local function wormNodeCtor(e)
     local new = Entity()
@@ -30,7 +37,8 @@ local function wormNodeCtor(e)
     new.pos = math.vec3(epos.x,epos.y,epos.z)
     new.follow = {
         following = e;
-        frameGap = FRAME_GAP
+        distance = DISTANCE;
+        onDetatch = onDetatch
     }
     new.image = Tools.rand_choice(rocks)
 
