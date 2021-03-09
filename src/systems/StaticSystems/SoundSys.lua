@@ -104,17 +104,26 @@ end
 
 
 
+local max = math.max
+
 
 local function playSound(src, vol, pitch, vol_v, p_v)
     src = getFreeSource(src)
+    
     local origPitch = src:getPitch ( )
     local origVol = src:getVolume  ( )
-    src:setVolume(vol + (vol_v) * sin(rand()*3.14))
+    
+    vol = max(1, vol + vol_v * sin( rand() * 3.14 )) * CONSTANTS.MASTER_VOLUME
+    
+    src:setVolume(vol)
     src:setPitch (pitch + (p_v) * sin(rand()*3.14))
+    
     play( src )
+    
     src:setVolume( origVol )
     src:setPitch (origPitch)
 end
+
 
 
 

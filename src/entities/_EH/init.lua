@@ -141,6 +141,18 @@ end
 
 
 
+local function spawnCoin(p)
+    entities.coin(p.x,p.y)
+end
+
+function EH.COIN(chance)
+    if rand() < chance then
+        ccall('await', spawnCoin)
+    end
+end
+
+
+
 
 EH.BT   = require("libs.BehaviourTree")
 EH.Node = require("libs.BehaviourTree").Node

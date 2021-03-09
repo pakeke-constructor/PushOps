@@ -16,6 +16,7 @@ local ccall = Cyan.call
 local rand = love.math.random
 
 
+
 local function onDamage(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, rand(7,11))
@@ -57,6 +58,8 @@ return function(x,y)
     :add("bobbing", {magnitude = 0.32 , value = 0})
 
     EH.FR(e)
+
+    :add("colour", {1,1,0})
 
     :add("motion",
     {

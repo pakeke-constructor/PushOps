@@ -23,7 +23,7 @@ return function(x, y)
     })
     e.targetID = "coin"
     EH.PV(e,x,y)
-    EH.PHYS(e, 6)
+    EH.PHYS(e, 7)
     e.friction={
         required_vel=2
         ;amount=1.3

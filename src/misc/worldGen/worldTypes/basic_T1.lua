@@ -47,7 +47,8 @@ local enemySpawns = Tools.weighted_selection{
     [Ents.mallow]   = 0.3;
     [Ents.boxenemy] = 0.2;
     [Ents.blob]     = 0.3;
-    [Ents.boxblob]  = 0.2
+    [Ents.boxblob]  = 0.2;
+    [Ents.ghost]    = 0.1
 }
 
 return {
@@ -90,8 +91,9 @@ return {
     ["e"] = {
         max = 200;
         function(x,y)
-            for i=1,rand(3,4) do
-                enemySpawns()(x,y)
+            for i=1, rand(2,3) do
+                local f = enemySpawns()
+                f(x,y)
             end
             --[[
             -- OLD CODE

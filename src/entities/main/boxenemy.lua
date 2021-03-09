@@ -117,7 +117,7 @@ return function(x,y)
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
     
-    :add("hp", {hp = 1200, max_hp = 1200})
+    :add("hp", {hp = 100, max_hp = 100})
 
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
 

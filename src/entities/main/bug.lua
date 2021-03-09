@@ -35,6 +35,7 @@ local L={
 
 local cam = require 'src.misc.unique.camera'
 
+
 local function ufunc(e,dt)
     local d = Tools.distToPlayer(e,cam) 
     if d > 300 and e.behaviour.move ~= "IDLE" then

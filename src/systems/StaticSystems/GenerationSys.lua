@@ -137,6 +137,10 @@ local function charIsAllowed(worldMap, wType, X, Y, c)
                         return false
                     end
                 end
+                
+                -- TODO :
+                -- im like 90% sure this ::skip:: is in the wrong place,
+                -- but its been so long since i worked on this code
                 ::skip::
             end
         end

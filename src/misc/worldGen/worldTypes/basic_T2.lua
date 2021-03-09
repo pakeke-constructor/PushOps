@@ -3,7 +3,7 @@
 
 TYPE :: 'basic'
 
-tier :: T1 :: 1
+tier :: T2 :: 2
 
 
 ]]
@@ -39,6 +39,7 @@ constructor function from the respective char table.
 That constructor function will then be called and an
 entity will be placed.
 
+
 ]]
 local Ents = require("src.entities")
 local rand = love.math.random
@@ -53,7 +54,7 @@ local enemySpawns = Tools.weighted_selection{
 
 return {
     type = 'basic',
-    tier = 1,
+    tier = 2,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
