@@ -23,7 +23,7 @@ def count(fpath):
     with open(fpath, "r") as f:
         st = f.read()
         for line in st.split("\n"):
-            if line.replace(" ",""):
+            if line.replace(" ","").replace("\t",""):
                 tot += 1
                 
     return tot
