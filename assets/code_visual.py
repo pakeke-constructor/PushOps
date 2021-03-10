@@ -1,5 +1,13 @@
 
+'''
 
+Packs all of my code into one lua file,
+because it looks cool
+
+
+
+
+'''
 
 
 
@@ -12,19 +20,17 @@ PATH = 'D:\\PROGRAMMING\\LUA\\SCRIPTS\\push_game'
 
 
 def add_lines(fpath):
-    tot = 0
-    
     if not (fpath.endswith(".lua") or fpath.endswith(".fnl") or fpath.endswith(".glsl")):
-        return 0
+        return ''
 
     if fpath==".git":
-        return 0
+        return ''
 
     st = ''
     
     with open(fpath, "r") as f:
-        st = f.read()
-        for line in st.split("\n"):
+        strr = f.read()
+        for line in strr.split("\n"):
             if line.replace(" ","").replace("\t",""):
                 st += (line + "\n")
 
@@ -36,7 +42,10 @@ def add_lines(fpath):
 def add_all_lines(path):
     string = ''
     for fname in os.listdir(path):
-        if fname.startswith(".") or fname.startswith("_NM"):
+        if fname.startswith("."):
+            continue
+
+        if fname.startswith("NM_"):
             continue
 
         pth = path + "/" + fname
@@ -45,9 +54,11 @@ def add_all_lines(path):
         else:
             string += add_all_lines(pth)
             # is folder
-    
     return string
 
-with open("_NEW_LUA_VISUAL.lua", "w+") as f:
+
+
+
+with open("_NM_NEW_LUA_VISUAL.lua", "w+") as f:
     f.write(add_all_lines(PATH))
 
