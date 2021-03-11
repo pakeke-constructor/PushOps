@@ -59,8 +59,6 @@ return function(x,y)
 
     EH.FR(e)
 
-    :add("colour", {1,1,0})
-
     :add("motion",
     {
         up = motion_up;

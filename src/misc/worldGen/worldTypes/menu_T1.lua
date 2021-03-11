@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.INFINITE_BLOB(x,y)
+                Ents.boxsplitter(x,y)
             end
         };
 

@@ -86,6 +86,11 @@ local rand = love.math.random
 local play = love.audio.play
 
 
+-- Tables { [src_name] : number }
+-- that keep track of the original pitch and volume of sources
+local originalVolumes = { } 
+local originalPitches = { }
+
 
 local function getFreeSource(src)
     if not src:isPlaying() then
@@ -109,19 +114,12 @@ local max = math.max
 
 local function playSound(src, vol, pitch, vol_v, p_v)
     src = getFreeSource(src)
-    
-    local origPitch = src:getPitch ( )
-    local origVol = src:getVolume  ( )
-    
     vol = max(1, vol + vol_v * sin( rand() * 3.14 )) * CONSTANTS.MASTER_VOLUME
     
     src:setVolume(vol)
     src:setPitch (pitch + (p_v) * sin(rand()*3.14))
     
     play( src )
-    
-    src:setVolume( origVol )
-    src:setPitch (origPitch)
 end
 
 

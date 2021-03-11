@@ -27,7 +27,6 @@ end
 
 
 
-
 local ccall = Cyan.call
 
 
@@ -53,8 +52,12 @@ function GravitySys:update(dt)
             pos.z = pos.z + (vel.z * dt)
             if pos.z <= 0.1 then
                 ent.grounded = true
-                pos.z = 0
-                vel.z = 0
+                if not ent.diggable then
+                    -- if entity can dig underground, we leave them alone.
+                    -- leave the update functions/behaviour trees to deal with it.
+                    pos.z = 0
+                    vel.z = 0
+                end
                 ccall("grounded", ent)
             end
         end

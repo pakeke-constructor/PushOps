@@ -22,6 +22,20 @@ Use `ccall("apply")` for this probably
 
 
 
+
+For `bigwall` entity, make it so if the player
+emits a boom next to them, they die and spawn 8-9 physics blocks.
+
+
+
+
+Lewis Idea:
+An entity which carries a shield (physics object) in front of it.
+The player must run behind it and hit it from behind to damage it
+
+
+
+
 game name ideas{
     PushOPS
     SuperPush

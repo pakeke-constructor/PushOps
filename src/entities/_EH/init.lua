@@ -80,7 +80,7 @@ function EH.PC(e1,e2,speed)
     ]]
     if e1.targetID=="enemy" then
         if e2.targetID=="player" then
-            ccall("damage", e2, (e1.strength or 10))
+            ccall("damage", e2, (e1.strength or 20))
         end
     end
 
