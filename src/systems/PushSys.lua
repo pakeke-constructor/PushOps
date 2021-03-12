@@ -5,6 +5,7 @@ local PushSys = Cyan.System("pushing")
 --[[
 
 A system that handles the pushing of entities.
+    (Note: This system holds entities that are *doing* the pushing.)
 
 ]]
 

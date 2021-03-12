@@ -21,9 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)    
-                for i=1,4 do
-                    Ents.boxbully(x+rand()*80,y+rand()*80)
-                end
+                Ents.cmallow(x,y)
             end
         };
 

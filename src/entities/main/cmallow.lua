@@ -17,9 +17,9 @@ local CHARGE_SPEED = 300
 local CHARGE_MAX_SPEED = 500
 
 
-local COLOUR={0.7,0.4,0.4}
+local COLOUR={0.7,0.7,1}
 
-local CHARGE_COLOUR = {0.7,0.4,0.4}
+local CHARGE_COLOUR = {0.4,0.4,0.8}
 
 
 
@@ -69,7 +69,7 @@ local Camera = require("src.misc.unique.camera")
 
 function Tree.choose(tree, e)
     if (e.hp.hp < e.hp.max_hp) or (Tools.distToPlayer(e, Camera) < 250) then
-        if rand() < 0.1 then
+        if rand() < 0.5 then
             return "charge"
         else
             return "angry"
@@ -84,7 +84,7 @@ end
 local cmallow_spin_task = EH.Task("_cmallow spin task")
 
 cmallow_spin_task.start = function(t,e)
-    ccall("setMoveBehaviour", e,"IDLE")
+    ccall("setMoveBehaviour", e, "IDLE")
     ccall("setVel", e, 0,0)
     ccall("animate", 'mallowspin', 0,0,0, 0.04, 2, COLOUR, e, true)
 end
@@ -113,7 +113,7 @@ function cmallow_charge_task:start(e)
     ccall("shockwave", x, y, 4, 130, 7, 0.3)
     e.speed.max_speed = CHARGE_MAX_SPEED
     e.speed.speed = CHARGE_SPEED
-    ccall("setmovebehaviour",  e, "LOCKON", "player")
+    ccall("setMoveBehaviour", e, "LOCKON", "player")
 end
 
 function cmallow_charge_task:update(e,dt)
@@ -148,10 +148,6 @@ Tree.idle = {
 }
 
 
-Tree:on("damage",function(n,e)
-    return "charge"
-end)
-
 
 
 local physColFunc = function(e1, e2, speed)
@@ -165,7 +161,8 @@ local r = love.math.random
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
-    EH.TOK(e,r(4,6))
+    EH.Ents.speedboost(p.x,p.y)
+    EH.TOK(e,r(2,3))
 end
 
 

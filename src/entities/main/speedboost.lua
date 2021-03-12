@@ -10,6 +10,8 @@ Gives a short, temporary speed boost to the player.
 
 ]]
 
+local BUFFTIME = 5 -- 15 seconds a good time? (5 seconds for debug)
+
 
 
 local Atlas = require("assets.atlas")
@@ -25,42 +27,17 @@ for iii=1,5 do
 end
 
 local COLOUR = {
-    0.4,0.4,1,0.6
+    0.4,0.4,1,1
 }
-local LIGHT_COLOUR = {
-    0.2,0.2,1,1
-}
-
 local COLOUR_CHANGE = 0.3 -- adds 0.3 blue colour to player
 
 
 
-local L={
-    colour=LIGHT_COLOUR;
-    distance=30
-}
 
 
 local cam = require 'src.misc.unique.camera'
 
 
-
-local cexists = Cyan.exists
-local function reduceSpeed(e, amount, d_col)
-    -- d_col  ::   change in colour blue
-    -- amount ::   change in speed
-    if cexists(e) then
-        e.speed = {
-            max_speed = e.max_speed - amount;
-            speed     = e.speed     - amount
-        }
-        e.colour = {
-            e.colour[1],
-            e.colour[2],
-            e.colour[3] - d_col
-        }
-    end
-end
 
 
 
@@ -71,22 +48,21 @@ local collisions = {
             assert(ce.targetID=="player", "??")
 
             -- speed increase is equal to `speedboost` ent's strength
-            local amount = e.strength
+            ccall("buff", ce, "speed", e.bufftime, e.strength)
+            ccall("buff", ce, "tint", e.bufftime,  {1-COLOUR_CHANGE,1-COLOUR_CHANGE,1})
+            -- TODO: play a sound here
 
-            ce.speed = {
-                max_speed = e.max_speed + amount;
-                speed     = e.speed     + amount
-            }
-            ce.colour = {ce.colour[1], ce.colour[2], ce.colour[3]}
-            local orig_blue = ce.colour[3]
-            
-            ce.colour[3] = ce.colour[3] + COLOUR_CHANGE
-
-            ccall("await", reduceSpeed, ce.bufftime, ce, amount, COLOUR_CHANGE)
+            local p=e.pos
+            ccall("shockwave", p.x, p.y, 10, 200, 8, 0.35,
+                    {COLOUR[1],COLOUR[2],COLOUR[3]})
         end
     }
 }
 
+
+local SPD = {
+    speed=300,max_speed=300
+}
 
 
 return function(x, y)
@@ -99,18 +75,18 @@ return function(x, y)
         current=0
     })
     :add("colour",COLOUR)
-    :add("light",L)
 
     :add("behaviour",{
         move={
             id="player";
-            type="SOLO"
+            type="CLOCKON"
         }
     })
 
-    :add("strength", 10)
+    :add("strength", 60)
+    :add("bufftime", BUFFTIME)
 
     :add("collisions", collisions)
-    :add("speed",{speed=70,max_speed=70})
+    :add("speed",SPD)
 end
 

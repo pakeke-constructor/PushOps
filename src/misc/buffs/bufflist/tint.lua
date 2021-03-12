@@ -1,8 +1,8 @@
 
 
 local oldColours = setmetatable({
-    -- [ ent ] = speed_change
-},{__mode="kv"})
+    -- [ ent ] = colour
+},{__mode="k"})
 
 
 
@@ -10,18 +10,19 @@ local cexists = Cyan.exists
 
 
 
-
 return {
-    buff = function(e, colour)
+    buff = function(e, col)
         oldColours[e] = e.colour
-        e.colour = colour
+        e.colour = col
     end;
 
     debuff = function(e)
         local col = oldColours[e]
         if not col then
-            return -- oh no! anyway
-            -- (the ent must have been deleted, doesnt hurt to double check tho)
+            -- either the ent has been GC'd, 
+            -- OR the ent had no colour to begin with.
+            -- default to white
+            col = {1,1,1,1}
         end
 
         if cexists(e) then

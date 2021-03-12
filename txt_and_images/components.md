@@ -277,7 +277,8 @@ sigils = { "poison", "strength" }
 
 
 buff = {
-    buffs = {"speed", "strength"} -- must be valid buff types
+    buffs = {"speed", "tint"} -- must be valid buff types
+
     speed = 30 -- 30 seconds left for speed
     strength = 15.32
 }

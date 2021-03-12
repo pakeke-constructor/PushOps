@@ -8,8 +8,6 @@ local speedChanges = setmetatable({
 local cexists = Cyan.exists
 
 
-
-
 return {
     buff = function(e, amount)
         speedChanges[e] = amount
@@ -17,8 +15,8 @@ return {
         -- Just give it a whole new table. Its (probably) very safe
         -- (definitely safer than alternative anyway lol)
         e.speed = {
-            spd.speed + amount,
-            spd.max_speed + amount
+            speed = spd.speed + amount,
+            max_speed = spd.max_speed + amount
         }
     end;
 

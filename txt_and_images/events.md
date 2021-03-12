@@ -154,6 +154,8 @@ Called when an entity becomes dead.
 # buff ( e, type, time, ... )
 Buffs an entity. See `src.misc.buffs` and `systems -> BuffSystem`.
 types:  speed(amount)   tint(newcolour)
+(If you want infinite time, just set time=9999999999 )
+
 
 # debuff( e, type ) 
 removes a buff
