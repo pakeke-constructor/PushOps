@@ -150,6 +150,17 @@ Called when an entity becomes dead.
 # ALIAS:    kill ( ent )
 
 
+
+# buff ( e, type, time, ... )
+Buffs an entity. See `src.misc.buffs` and `systems -> BuffSystem`.
+types:  speed(amount)   tint(newcolour)
+
+# debuff( e, type ) 
+removes a buff
+
+
+
+
 # shoot ( x, y, vx, vy )
 Shoots a bullet in a direction
 

@@ -276,6 +276,16 @@ sigils = { "poison", "strength" }
 
 
 
+buff = {
+    buffs = {"speed", "strength"} -- must be valid buff types
+    speed = 30 -- 30 seconds left for speed
+    strength = 15.32
+}
+--[[
+    NOTE::: Do not add `buff` component directly!!!!
+    See `ccall("buff" ...)`
+]]
+
 
 hybrid = true -- Added to `HybridSys`. This bridges the gap, 
              -- allows for OOP-ECS hybrid architecture
