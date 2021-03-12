@@ -36,6 +36,12 @@ The player must run behind it and hit it from behind to damage it
 
 
 
+Entities that charge:
+Entities that charge should be a certain different colour.
+They should drop a small speed boost when killed (in the form of `bug` ent)
+
+
+
 game name ideas{
     PushOPS
     SuperPush

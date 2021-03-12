@@ -9,6 +9,7 @@ local rand = love.math.random
 
 
 
+
 local DEFAULT_SPEED = 80
 local DEFAULT_MAX_SPEED = 90
 

@@ -34,7 +34,9 @@ local speed = {
 return function(x, y)
     local e = Cyan.Entity()
     EH.PV(e,x,y)
-    EH.PHYS(e,4)
+    EH.PHYS(e,7) -- Q: 'why is the bloblet so big???'
+                 -- A: small bloblets are super annoying to hit, especially since
+                -- they run super fast
     e.collisions = colComp
     e.targetID="enemy"
     e.speed = speed

@@ -5,7 +5,7 @@
 --[[
 
 Recursively splits and reduces it's transparency until it
-has transparency of  <0.4
+is only made up of small blobs
 
 ]]
 
