@@ -48,11 +48,8 @@ return function(x, y)
     e.onDeath=onDeath
     e.behaviour={
         move={
-            type="ORBIT";
-            id="player";
-            orbit_tick = rand()*2;
-            orbit_speed=0.1;
-            orbit_radius = rand()*80
+            type="LOCKON"; -- changing to LOCKON, ORBIT was annoying
+            id="player"
         }
     };
     e.animation = {

@@ -27,7 +27,7 @@ local nLL = function(e)
 end
 
 local function regularShockwave(x,y, col)
-    ccall("shockwave", x, y, 120, 25, 3, 0.4, col)
+    ccall("shockwave", x, y, 440, 25, 3, 0.4, col)
 end
 
 

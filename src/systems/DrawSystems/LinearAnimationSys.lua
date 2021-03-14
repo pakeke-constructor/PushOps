@@ -84,12 +84,6 @@ function LinearAnimationSys:drawEntity( ent )
         local sway_comp = ent.swaying or default_sway
         local oy = ent.animation.oy
 
-        if not anim.frames[index] then
-            print("exists: ", Cyan.exists(ent))
-            print("len frames: ", #anim.frames)
-            print("index: ", index)
-        end
-
         atlas:draw(
             anim.frames[index],
             ent.pos.x,
@@ -237,7 +231,7 @@ Expected  ccall('animate', x, y, z, frame_len, cycles, colour = WHITE, track_ent
 
     local anim = get_anim_obj(anim_type)
 
-    anim:play(x,y,z, frame_len, cycles, (colour or WHITE), (track_ent or nil), (hide_ent or false))
+    anim:play(x,y,z, frame_len, cycles, (colour or WHITE), track_ent, (hide_ent or false))
     in_use_anim_objs:add(anim)
 
     local z_dep 
@@ -283,15 +277,20 @@ function LinearAnimationSys:update(dt)
         end
     end
 
+    local rem = {}
     for i, anim in ipairs(in_use_anim_objs.objects) do
         anim:update(dt)
         if anim:isFinished() then
             tracking_anim_objs:remove(anim)
-            in_use_anim_objs:remove(anim)
+            table.insert(rem, anim)
             in_use_anim_Z_index[anim.z_dep]:remove(anim)
             anim.runtime = 0
             t_insert(available_anim_objs[anim.type], anim)
         end
+    end
+    for i=1,#rem do
+        in_use_anim_objs:remove(rem[i])
+        rem[i] = nil
     end
 
     for _, anim in ipairs(tracking_anim_objs.objects) do
