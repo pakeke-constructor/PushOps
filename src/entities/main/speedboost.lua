@@ -10,7 +10,7 @@ Gives a short, temporary speed boost to the player.
 
 ]]
 
-local BUFFTIME = 5 -- 15 seconds a good time? (5 seconds for debug)
+local BUFFTIME = 13 -- 13 seconds a good time?
 
 
 
@@ -49,8 +49,8 @@ local collisions = {
 
             -- speed increase is equal to `speedboost` ent's strength
             ccall("buff", ce, "speed", e.bufftime, e.strength)
-            ccall("buff", ce, "tint", e.bufftime,  {1-COLOUR_CHANGE,1-COLOUR_CHANGE,1})
-            -- TODO: play a sound here
+            ccall("buff", ce, "tint", e.bufftime,  {1-COLOUR_CHANGE,1-COLOUR_CHANGE,1+COLOUR_CHANGE})
+            -- TODO: play a sound here or somethin
 
             local p=e.pos
             ccall("shockwave", p.x, p.y, 10, 200, 8, 0.35,
@@ -66,7 +66,6 @@ local SPD = {
 
 
 return function(x, y)
-
     local e = Cyan.Entity()
     EH.PV(e,x,y)
     e:add("animation",{
@@ -83,7 +82,7 @@ return function(x, y)
         }
     })
 
-    :add("strength", 60)
+    :add("strength", 100)
     :add("bufftime", BUFFTIME)
 
     :add("collisions", collisions)

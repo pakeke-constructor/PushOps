@@ -1,13 +1,12 @@
+
 --[[
 
 Big, BIG lad.
 
 Make a version of this ent who is constantly
-*having 3 physics objects rotating around it.
-(As a defence mechanism)
+carrying a shield
 
 ]]
-
 
 
 local Atlas = require("assets.atlas")
@@ -24,10 +23,8 @@ local down = {}
 local right = {}
 local left = {}
 
-
 local ti = table.insert
 local ts = tostring
-
 
 for _,i in ipairs(ii) do
     ti(up, Quads['bully_up_'..ts(i)])
@@ -37,21 +34,10 @@ for _,i in ipairs(ii) do
 end
 
 
-local floor = math.floor
-local spawnF = function(p)
-    for i=1, floor(r()*4) do
-        local x,y = r()-0.5, r()-0.5
-        EH.Ents.block(x*15, y*15)
-    end
-end
-
-
 local collisions = {
     physics = function(e,ot,s)
         if EH.PC(e,ot,s) then
             -- add noise or something here
-            local p = e.pos
-            ccall("await", spawnF, 0, p)
             ccall("shockwave", e.pos.x, e.pos.y, 20, 50, 6, 0.2)
         end
     end
@@ -73,17 +59,12 @@ return function(x, y)
         required_vel=1
     }
 
-    e.hp={
-        hp=1000;
-        max_hp=1000
-    }
+    e.strength = 25
     
     e.speed={
-        speed=115;
-        max_speed=125
+        speed=120;
+        max_speed=130
     }
-
-    e.strength = 20
 
     e.behaviour={
         move={
@@ -100,10 +81,6 @@ return function(x, y)
     e.targetID="enemy"
 
     e.collisions=collisions
-
-    local col = (r()/2) + 0.3
-
-    e.colour = {col,col,col}
 
     EH.FR(e)
     EH.PHYS(e,15)

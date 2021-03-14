@@ -13,8 +13,8 @@ local rand = love.math.random
 local DEFAULT_SPEED = 80
 local DEFAULT_MAX_SPEED = 90
 
-local CHARGE_SPEED = 300
-local CHARGE_MAX_SPEED = 500
+local CHARGE_SPEED = 400
+local CHARGE_MAX_SPEED = 600
 
 
 local COLOUR={0.7,0.7,1}

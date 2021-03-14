@@ -124,13 +124,10 @@ Called when 2 entities collide regardless of conditions
 
 
 # boxquery ( X, Y, callback )
-If X, Y is touching a physics object, `callback` is called with the fixture as the first argument.
-See https://love2d.org/wiki/World:queryBoundingBox
+If X, Y is touching a physics object, `callback` is called with the fixture as the first argument.  See https://love2d.org/wiki/World:queryBoundingBox
 
 # rayquery ( x1, y1, x2, y2, callback )
-If ray intersects physics fixture, "callback" is called with
-the fixture as the first argument.
-See https://love2d.org/wiki/World:raycast
+If ray intersects physics fixture, "callback" is called with the fixture as the first argument.   See https://love2d.org/wiki/World:raycast
 
 
 # airborne ( ent )

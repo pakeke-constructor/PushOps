@@ -145,9 +145,9 @@ local function spawnCoin(p)
     entities.coin(p.x,p.y)
 end
 
-function EH.COIN(chance)
+function EH.COIN(ent, chance)
     if rand() < chance then
-        ccall('await', spawnCoin)
+        ccall('await', spawnCoin, 0, ent.pos)
     end
 end
 

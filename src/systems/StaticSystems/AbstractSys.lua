@@ -48,10 +48,15 @@ Each `time` object is represented as a table:
 
 
 function AbstractSys:await(func, time, ...)
+    --[[
+
+    Im kinda using this callback a lot. Maybe I should stop
+        being so damn reliant on it
+    ]]
     local args={...}
     
     if CONSTANTS.DEBUG then
-        assert(#args<7,"sorry, you broke the arg cap on ccall('await'). \n Extend the arg number in AbstractSys")
+        assert(#args<7,"sorry, you broke the arg cap on ccall('await'). \nExtend the arg number in AbstractSys.")
     end
 
     times:add({
@@ -67,7 +72,11 @@ function AbstractSys:update(dt)
         timeObj.runtime = timeObj.runtime + dt
         if timeObj.runtime > timeObj.time then
             local args = timeObj.args
+            -- unpack isnt JIT'd
             timeObj.func(args[1],args[2],args[3],args[4],args[5],args[6],args[7])
+            for i=1, #timeObj.args do
+                timeObj.args[i] = nil -- cut GC some slack
+            end
             timeObj.args=nil
             times:remove(timeObj)
         end
