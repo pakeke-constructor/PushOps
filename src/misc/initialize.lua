@@ -20,7 +20,7 @@ local lg = love.graphics
 function DEBUG_SYS:keypressed(k)
     if k=="e" then
         for i=1,10 do
-            Ents.tok(450 + rand()*500,450+rand()*500 )
+            Ents.tokgold(450 + rand()*500,450+rand()*500 )
         end
     end
     if k=='p' then        

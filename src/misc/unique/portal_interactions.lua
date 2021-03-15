@@ -35,8 +35,9 @@ function PortalInteracts.newLushLevel(e)
     --[[
         creates new level with feedback
     ]]
-    for i=0, 7 do
-        ccall("await", regularShockwave, i*(BUF_TIME/8), e.pos.x, e.pos.y - e.pos.z/2, {1,0,1})
+    local R = 4
+    for i=0, R do
+        ccall("await", regularShockwave, i*(BUF_TIME/(R+1)), e.pos.x, e.pos.y - e.pos.z/2, {1,0,1})
     end
     ccall("await", nLL, BUF_TIME+0.05, e) -- wait  seconds
 end

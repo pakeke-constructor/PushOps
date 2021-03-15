@@ -142,7 +142,7 @@ local r = love.math.random
 
 local function afterPush(player)
     if Cyan.exists(player) then
-        ccall("sound", "reload", 1, 1)
+        ccall("sound", "reload", 0.2)
         ccall("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
         player.control.canPush = true
     end

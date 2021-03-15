@@ -1,4 +1,5 @@
 
+
 local Atlas = require("assets.atlas")
 local Quads = Atlas.Quads
 local EH = EH
@@ -10,7 +11,7 @@ local r = love.math.random
 
 local function playerColFunc(ent, player, dt)
     ccall("animate", "blit", ent.pos.x,ent.pos.y,ent.pos.z, 0.01, 1)
-    ccall("sound", "beep", 1, 0.95+r()/10)
+    ccall("sound", "beep") -- TODO: change the sound of this
     ccall("kill",ent)
 end
 
@@ -29,6 +30,7 @@ end
 
 local ANIM_INTERVAL = 0.1
 
+local GOLD = {222/256, 195/256, 40/256}
 
 
 return function(x, y)
@@ -44,6 +46,8 @@ return function(x, y)
         -- (gives nice variation)
         e.animation.frames = f_rv
     end
+
+    e.colour = GOLD
     
     e.speed={
         speed=250;

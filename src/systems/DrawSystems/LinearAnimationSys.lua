@@ -8,6 +8,13 @@ This is a really dumb fix....
 But I had to rename this filename and system to `LinearAnimationSys` so
 FrictionSys would be drawn before this.
 
+
+Future oli here:
+This whole File is dumb. Tjhis whole idea is dumb! Dont give crappy animation
+objects control over every single entity. Next time, pass the position only
+and make it so the animObjs do all the work. AnimationSys should not have to do
+field checks!!!! I mean this is literal spagetti
+
 ]]
 
 local LinearAnimationSys = Cyan.System("animation", "pos")
@@ -134,6 +141,7 @@ Each animation object must have the following:
 :update(dt)
 :isFinished() check if finished animation
 :clone() to clone itself
+:finish()  to reset fields and mark finish flag
 :release() to free it's individual memory
 It must have a `.type` field that tells what type it is. (This MUST also be the file name!!!)
 
@@ -258,6 +266,7 @@ end
 
 
 
+local temp_stack = {}
 
 function LinearAnimationSys:update(dt)
     for _, ent in ipairs(self.group) do
@@ -277,30 +286,48 @@ function LinearAnimationSys:update(dt)
         end
     end
 
-    local rem = {}
     for i, anim in ipairs(in_use_anim_objs.objects) do
         anim:update(dt)
         if anim:isFinished() then
             tracking_anim_objs:remove(anim)
-            table.insert(rem, anim)
+            table.insert(temp_stack, anim)
             in_use_anim_Z_index[anim.z_dep]:remove(anim)
             anim.runtime = 0
             t_insert(available_anim_objs[anim.type], anim)
         end
     end
-    for i=1,#rem do
-        in_use_anim_objs:remove(rem[i])
-        rem[i] = nil
+    for i,a in ipairs(temp_stack) do
+        -- Cannot remove from set halfway thru ipairs loop
+        in_use_anim_objs:remove(a)
+        temp_stack[i] = nil
     end
+    assert(#temp_stack == 0,"huh")
+
 
     for _, anim in ipairs(tracking_anim_objs.objects) do
         -- For tracking animations that need to track their objects
         in_use_anim_Z_index[anim.z_dep]:remove(anim)
-        local tpos = anim.tracking.pos
-        local new_z_dep = getZIndex(anim.y + tpos.y, anim.z + tpos.z)
+        local new_z_dep
+        if (not anim.tracking) then
+            --  we're no longer tracking.
+            -- (anim_base.lua =>  :removed() btw, smh. horrible code structure)
+            table.insert(temp_stack, anim)
+            new_z_dep = anim.z_dep --cant afford anything else.
+            anim:finish()
+        else
+            local tpos = anim.tracking.pos
+            new_z_dep = getZIndex(anim.y + tpos.y, anim.z + tpos.z)
+        end
         anim.z_dep = new_z_dep
         in_use_anim_Z_index[anim.z_dep]:add(anim)
     end
+    for i,a in ipairs(temp_stack) do
+        -- Cannot remove from set halfway thru ipairs loop
+        tracking_anim_objs:remove(a)
+        temp_stack[i]=nil
+    end
+    assert(#temp_stack == 0,"SCUSE ME?????")
+
 end
 
 

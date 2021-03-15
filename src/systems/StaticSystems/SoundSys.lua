@@ -110,12 +110,11 @@ end
 
 
 local max = math.max
-
+local min = math.min
 
 local function playSound(src, vol, pitch, vol_v, p_v)
     src = getFreeSource(src)
-    vol = max(1, vol + vol_v * sin( rand() * 3.14 )) * CONSTANTS.MASTER_VOLUME
-    
+    vol = min(1, vol + vol_v * sin( rand() * 3.14 )) * CONSTANTS.MASTER_VOLUME
     src:setVolume(vol)
     src:setPitch (pitch + (p_v) * sin(rand()*3.14))
     

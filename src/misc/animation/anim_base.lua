@@ -165,8 +165,13 @@ end
 function Anim:removed(ent)
     -- for when the entity is destroyed halfway thru, and the
     -- anim object is still tracking it.
+
+    -- future oli here, this is dumb, dont do this stuff again.
+    -- In fact, dont do any weird stuff where helper objects hold entities 
+    -- EVER again! its a really bad idea
     self.tracking = nil
 end
+
 
 
 function Anim:release()

@@ -17,6 +17,12 @@ A radius parameter is also probably a good idea when implementing this system as
 
 
 
+Add a chest that, when destroyed, gives gold coins.
+Make it so coins act like tokens
+
+
+
+
 Slime bossfight explosions should damage player.
 Use `ccall("apply")` for this probably 
 

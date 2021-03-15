@@ -55,7 +55,7 @@ return function(x, y)
     e.onDeath=onDeath
     e.behaviour={
         move={
-            type="ORBIT";
+            type="LOCKON";
             id="player";
             orbit_tick = rand()*2;
             orbit_speed=0.1;

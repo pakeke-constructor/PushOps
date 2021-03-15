@@ -121,7 +121,8 @@ function _G.love.errorhandler(msg)
  
 	local err = {}
  
-	table.insert(err, "Oh no, there has been an Error.\nIf you can, please contact Oli and show a full screenshot of this error screen. TY!\n")
+	table.insert(err, "Oh no, there has been an Error.\nIf you can, please contact Oli and show a full screenshot of this error screen. TY!\n       PLATFORM : "
+					..tostring(love.system.getOS() or "unknown OS"))
 	table.insert(err, sanitizedmsg)
  
 	if #sanitizedmsg ~= #msg then
@@ -129,7 +130,7 @@ function _G.love.errorhandler(msg)
 	end
  
 	table.insert(err, "\n")
- 
+
 	for l in trace:gmatch("(.-)\n") do
 		if not l:match("boot.lua") then
 			l = l:gsub("stack traceback:", "Traceback\n")

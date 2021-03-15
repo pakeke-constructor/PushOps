@@ -16,6 +16,16 @@ local EH = EH
 local BT = EH.BT
 local ccall = Cyan.call
 
+
+local BLOCK_NUM = 7
+
+local MAX_BLOCK_ORBIT = 50
+local MIN_BLOCK_ORBIT = 30
+
+local ORBIT_SPEED = 3.5
+
+
+
 local r = love.math.random
 
 local ii = {1,2,1,3}
@@ -58,10 +68,41 @@ local collisions = {
 }
 
 
+local sin = math.sin
+local cos = math.cos
+
+local t = 0
+
+local function onUpdate(e,dt)
+    -- percentage of full HP
+    local hp_ratio = e.hp.hp / e.hp.max_hp
+    
+    -- orbit distance
+    local od = MIN_BLOCK_ORBIT + (MAX_BLOCK_ORBIT - MIN_BLOCK_ORBIT) * hp_ratio 
+
+    local ex = e.pos.x
+    local ey = e.pos.y
+
+    t = (t + dt*ORBIT_SPEED)%(2*math.pi)
+
+    for i,bl in ipairs(e.orbiting_blocks) do
+        local offset = (i*2*math.pi)/BLOCK_NUM
+        local tick = t + offset
+        ccall("setPos", bl, ex + od*sin(tick), ey + od*cos(tick))
+    end
+end
+
+
 return function(x, y)
 
     local e = Cyan.Entity()
     EH.PV(e,x,y)
+
+    e.orbiting_blocks = {}
+
+    for i=1, BLOCK_NUM do
+        table.insert(e.orbiting_blocks, EH.Ents.block(x,y))
+    end
     
     e.motion = {
         up=up;
@@ -98,6 +139,9 @@ return function(x, y)
     }
     e.sigils = {"strength"}
     e.targetID="enemy"
+
+    e.hybrid=true
+    e.onUpdate=onUpdate
 
     e.collisions=collisions
 

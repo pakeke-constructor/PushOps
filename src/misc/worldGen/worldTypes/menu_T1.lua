@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)    
-                Ents.cmallow(x,y)
+                Ents.boxbully(x,y)
             end
         };
 
@@ -45,7 +45,7 @@ return {
         };
 
         ["p"] = {
-            max = 300, -- 60 max
+            max = 300, -- 300 max
             function(x, y)
                 for i = 1, rand(3,6) do
                     Ents.block(
