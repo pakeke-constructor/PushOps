@@ -150,7 +150,6 @@ end
 
 
 
-
 local function push(ent)
     assert(ent.control,"??????????")
     
@@ -163,6 +162,7 @@ local function push(ent)
         ccall("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
         ccall("animate", "push", x,y+25,z, 0.03) 
         ccall("shockwave", x, y, 4, 130, 7, 0.3)
+        ccall("light", x, y,18, 0.05, nil, true)
         ccall("sound", "boom")
         Camera:shake(8, 1, 60) -- this doesnt work, RIP
 

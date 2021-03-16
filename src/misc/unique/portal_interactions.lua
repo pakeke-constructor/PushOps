@@ -27,7 +27,7 @@ local nLL = function(e)
 end
 
 local function regularShockwave(x,y, col)
-    ccall("shockwave", x, y, 440, 25, 3, 0.4, col)
+    ccall("shockwave", x, y, 25, 240, 9, 0.4, col)
 end
 
 
@@ -35,9 +35,9 @@ function PortalInteracts.newLushLevel(e)
     --[[
         creates new level with feedback
     ]]
-    local R = 4
+    local R = 3
     for i=0, R do
-        ccall("await", regularShockwave, i*(BUF_TIME/(R+1)), e.pos.x, e.pos.y - e.pos.z/2, {1,0,1})
+        ccall("await", regularShockwave, i*(BUF_TIME/(R+1)), e.pos.x, e.pos.y - e.pos.z/2, {0.05,0.3,0.3})
     end
     ccall("await", nLL, BUF_TIME+0.05, e) -- wait  seconds
 end

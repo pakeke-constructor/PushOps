@@ -50,10 +50,12 @@ return{
 ,
     paused = false -- debug only  (if not debug only, make an cyan.call event for this)
 ,
-    GRASS_COLOUR = {0.3,1,0.4} -- colour of ground grass    
+    GRASS_COLOUR = {0.1,1,0.2} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,
     COLOURBLIND = false
+,
+    DEVILBLIND  = true
 ,
     MASTER_VOLUME = 0.4 -- volume is always a number:   0 --> 1
 ,

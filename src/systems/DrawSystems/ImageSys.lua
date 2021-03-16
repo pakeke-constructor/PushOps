@@ -20,7 +20,6 @@ function ImageSys:added(ent)
     end
 
     local image = ent.image
-
     local _,_, w,h = image.quad:getViewport( )
 
     if not image.ox then

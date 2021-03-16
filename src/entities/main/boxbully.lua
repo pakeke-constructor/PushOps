@@ -73,7 +73,7 @@ local cos = math.cos
 
 local t = 0
 
-local function onUpdate(e,dt)
+local function update(e,dt)
     -- percentage of full HP
     local hp_ratio = e.hp.hp / e.hp.max_hp
     
@@ -141,11 +141,11 @@ return function(x, y)
     e.targetID="enemy"
 
     e.hybrid=true
-    e.onUpdate=onUpdate
+    e.onUpdate=update
 
     e.collisions=collisions
 
-    local col = (r()/2) + 0.3
+    local col = (r()/2) + 0.2
 
     e.colour = {col,col,col}
 

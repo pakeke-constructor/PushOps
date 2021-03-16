@@ -3,9 +3,10 @@
 local LightSys = Cyan.System("light")
 
 -- shader consts.
-local BASE_LIGHTING = {0.45, 0.45, 0.45, 1}
-local MAX_LIGHT_STRENGTH = 0.3
+local BASE_LIGHTING = {0.4, 0.4, 0.4, 1}
+local MAX_LIGHT_STRENGTH = 0.45
 local NUM_LIGHTS = 20 -- max N
+local BRIGHTNESS_MODIFIER = 1 -- all light strengths divided by 100
 
 
 
@@ -48,6 +49,46 @@ end
 
 
 
+local function makeLight(ent, distance, time, colour, fade)
+    --[[
+        constructs the rest of fields for light source
+    ]]
+    ent.hp.hp = time
+    ent.hp.max_hp = time
+    ent.hp.regen = -1 -- gets -1 hp per second
+    ent.light.distance=distance
+
+    if fade then
+        ent.hybrid = true
+        -- onUpdate function is specified in `ents -> light.lua`
+
+        -- cache original distance of light
+        ent.original_distance = distance
+    end
+end
+
+local DEFAULT_LIGHT_COL = {1,1,1,1}
+
+function LightSys:light(x, y, distance, time, colour, fade)
+    --[[
+        colour is colour of light
+        distance is distance
+
+        time is how long it exists for
+
+        fade = true/false
+            If fade is true, the light will linearly fade to black
+    ]]
+    colour = colour or DEFAULT_LIGHT_COL
+    assert(#colour == 4, "must be 4d vector for colour thx")
+
+    time = time or 0xffffffffffffffff -- else it exists forever
+    local u = EH.Ents.light(x,y)
+    makeLight(u,distance,time,colour,fade)
+end
+
+
+
 function LightSys:update()
     local light_positions = {}
     local light_colours   = {}
@@ -80,5 +121,6 @@ function LightSys:update()
     shader:send("num_lights", NUM_LIGHTS)
     shader:send("base_lighting", BASE_LIGHTING)
     shader:send("max_light_strength", MAX_LIGHT_STRENGTH)
+    shader:send("brightness_modifier", BRIGHTNESS_MODIFIER)
 end
 

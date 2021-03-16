@@ -10,17 +10,15 @@ local Entity = Cyan.Entity
 local DISTANCE = 11 -- The distance between worm nodes
 
 
-local MIN_LEN = 5
-local MAX_LEN = 13 -- min and max lengths for worm.
+local MIN_LEN = 10
+local MAX_LEN = 20 -- min and max lengths for worm.
 
 
 
 local rocks = {}
-for x=1,10 do
+for x=1,4 do
     local quad_name = 'rock' .. tostring(x)
-    if rawget(Quads, quad_name) then
-        table.insert(rocks, Quads[quad_name])
-    end
+    table.insert(rocks, Quads[quad_name])
 end
 
 
@@ -33,21 +31,21 @@ end
 local function wormNodeCtor(e)
     local new = Entity()
     local epos=e.pos
-    
     new.pos = math.vec3(epos.x,epos.y,epos.z)
+    new.vel = math.vec3(0,0,0)
     new.follow = {
         following = e;
         distance = DISTANCE;
         onDetatch = onDetatch
     }
     new.image = Tools.rand_choice(rocks)
-
     return new
 end
 
 
 
-local Tree = EH.Node("_worm behaviour tree")
+--local Tree = EH.Node("_worm behaviour tree")
+
 --[[
 
 tree planning :===>>>
@@ -89,8 +87,11 @@ return function(x,y)
     }
 
     e.behaviour = {
-        tree = Tree;
-        move = { }
+        --tree = Tree;
+        move = {
+            id="player";
+            type="LOCKON"
+        }
     }
 end
 

@@ -45,10 +45,8 @@ end
 
 
 local function spawnBoxBloblets(pos)
-    EH.Ents.block(pos.x, pos.y)
-    EH.Ents.block(pos.x, pos.y)
-    for i=1, r(2,3) do
-        EH.Ents.boxbloblet(pos.x,pos.y)
+    for i=1, r(2,4) do
+        EH.Ents.block(pos.x,pos.y)
     end
 end
 

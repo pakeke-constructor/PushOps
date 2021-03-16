@@ -44,6 +44,11 @@ local collisions = {
 }
 
 
+local COLOUR = {
+    0.65,0.9,0.65
+}
+
+
 return function(x, y)
 
     local e = Cyan.Entity()
@@ -60,7 +65,7 @@ return function(x, y)
     }
 
     e.strength = 25
-    
+    e.colour = COLOUR    
     e.speed={
         speed=120;
         max_speed=130
@@ -71,6 +76,11 @@ return function(x, y)
             id="player";
             type="CLOCKON"
         }
+    }
+
+    e.hp = {
+        hp=2000;
+        max_hp=2000
     }
 
     e.bobbing = {

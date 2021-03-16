@@ -61,7 +61,7 @@ local function update(e,dt)
         if edist > follow.distance then
             -- project ents position towards the following ent
             local p = follow.following.pos
-            project(e, p.x, p.y, edist - follow.distance)
+            project(e, follow.following, edist - follow.distance)
         end
     end
 end
@@ -78,18 +78,19 @@ end
 
 
 
-
+--[[
 
 -- To ensure that following ents don't have physics comp.
 -- This would REALLY screw things up.
 local ErSys = Cyan.System("physics", "follow")
 
 
-local er1 = "Entities cannot have `physics` and `follow` components!"
+local er2 = "Entities cannot have `physics` and `follow` components!"
 function ErSys:added(ent)
     error(er2)
 end
 
+]]
 
 
 

@@ -31,7 +31,7 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 
-local col={
+local COLOUR={
     0.8,1,0.8
 }
 
@@ -117,7 +117,7 @@ return function(x,y)
         body  = "dynamic"
     })
 
-    :add("colour", col)
+    :add("colour", COLOUR)
 
     :add("bobbing", {magnitude = 0.25 , value = 0})
     

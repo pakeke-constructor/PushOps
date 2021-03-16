@@ -10,15 +10,16 @@ uniform int  light_distances[20]; // this distance a light can be bright
 uniform int  num_lights;
 uniform float max_light_strength; // the max light strength (good number is like 0.2 or something)
 uniform vec4 base_lighting; // base_lighting will be something like <0.7, 0.7, 0.7>
-
+uniform float brightness_modifier;
 
 // noise
 uniform float amount;
 uniform float period;
 
 
-// protan colourblindness mode
+//  colourblindness mode
 uniform bool colourblind;
+uniform bool devilblind;
 
 
 
@@ -42,7 +43,8 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
         float dist_to_light = length(screen_coords - light_positions[i]);
         //if (dist_to_light < light_distances[i]){
         
-        adding_light = ((light_colours[i]*light_distances[i])) / (dist_to_light);
+        adding_light = ((light_colours[i]*light_distances[i]))
+                        / ((dist_to_light) * brightness_modifier);
         // Cap the light brightness so it cannot be too bright
         adding_light.x = min(max_light_strength, adding_light.x);
         adding_light.y = min(max_light_strength, adding_light.y);
@@ -91,6 +93,14 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
         b_temp = final[2];
         final[2] = final[1];
         final[1] = b_temp;
+    }
+
+    if (devilblind){
+        // switch red and green! oooo
+        float r_temp;
+        r_temp = final[0];
+        final[0] = final[1];
+        final[1] = r_temp;
     }
 
     return final;

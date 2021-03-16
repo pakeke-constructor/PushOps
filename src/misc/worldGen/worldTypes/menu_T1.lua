@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)    
-                Ents.boxbully(x,y)
+                Ents.rockworm(x,y)
             end
         };
 

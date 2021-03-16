@@ -158,7 +158,7 @@ collisions = {
 
 
 
--- If the player invokes
+-- If the player invokes a boom near `e`
 boomFunction = function(e)
     ...
 end
@@ -166,6 +166,9 @@ end
 
 diggable = false/true 
 -- Is this entity able to go underground?
+
+digging = false/true -- whether this ent is digging or nah
+
 
 
 -- This entity is now pushing another entity.
