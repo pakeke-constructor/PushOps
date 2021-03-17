@@ -55,7 +55,7 @@ return{
 ,
     COLOURBLIND = false
 ,
-    DEVILBLIND  = true
+    DEVILBLIND  = false
 ,
     MASTER_VOLUME = 0.4 -- volume is always a number:   0 --> 1
 ,

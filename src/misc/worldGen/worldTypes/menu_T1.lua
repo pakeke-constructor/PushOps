@@ -20,8 +20,10 @@ return {
                 am testing rn!
             ]]
             max = 0xfffff;
-            function(x,y)    
-                Ents.rockworm(x,y)
+            function(x,y)
+                for i=1,10 do
+                    Ents.rockworm(x,y)
+                end
             end
         };
 

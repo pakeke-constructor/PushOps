@@ -86,7 +86,9 @@ do
         --[[
             Removes entity from previous Indexer location.
         ]]
-        Indexer[get(ent)]:remove(ent)
+        local gett = get(ent)
+        Indexer[gett]:remove(ent)
+        return gett
     end
     function set(ent)
         --[[
@@ -226,11 +228,23 @@ end
 local IndexSys = Cyan.System("pos", "draw", "vel")
 
 
-function IndexSys:update()
-    for _, ent in ipairs(self.group) do
+
+local function fshift(ent)
+    --[[
+        shifts the entities around in the indexer structure
+        in a fast manner
+    ]]
+    local z_index = floor((ent.pos.y + ent.pos.z)/2)
+    if positions[ent] ~= z_index then
         remove(ent)
         set(ent)
         add(ent)
+    end
+end
+
+function IndexSys:update()
+    for _, ent in ipairs(self.group) do
+        fshift(ent)
     end
 end
 

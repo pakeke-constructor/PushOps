@@ -65,7 +65,7 @@ TODO:::: Think about this!!!!!
 
 
 
-
+local rand = love.math.random
 
 
 
@@ -82,15 +82,15 @@ return function(x,y)
     end
 
     e.speed = {
-        speed = 170;
-        max_speed = 200
+        speed = 230 + rand()*50;
+        max_speed = 270 + rand()*50
     }
 
     e.behaviour = {
         --tree = Tree;
         move = {
             id="player";
-            type="LOCKON"
+            type="LOCKON";
         }
     }
 end
