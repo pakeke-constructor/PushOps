@@ -134,9 +134,9 @@ function PhysicsSys:heavyupdate(dt)
         local within = isOnScreen(e, Camera)
         if within then
             local body = e.physics.body
-            body:setAwake(true) -- Is in range so wake up
+            body:setActive(true) -- Is in range so wake up
         else
-            body:setAwake(false)
+            body:setActive(false)
         end
     end
 end

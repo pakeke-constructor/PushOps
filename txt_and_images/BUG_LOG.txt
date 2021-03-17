@@ -205,3 +205,30 @@ libs/Cyan/cyan.lua:73: in function 'call'
 src/misc/unique/gamestate.lua:21: in function 'update'
 [C]: in function 'xpcall'
 
+
+
+
+
+
+
+
+
+Ents walking thru walls bug:
+Used Body:setActive as opposed to Body:setAwake and it seems
+to have done the trick
+
+
+
+
+
+rockworms and digging component are just NOT wanting to be correct.
+Im starting to wonder if `LOCKON` in MBSys is resetting ent.pos.z position.
+====
+Do a mutability check, see if the ent.pos tables are memory unique across frames.
+print something out every time ent.pos is set to a new vector
+(this may not be the bug btw)
+in any case, come back with a damn fresh mind, because this bug is a toughey
+
+FIXED: Im so stupid. Was returning in a loop as opposed to `goto continue`
+
+

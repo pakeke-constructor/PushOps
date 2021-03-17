@@ -17,12 +17,12 @@ local BT = EH.BT
 local ccall = Cyan.call
 
 
-local BLOCK_NUM = 7
+local BLOCK_NUM = 8
 
 local MAX_BLOCK_ORBIT = 50
-local MIN_BLOCK_ORBIT = 30
+local MIN_BLOCK_ORBIT = 40
 
-local ORBIT_SPEED = 3.5
+local ORBIT_SPEED = 3.3
 
 
 
@@ -101,7 +101,9 @@ return function(x, y)
     e.orbiting_blocks = {}
 
     for i=1, BLOCK_NUM do
-        table.insert(e.orbiting_blocks, EH.Ents.block(x,y))
+        local bl = EH.Ents.block(x,y)
+        bl.pushable = false
+        table.insert(e.orbiting_blocks, bl)
     end
     
     e.motion = {
@@ -120,8 +122,8 @@ return function(x, y)
     }
     
     e.speed={
-        speed=115;
-        max_speed=125
+        speed=105;
+        max_speed=115
     }
 
     e.strength = 20

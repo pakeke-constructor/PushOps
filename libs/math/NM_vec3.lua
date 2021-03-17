@@ -357,6 +357,13 @@ end
 function vec3.to_string(a)
 	return string.format("(%+0.3f,%+0.3f,%+0.3f)", a.x, a.y, a.z)
 end
+	
+function vec3.project(a, b)
+	-- Added by oli.
+	-- projects a vector towards another one
+	return b:normalize() * a:dot(b)
+end
+
 
 vec3_mt.__index    = vec3
 vec3_mt.__tostring = vec3.to_string

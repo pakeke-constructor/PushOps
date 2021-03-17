@@ -164,10 +164,16 @@ boomFunction = function(e)
 end
 
 
-diggable = false/true 
--- Is this entity able to go underground?
 
-digging = false/true -- whether this ent is digging or nah
+-- if an ent has this field, they can go underground
+dig = {
+    digging = false/true -- whether this ent is digging or nah
+    onSurface = function(e)end -- ent surfaces
+    onGround  = function(e)end -- ent goes into ground;
+    z_min = -1 -- doesnt go below z=-1 (default = -1)
+}
+
+gravitymod = 1 -- modifies the gravity (-1 means ent goes up, 0.5 = half grav)
 
 
 

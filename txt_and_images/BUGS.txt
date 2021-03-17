@@ -1,17 +1,8 @@
 
 
 
-
-
-
-
-
-Entities can walk through walls again. NICE!
-Do more research in how physics objects can be temporarily suspended whilst keeping
-their physical properties (primarily, velocity) intact and cached correctly.
-There will probably be a box2d function for it. Ask of the love2d discord if need be
-
-
+Entities are dying offscreen for an unknown reason
+ughhh this will be a pain to debug
 
 
 

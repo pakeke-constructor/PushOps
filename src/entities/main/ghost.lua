@@ -60,6 +60,7 @@ return function (x,y)
         frames = GHOST_FRAMES;
         interval = 0.05
     }
+    e.targetID="enemy"
     e.onDeath = invisGhostOnDeath
     e.collisions = {
         physics = physColFunc

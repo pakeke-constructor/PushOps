@@ -21,9 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                for i=1,10 do
-                    Ents.rockworm(x,y)
-                end
+                Ents.bigworm(x,y)
             end
         };
 

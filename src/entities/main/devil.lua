@@ -40,7 +40,7 @@ local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_
 
 
 local col={
-    0.68,1,0.57
+    0.58,0.9,0.47
 }
 
 
@@ -159,7 +159,7 @@ return function(x,y)
 
     :add("colour", col)
 
-    :add("bobbing", {magnitude = 0.25 , value = 0})
+    :add("bobbing", {magnitude = 0.1 , value = 0})
     
     :add("friction", {
         amount = 6; -- The amount of friction given to this entity
