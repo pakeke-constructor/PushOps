@@ -43,9 +43,9 @@ function EH.FR(e)
 end
 
 
-function EH.BOB(e)
+function EH.BOB(e, mag)
     return e:add("bobbing",{
-        magnitude = 0.1;
+        magnitude = mag or 0.1;
         value=0
     })
 end

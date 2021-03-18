@@ -149,12 +149,14 @@ return function(x,y)
     local worm = Entity()
     EH.PV(worm,x,y)
 
-    local len = math.floor(love.math.random(MIN_LEN, MAX_LEN))
+    worm._nodes = { } -- private member containing all the worm nodes
 
+    local len = math.floor(love.math.random(MIN_LEN, MAX_LEN))
     -- Create big chain of worm nodes.
     local last = worm
     for x=1,len do
         last = wormNodeCtor(last)
+        table.insert(worm._nodes, last)
     end
 
     worm.dig = {

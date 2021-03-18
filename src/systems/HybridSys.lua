@@ -34,7 +34,7 @@ end
 
 
 function HybridSys:drawEntity(e)
-    if e.onDraw then
+    if e.onDraw and e.hybrid then
         e:onDraw()
     end
 end
