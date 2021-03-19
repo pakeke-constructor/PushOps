@@ -29,6 +29,9 @@ and each worldType has the appropriate `tier` and `type` fields.
 ]]
 local PATH = Tools.Path(...):gsub("%.","%/")
 
+local default = require(PATH:gsub("%/","%.").."._default")
+
+
 
 local Auxiliary = { }
 
@@ -61,10 +64,14 @@ local EMPTY = {
     max = 0xFFFFFFFFFFFFFFFFFFFF, -- For uninitialized char spawn calls,
     function()end                 -- this table will be accessed.
 }
+
+setmetatable(default,{
+    __index = function(t,k) return EMPTY end
+})
+
 local worldType_entity_mt = {
-    __index = function(t,k)
-        return EMPTY
-end}
+    __index = default
+}
 
 
 
@@ -99,6 +106,12 @@ for _, wType in pairs(Auxiliary) do
 end
 
 return worldTypes
+
+
+
+
+
+
 
 
 

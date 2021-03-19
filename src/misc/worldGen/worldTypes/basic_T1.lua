@@ -1,3 +1,4 @@
+
 --[[
 
 TYPE :: 'basic'
@@ -51,6 +52,16 @@ local enemySpawns = Tools.weighted_selection{
     [Ents.ghost]    = 0.1
 }
 
+local bigEnemySpawns = Tools.weighted_selection{
+    [Ents.bully] = 0.8;
+    [Ents.ghost_squad] = 0.2;
+    [function(x,y)
+        for i=-1,0 do
+            Ents.devil(x+(i*15), y+(i*15))
+        end
+    end] = 0.5
+}
+
 return {
     type = 'basic',
     tier = 1,
@@ -95,20 +106,14 @@ return {
                 local f = enemySpawns()
                 f(x,y)
             end
-            --[[
-            -- OLD CODE
-
-            if rand()<0.5 then
-                Ents.blob(x,y)
-                Ents.enemy(x+5,y+5)
-                Ents.mallow(x-5,y-5)
-            else
-                Ents.ghost_squad(x,y)
-                Ents.devil(x+10,y+10)
-            end
-            ]]
         end
     };
+
+    ["E"] = {
+        max = 10;
+        bigEnemySpawns
+    };
+
 
     ["p"] = {
         max = 300, -- 60 max
@@ -159,15 +164,10 @@ return {
                 Ents.pine(x+rand()*5,y+rand()*5)
             end
         end
-    };
-    ["@"] = {
-        max = 1;
-        function(x,y)
-            return Ents.player(x,y)
-        end
     }
 }
 }
+
 
 
 

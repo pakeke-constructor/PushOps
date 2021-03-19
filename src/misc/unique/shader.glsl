@@ -20,6 +20,7 @@ uniform float period;
 //  colourblindness mode
 uniform bool colourblind;
 uniform bool devilblind;
+uniform bool navyblind;
 
 
 
@@ -101,6 +102,13 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
         r_temp = final[0];
         final[0] = final[1];
         final[1] = r_temp;
+    }
+
+    if (navyblind){
+        float n_temp;
+        n_temp = final[2];
+        final[2] = final[0];
+        final[0] = n_temp;
     }
 
     return final;

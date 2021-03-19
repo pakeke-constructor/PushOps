@@ -45,11 +45,18 @@ local Ents = require("src.entities")
 local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
-    [Ents.devil]    = 0.5;
-    [Ents.mallow]   = 0.3;
+    [Ents.devil]    = 0.2;
+    [Ents.demon]    = 0.2;
+    [Ents.mallow]   = 0.1;
+    [Ents.cmallow]  = 0.2;
     [Ents.boxenemy] = 0.2;
     [Ents.blob]     = 0.3;
-    [Ents.boxblob]  = 0.2
+    [Ents.boxblob]  = 0.2;
+    [Ents.boxbully] = 0.05;
+}
+
+local bigEnemySpawns = Tools.weighted_selection{
+    [Ents.boxbully] = 1
 }
 
 return {
@@ -95,19 +102,12 @@ return {
             for i=1,rand(3,4) do
                 enemySpawns()(x,y)
             end
-            --[[
-            -- OLD CODE
-
-            if rand()<0.5 then
-                Ents.blob(x,y)
-                Ents.enemy(x+5,y+5)
-                Ents.mallow(x-5,y-5)
-            else
-                Ents.ghost_squad(x,y)
-                Ents.devil(x+10,y+10)
-            end
-            ]]
         end
+    };
+
+    ["E"] = {
+        max = 6;
+        bigEnemySpawns
     };
 
     ["p"] = {
@@ -158,12 +158,6 @@ return {
             else
                 Ents.pine(x+rand()*5,y+rand()*5)
             end
-        end
-    };
-    ["@"] = {
-        max = 1;
-        function(x,y)
-            return Ents.player(x,y)
         end
     }
 }

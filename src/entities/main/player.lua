@@ -25,6 +25,34 @@ end
 
 
 
+local i_control = 0
+
+
+local controlMap = {
+    {
+        canPush = true;
+        canPull = true;
+        w = 'up';
+        a = 'left';
+        s = 'down';
+        d = 'right';
+        f = 'push';
+        t = 'pull';
+    };
+    {
+        canPush = true;
+        canPull = true;
+        i = 'up';j='left';k='down';l='right';
+        o='push';u='pull'
+    }
+}
+
+
+
+local function onDeath(e)
+    i_control = i_control - 1
+end
+
 
 
 return function(x,y)
@@ -38,7 +66,7 @@ return function(x,y)
         hp = 100,
         max_hp = 100,
         regen = 1,
-        iframes = 1 -- we want iframes to be high to let player respond
+        iframes = 0.5 -- we want iframes to be high to let player respond
     })
 
     :add("speed", {speed = 20, max_speed = 220})
@@ -60,6 +88,8 @@ return function(x,y)
 
     EH.FR(e)
 
+    :add("onDeath",onDeath)
+
     :add("motion",
     {
         up = motion_up;
@@ -72,22 +102,16 @@ return function(x,y)
         required_vel = 20;
     })
 
+    
+    if i_control > 1 then
+        e.colour = {0.5,1,0.5}
+    end
+
     -- Player controller
-    :add("control",{
-    canPush = true;
-    canPull = true;
-    w = 'up';
-    a = 'left';
-    s = 'down';
-    d = 'right';
-    k = 'push';
-    l = 'pull';
+    e:add("control", controlMap[(i_control % #controlMap) + 1])
+    i_control = i_control + 1
 
-    i = 'zoomIn';
-    j = 'zoomOut'
-    })
-
-    :add('light',{
+    e:add('light',{
           colour = {1,1,1,1};
           distance = 30
     })

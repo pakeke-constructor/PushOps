@@ -4,5 +4,14 @@
 Entities are dying offscreen for an unknown reason
 ughhh this will be a pain to debug
 
+(thankfully it happens very frequently)
+
+
+
+
+
+
+Worms are spawning high in the air when jumping
+(Not happening with bigworm.lua for some reason)
 
 

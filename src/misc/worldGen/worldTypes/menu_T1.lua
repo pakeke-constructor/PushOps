@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.bigworm(x,y)
+                Ents.worm(x,y)
             end
         };
 
@@ -32,7 +32,9 @@ return {
 
         ["@"] = {
             max = 1,
-            Ents.player
+            function(x,y)
+                Ents.player(x,y)
+            end
         },
         
         ["e"] = {
@@ -111,5 +113,7 @@ return {
         }
     }
 }
+
+
 
 

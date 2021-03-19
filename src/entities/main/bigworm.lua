@@ -20,6 +20,10 @@ the worm head from the worm-hearts.
 Also, make sure to have an animation of them beating. Speed up the
 beating animation when there is only 1 heart left
 
+(If the hearts are all killed really easily, make a phase-two,
+where the worm spawns 3 more hearts that shoot out bullets, and the worm
+splits into two or something)
+
 ]]
 local Atlas = require("assets.atlas")
 local Quads = Atlas.Quads
@@ -32,8 +36,8 @@ local Entity = Cyan.Entity
 local DISTANCE = 22 -- The distance between worm nodes
 
 
-local MIN_LEN = 23
-local MAX_LEN = 24 -- min and max lengths for worm.
+local MIN_LEN = 30
+local MAX_LEN = 32 -- min and max lengths for worm.
 
 
 local JUMP_VEL = 18000 -- velocity of worm jump
@@ -104,7 +108,7 @@ end
 
 WormTree.jump = {
     wormJump,
-    "wait::4"
+    "wait::5"
 }
 
 WormTree.wait = {

@@ -31,7 +31,6 @@ local ccall = Cyan.call
 
 
 local function startDig(ent)
-    print("startDig")
     local d = ent.dig
     ent.hidden = true
     d.digging = true
@@ -41,7 +40,6 @@ local function startDig(ent)
 end
 
 local function endDig(ent)
-    print("endDig")
     local d = ent.dig
     d.digging = false
     ent.hidden = false

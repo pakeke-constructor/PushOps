@@ -17,13 +17,9 @@ local DEBUG_SYS = Cyan.System()
 local lg = love.graphics
 
 
+
 function DEBUG_SYS:keypressed(k)
-    if k=="e" then
-        for i=1,10 do
-            Ents.tokgold(450 + rand()*500,450+rand()*500 )
-        end
-    end
-    if k=='p' then        
+    if k=='p' then
         CONSTANTS.paused = not CONSTANTS.paused
     end
 end
@@ -36,6 +32,7 @@ function DEBUG_SYS:draw()
     love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,60)
     lg.pop()
 end
+
 
 --[[
 

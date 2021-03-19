@@ -22,7 +22,7 @@ local nLL = function(e)
         x = rand(30,40);
         y = rand(30,40);
         type = "basic";
-        tier = 1
+        tier = 2
     })
 end
 

@@ -1,6 +1,6 @@
 
 
-local EH={ 
+local EH={
     --[[
 
 Entity constructor helper functions.
@@ -12,6 +12,7 @@ in order to keep coding entities fast and easy and concise.
 }
 
 
+
 local rand=love.math.random
 
 local vec3=math.vec3
@@ -20,9 +21,9 @@ function EH.PV(e,x,y,z)
     e:add("pos",vec3(x,y,0))
      :add("vel",vec3(0,0,0))
     if z then
-       e.pos.z = z 
+       e.pos.z = z
     end
-    
+
     return e
 end
 

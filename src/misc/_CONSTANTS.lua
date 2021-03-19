@@ -53,12 +53,16 @@ return{
     GRASS_COLOUR = {0.1,1,0.2} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,
-    COLOURBLIND = false
+    COLOURBLIND = false --==>>>  swaps blue-green
 ,
-    DEVILBLIND  = false
+    DEVILBLIND  = false --==>>>  swaps red-green
+,
+    NAVYBLIND   = false --==>>>  swaps blue-red
 ,
     MASTER_VOLUME = 0.4 -- volume is always a number:   0 --> 1
 ,
     DEBUG = true
 }
+
+
 

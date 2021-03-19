@@ -22,6 +22,7 @@ function ShaderSys:update(dt)
     shader:send("period", 2)
     shader:send("colourblind", CONSTANTS.COLOURBLIND)
     shader:send("devilblind",  CONSTANTS.DEVILBLIND) -- swaps RG channels
+    shader:send("navyblind", CONSTANTS.NAVYBLIND) -- swaps RB 
 end
 
 

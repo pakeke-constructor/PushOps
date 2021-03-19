@@ -28,12 +28,17 @@ local MIN_LEN = 30
 local MAX_LEN = 35 -- min and max lengths for worm.
 
 
-local JUMP_VEL = 10000 -- velocity of worm jump
+local JUMP_VEL = 5000 -- velocity of worm jump
 local REQ_SPEED = 120 -- required to be moving at `X` speed to initiate a jump
 
 local Z_MIN = -(MAX_LEN * (DISTANCE+5))
 
 local GRAVITYMOD = 0.5
+
+local HEART_N = 2 -- this worm has 2 hearts to kill
+
+
+
 
 
 local rocks = {}
@@ -96,7 +101,7 @@ end
 
 WormTree.jump = {
     wormJump,
-    "wait::3"
+    "wait::5"
 }
 
 WormTree.wait = {
@@ -151,6 +156,8 @@ return function(x,y)
 
     worm._nodes = { } -- private member containing all the worm nodes
 
+    worm._hearts = { } -- member containing all the hearts
+
     local len = math.floor(love.math.random(MIN_LEN, MAX_LEN))
     -- Create big chain of worm nodes.
     local last = worm
@@ -158,6 +165,12 @@ return function(x,y)
         last = wormNodeCtor(last)
         table.insert(worm._nodes, last)
     end
+
+    -- must instantiate hearts after worm nodes
+    for i=1,HEART_N do
+        EH.Ents.wormheart(worm)
+    end
+    assert(#worm._hearts == HEART_N, "?? for some reason wormheart no ctor'd correctly")
 
     worm.dig = {
         digging = false;

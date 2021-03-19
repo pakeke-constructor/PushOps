@@ -71,7 +71,6 @@ local collisions = {
 local sin = math.sin
 local cos = math.cos
 
-local t = 0
 
 local function update(e,dt)
     -- percentage of full HP
@@ -83,11 +82,11 @@ local function update(e,dt)
     local ex = e.pos.x
     local ey = e.pos.y
 
-    t = (t + dt*ORBIT_SPEED)%(2*math.pi)
+    e._t = (e._t + dt*ORBIT_SPEED)%(2*math.pi)
 
     for i,bl in ipairs(e.orbiting_blocks) do
         local offset = (i*2*math.pi)/BLOCK_NUM
-        local tick = t + offset
+        local tick = e._t + offset
         ccall("setPos", bl, ex + od*sin(tick), ey + od*cos(tick))
     end
 end
@@ -105,20 +104,22 @@ return function(x, y)
         bl.pushable = false
         table.insert(e.orbiting_blocks, bl)
     end
+
+    e._t = r()*2*math.pi -- ticker
     
     e.motion = {
         up=up;
         down=down;
         left=left;
         right=right;
-        curret=0;
+        current=0;
         interval=0.11;
         required_vel=1
     }
 
     e.hp={
-        hp=1000;
-        max_hp=1000
+        hp=2000;
+        max_hp=2000
     }
     
     e.speed={

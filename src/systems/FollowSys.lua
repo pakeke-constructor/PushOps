@@ -13,7 +13,7 @@ e.follow = {
     following = e;
     distance = 10;   -- Follows 10 units behind `e`.
 
-    detatch = function(e)
+    onDetatch = function(e)
         -- called when ent detatches from following ent.
         -- (I.e. when following ent gets deleted)
     end
@@ -52,8 +52,8 @@ local function update(e,dt)
     local follow = e.follow
     assert(follow.following, er1)
     if not cexists(follow.following) then
-        if follow.detatch then
-            follow.detatch(e)
+        if follow.onDetatch then
+            follow.onDetatch(e)
         end
         e:remove("follow")
     else

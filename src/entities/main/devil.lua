@@ -8,7 +8,6 @@ Just like regular enemies, but with high HP.
 Tests :: passed
 ]]
 
-
 local player_shape = love.physics.newCircleShape(8)
 
 local atlas = require "assets.atlas"
