@@ -1,6 +1,7 @@
 
 
 
+
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
@@ -40,7 +41,10 @@ do
         This bit of code is for loading the quads,
         and creating particleSystems out of each of them
     ]]
-    local ps_quads = {"NULL CHECK", "bit", "bot", "bat"} -- these are the quads that get emitted:
+    local ps_quads = {} -- these are the quads that get emitted:
+    for i=1,5 do
+        table.insert(ps_quads, "rock_particle"..tostring(i))
+    end
 
     for i,str in ipairs(ps_quads) do
         
@@ -53,6 +57,7 @@ do
 
         local newps = psys:clone()
         newps:setQuads(quad)
+        newps:setSpin((love.math.random()-0.5)*3)
 
         table.insert(psyses, newps)
     end
@@ -65,7 +70,7 @@ local emitter
 emitter = {
     psyses = {},
 
-    type = "TEMPLATE :: this name must be the same as the file name",
+    type = "rocks",
     runtime = 0
 }
 

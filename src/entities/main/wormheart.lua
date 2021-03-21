@@ -118,7 +118,6 @@ local function onDeath(e)
     rem(parent._hearts, e)
 
     if #parent._hearts <= 0 then
-        print("KILl")
         -- worm is out of hearts. kill it
         ccall("kill",parent)
     end

@@ -74,7 +74,7 @@ local mallow_spin_task = EH.Task("_mallow spin task")
 mallow_spin_task.start = function(t,e)
     ccall("setMoveBehaviour", e,"IDLE")
     ccall("setVel", e, 0,0)
-    ccall("animate", 'mallowspin', 0,0,0, 0.1, 3, COLOUR, e, true)
+    ccall("animate", 'mallowspin', 0,0,0, 0.1, 3, e.colour, e, true)
 end
 
 mallow_spin_task.update=function(t,e)

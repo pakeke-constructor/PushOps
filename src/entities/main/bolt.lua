@@ -1,5 +1,14 @@
 
+--[[
 
+Magic bolt
+
+(Same as bullet, but different
+colour, and ignores player armour)
+
+
+
+]]
 local shape = love.physics.newCircleShape(1)
 
 
@@ -8,15 +17,15 @@ local Quads = atlas.Quads
 
 local fpsys = love.graphics.newParticleSystem(atlas.image)
 --fpsys:setQuads(Quads.beet, Quads.bot, Quads.bit)
-fpsys:setQuads(Quads.circ4,Quads.circ3,Quads.circ2,Quads.circ1)
-fpsys:setParticleLifetime(0.3, 0.4)
+fpsys:setQuads(Quads.circ4,Quads.circ4,Quads.circ3,Quads.circ3,Quads.circ2,Quads.circ1)
+fpsys:setParticleLifetime(0.2, 0.3)
 --fpsys:setLinearAcceleration(0,0,200,200)
 fpsys:setDirection(180)
 fpsys:setSpeed(0,0)
-fpsys:setEmissionRate(45)
+fpsys:setEmissionRate(90)
 fpsys:setSpread(math.pi/2)
-fpsys:setEmissionArea("uniform", 3,0)
-fpsys:setColors({1,0,0}, {0.5,0,0,0.8})
+fpsys:setEmissionArea("uniform", 1,1)
+fpsys:setColors({0.6,0.1,0.8,1}, {0.3,0,0.4,0.8})
 fpsys:setSpin(-40)
 fpsys:setRotation(0, 2*math.pi)
 fpsys:setRelativeRotation(false)
@@ -34,10 +43,7 @@ local r = love.math.random
 local collisionsComp = {
     physics = function(self, e, speed)
         if e.targetID=="player" then
-            if e.armour == 0 then
-                error("Player armour 0?? wat")
-            end
-            ccall("damage",e,10/(e.armour or 1))
+            ccall("damage",e,self.strength or 10)
         end
         ccall("kill",self)
     end

@@ -92,6 +92,13 @@ local function update(e,dt)
 end
 
 
+local function onDeath(e)
+    for _,bl in ipairs(e.orbiting_blocks) do
+        bl.pushable = true
+    end
+end
+
+
 return function(x, y)
 
     local e = Cyan.Entity()
@@ -116,6 +123,8 @@ return function(x, y)
         interval=0.11;
         required_vel=1
     }
+
+    e.onDeath = onDeath
 
     e.hp={
         hp=2000;

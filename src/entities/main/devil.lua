@@ -31,10 +31,10 @@ psys:setOffset(pW/2, pH/2)
 
 
 
-local motion_down = { Quads.player_down_1, Quads.player_down_2, Quads.player_down_3, Quads.player_down_4 }
-local motion_up = { Quads.player_up_1, Quads.player_up_2, Quads.player_up_3, Quads.player_up_4 }
-local motion_left = { Quads.player_left_1, Quads.player_left_2, Quads.player_left_3, Quads.player_left_4 }
-local motion_right = { Quads.player_right_1, Quads.player_right_2, Quads.player_right_3, Quads.player_right_4 }
+local motion_down = { Quads.enemy_down_1, Quads.enemy_down_2, Quads.enemy_down_3, Quads.enemy_down_4 }
+local motion_up = { Quads.enemy_up_1, Quads.enemy_up_2, Quads.enemy_up_3, Quads.enemy_up_4 }
+local motion_left = { Quads.enemy_left_1, Quads.enemy_left_2, Quads.enemy_left_3, Quads.enemy_left_4 }
+local motion_right = { Quads.enemy_right_1, Quads.enemy_right_2, Quads.enemy_right_3, Quads.enemy_right_4 }
 
 
 

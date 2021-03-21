@@ -121,6 +121,10 @@ function Tools.distToPlayer(e, cam)
 end
 
 
+function Tools.getCameraPos(cam)
+    return cam.x, cam.y
+end
+
 
 
 function Tools.assertNoDuplicateRequires()

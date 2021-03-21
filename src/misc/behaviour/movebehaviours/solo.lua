@@ -34,8 +34,9 @@ function SOLO:update(e, dt)
         return nil -- No target given, fine by me
     end
 
-    local tp = target_ent.pos -- BUG:: for some reason, `tp` is a vector in this case
-    self.updateGotoTarget(e, tp.x, tp.y, dt)
+    local tp = target_ent.pos
+    local ep = e.pos
+    self.updateGotoTarget(e, ep.x-tp.x, ep.x-tp.y, dt)
 end
 
 

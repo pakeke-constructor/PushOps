@@ -22,7 +22,12 @@ function DEBUG_SYS:keypressed(k)
     if k=='p' then
         CONSTANTS.paused = not CONSTANTS.paused
     end
+    if k=="b"then
+        local x,y = Tools.getCameraPos(cam)
+        ccall("shootbolt", x+20,y+20, -200,200)
+    end
 end
+
 
 
 function DEBUG_SYS:draw()

@@ -223,6 +223,10 @@ end
 function ControlSys:keytap(key)
     for _, ent in ipairs(self.group) do
         local c = ent.control
+        if key == "t" then
+            local e=ent
+            ccall("emit", "rocks", e.pos.x, e.pos.y, e.pos.z, 2)
+        end
         if c[key] == 'push' then
             push(ent)
         elseif c[key] == 'pull' then

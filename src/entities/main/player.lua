@@ -25,36 +25,6 @@ end
 
 
 
-local i_control = 0
-
-
-local controlMap = {
-    {
-        canPush = true;
-        canPull = true;
-        w = 'up';
-        a = 'left';
-        s = 'down';
-        d = 'right';
-        f = 'push';
-        t = 'pull';
-    };
-    {
-        canPush = true;
-        canPull = true;
-        i = 'up';j='left';k='down';l='right';
-        o='push';u='pull'
-    }
-}
-
-
-
-local function onDeath(e)
-    i_control = i_control - 1
-end
-
-
-
 return function(x,y)
     local e = Cyan.Entity()
 
@@ -69,7 +39,7 @@ return function(x,y)
         iframes = 0.5 -- we want iframes to be high to let player respond
     })
 
-    :add("speed", {speed = 20, max_speed = 220})
+    :add("speed", {speed = 20, max_speed = 210})
 
     :add("strength", 100)
 
@@ -88,8 +58,6 @@ return function(x,y)
 
     EH.FR(e)
 
-    :add("onDeath",onDeath)
-
     :add("motion",
     {
         up = motion_up;
@@ -102,14 +70,18 @@ return function(x,y)
         required_vel = 20;
     })
 
-    
-    if i_control > 1 then
-        e.colour = {0.5,1,0.5}
-    end
-
-    -- Player controller
-    e:add("control", controlMap[(i_control % #controlMap) + 1])
-    i_control = i_control + 1
+    e:add("control",     {
+        canPush = true;
+        canPull = true;
+        w = 'up';
+        a = 'left';
+        s = 'down';
+        d = 'right';
+        k = 'push';
+        l = 'pull';
+        i="zoomIn";
+        j="zoomOut"
+    })
 
     e:add('light',{
           colour = {1,1,1,1};

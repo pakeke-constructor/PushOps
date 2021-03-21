@@ -82,7 +82,7 @@ return function(x, y)
         }
     })
 
-    :add("strength", 100)
+    :add("strength", 60)
     :add("bufftime", BUFFTIME)
 
     :add("collisions", collisions)

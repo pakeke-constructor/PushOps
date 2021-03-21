@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.worm(x,y)
+                Ents.demon(x,y)
             end
         };
 

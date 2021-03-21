@@ -6,19 +6,11 @@ For example, when attempting to push an entity and failing,
 Give feedback with particles and sound.
 
 
-Make a giant worm enemy.
-How should this be accomplished?
-Probably Via a `follow` component that enables an entity to follow directly behind another ent.
-
-You could also add different types of follow, i.e. "behind" follow type, for the Giant worm nodes, 
-or "orbit" follow type, like the orbitals in binding of isaac.
-A radius parameter is also probably a good idea when implementing this system as well.
-
 
 
 
 Add a chest that, when destroyed, gives gold coins.
-Make it so coins act like tokens
+Make it so coins act like tokens maybe?
 
 
 
@@ -28,23 +20,14 @@ Use `ccall("apply")` for this probably
 
 
 
+add smoke during explosions
+
+
 
 For `bigwall` entity, make it so if the player
 emits a boom next to them, they die and spawn 8-9 physics blocks.
 
 
-
-
-Lewis Idea:
-An entity which carries a shield (physics object) in front of it.
-The player must run behind it and hit it from behind to damage it
-
-
-
-
-Entities that charge:
-Entities that charge should be a certain different colour.
-They should drop a small speed boost when killed (in the form of `bug` ent)
 
 
 

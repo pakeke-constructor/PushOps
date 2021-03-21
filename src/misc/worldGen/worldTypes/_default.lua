@@ -73,7 +73,6 @@ return {
     ["@"] = {
         max = 1;
         function(x,y)
-            Ents.player(x+5,y+5)
             return Ents.player(x,y)
         end
     }

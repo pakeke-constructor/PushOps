@@ -14,5 +14,9 @@ function BulletSys:shoot(x, y, vx, vy)
 end
 
 
+function BulletSys:shootbolt(x, y, vx, vy)
+    local b = Ents.bolt(x, y)
+    ccall("setVel", b, vx, vy)
+end
 
 

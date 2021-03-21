@@ -6,6 +6,9 @@ Giant worm enemy
 One bullet type for all enemies
 (However, add `speed` parameter.)
 
+PSYCHE! We are also having magic bolts for de wizards. #scope creep
+
+
 
 
 Crosshairs (+ satisfying hit sound) when damaging enemy

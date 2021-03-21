@@ -14,6 +14,16 @@ local BT = EH.BT
 local ccall = Cyan.call
 local rand = love.math.random
 
+
+local COLOUR={0.58,0.9,0.47}
+
+local MINION_COLOUR = {0.78, 1, 0.6}
+
+local BULLET_SPEED = 170
+
+
+
+
 -- motion animation 
 local up,down,left,right
 up={}
@@ -27,8 +37,6 @@ for i=1,4 do
     ti(left, EH.Quads["mallow_left_"..tostring(i)])
     ti(right, EH.Quads["mallow_right_"..tostring(i)])
 end
-
-local COLOUR={0.6,0.02,0.02}
 
 
 
@@ -124,9 +132,13 @@ end
 
 local r = love.math.random
 
+
 local function spawnAfterDeath(x,y,z)
     local e1=EH.Ents.mallow(x,y+5)
     local e2=EH.Ents.mallow(x,y-5)
+    e1.colour = MINION_COLOUR
+    e2.colour = MINION_COLOUR
+
     ccall("emit", "guts", x,y,z,r(13,18))
     ccall("animate", "push", x,y+25,z, 0.03)
     ccall("damage",e1,e1.hp.max_hp/2) -- Lets weaken em a bit so they aren't OP!
@@ -134,11 +146,24 @@ local function spawnAfterDeath(x,y,z)
 end
 
 
+
+local function spawnBullets(x,y)
+    for vx=-1,1 do
+        for vy=-1,1 do
+            if vx~=0 or vy~=0 then
+                ccall("shoot", x + vx*17, y + vy*17,
+                    BULLET_SPEED*vx, BULLET_SPEED*vy)  
+            end
+        end
+    end
+end
+
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
     ccall("shockwave", p.x,p.y, 160, 3, 9, .4)
-    ccall("await", spawnAfterDeath, .7, p.x,p.y,p.z)
+    ccall("await", spawnAfterDeath, .3, p.x,p.y,p.z)
+    ccall("await", spawnBullets, 0.2, p.x, p.y)
     EH.TOK(e,r(4,6))
 end
 
@@ -173,6 +198,8 @@ return function(x, y)
     e.collisions = {
         physics = physColFunc
     }
+
+    e.sigils = {"redcrown"}
 
     e.motion = {
         up=up;

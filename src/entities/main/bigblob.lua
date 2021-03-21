@@ -9,6 +9,7 @@ local rand = love.math.random
 
 
 local COLOUR = {0.75,1,0.75,0.8}
+local COLOUR_PARTICLE = {0.75, 1, 0.75, 0.4}
 local COLOUR_F = {80/256,38/256,99/256,0}
 
 
@@ -33,7 +34,7 @@ do
     emitter:setSpeed(0.5,1)
     emitter:setEmissionRate(200)
     emitter:setSpread(math.pi/2)
-    emitter:setColors(COLOUR,COLOUR_F)
+    emitter:setColors(COLOUR_PARTICLE,COLOUR_F)
     emitter:setSpin(0,0)
     emitter:setEmissionArea("uniform", 22,12)
     emitter:setRotation(0, 2*math.pi)
@@ -198,7 +199,7 @@ return function(x, y)
     }
     e.animation = {
         frames=f;
-        interval=0.15
+        interval=0.08
     }
     e.bobbing = {
         value=0;

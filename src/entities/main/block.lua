@@ -52,6 +52,7 @@ end
 
 
 return function(x,y)
+    if (not x) or (not y) then error("hey! stop it") end
     return Cyan.Entity()
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
