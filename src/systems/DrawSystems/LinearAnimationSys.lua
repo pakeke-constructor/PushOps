@@ -44,6 +44,10 @@ function LinearAnimationSys:added(ent)
         anim.oy = h/2
     end
 
+    if anim.sounds then
+        anim.sounds.last_index = 1
+    end
+
     ent:add("draw",{
         ox=anim.ox;
         oy=anim.oy;
@@ -77,6 +81,19 @@ local default_bob = {scale = 1, magnitude = 0, oy=0}
 local default_sway = {value = 0, ox=0}
 
 
+local function doSounds(ent, index)
+    local anim = ent.animation
+    local sounds = anim.sounds
+    if index ~= sounds.last_index then
+        if sounds[index] then
+            ccall("sound", sounds[index], sounds.vol,
+                            sounds.pitch, sounds.vol_v, sounds.pitch_v)
+        end
+    end
+    sounds.last_index = index
+end
+
+
 function LinearAnimationSys:drawEntity( ent )
     if self:has(ent) then
         local index
@@ -85,6 +102,9 @@ function LinearAnimationSys:drawEntity( ent )
         local draw = ent.draw
 
         index = (floor(anim.current / (anim.interval))) + 1
+        if anim.sounds then
+            doSounds(ent, index)
+        end
 
         local bob_comp = ent.bobbing or default_bob
         -- img.oy must be modified for bobbing entities
@@ -265,27 +285,37 @@ function LinearAnimationSys:drawIndex( z_dep )
 end
 
 
+local function updateEnt(ent, dt)
+    local anim = ent.animation
+
+    local interval_tot = anim.interval * anim.animation_len
+    local increment =  dt
+
+    if anim.current + increment >= interval_tot then
+        anim.current = (anim.current + increment) - interval_tot
+
+        if anim.current >= interval_tot then
+            anim.current = 0
+        end
+    else
+        anim.current = anim.current + increment
+    end
+end
+
 
 local temp_stack = {}
 
 function LinearAnimationSys:update(dt)
+    
     for _, ent in ipairs(self.group) do
-        local anim = ent.animation
-
-        local interval_tot = anim.interval * anim.animation_len
-        local increment =  dt
-
-        if anim.current + increment >= interval_tot then
-            anim.current = (anim.current + increment) - interval_tot
-
-            if anim.current >= interval_tot then
-                anim.current = 0
-            end
-        else
-            anim.current = anim.current + increment
-        end
+        updateEnt(ent, dt)
     end
 
+
+    --[===[
+        Static update workings here.
+        (unrelated to animation component)
+    ]===]
     for i, anim in ipairs(in_use_anim_objs.objects) do
         anim:update(dt)
         if anim:isFinished() then

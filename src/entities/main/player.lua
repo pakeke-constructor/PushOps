@@ -66,8 +66,15 @@ return function(x,y)
         right = motion_right;
 
         current = 0;
-        interval = 0.1;
-        required_vel = 20;
+        interval = 0.15;
+        required_vel = 120;
+        sounds = {
+            [2] = "footstep";
+            [4] = "footstep";
+            vol = 0.8;
+            pitch=1;
+            pitch_v = 0.2
+        }
     })
 
     e:add("control",     {

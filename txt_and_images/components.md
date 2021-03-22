@@ -89,6 +89,16 @@ animation = {
     ox = 10 -- offset x & y, will be set by system otherwise
     oy = 10
 
+    -- optional arg:
+    sounds = {  -- plays a sound "soundName" whenever frame 1 ends.
+        [1] = "soundName";
+        [2] = nil;
+        [3] = nil;
+            last_index = nil; -- private field (set by sys)
+            vol = nil; vol_v = nil; -- vol, vol variance
+            pitch = nil; pitch_v = nil -- pitch, pitch variance
+    }
+
     animation_len = nil -- is automatically set by system
 }
 
@@ -104,6 +114,7 @@ motion ={
     interval = 0.7
     required_vel = 1 -- required velocity to invoke animation change
 
+    sounds = { } --<<< same as `animation` component >>> 
 
         -- OPTIONAL:: The system will do the rest of these even if not done.
     ox = 10 -- offset x & y, by default is half
@@ -211,7 +222,7 @@ swaying =  {magnitude = 0.3 value = 0 } --Same as bobbing, but swaying
 hidden = true / false
 
 
-emitter = love.graphics.newParticleSystem()
+emitter = love.graphics.newParticleSystem()-- TOOD: is this actually used?
 
 
 friction = {

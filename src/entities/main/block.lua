@@ -35,10 +35,13 @@ local sprites = {
 
 local ccall = Cyan.call
 local rand = love.math.random
+local cam = require("src.misc.unique.camera")
 local collisions = {
     physics = function(ent,col, speed)
         if speed > 150  and col.targetID ~= "physics" then
-            ccall("sound", "deepthud", 1, 0.7) -- this sounds bad!
+            if Tools.isOnScreen(ent,cam) then
+                ccall("sound", "deepthud", 0.5, 1) -- this sounds bad!
+            end
         end
     end
 }

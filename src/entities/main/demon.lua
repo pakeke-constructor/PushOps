@@ -199,8 +199,6 @@ return function(x, y)
         physics = physColFunc
     }
 
-    e.sigils = {"redcrown"}
-
     e.motion = {
         up=up;
         down=down;

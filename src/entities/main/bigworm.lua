@@ -63,30 +63,6 @@ end
 
 
 
-local function wormNodeCtor(worm)
-    local wn = Entity()
-    local epos=worm.pos
-
-    wn.gravitymod = 0 -- must get pulled down; 0 gravity
-    
-    wn.pos = math.vec3(epos.x,epos.y,epos.z)
-    wn.follow = {
-        following = worm;
-        distance = DISTANCE;
-        onDetatch = onDetatch
-    }
-    wn.vel = math.vec3(0,0,0)
-    wn.dig = {
-        digging = false;
-        z_min = Z_MIN
-    }
-    wn.image = Tools.rand_choice(bigrocks)
-    return wn
-end
-
-
-
-
 
 local WormTree = EH.Node("_worm behaviour tree")
 
@@ -147,6 +123,46 @@ end
 
 
 local rand = love.math.random
+local floor = math.floor
+
+
+local function onSurface(e)
+    -- TODO: play sound in these callbacks
+    local p=e.pos
+    ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
+end
+
+local function onGround(e)
+    local p=e.pos
+    ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
+end
+
+
+
+local function wormNodeCtor(worm)
+    local wn = Entity()
+    local epos=worm.pos
+
+    wn.gravitymod = 0 -- must get pulled down; 0 gravity
+    
+    wn.pos = math.vec3(epos.x,epos.y,epos.z)
+    wn.follow = {
+        following = worm;
+        distance = DISTANCE;
+        onDetatch = onDetatch
+    }
+    wn.vel = math.vec3(0,0,0)
+    wn.dig = {
+        digging = false;
+        z_min = Z_MIN;
+        onSurface = onSurface;
+        onGround = onGround
+    }
+    wn.image = Tools.rand_choice(bigrocks)
+    return wn
+end
+
+
 
 
 
@@ -171,7 +187,9 @@ return function(x,y)
 
     worm.dig = {
         digging = false;
-        z_min = Z_MIN
+        z_min = Z_MIN;
+        onSurface = onSurface;
+        onGround = onGround
     }
 
     worm.gravitymod=GRAVITYMOD

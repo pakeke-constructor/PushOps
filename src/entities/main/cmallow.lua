@@ -13,15 +13,15 @@ local rand = love.math.random
 local DEFAULT_SPEED = 80
 local DEFAULT_MAX_SPEED = 90
 
-local CHARGE_SPEED = 300
-local CHARGE_MAX_SPEED = 500
+local CHARGE_SPEED = 250
+local CHARGE_MAX_SPEED = 400
 
 local CHARGE_TIME = 1.35
 
 
-local COLOUR={0.7,0.7,1}
+local COLOUR={0.6,1,0.6}
 
-local CHARGE_COLOUR = {0.4,0.4,0.8}
+local CHARGE_COLOUR = {1,1,1}
 
 
 
@@ -163,7 +163,6 @@ local r = love.math.random
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
-    EH.Ents.speedboost(p.x,p.y)
     EH.TOK(e,r(2,3))
 end
 

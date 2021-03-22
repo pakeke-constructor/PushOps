@@ -10,7 +10,7 @@ local r = love.math.random
 
 local function playerColFunc(ent, player, dt)
     ccall("animate", "blit", ent.pos.x,ent.pos.y,ent.pos.z, 0.01, 1)
-    ccall("sound", "beep", 1, 0.95+r()/10)
+    ccall("sound", "beep", 0.35, 0.95+r()/10)
     ccall("kill",ent)
 end
 

@@ -38,6 +38,9 @@ function MotionSys:added(ent)
         motion.oy = h/2
     end
 
+    if motion.sounds then
+        motion.sounds.last_index = 1
+    end
     
     ent:add("draw", {
         ox = motion.ox;
@@ -53,7 +56,7 @@ end
 
 
 
-local function update_direction(ent)
+local function updateDirection(ent)
     local motion = ent.motion
     local rvel = motion.required_vel/2
     local dir = motion.current_direction
@@ -82,7 +85,7 @@ local min = math.min
 function MotionSys:update( dt )
     for _, ent in ipairs(self.group) do
         local motion = ent.motion
-        update_direction(ent)
+        updateDirection(ent)
         if ent.vel:len() > motion.required_vel then
             -- update the motion state of our entity
             --[[
@@ -106,6 +109,9 @@ function MotionSys:update( dt )
                 motion.current = motion.current + increment
             end
         else
+            if motion.sounds then
+                motion.sounds.last_index = 1
+            end
             motion.current = 0
         end
     end
@@ -119,10 +125,27 @@ local default_sway = { value = 0,  ox = 0}
 
 
 
+local function doSound(ent, index)
+    local motion = ent.motion
+    local sounds = motion.sounds
+    if index ~= sounds.last_index then
+        if sounds[index] then
+            ccall("sound", sounds[index], sounds.vol,
+                            sounds.pitch, sounds.vol_v, sounds.pitch_v)
+        end
+    end
+    sounds.last_index = index
+end
+
+
 local function drawEnt(ent)
     local index
 
     index = floor(ent.motion.current / ent.motion.interval) + 1 -- lua 1 indexed
+
+    if ent.motion.sounds then
+        doSound(ent, index)
+    end
 
     local sway_comp = ent.swaying or default_sway
     local bob_comp = ent.bobbing or default_bob

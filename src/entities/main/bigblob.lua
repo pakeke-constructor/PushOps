@@ -191,7 +191,7 @@ Tree.wallbreak = {
 return function(x, y)
     local e = Cyan.Entity()
     EH.PV(e,x,y)
-    EH.PHYS(e,30)
+    EH.PHYS(e,28)
     e.friction = {
         emitter=emitter:clone();
         amount=3;
