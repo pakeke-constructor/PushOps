@@ -79,8 +79,8 @@ function EH.PC(e1,e2,speed)
         Returns `true` if the collision was a hard collision,
         `false` otherwise.
     ]]
-    if e1.targetID=="enemy" then
-        if e2.targetID=="player" then
+    if e2.targetID=="player" then
+        if e1.targetID=="enemy" then
             ccall("damage", e2, (e1.strength or 20))
         end
     end

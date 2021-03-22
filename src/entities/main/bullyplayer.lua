@@ -1,17 +1,28 @@
 
+
 local player_shape = love.physics.newCircleShape(10)
 
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
 
+local down,left,right,up
+do 
 
-local down = { Quads.red_player_down_1, Quads.red_player_down_2, Quads.red_player_down_3, Quads.red_player_down_4 }
-local up = { Quads.red_player_up_1, Quads.red_player_up_2, Quads.red_player_up_3, Quads.red_player_up_4 }
-local left = { Quads.red_player_left_1, Quads.red_player_left_2, Quads.red_player_left_3, Quads.red_player_left_4 }
-local right = { Quads.red_player_right_1, Quads.red_player_right_2, Quads.red_player_right_3, Quads.red_player_right_4 }
-
-
+    local ii = {1,2,1,3}
+    up = {}
+    down = {}
+    right = {}
+    left = {}
+    local ti = table.insert
+    local ts = tostring
+    for _,i in ipairs(ii) do
+        ti(up, Quads['bully_up_'..ts(i)])
+        ti(down, Quads['bully_down_'..ts(i)])
+        ti(right, Quads['bully_right_'..ts(i)])
+        ti(left, Quads['bully_left_'..ts(i)])
+    end
+end
 
 local ccall = Cyan.call
 local rand = love.math.random
@@ -34,9 +45,9 @@ return function(x,y)
     :add("acc", math.vec3(0,0,0))
     
     :add("hp", {
-        hp = 100,
-        max_hp = 100,
-        regen = 1,
+        hp = 0xffffffffffffffffff,
+        max_hp = 0xffffffffffff,
+        regen = 0xffffffffff,
         iframes = 0.5 -- we want iframes to be high to let player respond
     })
 
@@ -67,7 +78,7 @@ return function(x,y)
         right = right;
 
         current = 0;
-        interval = 0.15;
+        interval = 0.3;
         required_vel = 120;
         sounds = {
             [2] = "footstep";

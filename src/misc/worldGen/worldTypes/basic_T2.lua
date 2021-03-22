@@ -99,8 +99,8 @@ return {
     ["e"] = {
         max = 200;
         function(x,y)
-            for i=1,rand(3,4) do
-                enemySpawns()(x,y)
+            for i=-1,rand(1,2) do
+                enemySpawns()(x+5*i,y+5*i)
             end
         end
     };

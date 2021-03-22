@@ -129,6 +129,7 @@ end
 
 
 
+
 -- Now, creation of "behaviour paths":
 
 myNode.normal = {
@@ -141,6 +142,13 @@ myNode.angry = {
     run_around,-- These are also task objects
     attack 
 }
+
+
+
+
+-- this function gets the 'behaviour path' that an object is running under,
+-- as a string
+local path = myNode:getPath(object) -- will either be "angry" or "normal"
 
 
 ```

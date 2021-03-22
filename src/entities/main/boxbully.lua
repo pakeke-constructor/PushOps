@@ -51,7 +51,7 @@ local floor = math.floor
 local spawnF = function(p)
     for i=1, floor(r()*4) do
         local x,y = r()-0.5, r()-0.5
-        EH.Ents.block(x*15, y*15)
+        EH.Ents.block(p.x + x*15, p.x + y*15)
     end
 end
 

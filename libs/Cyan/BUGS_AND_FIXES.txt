@@ -1,0 +1,9 @@
+
+
+
+
+- NOT A BUG ::
+- Make Cyan automatically convert to non-bitop mode when it runs out of integer bits instead of raising error.
+
+- Split bitmask for ent components into 2 lua integers, to double the number of sys comps available to user.
+NOTE::: Be super careful when shifting with this setup! Test test test!!!!!!!

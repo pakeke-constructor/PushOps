@@ -1,7 +1,7 @@
 
 
 
-local player_shape = love.physics.newCircleShape(8)
+local enemy_shape = love.physics.newCircleShape(8)
 
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
@@ -113,7 +113,7 @@ return function(x,y)
     :add("strength", 40)
 
     :add("physics", {
-        shape = player_shape;
+        shape = enemy_shape;
         body  = "dynamic"
     })
 

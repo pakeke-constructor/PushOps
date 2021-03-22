@@ -176,6 +176,9 @@ function Node:_reset(ent)
 end
 
 
+function Node:getPath(ent)
+    return self._ent_paths[ent]
+end
 
 
 

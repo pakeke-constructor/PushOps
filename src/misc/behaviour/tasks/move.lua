@@ -4,7 +4,8 @@ local BT = require("libs.BehaviourTree")
 
 local ccall=Cyan.call
 
-local tab = {"IDLE","ROOK","LOCKON","ORBIT","RAND"}
+local tab = {"IDLE","ROOK","LOCKON","ORBIT","RAND","SOLO",
+            "CORBIT","CLOCKON","VECORBIT","VECLOCKON"}
 local f = function() return "n" end
 
 for _,t in ipairs(tab) do

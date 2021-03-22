@@ -36,7 +36,7 @@ function SOLO:update(e, dt)
 
     local tp = target_ent.pos
     local ep = e.pos
-    self.updateGotoTarget(e, ep.x-tp.x, ep.x-tp.y, dt)
+    self.updateGotoTarget(e, ep.x + ep.x-tp.x, ep.y + ep.y-tp.y, dt)
 end
 
 
