@@ -1,5 +1,4 @@
 
-
 return{
     MAX_DT = 0.05 -- Maximum value `dt` will ever take.
 ,
@@ -48,7 +47,7 @@ return{
         "coin"
     }
 ,
-    paused = false -- debug only  (if not debug only, make an cyan.call event for this)
+    paused = false  -- debug only  (if not debug only, make an cyan.call event for this)
 ,
     GRASS_COLOUR = {0.1,1,0.2} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!

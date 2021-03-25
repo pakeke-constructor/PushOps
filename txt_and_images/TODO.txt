@@ -3,6 +3,14 @@
 TODO :::
 
 
+
+
+
+make wall variation
+
+
+
+
 Test BuffSystem!
 Im pretty sure its all goods but wont hurt ey 
 
@@ -12,9 +20,6 @@ Check ParticleSys for memory leaks!!!
 (Best way to do this -> check that no excess ParticleSyses are being
 created when not neccessary)
 
-
-
-Rework followSys (see note at top of file)
 
 
 

@@ -167,6 +167,12 @@ Shoots a bullet in a direction
 Frees all memory in preperation for new world gen (including destroying ents)
 
 
+# ratioWin ( )
+Win condition by ratio, see WinSys
+# voidWin ( )
+Win condition when #enemies == 0
+
+
 # newWorld({
 #   x = 70    (70 units wide) (1 unit = 64 pixels, or size of 1 wall)   
 #   y = 70    (70 units tall)

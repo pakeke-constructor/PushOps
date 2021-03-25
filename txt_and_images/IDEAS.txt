@@ -1,5 +1,14 @@
 
 
+
+WHAT SHOLD THE WIN CONDITION BE?
+Maybe win condition for a level is to kill enough
+enemies. Once you kill enough of em, a portal opens
+
+
+
+
+
 Don't forget the give the player feedback
 
 For example, when attempting to push an entity and failing,
