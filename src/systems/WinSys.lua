@@ -9,7 +9,6 @@ There are multiple win conditions that are emitted.
 
  * ccall( voidWin )
     when enemyCount == 0
-
  
 ]]
 
@@ -34,14 +33,14 @@ function WinSys:added(e)
 end
 
 
-function WinSys:removed(e)
-    if e.targetID == "enemy" then
-        enemyCount = enemyCount - 1
-    end
-end
-
-
-function WinSys:sparseupdate(dt)
+local function checkWin(dt)
+    --[[
+        TODO:
+        maybe add an extra check to account
+        for bosses. We dont want to spawn an exit
+        portal if the player is halfway thru fighting
+        a boss
+    ]]
     if (enemyCount / enemyCountTotal) < WIN_RATIO then
         ccall("ratioWin")-- yyeahhh baby
     end
@@ -51,8 +50,12 @@ function WinSys:sparseupdate(dt)
 end
 
 
-
-
+function WinSys:removed(e)
+    if e.targetID == "enemy" then
+        enemyCount = enemyCount - 1
+    end
+    checkWin()
+end
 
 
 

@@ -25,6 +25,8 @@ local SPEED = 140
 
 local MAX_SPEED = 150
 
+local COLOUR = {0.63,0.72,0.66}
+
 
 -- animaiton component
 local frames = {1,2,3,4,3,2}
@@ -177,7 +179,7 @@ return function(x, y)
         interval = 0.06;
         current=0
     }
-
+    e.colour=COLOUR
     e.collisions = {
         physics = physColFunc
     }

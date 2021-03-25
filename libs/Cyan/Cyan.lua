@@ -95,14 +95,18 @@ do
             @return Cyan@
         ]]
         local sys
-        local remove_set_objs = Entity.___remove_set.objects
-        local remove_set_len = Entity.___remove_set.size
+        local remove_set = Entity.___remove_set
+        local remove_set_objs = remove_set.objects
+        local remove_set_len = remove_set.size
 
         for i = 1, remove_set_len do
             local ent = remove_set_objs[i]
             
             -- The set of ALL entities
             ___all:remove(ent)
+
+            -- remove from remove_set
+            remove_set:remove(ent)
 
             for index = 1, non_static_sys_list.len do
                 sys = non_static_sys_list[index]
