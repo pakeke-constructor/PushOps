@@ -64,21 +64,23 @@ Each one of the worldType tables should be of the format :::
     };
 
 
-    -- Here is an example of a character tile that will produce multiple
-    -- entities, scattered at random.
+    -- Here is an example of a character tile that spawns 2 blocks
     --  Get used to using this!!!
     ["p"] = {
         max = 999999, --No max
         function(x, y)
-            local block_ctor = require("src.entities.block")
-            for i = 1, love.math.random(2,5) do
-                block_ctor(
-                    x + love.math.random(-10, 10),
-                    y + love.math.random(-10, 10)
-                )
-            end
+            EH.Ents.block(x,y)
+            EH.Ents.block(x+5, y+5)
         end
     },
+
+    voidWin = function(cam_x, cam_y) end -- no more enemies left
+    ratioWin = function(cam_x, cam_y) end -- win by ration (see WinSys)
+        -- these callbacks are invoked when
+
+    -- TODO: Make a default function for this!!!
+    deathLose = function(cam_x, cam_y) end -- when the player dies
+    abstractLose = function(cam_x, cam_y) end-- abstract lose condition
 
 }
 --[[

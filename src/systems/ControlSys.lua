@@ -197,6 +197,7 @@ local function pull(ent)
     if ent.control.canPull then
         local x,y = ent.pos.x, ent.pos.y
 
+        ent.control.canPull = false
         ccall("sound", "moob")
         ccall("shockwave", x, y, 130, 4, 7, 0.3)
         ccall("moob", x, y, ent.strength/1.3, 300)

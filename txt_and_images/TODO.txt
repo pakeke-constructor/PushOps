@@ -4,6 +4,11 @@ TODO :::
 
 
 
+We need a better way of constructing new levels.
+Doing it directly thru portal interactions is dumb
+Maybe rout a `ccall("changeLevel")` callback to ControlSys or something??
+
+
 
 
 make wall variation

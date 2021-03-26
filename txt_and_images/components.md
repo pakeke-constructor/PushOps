@@ -26,11 +26,10 @@ onDamage = function(e, dmg) end -- callback for taking dmg
 onBoom   = function(e, x,y, strength) end -- callback for `boom`.
                                      -- when `moob` is invoked, `strength` is negative.
 onInteract = function(e, interacting_ent, type)
--- callback for when `pull` or `push` is done next to a targetID="interact" ent.
+-- when player `push` or `pull` next to  targetID = "interact"
 -- type is either `pull` or `push`.
--- (interacting_ent is usually the player).
 -- ALSO, e.size must be bigger than interacting distance!
-    -- (NOTE: THIS IS DONE IN `ControlSys`! I know, its weird, I know)
+    --(done in ControlSys)
 end
 
 
@@ -315,7 +314,13 @@ onUpdate = function(e,dt)end -- part of hybridsys
 onHeavyUpdate = function(e,dt)end -- part of hybridsys
 onDraw = function(e,dt)end -- part of hybridsys
 
-
+ -- for portals. This component should be overridden as portal is created
+portalDestination = {
+    x = 20 -- world width
+    y = 35 -- world height
+    tier = 1
+    type = "basic"
+}
 
 
 ```

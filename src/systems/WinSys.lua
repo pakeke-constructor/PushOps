@@ -16,9 +16,6 @@ There are multiple win conditions that are emitted.
 local WinSys = Cyan.System("targetID")
 
 
-local WIN_RATIO = CONSTANTS.WIN_RATIO
-
-
 local enemyCount = 0
 
 local enemyCountTotal = 0
@@ -41,7 +38,7 @@ local function checkWin(dt)
         portal if the player is halfway thru fighting
         a boss
     ]]
-    if (enemyCount / enemyCountTotal) < WIN_RATIO then
+    if (enemyCount / enemyCountTotal) < CONSTANTS.WIN_RATIO then
         ccall("ratioWin")-- yyeahhh baby
     end
     if enemyCount <= 0 then

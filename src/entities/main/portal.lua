@@ -65,10 +65,13 @@ end
 
 
 
+
 local portal_image = {
     quad = Quads.portal
 }
 
+
+local portalFunc = require("src.misc.unique.portal_function")
 
 
 return function(x, y)
@@ -87,8 +90,21 @@ return function(x, y)
     
     e.hybrid = true -- switched to hybrid OOP for this
     e.onUpdate = update
+    e.onInteract = portalFunc
 
-    e.portalFunc = nil -- override this in WorldGen.
+    -- portal destination
+    -- this holds fields that give ccall("newWorld") info about how to gen itself
+    -- (This is usually set )
+
+    e.portalDestination = {
+        x = 5; -- x size
+        y = 6; -- y size
+
+        type = "NO PORTAL DESTINATION";
+        tier = 1
+    }
+    e.portalDestination = nil -- give nil, so override is forced
+
     return e
 end
 

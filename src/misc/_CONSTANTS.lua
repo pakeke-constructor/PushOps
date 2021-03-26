@@ -10,9 +10,9 @@ return{
 ,
     PUSH_RANGE = 50
 ,
-    PUSH_COOLDOWN = 0.44
+    PUSH_COOLDOWN = 0.5
 ,
-    PULL_COOLDOWN = 0.3
+    PULL_COOLDOWN = 0.4
 ,
     PHYSICS_LINEAR_DAMPING = 0.05
 ,

@@ -87,7 +87,7 @@ return {
             ["."] = 0.4
             -- Bossfights, artefacts, are done through special structure generator
             -- Walls, shops, player spawn, and player exit are done uniquely.
-    }, -- Can modify the character probabilities by setting
+    }, -- Can modify the char probabilities by setting
                         -- this to a table. 
 
     entExclusionZones = nil, -- Can modify this table also.

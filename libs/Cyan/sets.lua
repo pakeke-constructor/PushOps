@@ -40,10 +40,18 @@ end
 --- Clears the Set completely.
 -- @return self
 function Set:clear()
+   -- be nice on GC
+   local obj
+   local objs = self.objects
+   local ptrs = self.pointers
+   for i=1, #self.objects do
+      obj = objs[i]
+      ptrs[obj] = nil
+      objs[i] = nil    
+   end
    self.objects  = {}
    self.pointers = {}
    self.size     = 0
-
    return self
 end
 

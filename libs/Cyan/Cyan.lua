@@ -86,6 +86,8 @@ do
     -- set of all entities
     local ___all = Entity.___all
 
+    -- flag to ensure that Cyan.flush() isnt accidentally called recursively
+    local is_flush_running = false
 
     -- Flushes all entities that need to be deleted
     function Cyan.flush()
@@ -94,6 +96,11 @@ do
 
             @return Cyan@
         ]]
+        if is_flush_running then
+            return
+        end
+        is_flush_running = true
+
         local sys
         local remove_set = Entity.___remove_set
         local remove_set_objs = remove_set.objects
@@ -105,14 +112,15 @@ do
             -- The set of ALL entities
             ___all:remove(ent)
 
-            -- remove from remove_set
-            remove_set:remove(ent)
-
             for index = 1, non_static_sys_list.len do
                 sys = non_static_sys_list[index]
                 sys:remove(ent)
             end
         end
+
+        remove_set:clear()
+
+        is_flush_running = false
     end
 
     function Cyan.exists( entity )
@@ -120,13 +128,21 @@ do
         return ___all:has(entity)
     end
 
+    local temp_clear_buffer = {}
+
     function Cyan.clear()
         --[[
             Clears all entities
         ]]
+        local tmp = temp_clear_buffer
         for _,e in ipairs(___all.objects) do
-            e:delete( )
+            table.insert(tmp, e)
         end
+        for i=1,#tmp do
+            tmp[i]:delete()
+            tmp[i] = nil
+        end
+        assert(#tmp==0,"?")
     end
 end
 

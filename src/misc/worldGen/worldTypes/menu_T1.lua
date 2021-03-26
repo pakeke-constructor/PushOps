@@ -3,7 +3,6 @@
 local Ents = require("src.entities")
 local rand = love.math.random
 
-local PortalInteracts = require("src.misc.unique.portal_interactions")
 
 
 
@@ -90,7 +89,7 @@ return {
 
         ['%'] = {
             max = 0xFFFFFFFF; --no max;
-            Ents.fakeWall -- Nothing :) waste of space, you!
+            Ents.wall
         };
 
         ['l'] = {
@@ -108,7 +107,12 @@ return {
             max = 0xfff;
             function(x,y)
                 local portal = Ents.portal(x,y)
-                portal.onInteract = PortalInteracts.newLushLevel
+                portal.portalDestination = {
+                    tier = 1;
+                    type = "basic";
+                    x = 40+rand()*18;
+                    y = 35+rand()*16
+                }
             end
         }
     }

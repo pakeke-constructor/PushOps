@@ -1,7 +1,6 @@
 
 --[[
 
-
 Fallback entity hasher so code can be reused.
 
 This covers basic entities that will be the same across (pretty much)
