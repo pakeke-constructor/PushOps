@@ -20,7 +20,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.trickblock(x,y)
+                Ents.bigworm(x,y)
             end
         };
 

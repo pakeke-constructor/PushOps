@@ -16,7 +16,7 @@ return{
 ,
     PHYSICS_LINEAR_DAMPING = 0.05
 ,
-    ENT_DMG_SPEED = 260 -- ents hit faster than this will be damaged (except player!)
+    ENT_DMG_SPEED = 300 -- ents hit faster than this will be damaged (except player!)
 ,
     PROBS = {
         -- World generation:

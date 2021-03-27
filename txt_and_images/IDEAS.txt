@@ -7,6 +7,9 @@ enemies. Once you kill enough of em, a portal opens
 
 
 
+Add a character entity that has 3d (red-blue) sunglasses
+hahahah
+
 
 
 Don't forget the give the player feedback

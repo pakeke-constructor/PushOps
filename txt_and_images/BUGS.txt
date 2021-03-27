@@ -5,8 +5,12 @@ Entities are dying offscreen for an unknown reason
 ughhh this will be a pain to debug
 
 (thankfully it happens very frequently)
+FUTURE OLI HERE: This is a real pain in the ass. Entities aren't dying by natural means...
+I think im gonna have to proxy the ccall(kill) callback because something
+is not right
 
-
+On second thought: it looks like ents are dying as soon as they enter the screen.
+Is this because they are being initialized with 0 hp or something??
 
 
 

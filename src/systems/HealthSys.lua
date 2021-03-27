@@ -26,6 +26,8 @@ function HealthSys:dead(ent)
         ent:onDeath()
     end
 
+    print("ded")
+
     ent:delete()
 end
 

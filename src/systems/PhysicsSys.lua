@@ -88,8 +88,7 @@ end
     -- I am using it properly.
 function PhysicsSys:grounded(ent)
     if self:has(ent) then
-        --ent.physics.body:setAwake(true)
-        ent.physics.fixture:setGroupIndex(0)
+        --ent.physics.fixture:setGroupIndex(0)
     end
 end
 
@@ -98,7 +97,7 @@ end
     -- I am using it properly.
 function PhysicsSys:airborne(ent)
     if self:has(ent) then
-        ent.physics.fixture:setGroupIndex(1)
+        --ent.physics.fixture:setGroupIndex(1)
     end
 end
 

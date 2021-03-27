@@ -100,7 +100,8 @@ return {
         max = 200;
         function(x,y)
             for i=-1,rand(1,2) do
-                enemySpawns()(x+5*i,y+5*i)
+                local f = enemySpawns()
+                f(x+(i-1)*40, y+(i-1)*40)
             end
         end
     };

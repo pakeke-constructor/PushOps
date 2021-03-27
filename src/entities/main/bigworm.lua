@@ -49,7 +49,7 @@ local GRAVITYMOD = 0.5
 
 
 local bigrocks = {}
-for x=1,1 do
+for x=1,3 do
     local quad_name = 'bigrock' .. tostring(x)
     table.insert(bigrocks, Quads[quad_name])
 end
@@ -144,7 +144,7 @@ local function wormNodeCtor(worm)
     local epos=worm.pos
 
     wn.gravitymod = 0 -- must get pulled down; 0 gravity
-    
+    wn.rot = rand()*math.pi*2
     wn.pos = math.vec3(epos.x,epos.y,epos.z)
     wn.follow = {
         following = worm;

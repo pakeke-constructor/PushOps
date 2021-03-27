@@ -30,7 +30,9 @@ end
 
 
 
+
 function DEBUG_SYS:draw()
+    lg.setColor(1,1,1)
     lg.push()
     lg.reset()
     lg.setColor(0,0,0)

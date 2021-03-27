@@ -102,9 +102,9 @@ return {
     ["e"] = {
         max = 200;
         function(x,y)
-            for i=1, rand(2,3) do
+            for i=0, rand(1,2) do
                 local f = enemySpawns()
-                f(x,y)
+                f(x+(i-1)*40, y+(i-1)*40)
             end
         end
     };
@@ -159,9 +159,9 @@ return {
         max = 100;
         function (x, y)
             if rand()<0.5 then
-                Ents.mushroom(x+rand()*5,y+rand()*5)            
+                Ents.mushroom(x+(rand()-.5)*40,y+(rand()-.5)*40)
             else
-                Ents.pine(x+rand()*5,y+rand()*5)
+                Ents.pine(x+(rand()-.5)*40,y+(rand()-.5)*40)
             end
         end
     }

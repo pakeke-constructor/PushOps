@@ -62,8 +62,7 @@ function Tree.choose(tree, e)
             return "spin"
         end
     else
-        --print("mallow tree: idle")
-        return "idle"
+        return "spin"
     end
 end
 
@@ -99,11 +98,6 @@ Tree.angry = {
     "wait::4"
 }
 
-Tree.idle = {
-    "move::RAND",
-    "wait::3"
-}
-
 
 
 local physColFunc = function(e1, e2, speed)
@@ -117,6 +111,7 @@ local r = love.math.random
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
+    ccall("emit", 'dust', e.pos.x,e.pos.y,e.pos.z, 15)
     EH.TOK(e,r(4,6))
 end
 
@@ -134,16 +129,16 @@ return function(x, y)
 
     e.bobbing={magnitude=0.25}
 
-    e.speed = {speed = 90, max_speed = 100}
+    e.speed = {speed = 160, max_speed = 170}
 
     e.pushable=false
 
     e.targetID = "enemy"
 
-    EH.PHYS(e,7,"dynamic")
+    EH.PHYS(e,14)
 
     e:add("friction", {
-        amount = 6;
+        amount = 2;
         emitter = psys:clone();
         required_vel = 10;
     })
