@@ -11,7 +11,14 @@ Maybe rout a `ccall("changeLevel")` callback to ControlSys or something??
 
 
 
-make wall variation
+make (more) wall variations
+
+
+
+
+
+
+
 
 
 

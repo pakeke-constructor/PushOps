@@ -19,7 +19,7 @@ local cols = {
     {0.8,0.9,0.2};
     {0.9,0.1,0.9}
 }]]
-local cols = {{0.75,1,0.75}}
+local cols = {{0.75,1,0.75,0.8}}
 
 local ccall = Cyan.call
 

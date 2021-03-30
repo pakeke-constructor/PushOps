@@ -337,23 +337,36 @@ end
 
 
 
-function ControlSys:transform()    
-    Camera:attach()
 
-    local x = 0
-    local y = 0
-    local follow_count = 0
-    
-    if #self.group > 0 then
+
+
+local getAveragePosition(group) -- => (x, y)
+    if #group > 0 then
+        local x = 0
+        local y = 0
+        local follow_count = 0
+        
         for _, ent in ipairs(self.group) do
             follow_count = follow_count + 1
             x = x + ent.pos.x
             y = y + ent.pos.y
         end
-
+    
         x = x / follow_count
         y = y / follow_count
+        return x,y
+    else -- not enough entities to get an average position
+        return 0,0
     end
+end
+
+
+
+
+function ControlSys:transform()    
+    Camera:attach()
+
+    local x,y = getAveragePosition(self.group)
     
     Camera:follow(x,y)
 end

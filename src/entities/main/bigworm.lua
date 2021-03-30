@@ -47,6 +47,8 @@ local Z_MIN = -(MAX_LEN * (DISTANCE+5))
 
 local GRAVITYMOD = 0.5
 
+local COLOUR = {0.86,0.86,0.86}
+
 
 local bigrocks = {}
 for x=1,3 do
@@ -151,6 +153,8 @@ local function wormNodeCtor(worm)
         distance = DISTANCE;
         onDetatch = onDetatch
     }
+    local r = rand()/10
+    wn.colour = {COLOUR[1]+r, COLOUR[2]+r, COLOUR[3]+r}
     wn.vel = math.vec3(0,0,0)
     wn.dig = {
         digging = false;

@@ -1,0 +1,95 @@
+
+
+Titan Slayer
+    Deal 50% extra damage to bosses
+
+
+Challenger I
+    HP is 1
+    Killing 5 enemies unlocks new character
+        < NOTE:
+        when the character is unlocked,
+        this item changes to challenger II, and III, and IV, etc.
+        II = kill 10 enemies to unlock
+        III = complete level to unlock
+        IV  = c
+        >
+
+
+
+Quickness
+    + Move speed
+
+
+Gladiator
+    deal 2x damage
+    take 4x damage
+
+
+Blood rook
+    Lifesteal
+        <note: through tok ent>
+
+
+Domain master
+    Pull and push radius increased
+
+
+Bolt walker
+    Pull is replaced with a dash
+
+
+Bull walker
+    Increased movement speed, decreased control
+
+
+Infector
+    Blocks become infected on kill
+        <NOTE:
+        When a physics object kills an ent, it
+        becomes "infected" (turns green.)
+        infected ents will infect every dynamic ent
+        that it touches.
+        When an enemy is infected, their speed and strength
+        is reduced, and they take dmg
+        >
+
+
+Patience
+    Standing still regains health
+
+
+Atomic chain
+    Enemies explode on death
+
+
+niahc cimotA
+    Enemies implode on death
+
+
+Boom walker
+    Crush walls, +Move speed
+        <NOTE: walls will be crushed by walking over them.
+        Their block drop rate should be decrased>
+
+
+Toughness
+    +50% health
+    -5% speed
+
+
+
+Nothing
+    All you need is less
+        <Note: this upgrade does nothing.
+        It should always be available:
+        it serves as a way to opt out of taking
+        an upgrade.>
+        <
+        If player kills a boss with no upgrades,
+        a new character should be unlocked
+        >
+
+
+
+

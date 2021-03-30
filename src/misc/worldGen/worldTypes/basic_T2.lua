@@ -45,19 +45,23 @@ local Ents = require("src.entities")
 local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
-    [Ents.devil]    = 0.2;
+    -- [ Ent spawn function ] = <probability of selection >
+    [Ents.devil]    = 0.4;
     [Ents.demon]    = 0.2;
     [Ents.mallow]   = 0.1;
     [Ents.cmallow]  = 0.2;
     [Ents.boxenemy] = 0.2;
-    [Ents.blob]     = 0.3;
+    [Ents.blob]     = 0.15;
     [Ents.boxblob]  = 0.2;
     [Ents.boxbully] = 0.05;
 }
 
+
 local bigEnemySpawns = Tools.weighted_selection{
+    -- [ Ent spawn function ] = <probability of selection >
     [Ents.boxbully] = 1
 }
+
 
 return {
     type = 'basic',
