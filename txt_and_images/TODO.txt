@@ -17,7 +17,11 @@ make (more) wall variations
 
 
 
-
+We are gonna need to set a local region cap
+on block entities.
+It may be dangerous for performance on older devices if there
+are like 600 block ents on screen at the same time, as physics is
+O(n log n) still, bordering on O(n^2) if they are compacted.
 
 
 
