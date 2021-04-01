@@ -340,13 +340,13 @@ end
 
 
 
-local getAveragePosition(group) -- => (x, y)
+local function getAveragePosition(group) -- => (x, y)
     if #group > 0 then
         local x = 0
         local y = 0
         local follow_count = 0
         
-        for _, ent in ipairs(self.group) do
+        for _, ent in ipairs(group) do
             follow_count = follow_count + 1
             x = x + ent.pos.x
             y = y + ent.pos.y
