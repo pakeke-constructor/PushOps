@@ -237,6 +237,10 @@ function Partition:getSet(obj)
             end
         end
     end]]
+    
+    -- THIS IS UNIQUE TO PUSH_GAME!!! 
+    -- AGAIN, DOOOO NOOOOT push this to github as a standalone!!!!!!!!!
+    Tools.dump(obj, "object disappeared from partition:  \n")
 
     -- Object has moved further than it's cell neighbourhood boundary.
     -- Throw err

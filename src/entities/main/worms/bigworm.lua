@@ -156,7 +156,7 @@ local function wormNodeCtor(worm)
         onGround = onGround
     }
     wn.rot = rand()*2*math.pi
-    wn.avel = (rand()+1)/45
+    wn.avel = (rand()-0.5)/10
     wn.image = Tools.rand_choice(bigrocks)
     return wn
 end

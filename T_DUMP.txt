@@ -1,0 +1,1385 @@
+<1>{
+  ___mask = 1905145,
+  acc = (+0.000,+0.000,+0.000),
+  behaviour = {
+    move = {
+      id = "player",
+      initialized = true,
+      orbit_speed = 2,
+      orbit_tick = 0,
+      target_ent = <2>{
+        ___mask = 1914348,
+        acc = (+0.000,+0.000,+0.000),
+        bobbing = {
+          magnitude = 0.32,
+          oy = 1.6025856236719,
+          phase = 6,
+          scale = 1.1001616014795,
+          value = 1.3130050046234
+        },
+        control = {
+          a = "left",
+          canPull = true,
+          canPush = false,
+          d = "right",
+          i = "zoomIn",
+          j = "zoomOut",
+          k = "push",
+          l = "pull",
+          push = false,
+          right = false,
+          s = "down",
+          up = false,
+          w = "up"
+        },
+        draw = {
+          h = 16,
+          ox = 8,
+          oy = 8,
+          w = 16
+        },
+        friction = {
+          amount = 6,
+          emitter = <userdata 1>,
+          on = true,
+          required_vel = 10
+        },
+        grounded = true,
+        hp = {
+          hp = 100,
+          iframe_count = -0.1,
+          iframes = 0.5,
+          max_hp = 100,
+          regen = 1
+        },
+        light = {
+          colour = { 1, 1, 1, 1 },
+          distance = 30
+        },
+        motion = {
+          animation_len = 4,
+          current = 0,
+          current_direction = "up",
+          down = { <userdata 2>, <userdata 3>, <userdata 4>, <userdata 5> },
+          interval = 0.15,
+          left = { <userdata 6>, <userdata 7>, <userdata 8>, <userdata 9> },
+          ox = 8,
+          oy = 8,
+          required_vel = 120,
+          right = { <userdata 10>, <userdata 11>, <userdata 12>, <userdata 13> },
+          sounds = {
+            [2] = "footstep",
+            [4] = "footstep",
+            last_index = 1,
+            pitch = 1,
+            pitch_v = 0.2,
+            vol = 0.8
+          },
+          up = { <userdata 14>, <userdata 15>, <userdata 16>, <userdata 17> }
+        },
+        onDamage = <function 1>,
+        physics = {
+          body = <userdata 18>,
+          fixture = <userdata 19>,
+          shape = <userdata 20>
+        },
+        pos = (+982.742,+458.794,+0.100),
+        pushable = true,
+        sigils = { "strength" },
+        speed = {
+          max_speed = 210,
+          speed = 20
+        },
+        strength = 100,
+        targetID = "player",
+        vel = (+17.968,-46.861,+0.000)
+      },
+      type = "LOCKON"
+    },
+    tree = <3>{
+      _ent_indexes = {
+        [<4>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.66915548595078,
+            phase = 4,
+            scale = 0.95817778212808,
+            value = 0.8327111285123
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <5>{ 0.4, 0.5, 0.4 },
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 21>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <6>{ <userdata 22>, <userdata 23>, <userdata 24>, <userdata 25> },
+            interval = 0.1,
+            left = <7>{ <userdata 26>, <userdata 27>, <userdata 28>, <userdata 29> },
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <8>{ <userdata 30>, <userdata 31>, <userdata 32>, <userdata 33> },
+            up = <9>{ <userdata 34>, <userdata 35>, <userdata 36>, <userdata 37> }
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 38>,
+            fixture = <userdata 39>,
+            shape = <userdata 40>
+          },
+          pos = (+1752.000,+2392.000,+0.100),
+          speed = {
+            max_speed = 227,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<10>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.66915548595078,
+            phase = 1,
+            scale = 1.0418222178719,
+            value = 1.1672888714877
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 41>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 42>,
+            fixture = <userdata 43>,
+            shape = <userdata 40>
+          },
+          pos = (+2112.000,+2176.000,+0.100),
+          speed = {
+            max_speed = 225,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<11>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.66915548595078,
+            phase = 4,
+            scale = 0.95817778212808,
+            value = 0.8327111285123
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 44>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 45>,
+            fixture = <userdata 46>,
+            shape = <userdata 40>
+          },
+          pos = (+1088.000,+3328.000,+0.100),
+          speed = {
+            max_speed = 211,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<12>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.66915548595078,
+            phase = 1,
+            scale = 1.0418222178719,
+            value = 1.1672888714877
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 47>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 48>,
+            fixture = <userdata 49>,
+            shape = <userdata 40>
+          },
+          pos = (+2048.000,+2304.000,+0.100),
+          speed = {
+            max_speed = 237,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<13>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.30898515349742,
+            phase = 2,
+            scale = 0.98068842790641,
+            value = 0.92275371162564
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 50>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 51>,
+            fixture = <userdata 52>,
+            shape = <userdata 40>
+          },
+          pos = (+2496.000,+960.000,+0.100),
+          speed = {
+            max_speed = 207,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<14>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.66915548595078,
+            phase = 1,
+            scale = 1.0418222178719,
+            value = 1.1672888714877
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 53>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 54>,
+            fixture = <userdata 55>,
+            shape = <userdata 40>
+          },
+          pos = (+1024.000,+2112.000,+0.100),
+          speed = {
+            max_speed = 202,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<15>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.66915548595078,
+            phase = 4,
+            scale = 0.95817778212808,
+            value = 0.8327111285123
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 56>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 57>,
+            fixture = <userdata 58>,
+            shape = <userdata 40>
+          },
+          pos = (+2392.000,+216.000,+0.100),
+          speed = {
+            max_speed = 230,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<16>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.97814063944821,
+            phase = 3,
+            scale = 0.93886621003449,
+            value = 0.75546484013795
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 59>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 60>,
+            fixture = <userdata 61>,
+            shape = <userdata 40>
+          },
+          pos = (+1112.000,+2200.000,+0.100),
+          speed = {
+            max_speed = 233,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<17>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.30898515349742,
+            phase = 2,
+            scale = 0.98068842790641,
+            value = 0.92275371162564
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 62>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 63>,
+            fixture = <userdata 64>,
+            shape = <userdata 40>
+          },
+          pos = (+1152.000,+3328.000,+0.100),
+          speed = {
+            max_speed = 239,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<18>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.97814063944821,
+            phase = 3,
+            scale = 0.93886621003449,
+            value = 0.75546484013795
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 65>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 66>,
+            fixture = <userdata 67>,
+            shape = <userdata 40>
+          },
+          pos = (+2600.000,+3048.000,+0.100),
+          speed = {
+            max_speed = 202,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<19>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.66915548595078,
+            phase = 1,
+            scale = 1.0418222178719,
+            value = 1.1672888714877
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 68>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 69>,
+            fixture = <userdata 70>,
+            shape = <userdata 40>
+          },
+          pos = (+344.000,+2520.000,+0.100),
+          speed = {
+            max_speed = 201,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<20>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              target_ent = <table 2>,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.66915548595078,
+            phase = 1,
+            scale = 1.0418222178719,
+            value = 1.1672888714877
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 71>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0.31602769996971,
+            current_direction = "right",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 72>,
+            fixture = <userdata 73>,
+            shape = <userdata 40>
+          },
+          pos = (+643.993,+297.294,+0.100),
+          speed = {
+            max_speed = 230,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+91.477,+49.642,+0.000)
+        }] = 2,
+        [<21>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.30898515349742,
+            phase = 5,
+            scale = 1.0193115720936,
+            value = 1.0772462883744
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 74>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 75>,
+            fixture = <userdata 76>,
+            shape = <userdata 40>
+          },
+          pos = (+1088.000,+3392.000,+0.100),
+          speed = {
+            max_speed = 202,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<22>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "LOCKON"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.30898515349742,
+            phase = 2,
+            scale = 0.98068842790641,
+            value = 0.92275371162564
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 77>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 78>,
+            fixture = <userdata 79>,
+            shape = <userdata 40>
+          },
+          pos = (+1512.000,+3112.000,+0.100),
+          speed = {
+            max_speed = 212,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<table 1>] = 2,
+        [<23>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.30898515349742,
+            phase = 5,
+            scale = 1.0193115720936,
+            value = 1.0772462883744
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 80>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 81>,
+            fixture = <userdata 82>,
+            shape = <userdata 40>
+          },
+          pos = (+2088.000,+2344.000,+0.100),
+          speed = {
+            max_speed = 201,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        [<24>{
+          ___mask = 1905145,
+          acc = (+0.000,+0.000,+0.000),
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = false,
+              orbit_speed = 2,
+              orbit_tick = 0,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 0.9781406394482,
+            phase = 6,
+            scale = 1.0611337899655,
+            value = 1.2445351598621
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 16,
+            ox = 8,
+            oy = 8,
+            w = 16
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 83>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 100,
+            iframe_count = -0.1,
+            max_hp = 100,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.1,
+            left = <table 7>,
+            ox = 8,
+            oy = 8,
+            required_vel = 20,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 84>,
+            fixture = <userdata 85>,
+            shape = <userdata 40>
+          },
+          pos = (+424.000,+2600.000,+0.100),
+          speed = {
+            max_speed = 220,
+            speed = 145
+          },
+          strength = 40,
+          targetID = "enemy",
+          vel = (+0.000,+0.000,+0.000)
+        }] = 2,
+        <metatable> = <25>{
+          __mode = "k"
+        }
+      },
+      _ent_paths = {
+        [<table 4>] = "angry",
+        [<table 10>] = "angry",
+        [<table 11>] = "angry",
+        [<table 12>] = "angry",
+        [<table 13>] = "angry",
+        [<table 14>] = "angry",
+        [<table 15>] = "angry",
+        [<table 16>] = "angry",
+        [<table 17>] = "angry",
+        [<table 18>] = "angry",
+        [<table 19>] = "angry",
+        [<table 20>] = "angry",
+        [<table 21>] = "angry",
+        [<table 22>] = "angry",
+        [<table 1>] = "angry",
+        [<table 23>] = "angry",
+        [<table 24>] = "angry",
+        <metatable> = <table 25>
+      },
+      callbacks = {},
+      choose = <function 4>,
+      name = "_enemy behaviour tree",
+      paths = {
+        angry = { {
+            finish = <function 5>,
+            name = "_copy__enemy move task",
+            parent = <table 3>,
+            runtimes = {
+              <metatable> = <26>{
+                __index = <function 6>,
+                __mode = "k"
+              }
+            },
+            start = <function 7>,
+            update = <function 8>,
+            <metatable> = <27>{
+              __index = {
+                _reset = <function 9>,
+                _update = <function 10>,
+                finish = <function 5>,
+                runtime = <function 11>,
+                start = <function 12>,
+                type = "Task"
+              }
+            }
+          }, {
+            finish = <function 13>,
+            name = "_copy_wait::10",
+            parent = <table 3>,
+            runtimes = {
+              [<table 4>] = 2.3160276999697,
+              [<table 10>] = 2.3160276999697,
+              [<table 11>] = 2.3160276999697,
+              [<table 12>] = 2.3160276999697,
+              [<table 13>] = 2.3160276999697,
+              [<table 14>] = 2.3160276999697,
+              [<table 15>] = 2.3160276999697,
+              [<table 16>] = 2.3160276999697,
+              [<table 17>] = 2.3160276999697,
+              [<table 18>] = 2.3160276999697,
+              [<table 19>] = 2.3160276999697,
+              [<table 20>] = 2.3160276999697,
+              [<table 21>] = 2.3160276999697,
+              [<table 22>] = 2.3160276999697,
+              [<table 1>] = 2.3160276999697,
+              [<table 23>] = 2.3160276999697,
+              [<table 24>] = 2.3160276999697,
+              <metatable> = <table 26>
+            },
+            start = <function 14>,
+            update = <function 15>,
+            <metatable> = <table 27>
+          } }
+      },
+      <metatable> = {
+        __index = {
+          _kill = <function 16>,
+          _reset = <function 17>,
+          call = <function 18>,
+          choose = <function 19>,
+          getPath = <function 20>,
+          next = <function 21>,
+          on = <function 22>,
+          type = "Node",
+          update = <function 23>
+        },
+        __newindex = <function 24>
+      }
+    }
+  },
+  bobbing = {
+    magnitude = 0.25,
+    oy = 0.30898515349742,
+    phase = 5,
+    scale = 1.0193115720936,
+    value = 1.0772462883744
+  },
+  collisions = {
+    physics = <function 2>
+  },
+  colour = <table 5>,
+  friction = {
+    amount = 6,
+    emitter = <userdata 86>,
+    on = true,
+    required_vel = 10
+  },
+  grounded = true,
+  hp = {
+    hp = -309.23789648194,
+    iframe_count = -0.1,
+    max_hp = 100,
+    regen = 0
+  },
+  motion = {
+    animation_len = 4,
+    current = 0.31602769996971,
+    current_direction = "up",
+    down = <table 6>,
+    interval = 0.1,
+    left = <table 7>,
+    ox = 8,
+    oy = 8,
+    required_vel = 20,
+    right = <table 8>,
+    up = <table 9>
+  },
+  onDeath = <function 3>,
+  physics = {
+    body = <userdata 87>,
+    fixture = <userdata 88>,
+    shape = <userdata 40>
+  },
+  pos = (+887.431,+351.679,+0.100),
+  speed = {
+    max_speed = 213,
+    speed = 145
+  },
+  strength = 40,
+  targetID = "enemy",
+  vel = (-29.909,-122.334,+0.000)
+}

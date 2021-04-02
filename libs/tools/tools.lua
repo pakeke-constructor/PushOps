@@ -138,6 +138,23 @@ function Tools.assertNoDuplicateRequires()
 end
 
 
+
+local inspect = require("libs.NM_inspect.inspect")
+
+-- clear dump file
+io.open("T_DUMP.txt","w"):close()
+
+function Tools.dump(e, str)
+    local f = io.open("T_DUMP.txt", "a+")
+
+    if str then
+        f:write(str)
+    end
+    f:write(inspect(e))
+
+    f:close()
+end
+
 return Tools
 
 
