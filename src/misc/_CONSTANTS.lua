@@ -47,7 +47,7 @@ return{
         "coin"
     }
 ,
-    WIN_RATIO = 0
+    WIN_RATIO = 0.6 -- should be like 0.35
 ,
     paused = false  -- debug only  (if not debug only, make an cyan.call event for this)
 ,

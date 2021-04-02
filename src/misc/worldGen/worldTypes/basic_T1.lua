@@ -66,11 +66,11 @@ local bigEnemySpawns = Tools.weighted_selection{
 
 
 
-local purge_fn = function(e)
+local purge_fn = function(e, cam_x, cam_y)
     -- called at end of level to clear enemies and walls.
     -- (Passed in as a param to `ccall(apply, .)`  ).
-    if e.targetID ~= "player"
-    and Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160 then
+    if (e.targetID ~= "player")
+    and (Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160) then
         ccall("damage",e,0xffff)
     end
 end
@@ -109,8 +109,15 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     ratioWin = function(cam_x, cam_y)
+        print("RATIO WIN")
         ccall("apply", purge_fn, cam_x, cam_y)
-
+        local portal = EH.Ents.portal(cam_x, cam_y)
+        portal.portalDestination = {
+            x = 50;
+            y = 50;
+            tier = 2;
+            type="basic"
+        }
         --[[
         TODO:
         play sounds and stuff here. Like, a gong would be cool.

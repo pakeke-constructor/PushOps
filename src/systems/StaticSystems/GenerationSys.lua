@@ -454,6 +454,14 @@ local function procGenerateWorld(world, worldMap, worldType)
 end
 
 
+
+
+-- callbacks here
+
+local world_type
+local world_tier
+
+
 function GenSys:newWorld(world, worldMap)
     -- These are now safe to be initialized, as we know All systems
     -- will have been initialized
@@ -461,8 +469,11 @@ function GenSys:newWorld(world, worldMap)
     WorldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
 
     local tier = world.tier
+    world_tier = tier
     assert(tier, "world type was not given a tier")
+
     local type = world.type
+    world_type = type
     assert(type, "world type was not given a type")
 
     local worldType = WorldTypes[type][tier]
@@ -483,3 +494,56 @@ function GenSys:newWorld(world, worldMap)
 
 end
 
+
+local cam = require("src.misc.unique.camera")
+
+-- win condition callbacks.
+-- these are pretty much all the same...
+do
+    function GenSys:ratioWin()
+        if (not StructureRules) or (not WorldTypes)then
+            return -- This means that :newWorld hasnt been called yet.
+            -- very bizzare situation... but oh well.
+        end
+
+        if world_tier and world_type then
+            local worldType = WorldTypes[world_type][world_tier]
+            assert(worldType,"?? ")
+            if worldType.ratioWin then
+                worldType.ratioWin(cam.x,cam.y)
+            end
+        end
+    end
+
+
+    function GenSys:voidWin()
+        if (not StructureRules) or (not WorldTypes)then
+            return -- This means that :newWorld hasnt been called yet.
+            -- very bizzare situation... but oh well.
+        end
+
+        if world_tier and world_type then
+            local worldType = WorldTypes[world_type][world_tier]
+            assert(worldType,"?? ")
+            if worldType.voidWin then
+                worldType.voidWin(cam.x,cam.y)
+            end
+        end 
+    end
+
+
+    function GenSys:bossWin()
+        if (not StructureRules) or (not WorldTypes)then
+            return -- This means that :newWorld hasnt been called yet.
+            -- very bizzare situation... but oh well.
+        end
+
+        if world_tier and world_type then
+            local worldType = WorldTypes[world_type][world_tier]
+            assert(worldType,"?? ")
+            if worldType.bossWin then
+                worldType.bossWin(cam.x,cam.y)
+            end
+        end 
+    end
+end

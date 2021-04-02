@@ -67,7 +67,7 @@ local function checkWin(dt)
         GenerationSys SHOULD handle the ratioWin world generation for this.
         SoundSys should handle the sound, and DrawSys should handle the visual feedback
     ]]
-    if (enemyCount / enemyCountTotal) < CONSTANTS.WIN_RATIO then
+    if (enemyCount / enemyCountTotal) <= CONSTANTS.WIN_RATIO then
         ccall("ratioWin")-- yyeahhh baby
     end
     if enemyCount <= 0 then

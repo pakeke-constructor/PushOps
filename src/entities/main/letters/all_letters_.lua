@@ -16,8 +16,6 @@ for i = 1, #letters do
     local c = letters:sub(i,i)
     local name = "letter_"..c
     
-    print(name)
-
     -- ahhh, luajit dont like loop closures. oh well
     local image = {
         quad = EH.Quads[name]

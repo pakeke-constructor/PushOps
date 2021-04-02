@@ -121,7 +121,7 @@ function _G.love.errorhandler(msg)
  
 	local err = {}
  
-	table.insert(err, "Oh no, there has been an Error.\nIf you can, please contact Oli and show a full screenshot of this error screen. TY!\n       PLATFORM : "
+	table.insert(err, "ahhh crap man, its error time.\nIf you can, please contact Oli and show a full screenshot of this screen. TY!\n       PLATFORM : "
 					..tostring(love.system.getOS() or "unknown OS"))
 	table.insert(err, sanitizedmsg)
  
