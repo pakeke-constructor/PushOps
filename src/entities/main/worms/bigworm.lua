@@ -5,13 +5,6 @@
 
 --[[
 
-
-!!! DO REALLY GOOD ART FOR THIS !!!!
-I would recommend switching from 32x32 to
-64x64 pixels btw. Just so you can afford to have slightly larger,
-and different shaped rocks with jagged edges etc
-
-
 Idea: since follow ents cant really have a physics body,
 make it so there are beating hearts following the rockworm around.
 If the player kills all 3 beating hearts, the worm dies.
@@ -162,6 +155,8 @@ local function wormNodeCtor(worm)
         onSurface = onSurface;
         onGround = onGround
     }
+    wn.rot = rand()*2*math.pi
+    wn.avel = (rand()+1)/45
     wn.image = Tools.rand_choice(bigrocks)
     return wn
 end

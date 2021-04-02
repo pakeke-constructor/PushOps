@@ -29,6 +29,12 @@ return {
             Ents.wall
         };
 
+        ["t"] = {
+            max=0xfff;
+            function(x,y)
+            ccall("spawnText", x, y, "push game")
+        end};
+
         ["@"] = {
             max = 1,
             function(x,y)

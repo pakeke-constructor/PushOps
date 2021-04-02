@@ -157,7 +157,7 @@ local function drawEnt(ent)
             motion[ent.motion.current_direction][index],
             ent.pos.x,
             ent.pos.y - ent.pos.z/2,
-            0,1,
+            ent.rot,1,
             bob_comp.scale,
             draw.ox + sway_comp.ox,
             draw.oy + bob_comp.oy,

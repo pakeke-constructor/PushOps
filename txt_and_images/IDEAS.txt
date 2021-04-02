@@ -12,8 +12,7 @@ hahahah
 
 
 
-Don't forget the give the player feedback
-
+Don't forget the give the player feedback.
 For example, when attempting to push an entity and failing,
 Give feedback with particles and sound.
 

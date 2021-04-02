@@ -125,6 +125,8 @@ function MoveSys:addVel(ent, dx, dy)
         local modifier = 1 - ratio
         
         ent.physics.body:applyLinearImpulse(dx * modifier, dy * modifier)
+        ent.vel.x = vx
+        ent.vel.y = vy
     else
         local vx, vy = ent.vel.x, ent.vel.y
         ent.vel.x = vx + dx

@@ -57,7 +57,32 @@ Each one of the worldType tables should be of the format :::
 
     entExclusionZones = nil -- See below! (allows ents to specify spawn radiuses away from each other)
     
+    PROBS = {
+            -- World generation:
+            -- Probability of each character occuring.
+            -- Each value is a weight and does not actually represent the probability.
+            -- see `GenerationSys` for what character represents what.
+            ["e"] = 0.4;
+            ["E"] = 0.005;
+            ["r"] = 0.02; -- 0.02 weight chance of spawning on random tile.
+            ["R"] = 0.005;
+            ["u"] = 0.01;
+            ["U"] = 0.003;
+            ["^"] = 0.8;
+            ["l"] = 0.12;
+            ["p"] = 0.3;
+            ["P"] = 0.01;
+            ["."] = 0.4
+            -- Bossfights, artefacts, are done through special structure generator
+            -- Walls, shops, player spawn, and player exit are done uniquely.
+    },
 
+
+    entExclusionZones = nil, -- Can modify this table also.
+                            -- See `defaultEntExclusionZones.lua`.
+
+
+    entities = {
     ["#"] = { -- Ctor for wall entity.
         max = 999999, --No max.
         require("src.entities.wall") -- A function to construct a wall entity
@@ -72,7 +97,8 @@ Each one of the worldType tables should be of the format :::
             EH.Ents.block(x,y)
             EH.Ents.block(x+5, y+5)
         end
-    },
+    }
+    }
 
     voidWin = function(cam_x, cam_y) end -- no more enemies left
     ratioWin = function(cam_x, cam_y) end -- win by ration (see WinSys)

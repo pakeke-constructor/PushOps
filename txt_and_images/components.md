@@ -40,6 +40,7 @@ vel = vec3(vel_x, vel_y, vel_z) -->  {vel = vec3, max_vel = 123}
 acc = vec3(acc_x, acc_y, acc_z) --> vec3
 
 rot = 0 -- rotation in rads
+avel = 0 -- rot velocity (rad/s)
 
 
 speed = {speed = 10, max_speed = 100} -- entity speed

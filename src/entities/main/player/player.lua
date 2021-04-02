@@ -32,7 +32,7 @@ return function(x,y)
 
     EH.PV(e, x,y)
     
-    :add("acc", math.vec3(0,0,0))
+    e:add("acc", math.vec3(0,0,0))
     
     :add("hp", {
         hp = 100,

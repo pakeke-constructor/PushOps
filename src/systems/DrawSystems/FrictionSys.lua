@@ -43,6 +43,7 @@ function FrictionSys:airborne(ent)
 end
 
 
+
 function FrictionSys:update( dt )
     for _, ent in ipairs(self.group) do
         local friction = ent.friction

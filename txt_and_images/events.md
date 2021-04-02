@@ -49,6 +49,7 @@ Adds a sigil to ent
 # removeSigil( ent, sigilName )
 Removes a sigil from an ent
 
+
 # emit ( emitter_type, x, y, z,  num_particles, colour={1,1,1} )
 emits a burst of particles of `emitter_type` at x,y,z.
 types:  {  guts  beam  dust   smoke  }
@@ -62,6 +63,9 @@ NOTE: The animation z depth won't change even when the entity moves! So tracking
 
 # shockwave ( x, y, start_size, end_size, thickness, time, colour=WHITE )
 Sends out (or in) a cool shockwave
+
+# spawnText ( x, y, text_str,  height=0 )
+Spawns block-letter text "text_str" in at specified x,y, with z=height.
 
 
 # keydown   ( keyname )
@@ -167,10 +171,10 @@ Shoots a bullet in a direction
 Frees all memory in preperation for new world gen (including destroying ents)
 
 
-# ratioWin ( )
-Win condition by ratio, see WinSys
-# voidWin ( )
-Win condition when #enemies == 0
+# ratioWin ( )  Win condition by ratio, see WinSys
+# voidWin ( )   Win condition when #enemies == 0
+# bossWin ( )   Win condition when no bosses on map
+
 
 
 # newWorld({

@@ -64,6 +64,19 @@ local bigEnemySpawns = Tools.weighted_selection{
     end] = 0.5
 }
 
+
+
+local purge_fn = function(e)
+    -- called at end of level to clear enemies and walls.
+    -- (Passed in as a param to `ccall(apply, .)`  ).
+    if e.targetID ~= "player"
+    and Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160 then
+        ccall("damage",e,0xffff)
+    end
+end
+
+
+
 return {
     type = 'basic',
     tier = 1,
@@ -94,6 +107,16 @@ return {
 
     entExclusionZones = nil, -- Can modify this table also.
                             -- See `defaultEntExclusionZones.lua`.
+
+    ratioWin = function(cam_x, cam_y)
+        ccall("apply", purge_fn, cam_x, cam_y)
+
+        --[[
+        TODO:
+        play sounds and stuff here. Like, a gong would be cool.
+        have a shockwave also, that would be cool
+        ]]
+    end;
 
     entities = {
     ["#"] = { -- For wall entity.

@@ -73,12 +73,18 @@ local function checkWin(dt)
     if enemyCount <= 0 then
         ccall("voidWin")
     end
+    if bossCount <= 0 then
+        ccall("bossWin")
+    end
 end
 
 
 function WinSys:removed(e)
     if e.targetID == "enemy" then
         enemyCount = enemyCount - 1
+    end
+    if e.targetID == "boss" then
+        bossCount = bossCount - 1
     end
     checkWin()
 end

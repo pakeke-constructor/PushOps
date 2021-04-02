@@ -110,12 +110,11 @@ function LinearAnimationSys:drawEntity( ent )
         -- img.oy must be modified for bobbing entities
         local sway_comp = ent.swaying or default_sway
         local oy = ent.animation.oy
-
         atlas:draw(
             anim.frames[index],
             ent.pos.x,
             ent.pos.y - ent.pos.z/2,
-            0,1,
+            ent.rot,1,
             bob_comp.scale,
             draw.ox + sway_comp.ox,
             oy + bob_comp.oy,
