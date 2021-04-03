@@ -64,6 +64,14 @@ end
 
 
 
+local function onDeath(portal)
+    for _, chil in ipairs(portal.portalRings)do
+        chil:delete()
+    end
+end
+
+
+
 
 
 local portal_image = {
