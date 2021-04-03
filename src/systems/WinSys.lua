@@ -55,6 +55,21 @@ end
 
 
 
+-- Win conditions can only be called once per world.
+local ratioWinDone = false
+local voidWinDone = false
+local bossWinDone = false
+
+
+function WinSys:newWorld()
+    local ratioWinDone = true
+    local voidWinDone = true
+    local bossWinDone = true
+end
+
+
+
+
 local function checkWin(dt)
     --[[
         TODO:
@@ -68,25 +83,40 @@ local function checkWin(dt)
         SoundSys should handle the sound, and DrawSys should handle the visual feedback
     ]]
     if (enemyCount / enemyCountTotal) <= CONSTANTS.WIN_RATIO then
-        ccall("ratioWin")-- yyeahhh baby
+        if not ratioWinDone then
+            ccall("ratioWin")-- yyeahhh baby
+            ratioWinDone = true
+            print("RATIO WIN")
+        end
     end
     if enemyCount <= 0 then
-        ccall("voidWin")
+        if not voidWinDone then
+            ccall("voidWin")
+            voidWinDone = true
+        end
     end
     if bossCount <= 0 then
-        ccall("bossWin")
+        if not bossWinDone then
+            ccall("bossWin")
+            bossWinDone = true
+        end
     end
 end
 
 
 function WinSys:removed(e)
+    local check = false -- we should only check for a win if a boss or enemy was removed
     if e.targetID == "enemy" then
+        check = true
         enemyCount = enemyCount - 1
     end
     if e.targetID == "boss" then
+        check = true
         bossCount = bossCount - 1
     end
-    checkWin()
+    if check then
+        checkWin()
+    end
 end
 
 
