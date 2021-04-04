@@ -12,8 +12,8 @@ Challenger I
         this item changes to challenger II, and III, and IV, etc.
         II = kill 10 enemies to unlock
         III = complete level to unlock
-        IV  = c
-        >
+        IV  = kill a boss to unlock
+        V   = defeat the wizard boss on 1 hp
 
 
 
@@ -59,11 +59,11 @@ Patience
     Standing still regains health
 
 
-Atomic chain
+Explosive chain
     Enemies explode on death
 
 
-niahc cimotA
+Implosive chain
     Enemies implode on death
 
 

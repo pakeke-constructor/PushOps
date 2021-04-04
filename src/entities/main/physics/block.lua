@@ -6,7 +6,7 @@ local Quads = atlas.Quads
 local psys = love.graphics.newParticleSystem(atlas.image)
 
 do
-    psys:setQuads(Quads.beeet, Quads.beet, Quads.bet)
+    psys:setQuads(Quads.circ3, Quads.circ2, Quads.circ1)
     psys:setParticleLifetime(0.5, 0.6)
     --psys:setLinearAcceleration(0,0,200,200)
     psys:setDirection(180)
@@ -15,7 +15,7 @@ do
     psys:setRotation(0,math.pi*2)
     psys:setSpread(math.pi/2)
     psys:setEmissionArea("uniform", 10,0)
-    psys:setColors({0.3,0.3,0.3,1}, {0.3,0.3,0.3,0})
+    psys:setColors({0.3,0.3,0.3,0.5}, {0.3,0.3,0.3,0})
     --psys:setSpin(-40,40)
     --psys:setRotation(0, 2*math.pi)
     --psys:setRelativeRotation(false)

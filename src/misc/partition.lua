@@ -14,9 +14,9 @@ there is one of them for each target group.
 local MAX_VEL = CONSTANTS.MAX_VEL;
 
 
--- We add 0.01 off to account for floating point errors. A missed entity search due to
+-- We add 1 off to account for floating point errors. A missed entity search due to
 -- ent skipping a cell would be catastrophic and crash program
-local p_MAX_VEL = MAX_VEL + 0.01
+local p_MAX_VEL = MAX_VEL + 1
 
 
 

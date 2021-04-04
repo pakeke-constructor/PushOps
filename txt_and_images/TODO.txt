@@ -23,6 +23,9 @@ It may be dangerous for performance on older devices if there
 are like 600 block ents on screen at the same time, as physics is
 O(n log n) still, bordering on O(n^2) if they are compacted.
 
+SOLUTION: Add stuff to spatial_partition.lua to allow you to count num
+objects in local region. Then you can set a cap easily
+
 
 
 

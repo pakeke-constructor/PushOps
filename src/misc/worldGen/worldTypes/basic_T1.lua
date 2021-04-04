@@ -109,12 +109,11 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     ratioWin = function(cam_x, cam_y)
-        print("RATIO WIN")
         ccall("apply", purge_fn, cam_x, cam_y)
         local portal = EH.Ents.portal(cam_x, cam_y)
         portal.portalDestination = {
-            x = 50;
-            y = 50;
+            x = 30;
+            y = 30;
             tier = 2;
             type="basic"
         }

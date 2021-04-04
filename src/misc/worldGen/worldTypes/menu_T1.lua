@@ -116,8 +116,8 @@ return {
                 portal.portalDestination = {
                     tier = 1;
                     type = "basic";
-                    x = 40+rand()*18;
-                    y = 35+rand()*16
+                    x = 32;
+                    y = 32
                 }
             end
         }

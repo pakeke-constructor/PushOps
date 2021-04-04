@@ -13,7 +13,6 @@ git push origin master
 ]]
 
 
-
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
 

@@ -19,8 +19,6 @@ local OZ = -30
 
 Base portal
 
-
-
 ]]
 
 
@@ -31,6 +29,9 @@ local ring_img_comp = {
 local function portalRing(period_start)
     local e = Cyan.Entity()
     :add("pos", math.vec3(0,0,OZ))
+    :add("vel",math.vec3())
+    -- yeah we arent actually using velocity. We just need the spatial partition
+    -- to be aware that this entity is moving
     :add("image", ring_img_comp)
     e._cur_portal_period = period_start
     return e
@@ -49,16 +50,17 @@ local function update(e, dt)
         reset=true
     end
     local pi2_3 = 2*math.pi/3
-    for i, t_e in ipairs(e.portalRings) do
-        t_e.colour = e.colour or t_e.colour
+    for i, ring in ipairs(e.portalRings) do
+        ring.colour = e.colour or ring.colour
         if reset then
-            t_e._cur_portal_period = (i-1) * pi2_3
+            ring._cur_portal_period = (i-1) * pi2_3
         end
-        t_e._cur_portal_period = t_e._cur_portal_period + dt * RING_ROT_SPEED
-        local p = t_e.pos
+        ring._cur_portal_period = ring._cur_portal_period + dt * RING_ROT_SPEED
+        local p = ring.pos
         local ox, oy = e.pos.x, e.pos.y
-        p.x = ox + RING_DISTANCE * sin(t_e._cur_portal_period)
-        p.y = oy + RING_DISTANCE * cos(t_e._cur_portal_period)
+        local new_x = ox + RING_DISTANCE * sin(ring._cur_portal_period)
+        local new_y = oy + RING_DISTANCE * cos(ring._cur_portal_period)
+        ccall("setPos", ring, new_x, new_y)
     end
 end
 
@@ -104,7 +106,7 @@ return function(x, y)
     -- this holds fields that give ccall("newWorld") info about how to gen itself
     -- (This is usually set )
 
-    e.portalDestination = {
+    e.portalDestination = { -- this is just for example
         x = 5; -- x size
         y = 6; -- y size
 
