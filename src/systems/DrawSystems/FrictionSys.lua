@@ -27,17 +27,16 @@ end
 
 
 
-local rawget = rawget
 
 function FrictionSys:grounded(ent)
-    if rawget(ent, "friction") then
+    if ent.friction then
         ent.friction.on = true
     end
 end
 
 
 function FrictionSys:airborne(ent)
-    if rawget(ent, "friction") then
+    if ent.friction then
         ent.friction.on = false
     end
 end
@@ -52,10 +51,16 @@ function FrictionSys:update( dt )
             emitter:update(dt)
             emitter:setPosition(ent.pos.x + ent.vel.x/50, ent.pos.y + ent.vel.y/50)
 
-            if ent.vel:len() > THRESHOLD and friction.on then
-                emitter:start()
+            local isStopped = emitter:isStopped()
+
+            if (ent.vel:len() > THRESHOLD) and friction.on then
+                if isStopped then
+                    emitter:start()
+                end
             else
-                emitter:stop()
+                if not isStopped then
+                    emitter:stop()
+                end
             end
 
             if not ent:has("physics") then

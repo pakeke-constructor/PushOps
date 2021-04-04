@@ -110,6 +110,7 @@ function GravitySys:update(dt)
             if pos.z <= 0 then
                 ent.grounded = true
                 pos.z = 0.1
+                vel.z = 0
                 ccall("grounded", ent)
             end
         end
