@@ -122,7 +122,7 @@ motion ={
     animation_len = nil -- Is automatically set by system.
 }
 
-
+text = "abcde" -- draws the text `abcde` at ent's position
 
 
 

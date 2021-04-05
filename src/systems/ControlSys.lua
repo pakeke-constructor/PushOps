@@ -29,6 +29,10 @@ local cur_sin_amount = 0
 local cam_rot = 0
 
 
+-- camera position gets locked when all players are killed
+local lock_cam_x, lock_cam_y
+
+
 
 local dist = Tools.dist
 local ccall = Cyan.call
@@ -47,6 +51,18 @@ function ControlSys:added(e)
     -- just some sanity checks
     e.control.canPush = true
     e.control.canPull = true
+end
+
+
+function ControlSys:removed(e)
+    if #self.group == 1 then
+        -- then this is the last player in game.
+        -- lock the camera, emit the lose callback; worldGen will handle it
+        -- from here
+        lock_cam_x = e.pos.x
+        lock_cam_y = e.pos.y
+        ccall("lose")
+    end
 end
 
 
@@ -292,16 +308,22 @@ end
 
 
 
-function ControlSys:newWorld(world)
-    --local w,h = love.graphics.getDimensions( )
-end
-
-
 
 function ControlSys:purge()
     Cyan.clear( ) -- Deletes all entities.
     -- big operation
+
+    -- TODO:
+    -- WHY IS THIS HERE??
+    -- put this somewhere else
 end
+
+
+function ControlSys:newWorld()
+    lock_cam_x = nil
+    lock_cam_y = nil
+end
+
 
 
 --[[
@@ -341,6 +363,11 @@ end
 
 
 local function getAveragePosition(group) -- => (x, y)
+    if lock_cam_x then
+        assert(lock_cam_y,"?")
+        return lock_cam_x, lock_cam_y
+    end
+
     if #group > 0 then
         local x = 0
         local y = 0
@@ -351,11 +378,12 @@ local function getAveragePosition(group) -- => (x, y)
             x = x + ent.pos.x
             y = y + ent.pos.y
         end
-    
+        
         x = x / follow_count
         y = y / follow_count
         return x,y
     else -- not enough entities to get an average position
+        -- (this should never happen btw)
         return 0,0
     end
 end

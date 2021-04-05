@@ -77,7 +77,7 @@ local WorldTypes-- = require("src.misc.worldGen.worldTypes._worldTypes")
 
 
 
-local noise = _G.love.math.noise
+local noise = love.math.noise
 
 
 local function getNoiseHeight(x, y, noise_offset_x, noise_offset_y)
@@ -496,6 +496,16 @@ end
 
 
 local cam = require("src.misc.unique.camera")
+
+-- lose condition
+function GenSys:lose()
+    if world_tier and world_type then
+        local wType = WorldTypes[world_type][world_tier]
+        assert(wType.lose, "worldTypes must have a lose condition")
+        wType.lose(cam.x, cam.y)
+    end
+end
+
 
 -- win condition callbacks.
 -- these are pretty much all the same...

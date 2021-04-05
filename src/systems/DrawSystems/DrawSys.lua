@@ -16,6 +16,7 @@ local PATH = Tools.Path(...)
 local Set = require ("libs.tools.sets")
 local floor = math.floor
 local Atlas = require("assets.atlas")
+local font = require("src.misc.unique.font")
 
 local push = require("libs.NM_push.push")
 
@@ -144,6 +145,8 @@ local ipairs = ipairs
 local camera = require("src.misc.unique.camera")
 local drawShockWaves
 
+local setFont = love.graphics.setFont
+
 
 local draw_master = function()
     local setColor = lg.setColor
@@ -152,6 +155,7 @@ local draw_master = function()
     ccall("transform")
     
     setColor(CONSTANTS.GRASS_COLOUR)
+    setFont(font)
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
     lg.rectangle("fill", 0,0, 9000,5000)

@@ -65,13 +65,22 @@ local EMPTY = {
     function()end                 -- this table will be accessed.
 }
 
-setmetatable(default,{
+
+
+assert(default.entities, "?")
+
+setmetatable(default.entities,{
     __index = function(t,k) return EMPTY end
 })
 
 local worldType_entity_mt = {
+    __index = default.entities
+}
+
+local worldType_mt = {
     __index = default
 }
+
 
 
 
@@ -97,6 +106,8 @@ for _, wType in pairs(Auxiliary) do
     ("duplicate worldType: type=%s tier=%d \nAssert that no worlds overwrite anything else"):format(type, tier))
 
     wType.entities = setmetatable(wType.entities, worldType_entity_mt)
+    
+    setmetatable(wType, worldType_mt)
     
     if not wType.entExclusionZones then
         wType.entExclusionZones = defaultEntExclusionZones

@@ -76,6 +76,17 @@ local purge_fn = function(e, cam_x, cam_y)
 end
 
 
+local function spawn_portal(x, y)
+    local portal = EH.Ents.portal(x, y)
+    portal.portalDestination = {
+        x = 30;
+        y = 30;
+        tier = 2;
+        type="basic"
+    }
+end
+
+
 
 return {
     type = 'basic',
@@ -110,13 +121,7 @@ return {
 
     ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
-        local portal = EH.Ents.portal(cam_x, cam_y)
-        portal.portalDestination = {
-            x = 30;
-            y = 30;
-            tier = 2;
-            type="basic"
-        }
+        ccall("await", spawn_portal, 1.5, cam_x, cam_y)
         --[[
         TODO:
         play sounds and stuff here. Like, a gong would be cool.

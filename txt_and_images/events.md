@@ -64,8 +64,8 @@ NOTE: The animation z depth won't change even when the entity moves! So tracking
 # shockwave ( x, y, start_size, end_size, thickness, time, colour=WHITE )
 Sends out (or in) a cool shockwave
 
-# spawnText ( x, y, text_str,  height=0 )
-Spawns block-letter text "text_str" in at specified x,y, with z=height.
+# spawnText ( x, y, text_str,  height=0, variance=0 )
+Spawns block-letter text "text_str" in at specified x,y, with z=height +- variance
 
 
 # keydown   ( keyname )
@@ -175,6 +175,7 @@ Frees all memory in preperation for new world gen (including destroying ents)
 # voidWin ( )   Win condition when #enemies == 0
 # bossWin ( )   Win condition when no bosses on map
 
+# lose ( )  called when all player ents die
 
 
 # newWorld({

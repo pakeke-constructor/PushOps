@@ -10,8 +10,15 @@ return function(x,y)
 
     --TODO:
     -- add an image for this
-    return Cyan.Entity()
-    :add("pos",math.vec3(x,y,0))
+    return EH.PV(Cyan.Entity(),x,y)
+    :add("_control_dummy", true) -- this entity does not count as a player
+    :add("hp", {
+        hp=0;max_hp=100
+    })
+    :add("speed",{
+        speed=0;
+        max_speed=0
+    })
     :add("control",{
         canPush = false;
         canPull = false;

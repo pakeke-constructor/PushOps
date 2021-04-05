@@ -29,19 +29,25 @@ return {
             Ents.wall
         };
 
+        ["1"] = {
+            max=0xff;
+            function(x,y)
+                local txt = EH.Ents.txt(x,y)
+                txt.text = "hello world"
+            end
+        };
+
+        ["2"] = {
+            max=0xff;
+            function(x,y)end
+        };
+
         ["t"] = {
             max=0xfff;
             function(x,y)
             ccall("spawnText", x, y, "push game")
         end};
 
-        ["@"] = {
-            max = 1,
-            function(x,y)
-                Ents.player(x,y)
-            end
-        },
-        
         ["e"] = {
             max = 200;
             function(x,y)

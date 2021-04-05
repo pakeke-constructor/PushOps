@@ -103,10 +103,10 @@ Each one of the worldType tables should be of the format :::
     voidWin = function(cam_x, cam_y) end -- no more enemies left
     ratioWin = function(cam_x, cam_y) end -- win by ration (see WinSys)
         -- these callbacks are invoked when
+    bossWin = function(cam_x, cam_y) end
 
     -- TODO: Make a default function for this!!!
-    deathLose = function(cam_x, cam_y) end -- when the player dies
-    abstractLose = function(cam_x, cam_y) end-- abstract lose condition
+    lose = function(cam_x, cam_y) end -- when the player dies
 
 }
 --[[

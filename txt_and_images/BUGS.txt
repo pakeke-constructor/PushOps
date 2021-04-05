@@ -3,9 +3,10 @@
 
 
 
+I think when portal does `ccall(apply, areaKillFunc)`, its killing the walls twice
+or something.... idk maybe not. 
+Either way its spawning wayyyy too many physics blocks. Fix that
 
-Objects that get lifted in the air have friction psys turned on permanently
-for some odd reason when they hit the ground
 
 
 

@@ -34,17 +34,8 @@ function DEBUG_SYS:keypressed(k)
 end
 
 
-local should_draw=true
-function DEBUG_SYS:drawEntity()
-    if should_draw then
-        love.graphics.draw(Atlas.image,-300,-10)
-        should_draw=false
-    end
-end
-
 
 function DEBUG_SYS:draw()
-    should_draw=true
     lg.setColor(1,1,1)
     lg.push()
     lg.reset()

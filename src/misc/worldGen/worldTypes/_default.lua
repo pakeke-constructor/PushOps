@@ -12,8 +12,29 @@ all iterations of basic_T1, basic_T2 etc.
 local Ents = require("src.entities")
 local rand = love.math.random
 
+local menu = require("src.misc.worldGen.menu")
+
+
+local function goToMenu()
+    ccall("purge")
+    ccall("newWorld",{
+        x=100,y=100,
+        tier = 1,
+        type = 'menu'
+    }, menu)
+end
+
 
 return {
+
+    lose = function( x, y )
+        -- wait a bit, then respawn player at menu
+        ccall("shockwave", x, y, 10, 700, 30, .57, {0.8,0.05,0.05})
+        ccall("spawnText", x, y, "rekt", 750,100)
+        ccall("await", goToMenu, 6)
+    end;
+
+    entities = {
     ["#"] = { -- For wall entity.
         max = 999999, --No max.
         Ents.wall
@@ -74,6 +95,7 @@ return {
         function(x,y)
             return Ents.player(x,y)
         end
+    }
     }
 }
 

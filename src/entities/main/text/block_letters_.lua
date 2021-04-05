@@ -10,7 +10,7 @@ Block letter entities
 local Ents = EH.Ents
 
 
-local letters = "aeghlmoprsuv"
+local letters = "aeghlmoprsuvkt"
 
 for i = 1, #letters do
     local c = letters:sub(i,i)
@@ -37,4 +37,7 @@ end
 -- We dont return anything here,
 -- letters are placed directly into EH.entities
 -- (I know, its weird.)
-return nil
+return function()
+    error("all_letters_.lua  => you werent supposed to instantiate this....")
+end
+
