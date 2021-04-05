@@ -5,6 +5,7 @@ local rand = love.math.random
 
 
 
+local TXT_COLOUR = {100/255, 85/255, 46/255, 0.5}
 
 return {
     type="menu";
@@ -33,13 +34,20 @@ return {
             max=0xff;
             function(x,y)
                 local txt = EH.Ents.txt(x,y)
-                txt.text = "hello world"
+                txt.text = " WASD\nto move"
+                txt.colour = TXT_COLOUR
+                txt.pos.z = -50
             end
         };
 
         ["2"] = {
             max=0xff;
-            function(x,y)end
+            function(x,y)
+                local txt = EH.Ents.txt(x,y)
+                txt.text = "Arrow keys\nto push\nand pull"
+                txt.colour = TXT_COLOUR
+                txt.pos.z = -50
+            end
         };
 
         ["t"] = {

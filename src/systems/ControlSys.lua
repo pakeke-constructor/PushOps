@@ -129,25 +129,25 @@ function ControlSys:update(dt)
         local dx = 0
         local dy = 0
 
-        if c.up then
+        if c.move_up then
             dy = -speed
         end
-        if c.down then
+        if c.move_down then
             dy = dy + speed
         end
-        if c.left then
+        if c.move_left then
             dx = -speed
         end
-        if c.right then
+        if c.move_right then
             dx = speed
         end
         ccall("addVel", ent, dx, dy)
 
         if c.zoomIn then
-            Camera.scale = max(Camera.scale * (1-dt), 1.5)
+            Camera.scale = min(Camera.scale * (1+dt), 3)
         end
         if c.zoomOut then
-            Camera.scale = min(Camera.scale * (1+dt), 3)
+            Camera.scale = max(Camera.scale * (1-dt), 1.5)
         end
     end
 end
@@ -240,10 +240,6 @@ end
 function ControlSys:keytap(key)
     for _, ent in ipairs(self.group) do
         local c = ent.control
-        if key == "t" then
-            local e=ent
-            ccall("emit", "rocks", e.pos.x, e.pos.y, e.pos.z, 2)
-        end
         if c[key] == 'push' then
             push(ent)
         elseif c[key] == 'pull' then

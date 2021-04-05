@@ -57,12 +57,6 @@ local function supdate(ent)
 end
 
 
-function TextSys:update(dt)
-    for _,v in ipairs(self.group)do
-        v.rot = (v.rot + dt*2)%(2*math.pi)
-    end
-end
-
 
 
 local default_bob = {value = 1, magnitude = 0, oy = 0}

@@ -82,14 +82,14 @@ return function(x,y)
     e:add("control",     {
         canPush = true;
         canPull = true;
-        w = 'up';
-        a = 'left';
-        s = 'down';
-        d = 'right';
-        k = 'push';
-        l = 'pull';
-        i="zoomIn";
-        j="zoomOut"
+        w = 'move_up';
+        a = 'move_left';
+        s = 'move_down';
+        d = 'move_right';
+        right = 'push';
+        left = 'pull';
+        up="zoomIn";
+        down="zoomOut"
     })
 
     e:add('light',{
