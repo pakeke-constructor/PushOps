@@ -101,8 +101,14 @@ return {
             max = 0xFFFFFFF;
             function(x,y)
                 local grass = Ents.grass
+                local stone = Ents.stone
                 for i=1, rand(8,9) do
                     grass(x + rand(-50, 50), y + rand(-50, 50))
+                end
+                if rand()<0.3 then
+                    for i=1, rand(2,3)do
+                        stone(x + rand(-10, 10), y + rand(-10, 10))                    
+                    end
                 end
             end
         };

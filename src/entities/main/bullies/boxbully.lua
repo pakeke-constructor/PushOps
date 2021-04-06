@@ -17,7 +17,7 @@ local BT = EH.BT
 local ccall = Cyan.call
 
 
-local BLOCK_NUM = 8
+local BLOCK_NUM = 5
 
 local MAX_BLOCK_ORBIT = 50
 local MIN_BLOCK_ORBIT = 40
