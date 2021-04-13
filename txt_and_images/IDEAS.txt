@@ -6,6 +6,11 @@ Maybe win condition for a level is to kill enough
 enemies. Once you kill enough of em, a portal opens
 
 
+Modify level generation such that enemy spawns are
+distributed throughout the level deliberately, and are
+placed a distance from the player spawn
+
+
 
 Add a character entity that has 3d (red-blue) sunglasses
 hahahah

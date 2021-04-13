@@ -55,6 +55,8 @@ return{
     GRASS_COLOUR = {0.1,1,0.2} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,
+    SPLAT_COLOUR = {1, 0.65, 0.2}
+,
     COLOURBLIND = false --==>>>  swaps blue-green
 ,
     DEVILBLIND  = false --==>>>  swaps red-green

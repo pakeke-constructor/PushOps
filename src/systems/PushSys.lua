@@ -233,7 +233,7 @@ function PushSys:moob(x, y, strength, distance)
                 -- the entity that enacted the force.
             local e_dis = dist(x-eX, y-eY)
 
-            this_strength = (AVERAGE_DT*strength*100) / e_dis;
+            this_strength = (AVERAGE_DT*strength*90) / e_dis;
 
             -- Will only push entities a certain distance away
             

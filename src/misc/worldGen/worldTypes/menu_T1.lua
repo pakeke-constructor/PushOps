@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.bigworm(x,y)
+                Ents.bigblob(x,y)
             end
         };
 

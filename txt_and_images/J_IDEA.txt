@@ -1,0 +1,43 @@
+
+Make it so `pull` can charge up, longer = stronger ??????
+(Maybe dont do this as it is less fun)
+
+
+Chain reaction of blocks that go around and destroy any close blocks.
+This discourages creating big groups that make player invincible
+
+
+Set a maximum number of blocks for each local area
+
+
+
+Extremely hard boss,
+put the first person who killed the boss in the game
+
+
+
+Minimap
+
+
+
+Explosive walls, bouncy walls
+
+
+Enemies that destroy blocks in certain radii
+
+
+Enemies that form a cacoon and constantly emit ccall("pull")
+    - 
+
+
+
+Trickblock only transforms into enemy when player pulls them
+
+
+
+Block letters fall down that tell you the zone
+
+
+
+Explosion and chaos ensue when you die
+

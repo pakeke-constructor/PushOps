@@ -50,7 +50,7 @@ Adds a sigil to ent
 Removes a sigil from an ent
 
 
-# emit ( emitter_type, x, y, z,  num_particles, colour={1,1,1} )
+# emit ( emitter_type, x, y, z,  num_particles )
 emits a burst of particles of `emitter_type` at x,y,z.
 types:  {  guts  beam  dust   smoke  }
 

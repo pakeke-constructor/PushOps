@@ -24,12 +24,8 @@ function DEBUG_SYS:keypressed(k)
     if k=='p' then
         CONSTANTS.paused = not CONSTANTS.paused
     end
-    if k=="b"then
-        local x,y = Tools.getCameraPos(cam)
-        ccall("shootbolt", x+20,y+20, -200,200)
-    end
-    if k=='u' then
-        ccall("animate", "tp_down", -10,-20, 40, 0.015, 1)
+    if k == "e" then
+        ccall("splat",cam.x, cam.y)
     end
 end
 

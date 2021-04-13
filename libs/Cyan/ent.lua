@@ -196,12 +196,12 @@ function Entity:remove( comp_name )
 
         @return self
     ]]
-    self[comp_name] = nil
-
     for i=1, comp_backrefs[comp_name].len do
         local sys = comp_backrefs[comp_name][i]
         sys:remove(self)
     end
+
+    self[comp_name] = nil
 
     demodmask(self, comp_name)
 
