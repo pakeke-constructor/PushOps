@@ -2,6 +2,10 @@
 --[[
     handles win conditions.
 
+NOTE: What actually happens when a win condition is invoked depends on
+the worldType!
+
+
 There are multiple win conditions that are emitted.
 
  * ccall( ratioWin ) 
@@ -88,7 +92,6 @@ local function checkWin(dt)
         if not ratioWinDone then
             ccall("ratioWin")-- yyeahhh baby
             ratioWinDone = true
-            print("RATIO WIN")
         end
     end
     if enemyCount <= 0 then

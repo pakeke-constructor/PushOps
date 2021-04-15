@@ -21,7 +21,7 @@ function _G.love.conf(t)
     t.audio.mic = false                 -- Request and use microphone capabilities in Android (boolean)
     t.audio.mixwithsystem = true        -- Keep background music playing when opening LOVE (boolean, iOS and Android only)
 
-    t.window.title = "SuperPush"         -- The window title (string)
+    t.window.title = "Push God"         -- The window title (string)
     t.window.icon = 'assets/icon.png'   -- Filepath to an image to use as the window's icon (string)
     t.window.width = 0                -- The window width (number)
     t.window.height = 0               -- The window height (number)

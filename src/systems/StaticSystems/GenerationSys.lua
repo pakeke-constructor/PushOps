@@ -386,12 +386,71 @@ local function addPlayer(worldMap)
         for y=rand(4,10), #worldMap[1] do
             if worldMap[x][y] ~= "%" and worldMap[x][y] ~= "#" then
                 worldMap[x][y] = "@"
-                return
+                return true
             end
         end
     end
 end
 
+
+
+local function isWall(worldMap, x, y)
+    return  ((worldMap[x][y] == "%") or (worldMap[x][y] == "#"))
+end
+
+local function 
+
+local function findEmpty(worldMap, X, Y)
+    if not isWall(worldMap, X, Y) then
+        return X, Y
+    end
+
+    n = 1
+
+    repeat
+        for x = -n, n do
+            for y=-n, n do
+                if ((y~=0) and (x~=0)) then
+                    if (not isWall(worldMap, X+x, Y+y)) and  then
+                        return X+x, Y+y
+                    end
+                end
+            end
+        end
+
+        n = n + 1
+    until false
+end
+
+
+local function addEnemies(worldMap, worldType)
+    --[[
+        plan: How is this gonna work???
+        
+        Get the amount, sqrt the total enemies, and step across the map
+        by each enemy count.
+        Place them accordingly.
+        Revoke the placement if the position is close to the player
+    ]]
+    local amount = worldType.enemies.n + math.floor(0.5+math.sin(6.3*rand()) * worldType.enemies.n_var)
+    local big_amount = worldType.enemies.bign + math.floor(0.5+math.sin(6.3*rand()) * worldType.enemies.bign_var)
+
+    local size = math.floor(math.sqrt(amount + big_amount))
+    assert(size)
+
+    width = #worldMap
+    assert(worldMap[1],'wattt????')
+    height = #worldMap[1]
+
+    for x = 1, size do
+        for y = 1, size do
+            local x_pos = math.floor((x / (size + 1)) * width)
+            local y_pos = math.floor((y / (size + 1)) * height)
+
+            if not 
+        end
+    end
+end
 
 
 local function procGenerateWorld(world, worldMap, worldType)
@@ -451,6 +510,7 @@ local function procGenerateWorld(world, worldMap, worldType)
     genStructures(worldMap, structureRule)
     makeWalls(worldMap)
     addPlayer(worldMap)
+    addEnemies(worldMap)
 end
 
 
@@ -495,10 +555,15 @@ function GenSys:newWorld(world, worldMap)
 end
 
 
+
 local cam = require("src.misc.unique.camera")
+
+
 
 -- lose condition
 function GenSys:lose()
+    local cam = require("src.misc.unique.camera")
+
     if world_tier and world_type then
         local wType = WorldTypes[world_type][world_tier]
         assert(wType.lose, "worldTypes must have a lose condition")
@@ -511,6 +576,8 @@ end
 -- these are pretty much all the same...
 do
     function GenSys:ratioWin()
+        local cam = require("src.misc.unique.camera")
+
         if (not StructureRules) or (not WorldTypes)then
             return -- This means that :newWorld hasnt been called yet.
             -- very bizzare situation... but oh well.
@@ -527,6 +594,8 @@ do
 
 
     function GenSys:voidWin()
+        local cam = require("src.misc.unique.camera")
+
         if (not StructureRules) or (not WorldTypes)then
             return -- This means that :newWorld hasnt been called yet.
             -- very bizzare situation... but oh well.
@@ -543,6 +612,8 @@ do
 
 
     function GenSys:bossWin()
+        local cam = require("src.misc.unique.camera")
+
         if (not StructureRules) or (not WorldTypes)then
             return -- This means that :newWorld hasnt been called yet.
             -- very bizzare situation... but oh well.
@@ -557,3 +628,5 @@ do
         end 
     end
 end
+
+

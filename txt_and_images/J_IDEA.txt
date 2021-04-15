@@ -5,6 +5,7 @@ Make it so `pull` can charge up, longer = stronger ??????
 
 Chain reaction of blocks that go around and destroy any close blocks.
 This discourages creating big groups that make player invincible
+DONE: SplatSys
 
 
 Set a maximum number of blocks for each local area
@@ -36,7 +37,7 @@ Trickblock only transforms into enemy when player pulls them
 
 
 Block letters fall down that tell you the zone
-
+Future oli here: YES!!! Good idea
 
 
 Explosion and chaos ensue when you die

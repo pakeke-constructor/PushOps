@@ -5,7 +5,7 @@ local rand = love.math.random
 
 
 
-local TXT_COLOUR = {100/255, 85/255, 46/255, 0.5}
+local TXT_COLOUR = {100/255, 85/255, 46/255, 0.52}
 
 return {
     type="menu";
@@ -21,7 +21,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.bigblob(x,y)
+                Ents.bigworm(x,y)
             end
         };
 
@@ -50,10 +50,20 @@ return {
             end
         };
 
+        ["3"] = {
+            max=2;
+            function(x,y)
+                local txt = EH.Ents.txt(x,y)
+                txt.text = "Kill enemies by\npushing blocks\ninto them!"
+                txt.colour = TXT_COLOUR
+                txt.pos.z = -50
+            end
+        };
+
         ["t"] = {
             max=0xfff;
             function(x,y)
-            ccall("spawnText", x, y, "push game")
+            ccall("spawnText", x, y, "push god")
         end};
 
         ["e"] = {

@@ -57,17 +57,11 @@ Each one of the worldType tables should be of the format :::
 
     entExclusionZones = nil -- See below! (allows ents to specify spawn radiuses away from each other)
     
-    PROBS = {
+    probs = {
             -- World generation:
             -- Probability of each character occuring.
             -- Each value is a weight and does not actually represent the probability.
             -- see `GenerationSys` for what character represents what.
-            ["e"] = 0.4;
-            ["E"] = 0.005;
-            ["r"] = 0.02; -- 0.02 weight chance of spawning on random tile.
-            ["R"] = 0.005;
-            ["u"] = 0.01;
-            ["U"] = 0.003;
             ["^"] = 0.8;
             ["l"] = 0.12;
             ["p"] = 0.3;
@@ -77,10 +71,13 @@ Each one of the worldType tables should be of the format :::
             -- Walls, shops, player spawn, and player exit are done uniquely.
     },
 
-
-    entExclusionZones = nil, -- Can modify this table also.
-                            -- See `defaultEntExclusionZones.lua`.
-
+    enemies = {
+        n = 10; -- spawn 10 'e's
+        n_var = 1; --   10 e's, +- 1.
+        
+        bign = 1; -- spawn 1 'E'.
+        bign_var = 1 -- 1 'E', +- 1.
+    }
 
     entities = {
     ["#"] = { -- Ctor for wall entity.
@@ -134,29 +131,4 @@ l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant
 
 ]]
 ```
-
-
-
-"Exclusion zone tables" are set up to ensure
-ents don't spawn too closely to each other.
-
-For example, we can set up an exclusion table to ensure enemies
-don't spawn around ["E"] spawn locations:
-see example:
-```lua
-exclusionZones = {
-    ["E"] = {
-        ["e"] = 1, -- exclusion radius 1
-        ["u"] = 1, -- exclusion radius 1
-        ["E"] = 3 -- exclusion radius 3.
-    };
-    -- Likewise, we can ensure large structures don't spawn
-    -- next to each other:
-    ["l"] = {
-        ["l"] = 1
-    }
-}
-```
-(please note that player spawn, walls, player exit, shop, etc are done 
-such that exclusion zones should not need to be used for those spawns)
 

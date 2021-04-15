@@ -10,7 +10,7 @@ Block letter entities
 local Ents = EH.Ents
 
 
-local letters = "aeghlmoprsuvkt"
+local letters = "adeghlmoprsuvkt"
 
 for i = 1, #letters do
     local c = letters:sub(i,i)
@@ -23,7 +23,7 @@ for i = 1, #letters do
     assert(image.quad,"fix")
 
     Ents[name] = function(x,y)
-        return EH.FR(EH.PHYS(EH.PV(Cyan.Entity(), x, y), 10))
+        return EH.FR(EH.PHYS(EH.PV(Cyan.Entity(), x, y), 10), 1.4)
         :add("image",image)
         :add("pushable",true)
     end

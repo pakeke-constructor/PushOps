@@ -32,12 +32,12 @@ end
 local PATH = Tools.Path(...)
 local basePsys = require(PATH.."._EH.basePsys")
 
-function EH.FR(e)
+function EH.FR(e, amount)
     --[[
         Standard friction component
     ]]
     return e:add("friction", {
-        amount = 6; -- The amount of friction given to this entity
+        amount = amount or 6; -- The amount of friction given to this entity
         emitter = basePsys:clone();
         required_vel = 10;
     })
