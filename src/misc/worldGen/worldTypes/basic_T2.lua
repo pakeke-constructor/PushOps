@@ -94,6 +94,11 @@ return {
     entExclusionZones = nil, -- Can modify this table also.
                             -- See `defaultEntExclusionZones.lua`.
 
+    enemies = {
+        n = 6;
+        bign = 3
+    };
+
     entities = {
     ["#"] = { -- For wall entity.
         max = 999999, --No max.

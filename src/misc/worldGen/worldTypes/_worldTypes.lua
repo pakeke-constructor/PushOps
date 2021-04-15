@@ -109,6 +109,8 @@ for _, wType in pairs(Auxiliary) do
     
     setmetatable(wType, worldType_mt)
     
+    assert(wType.enemies, ("enemy table not implimented in worldType: type: %s, tier: %s"):format(type, tier))
+
     if not wType.entExclusionZones then
         wType.entExclusionZones = defaultEntExclusionZones
     end

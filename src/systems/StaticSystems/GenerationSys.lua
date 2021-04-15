@@ -9,7 +9,7 @@ local DEFAULT_WALL_THRESHOLD = 0.7-- Noise (0->1) must be >=0.8 to form a wall
 -- Noise must be 0.1 lower than the DEFAULT_WALL_THRESHOLD in order
 -- to spawn an object on this location.
 -- This is done so objects don't spawn right next to walls.
-local DEFAULT_EDGE_THRESHOLD = 0.3
+local DEFAULT_EDGE_THRESHOLD = 0.6
 
 
 -- Frequency modifier of noise. 
@@ -91,12 +91,16 @@ end
 
 
 
-local function getChar(world, x, y, pick_function)
+local function getHeight(world, x, y)
+    assert(world.heightMap, "world table not given heightmap in worldgen")
+    return world.heightMap[x][y]
+end
+
+
+
+local function getChar(world, x, y, height, pick_function)
     -- height is a number between 0 -> 1
-    local height = getNoiseHeight(x, y, world.noise_offset_x, world.noise_offset_y)
-
     local wall_threshold = world.wall_threshold or DEFAULT_WALL_THRESHOLD
-
     local edge_threshold = world.edge_threshold or DEFAULT_EDGE_THRESHOLD
 
     if height > wall_threshold then
@@ -110,7 +114,7 @@ local function getChar(world, x, y, pick_function)
 end
 
 
-
+--[[
 local function charIsAllowed(worldMap, wType, X, Y, c)
     local xcl_z = wType.entExclusionZones
 
@@ -147,7 +151,7 @@ local function charIsAllowed(worldMap, wType, X, Y, c)
     end
     return true -- Yay, is allowed. Now lets test this mofo.
 end
-
+]]
 
 
 local function structureFits(worldMap, structure, wX, wY)
@@ -193,7 +197,9 @@ end
 
 
 
-local function removeUselessWalls(worldMap)
+local function removeUselessWalls(world)
+    local worldMap = world.worldMap
+
     for x = 2, #worldMap - 1 do
         for y = 2, #worldMap[1] - 1 do
             local chr = worldMap[x][y]
@@ -211,7 +217,10 @@ local function removeUselessWalls(worldMap)
 end
 
 
-local function genStructures(worldMap, structureRule)
+local function genStructures(world)
+    local worldMap = world.worldMap
+    local structureRule = world.structureRule
+
     local amount = love.math.random( structureRule.min_structures, structureRule.max_structures )
     
     local rand_x
@@ -288,7 +297,12 @@ end
 local er_missing_ents = "Missing entities table... what are you, stupid???????!! jk"
 local entCounter_mt = {__index = function() return 0 end}
 
-local function makeEnts(worldMap, worldType)
+local function makeEnts(world)
+    local worldMap = world.worldMap
+    local worldType = world.worldType
+    assert(worldMap, "world.worldMap does not exist")
+    assert(worldType, "world.worldType does not exist")
+
     local ents = worldType.entities
     assert(ents, er_missing_ents)
 
@@ -319,7 +333,8 @@ local function makeEnts(worldMap, worldType)
 end
 
 
-local function makeWalls(worldMap)
+local function makeWalls(world)
+    local worldMap = world.worldMap
     for _,ar in ipairs(worldMap) do
         table.insert(ar, "#")
         table.insert(ar, 1, "#")
@@ -338,11 +353,13 @@ local function makeWalls(worldMap)
 end
 
 
-local function genRequiredStructures(worldMap, structureRule)
+local function genRequiredStructures(world)
     do
         -- Need to do this function up
         return nil
     end
+    local worldMap = world.worldMap
+    local structureRule = world.structureRule
 
     local amount = love.math.random( structureRule.min_structures, structureRule.max_structures )
     
@@ -381,7 +398,9 @@ end
 
 
 
-local function addPlayer(worldMap)
+local function addPlayer(world)
+    local worldMap = world.worldMap
+    local heightMap = world.heightMap
     for x=rand(4,10), #worldMap do
         for y=rand(4,10), #worldMap[1] do
             if worldMap[x][y] ~= "%" and worldMap[x][y] ~= "#" then
@@ -394,24 +413,47 @@ end
 
 
 
-local function isWall(worldMap, x, y)
+local function isWall(world, x, y)
+    local worldMap = world.worldMap
     return  ((worldMap[x][y] == "%") or (worldMap[x][y] == "#"))
 end
 
-local function 
 
-local function findEmpty(worldMap, X, Y)
+
+local function isGoodFit(world, x, y)
+    --[[
+        returns whether the position is a fit
+        (i.e, whether it is within the bounds of the worldMap,
+        AND is greater than noise threshold)
+    ]]
+    local wall_threshold = world.wall_threshold or DEFAULT_WALL_THRESHOLD
+    local edge_threshold = world.edge_threshold or DEFAULT_EDGE_THRESHOLD
+
+    local is_within_border = (1 < x and x < world.x) and (1 < y and y < world.y)
+
+    local h = world.heightMap[x][y]
+    local good_noise = h < wall_threshold and h > edge_threshold
+
+    return is_within_border and good_noise and (not isWall(world, x, y))
+end
+
+
+
+local function findEmpty(world, X, Y)
+    local worldMap = world.worldMap
+    assert(worldMap, "world.worldMap is nil")
+
     if not isWall(worldMap, X, Y) then
         return X, Y
     end
 
-    n = 1
+    local n = 1
 
     repeat
         for x = -n, n do
             for y=-n, n do
                 if ((y~=0) and (x~=0)) then
-                    if (not isWall(worldMap, X+x, Y+y)) and  then
+                    if (not isWall(worldMap, X+x, Y+y)) then
                         return X+x, Y+y
                     end
                 end
@@ -422,8 +464,42 @@ local function findEmpty(worldMap, X, Y)
     until false
 end
 
+local function findGoodFit(world, X, Y)
+    local worldMap = world.worldMap
+    local heightMap = world.heightMap
+    local worldMap = world.worldMap
+    assert(heightMap, "what ??/ world.heightMap is nil ???")
+    
+    if isGoodFit(world, X, Y) then
+        return X, Y
+    end
 
-local function addEnemies(worldMap, worldType)
+    local n = 1
+    local done = {
+        -- 2d hasher with  N = 2*(10000 + x) * 3*(10000 + y)
+        -- we offset by 10000 so no collisions with negative numbers
+        
+        [2*(10000 + 0) * 3*(10000 + 0)] = true -- This is the hash for 0,0.
+        -- We dont want to search 0,0, so we add it to the `done` table
+    }
+
+    while 1 do
+        for x = -n, n do
+            for y=-n, n do
+                if not done[2*(10000+x) * 3*(10000+y)] then
+                    if (isGoodFit(world, X+x, Y+y)) then
+                        return X+x, Y+y
+                    end
+                    done[2*(10000+x) * 3*(10000+y)] = true
+                end
+            end
+        end
+
+        n = n + 1
+    end
+end
+
+local function addEnemies(world)
     --[[
         plan: How is this gonna work???
         
@@ -432,31 +508,54 @@ local function addEnemies(worldMap, worldType)
         Place them accordingly.
         Revoke the placement if the position is close to the player
     ]]
-    local amount = worldType.enemies.n + math.floor(0.5+math.sin(6.3*rand()) * worldType.enemies.n_var)
-    local big_amount = worldType.enemies.bign + math.floor(0.5+math.sin(6.3*rand()) * worldType.enemies.bign_var)
+    local worldMap = world.worldMap
+    local heightMap = world.heightMap
+    local worldType = world.worldType
+
+    local amount = worldType.enemies.n + math.floor(0.5+math.sin(6.3*rand()) * (worldType.enemies.n_var or 0))
+    local big_amount = worldType.enemies.bign + math.floor(0.5+math.sin(6.3*rand()) * (worldType.enemies.bign_var or 0))
 
     local size = math.floor(math.sqrt(amount + big_amount))
-    assert(size)
+    assert(size == size, "size is a nan. ohhh.. no")
 
-    width = #worldMap
+    local width = #worldMap
     assert(worldMap[1],'wattt????')
-    height = #worldMap[1]
+    local height = #worldMap[1]
 
     for x = 1, size do
         for y = 1, size do
             local x_pos = math.floor((x / (size + 1)) * width)
             local y_pos = math.floor((y / (size + 1)) * height)
 
-            if not 
+            local type
+            if rand() <= (amount / (big_amount + amount)) then
+                -- we choose small `e`.
+                type = "e"
+                amount = amount - 1
+            else
+                -- we choose big 'E'.
+                type = "E"
+                big_amount = big_amount - 1
+            end
+
+            x_pos, y_pos = findGoodFit(world, x_pos, y_pos)
+            worldMap[x_pos][y_pos] = type
         end
     end
 end
 
 
-local function procGenerateWorld(world, worldMap, worldType)
+
+
+local function procGenerateWorld(world)
     --[[
         generates world from scratch, according to the structureRule
     ]]
+    local worldMap = world.worldMap
+    local worldType = world.worldType
+    assert(world.worldMap, "worldMap not in world table")
+    assert(world.worldType, "worldType not in world table")
+
     local pick_function
     if worldType.probabilities then
         pick_function = weighted_selection(
@@ -475,22 +574,22 @@ local function procGenerateWorld(world, worldMap, worldType)
     local size_x = world.x
     local size_y = world.y
 
+    local heightMap = {}
+    for ii = 1, size_x do
+        heightMap[ii] = { }
+    end
+
     for X = 1, size_x do
         for Y = 1, size_y do
-            local c
-            repeat c = getChar(world, X, Y, pick_function)
-            until charIsAllowed(worldMap, worldType, X, Y, c)
+            local height = getNoiseHeight(X, Y, world.noise_offset_x, world.noise_offset_y)
+            heightMap[X][Y] = height
+            local c = getChar(world, X, Y, height, pick_function)
             worldMap[X][Y] = c
         end
     end
+    world.heightMap = heightMap
 
     local rule_id = worldType.structureRule
-
-    local default_structure_ids = {
-        [1] = "default_T1",
-        [2] = "default_T2",
-        [3] = "default_T3"
-    }
 
     local structureRule
     if rule_id then
@@ -499,27 +598,29 @@ local function procGenerateWorld(world, worldMap, worldType)
             error("invalid structureRule id :: "..rule_id)
         end
     else
-        local def_id = default_structure_ids[tier]
+        local def_id = "default_T" .. tostring(tier)
         structureRule = StructureRules[ def_id ]
         if not structureRule then
             error("Default structureRule for tier "..tostring(tier).." did not exist")
         end
     end
+    world.structureRule = structureRule
 
-    genRequiredStructures(worldMap, structureRule)
-    genStructures(worldMap, structureRule)
-    makeWalls(worldMap)
-    addPlayer(worldMap)
-    addEnemies(worldMap)
+    genRequiredStructures(world)
+    genStructures(world)
+    makeWalls(world)
+    local player_x, player_y = addPlayer(world)
+    addEnemies(world, player_x, player_y)
 end
 
 
-
-
--- callbacks here
-
 local world_type
 local world_tier
+
+
+-- ===>
+-- callbacks here
+-- ===>
 
 
 function GenSys:newWorld(world, worldMap)
@@ -537,14 +638,20 @@ function GenSys:newWorld(world, worldMap)
     assert(type, "world type was not given a type")
 
     local worldType = WorldTypes[type][tier]
+    world.worldType = worldType
+    assert(worldType, "HUH? worldTypes[type][tier] gave nil")
 
     if not worldMap then
+
         worldMap = setmetatable({ }, worldMap_mt)
-        procGenerateWorld(world, worldMap, worldType)
+        world.worldMap = worldMap
+        procGenerateWorld(world)
+    else
+        world.worldMap = worldMap
     end
 
-    removeUselessWalls(worldMap)
-    makeEnts(worldMap, worldType)
+    removeUselessWalls(world)
+    makeEnts(world)
 
     --[[ ]]
     for _,tab in ipairs(worldMap) do
@@ -555,78 +662,79 @@ function GenSys:newWorld(world, worldMap)
 end
 
 
-
-local cam = require("src.misc.unique.camera")
-
-
-
--- lose condition
-function GenSys:lose()
+-- Win and lose conditions
+do
     local cam = require("src.misc.unique.camera")
 
-    if world_tier and world_type then
-        local wType = WorldTypes[world_type][world_tier]
-        assert(wType.lose, "worldTypes must have a lose condition")
-        wType.lose(cam.x, cam.y)
+
+
+    -- lose condition
+    function GenSys:lose()
+        local cam = require("src.misc.unique.camera")
+
+        if world_tier and world_type then
+            local wType = WorldTypes[world_type][world_tier]
+            assert(wType.lose, "worldTypes must have a lose condition")
+            wType.lose(cam.x, cam.y)
+        end
     end
+
+
+    -- win condition callbacks.
+    -- these are pretty much all the same...
+    do
+        function GenSys:ratioWin()
+            local cam = require("src.misc.unique.camera")
+
+            if (not StructureRules) or (not WorldTypes)then
+                return -- This means that :newWorld hasnt been called yet.
+                -- very bizzare situation... but oh well.
+            end
+
+            if world_tier and world_type then
+                local worldType = WorldTypes[world_type][world_tier]
+                assert(worldType,"?? ")
+                if worldType.ratioWin then
+                    worldType.ratioWin(cam.x,cam.y)
+                end
+            end
+        end
+
+
+        function GenSys:voidWin()
+            local cam = require("src.misc.unique.camera")
+
+            if (not StructureRules) or (not WorldTypes)then
+                return -- This means that :newWorld hasnt been called yet.
+                -- very bizzare situation... but oh well.
+            end
+
+            if world_tier and world_type then
+                local worldType = WorldTypes[world_type][world_tier]
+                assert(worldType,"?? ")
+                if worldType.voidWin then
+                    worldType.voidWin(cam.x,cam.y)
+                end
+            end 
+        end
+
+
+        function GenSys:bossWin()
+            local cam = require("src.misc.unique.camera")
+
+            if (not StructureRules) or (not WorldTypes)then
+                return -- This means that :newWorld hasnt been called yet.
+                -- very bizzare situation... but oh well.
+            end
+
+            if world_tier and world_type then
+                local worldType = WorldTypes[world_type][world_tier]
+                assert(worldType,"?? ")
+                if worldType.bossWin then
+                    worldType.bossWin(cam.x,cam.y)
+                end
+            end 
+        end
+    end
+
 end
-
-
--- win condition callbacks.
--- these are pretty much all the same...
-do
-    function GenSys:ratioWin()
-        local cam = require("src.misc.unique.camera")
-
-        if (not StructureRules) or (not WorldTypes)then
-            return -- This means that :newWorld hasnt been called yet.
-            -- very bizzare situation... but oh well.
-        end
-
-        if world_tier and world_type then
-            local worldType = WorldTypes[world_type][world_tier]
-            assert(worldType,"?? ")
-            if worldType.ratioWin then
-                worldType.ratioWin(cam.x,cam.y)
-            end
-        end
-    end
-
-
-    function GenSys:voidWin()
-        local cam = require("src.misc.unique.camera")
-
-        if (not StructureRules) or (not WorldTypes)then
-            return -- This means that :newWorld hasnt been called yet.
-            -- very bizzare situation... but oh well.
-        end
-
-        if world_tier and world_type then
-            local worldType = WorldTypes[world_type][world_tier]
-            assert(worldType,"?? ")
-            if worldType.voidWin then
-                worldType.voidWin(cam.x,cam.y)
-            end
-        end 
-    end
-
-
-    function GenSys:bossWin()
-        local cam = require("src.misc.unique.camera")
-
-        if (not StructureRules) or (not WorldTypes)then
-            return -- This means that :newWorld hasnt been called yet.
-            -- very bizzare situation... but oh well.
-        end
-
-        if world_tier and world_type then
-            local worldType = WorldTypes[world_type][world_tier]
-            assert(worldType,"?? ")
-            if worldType.bossWin then
-                worldType.bossWin(cam.x,cam.y)
-            end
-        end 
-    end
-end
-
-

@@ -116,8 +116,13 @@ return {
     }, -- Can modify the char probabilities by setting
                         -- this to a table. 
 
-    entExclusionZones = nil, -- Can modify this table also.
-                            -- See `defaultEntExclusionZones.lua`.
+    enemies = {
+        n = 6;
+        n_var = 1;
+
+        bign = 1;
+        bign_var = 0
+    };
 
     ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)

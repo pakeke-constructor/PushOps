@@ -11,6 +11,11 @@ return {
     type="menu";
     tier = 1;
 
+    enemies = {
+        n=0;
+        bign=0
+    };
+
     entities = {
 
         ["X"] = {
