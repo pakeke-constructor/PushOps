@@ -94,7 +94,7 @@ return function(x,y)
 
     e:add('light',{
           colour = {1,1,1,1};
-          distance = 30
+          distance = 5
     })
 
     :add("sigils", {"strength"})

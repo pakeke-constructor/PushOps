@@ -46,10 +46,10 @@ return{
 ,
     paused = false  -- debug only  (if not debug only, make an cyan.call event for this)
 ,
-    GRASS_COLOUR = {0.1,1,0.2} -- colour of ground grass    
+    GRASS_COLOUR = {0.4,1,0.5} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,
-    SPLAT_COLOUR = {1, 0.65, 0.2}
+    SPLAT_COLOUR = {255/255, 241/255, 16/255}
 ,
     COLOURBLIND = false --==>>>  swaps blue-green
 ,

@@ -100,12 +100,6 @@ return {
             -- Probability of each character occuring.
             -- Each value is a weight and does not actually represent the probability.
             -- see `GenerationSys` for what character represents what.
-            ["e"] = 0.4;
-            ["E"] = 0.005;
-            ["r"] = 0.02; -- 0.02 weight chance of spawning on random tile.
-            ["R"] = 0.005;
-            ["u"] = 0.01;
-            ["U"] = 0.003;
             ["^"] = 0.8;
             ["l"] = 0.12;
             ["p"] = 0.3;
@@ -117,7 +111,7 @@ return {
                         -- this to a table. 
 
     enemies = {
-        n = 6;
+        n = 10;
         n_var = 1;
 
         bign = 1;
@@ -152,7 +146,9 @@ return {
 
     ["E"] = {
         max = 10;
-        bigEnemySpawns
+        function(x,y)
+            bigEnemySpawns()(x,y)
+        end
     };
 
 

@@ -26,7 +26,7 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.bigworm(x,y)
+                Ents.splatenemy(x,y)
             end
         };
 

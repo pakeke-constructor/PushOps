@@ -1,7 +1,6 @@
 
 
 
-
 local enemy_shape = love.physics.newCircleShape(8)
 
 local atlas = require "assets.atlas"
@@ -25,16 +24,31 @@ psys:setOffset(pW/2, pH/2)
 
 
 
-local motion_down = { Quads.enemy_down_1, Quads.enemy_down_2, Quads.enemy_down_3, Quads.enemy_down_4 }
-local motion_up = { Quads.enemy_up_1, Quads.enemy_up_2, Quads.enemy_up_3, Quads.enemy_up_4 }
-local motion_left = { Quads.enemy_left_1, Quads.enemy_left_2, Quads.enemy_left_3, Quads.enemy_left_4 }
-local motion_right = { Quads.enemy_right_1, Quads.enemy_right_2, Quads.enemy_right_3, Quads.enemy_right_4 }
+local down = {}
+local up = {}
+local left = {}
+local right = {}
+
+local order = {1,2,1,4}
+
+local ti = table.insert
+local im = "spotted_enemy_"
+
+for _,i in ipairs(order)do
+    ti(up, Quads[im.."up_"..tostring(i)])
+end
+
+for _,i in ipairs(order)do
+    ti(left, Quads[im.."left_"..tostring(i)])
+end
+for _,i in ipairs(order)do
+    ti(right, Quads[im.."right_"..tostring(i)])
+end
+for i=1,4 do
+    ti(down, Quads[im.."down_"..tostring(i)])
+end
 
 
-
-local COLOUR={
-    0.8,1,0.8
-}
 
 
 local ccall = Cyan.call
@@ -45,7 +59,8 @@ local r = love.math.random
 local onDeath = function(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(2,4))
-    ccall("emit", 'dust', e.pos.x,e.pos.y,e.pos.z, 9)
+    ccall("emit", 'dust', p.x, p.y, p.z, 9)
+    ccall("splat", p.x, p.y, 70)
     EH.TOK(e,r(1,2))
 end
 
@@ -104,12 +119,6 @@ return function(x,y)
     :add("hp", {hp = 100, max_hp = 100})
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
 
-    if r() < 0.3 then
-        enemy:add("sigils",{"poison"})
-        enemy.speed.max_speed = 300
-        enemy.speed.speed = 210
-    end
-
     enemy
     :add("strength", 40)
 
@@ -118,7 +127,7 @@ return function(x,y)
         body  = "dynamic"
     })
 
-    :add("colour", COLOUR)
+    :add("colour", CONSTANTS.SPLAT_COLOUR)
 
     :add("bobbing", {magnitude = 0.25 , value = 0})
     
@@ -147,17 +156,12 @@ return function(x,y)
         physics = physColFunc
     })
 
-    :add('light',{
-        colour = {-0.14, -0.14, -0.14,1};
-        distance = 20
-    })
-
     enemy:add("motion",
     {
-        up = motion_up;
-        down = motion_down;
-        left = motion_left;
-        right = motion_right;
+        up = up;
+        down = down;
+        left = left;
+        right = right;
 
         current = 0;
         interval = 0.1;

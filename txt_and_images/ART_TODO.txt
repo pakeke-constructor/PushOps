@@ -1,0 +1,21 @@
+
+
+
+Change outline colours to a softer colour,
+i.e. a dark brown or dark purple
+
+
+
+
+Fix the clash of perspectives
+    - go for enter the gungeon style
+
+
+
+
+Pixelart trick:
+    - paint
+    - downsample
+    - index
+    - cleanup
+

@@ -163,6 +163,9 @@ removes a buff
 
 
 
+# splat ( x, y, range )
+Creates a splat infection that destroys physics blocks. See `SplatSys`.
+
 
 # shoot ( x, y, vx, vy )
 Shoots a bullet in a direction

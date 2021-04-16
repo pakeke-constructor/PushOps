@@ -9,7 +9,7 @@ local DEFAULT_WALL_THRESHOLD = 0.7-- Noise (0->1) must be >=0.8 to form a wall
 -- Noise must be 0.1 lower than the DEFAULT_WALL_THRESHOLD in order
 -- to spawn an object on this location.
 -- This is done so objects don't spawn right next to walls.
-local DEFAULT_EDGE_THRESHOLD = 0.6
+local DEFAULT_EDGE_THRESHOLD = 0.2
 
 
 -- Frequency modifier of noise. 
@@ -397,22 +397,6 @@ end
 
 
 
-
-local function addPlayer(world)
-    local worldMap = world.worldMap
-    local heightMap = world.heightMap
-    for x=rand(4,10), #worldMap do
-        for y=rand(4,10), #worldMap[1] do
-            if worldMap[x][y] ~= "%" and worldMap[x][y] ~= "#" then
-                worldMap[x][y] = "@"
-                return true
-            end
-        end
-    end
-end
-
-
-
 local function isWall(world, x, y)
     local worldMap = world.worldMap
     return  ((worldMap[x][y] == "%") or (worldMap[x][y] == "#"))
@@ -439,6 +423,27 @@ end
 
 
 
+
+local function addPlayer(world)
+    local worldMap = world.worldMap
+    local heightMap = world.heightMap
+    assert(#worldMap > 16 and #worldMap[1] > 16,
+    "worldMap too small, this is too risky to spawn player in reliably.")
+    for x = rand(4, 10), #worldMap do
+        for y = rand(4, 10), #worldMap[1] do
+            if isGoodFit(world, x, y) then
+                worldMap[x][y] = "@"
+                return x,y
+            end
+        end
+    end
+    error("player failed to generate in (this should never happen)")
+end
+
+
+
+
+
 local function findEmpty(world, X, Y)
     local worldMap = world.worldMap
     assert(worldMap, "world.worldMap is nil")
@@ -458,6 +463,10 @@ local function findEmpty(world, X, Y)
                     end
                 end
             end
+        end
+
+        if n > 30 then
+            return false -- lookup failed
         end
 
         n = n + 1
@@ -495,11 +504,15 @@ local function findGoodFit(world, X, Y)
             end
         end
 
+        if n > 30 then
+            return false -- lookup failed
+        end
+
         n = n + 1
     end
 end
 
-local function addEnemies(world)
+local function addEnemies(world, player_x, player_y)
     --[[
         plan: How is this gonna work???
         
@@ -511,6 +524,7 @@ local function addEnemies(world)
     local worldMap = world.worldMap
     local heightMap = world.heightMap
     local worldType = world.worldType
+    local dist = Tools.dist
 
     local amount = worldType.enemies.n + math.floor(0.5+math.sin(6.3*rand()) * (worldType.enemies.n_var or 0))
     local big_amount = worldType.enemies.bign + math.floor(0.5+math.sin(6.3*rand()) * (worldType.enemies.bign_var or 0))
@@ -539,7 +553,9 @@ local function addEnemies(world)
             end
 
             x_pos, y_pos = findGoodFit(world, x_pos, y_pos)
-            worldMap[x_pos][y_pos] = type
+            if x_pos and dist(player_x - x_pos, player_y - y_pos) > 4 then
+                worldMap[x_pos][y_pos] = type
+            end
         end
     end
 end

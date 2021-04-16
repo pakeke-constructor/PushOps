@@ -28,6 +28,9 @@ function MotionSys:added(ent)
     assert(#motion.down == len, "Inconsistent animation lengths for motion comp")
     assert(#motion.left == len, "Inconsistent animation lengths for motion comp")
     assert(#motion.right == len, "Inconsistent animation lengths for motion comp")
+    assert(motion.current, "ent motion comp not given current var")
+    assert(motion.interval, "not given a field")
+    assert(motion.required_vel, "not given a field")
 
     local _,_, w,h = motion.up[1]:getViewport( )
 

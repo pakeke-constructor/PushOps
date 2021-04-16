@@ -117,7 +117,9 @@ return {
 
     ["E"] = {
         max = 6;
-        bigEnemySpawns
+        function(x,y)
+            bigEnemySpawns()(x,y)
+        end
     };
 
     ["p"] = {

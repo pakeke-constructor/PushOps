@@ -158,7 +158,7 @@ local draw_master = function()
     setFont(font)
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
-    lg.rectangle("fill", 0,0, 9000,5000)
+    lg.rectangle("fill", -10000,-10000, 20000,20000)
 
     setColor(1,1,1)
 

@@ -10,10 +10,10 @@ Tools.set = require "libs.tools.sets"
 
 local rand = love.math.random
 local floor = math.floor
-
+local sqrt = math.sqrt
 
 Tools.dist = function(x, y)
-    return (x^2 + y^2)^0.5
+    return sqrt(x*x + y*y)
 end
 
 Tools.edist = function(e1, e2)
