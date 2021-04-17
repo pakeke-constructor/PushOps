@@ -54,7 +54,7 @@ return function(x, y)
         down=down;
         left=left;
         right=right;
-        curret=0;
+        current=0;
         interval=0.11;
         required_vel=1
     }

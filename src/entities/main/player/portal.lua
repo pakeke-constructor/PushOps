@@ -12,7 +12,7 @@ local RING_DISTANCE = 14
 local PORTAL_DISTANCE = 70
 local COLOUR = {0.8,1,0.8}
 
-local OZ = -30
+local OZ = -25
 
 
 --[[
@@ -57,9 +57,10 @@ local function update(e, dt)
         end
         ring._cur_portal_period = ring._cur_portal_period + dt * RING_ROT_SPEED
         local p = ring.pos
-        local ox, oy = e.pos.x, e.pos.y
+        local ox, oy = e.pos.x, e.pos.y - 40
         local new_x = ox + RING_DISTANCE * sin(ring._cur_portal_period)
         local new_y = oy + RING_DISTANCE * cos(ring._cur_portal_period)
+        ring.pos.z = e.pos.z - 80
         ccall("setPos", ring, new_x, new_y)
     end
 end
@@ -92,8 +93,11 @@ return function(x, y)
         table.insert(e.portalRings, portalRing((i-1) * (math.pi*2)/3))
     end
 
+    e.rot = 0
+    e.avel = 0.007
     e:add("image",portal_image)
-    EH.PV(e,x,y,OZ)
+    e:add("pos", math.vec3(x,y,OZ))
+
     e.targetID = "interact"
 
     e.size = PORTAL_DISTANCE

@@ -21,7 +21,7 @@ local SPLAT_TIME = 0.2
 local SPLAT_TIME_VAR = 0.15
 
 
-local DEFAULT_SPLAT_DIST = 35
+local DEFAULT_SPLAT_DIST = 70
 
 
 local PartitionTargets = require("src.misc.unique.partition_targets")
@@ -30,6 +30,7 @@ local PhysPartition = PartitionTargets.physics
 assert(PhysPartition, "problem, housten")
 
 local dist = Tools.dist
+local ccall = Cyan.call
 
 
 local SPLAT_COLOUR = CONSTANTS.SPLAT_COLOUR-- Change this if you want
@@ -40,9 +41,10 @@ local SplatSys = Cyan.System()
 
 
 
+
 local function endSplat(ent)
     -- TODO: play a sound here
-    ccall("emit", "splat", ent.pos.x, ent.pos.y, ent.pos.z, 22)
+    ccall("emit", "splat", ent.pos.x, ent.pos.y, ent.pos.z, 16)
     ccall("splat", ent.pos.x, ent.pos.y, nil)
     ccall("kill",ent)
 end
@@ -60,7 +62,8 @@ local function splat(ent)
 
     ent.splatted = true
     
-    ent:remove("targetID") -- this physics obj is gonna die anyway
+    ent:remove("targetID") -- this physics obj is gonna die anyway.
+    -- we can save some time in the loop by removing from phys partition
 
     -- TODO: play a sound here too
 

@@ -13,8 +13,7 @@ But how to store the data...? Not sure. Definitely use targetID tho
 local DetectSys = Cyan.System("pos", "collisions")
 
 
-local Partitions = require("src.misc.unique.partition_targets") 
-
+local PartitionTargets = require("src.misc.unique.partition_targets") 
 
 
 
@@ -29,6 +28,9 @@ function DetectSys:added(e)
         local targets = { }
 
         for k,v in pairs(e.collisions.area) do
+            if not PartitionTargets[k] then
+                error("Misuse of e.collisions component. See components.md")
+            end
             table.insert(targets, k)
         end
 
@@ -73,7 +75,10 @@ local function S_update(e, dt)
 
     if collisions.areaTargets then
         for _, targetID in ipairs(collisions.areaTargets)do
-            for col_ent in Partitions[targetID]:iter(pos.x, pos.y) do
+            if not PartitionTargets[targetID] then
+                error("unknown target ID:  " .. tostring(targetID))
+            end
+            for col_ent in PartitionTargets[targetID]:iter(pos.x, pos.y) do
                 
                 if not(col_ent == e) then
                 -- Ent shouldn't interact with itself

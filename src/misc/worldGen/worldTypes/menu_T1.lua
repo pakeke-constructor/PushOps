@@ -26,7 +26,23 @@ return {
             ]]
             max = 0xfffff;
             function(x,y)
-                Ents.splatenemy(x,y)
+                local len = 0
+                local ee = getmetatable(EH.Ents).__index
+                for i,v in pairs(ee) do
+                    len = len + 1
+                end
+                local ii = 0
+                for i,v in pairs(ee) do
+                    ii = ii + 1
+                    if i ~= "wormheart" and i:sub(-1,-1)~="_" and i~="dead" then
+                        local u = pcall(function()
+                        v( x + (ii-len/2)*10, y + (ii - len/2)*10 )
+                        end)
+                        if not u then
+                            print(i)
+                        end
+                    end
+                end
             end
         };
 

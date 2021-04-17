@@ -16,13 +16,11 @@ in order to keep coding entities fast and easy and concise.
 local rand=love.math.random
 
 local vec3=math.vec3
+
 function EH.PV(e,x,y,z)
     -- position : velocity comp adding/
-    e:add("pos",vec3(x,y,0))
+    e:add("pos",vec3(x,y,z or 0))
      :add("vel",vec3(0,0,0))
-    if z then
-       e.pos.z = z
-    end
 
     return e
 end
