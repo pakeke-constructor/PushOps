@@ -51,23 +51,25 @@ end
 
 
 local rand = love.math.random
+local WHITE = {1,1,1,1}
+
 
 local function splat(ent)
     -- splats an ent
 
-    if ent.splatted then
-        -- its already been done
+    if ent.splatImmune then
+        -- its already been splatted
         return
     end
 
-    ent.splatted = true
-    
+    ent.splatImmune = true
+
     ent:remove("targetID") -- this physics obj is gonna die anyway.
     -- we can save some time in the loop by removing from phys partition
 
     -- TODO: play a sound here too
 
-    local colour = ent.colour
+    local colour = ent.colour or WHITE
     ent.colour = {colour[1] * SPLAT_COLOUR[1],
                   colour[2] * SPLAT_COLOUR[2],
                   colour[3] * SPLAT_COLOUR[3]}

@@ -26,6 +26,7 @@ for i = 1, #letters do
         return EH.FR(EH.PHYS(EH.PV(Cyan.Entity(), x, y), 10), 1.4)
         :add("image",image)
         :add("pushable",true)
+        :add("targetID", "physics")
     end
 end
 

@@ -28,6 +28,7 @@ local BIND_COLOUR = {0.6, 0.03, 0.08, 0.2}
 
 local N_BINDINGS = 5
 
+local WIDTH = 5 -- width of binding lines
 
 
 
@@ -35,6 +36,7 @@ local spd_cmp = {
     speed = 80;
     max_speed = 90
 }
+
 
 
 local function physColFunc(e1, e2, speed)
@@ -48,17 +50,22 @@ end
 local drawLine = love.graphics.line
 local setColour = love.graphics.setColor
 local getColour = love.graphics.getColor
+local getLineWidth = love.graphics.getLineWidth
+local setLineWidth = love.graphics.setLineWidth
 
 
 local function onDraw(ent)
     local r,g,b,a = getColour()
     setColour(BIND_COLOUR)
+    local old_width = getLineWidth()
+    setLineWidth(WIDTH)
     for _,node in ipairs(ent._bound_nodes) do
         local n_pos = node.pos
         if not node.hidden then
             drawLine(ent.pos.x, ent.pos.y - ent.pos.z/2, n_pos.x, n_pos.y - n_pos.z/2)
         end
     end
+    setLineWidth(old_width)
     setColour(r,g,b,a)
 end
 

@@ -15,6 +15,7 @@ local Quads = Atlas.Quads
 local EH = EH
 local BT = EH.BT
 local ccall = Cyan.call
+local cexists = Cyan.exists
 
 
 local BLOCK_NUM = 5
@@ -84,8 +85,15 @@ local function update(e,dt)
 
     e._t = (e._t + dt*ORBIT_SPEED)%(2*math.pi)
 
+    for i=e._block_num, 1 do
+        if not cexists(e.orbiting_blocks[i]) then
+            e.orbiting_blocks[i] = nil
+            e._block_num = e._block_num - 1  
+        end
+    end
+
     for i,bl in ipairs(e.orbiting_blocks) do
-        local offset = (i*2*math.pi)/BLOCK_NUM
+        local offset = (i*2*math.pi)/e._block_num
         local tick = e._t + offset
         ccall("setPos", bl, ex + od*sin(tick), ey + od*cos(tick))
     end
@@ -95,6 +103,7 @@ end
 local function onDeath(e)
     for _,bl in ipairs(e.orbiting_blocks) do
         bl.pushable = true
+        bl.splatImmune = false
     end
 end
 
@@ -106,9 +115,13 @@ return function(x, y)
 
     e.orbiting_blocks = {}
 
-    for i=1, BLOCK_NUM do
+    e._block_num = math.floor(BLOCK_NUM + r()*2)
+
+    for i=1, e._block_num do
         local bl = EH.Ents.block(x,y)
         bl.pushable = false
+        bl.splatImmune = true -- Immune to splats
+
         table.insert(e.orbiting_blocks, bl)
     end
 

@@ -106,14 +106,20 @@ Each one of the worldType tables should be of the format :::
     lose = function(cam_x, cam_y) end -- when the player dies
 
 }
+
 --[[
 
-World map will be encoded by a 2d array of characters.
+World map will be encoded by a 2d array of characters. (strings)
 Capital version of any character stands for "spawn multiple."
 
-.  :  nothing (empty space)
+If brackets are used, that means "spawn everything inside the brackets."
+i.e. '(pqe)' means spawn physics object, spiky object, and enemy
 
+
+.  :  nothing (empty space)
 #  :  wall
+%  :  An invincible wall
+~  :  A decoration entity to be placed outside border
 e  :  enemy spawn
 r  :  rare enemy spawn
 u  :  unique enemy spawn (i.e. crowd control enemy, enemies that are bad solo)
@@ -122,7 +128,7 @@ n  :  neutral mob spawn
 $  :  shop (add this at the end)
 c  :  coin (add this at the end)
 @  :  player spawn
-&  :  exit level / next level
+&  :  portal
 p  :  physics object
 q :  spiky physics object (damages player upon hit)
 ^  :  decoration area (grass, nice ground texture, etc)
@@ -130,5 +136,7 @@ l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant
 *  :  collectable artefact / trophy!!
 
 ]]
+
+
 ```
 

@@ -29,7 +29,8 @@ i.e. '(pqe)' means spawn physics object, spiky object, and enemy
 
 #  :  wall
 
-%  :  A wall used to be here but was not important (surrounded by other walls) (aka high wall)
+%  :  An invincible wall
+~  :  A decoration entity to be placed outside border
 
 e  :  enemy spawn
 r  :  rare enemy spawn
@@ -196,27 +197,6 @@ local function isSurroundedByWalls(worldMap, X, Y)
 end
 
 
-
-local function removeUselessWalls(world)
-    local worldMap = world.worldMap
-
-    for x = 2, #worldMap - 1 do
-        for y = 2, #worldMap[1] - 1 do
-            local chr = worldMap[x][y]
-
-            if isSurroundedByWalls(worldMap, x, y) then
-                if chr == "#" then
-                    worldMap[x][y] = "%" -- % denotes a blocked wall.
-                else
-                    worldMap[x][y] = "."
-                end
-            end
-        end
-    end
-
-end
-
-
 local function genStructures(world)
     local worldMap = world.worldMap
     local structureRule = world.structureRule
@@ -339,13 +319,13 @@ local function makeWalls(world)
         table.insert(ar, "#")
         table.insert(ar, 1, "#")
     end
-    
+
     local q1 = {}
     local q2 = {}
 
     for i=1, #worldMap[1] do
-        table.insert(q1, "#")
-        table.insert(q2, "#")
+        table.insert(q1, "%")
+        table.insert(q2, "%")
     end
 
     table.insert(worldMap, 1, q1)
@@ -666,7 +646,6 @@ function GenSys:newWorld(world, worldMap)
         world.worldMap = worldMap
     end
 
-    removeUselessWalls(world)
     makeEnts(world)
 
     --[[ ]]
