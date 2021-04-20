@@ -10,13 +10,13 @@ local rand = love.math.random
 
 
 
-local DEFAULT_SPEED = 80
-local DEFAULT_MAX_SPEED = 90
+local DEFAULT_SPEED = 360
+local DEFAULT_MAX_SPEED = 400
 
-local CHARGE_SPEED = 250
-local CHARGE_MAX_SPEED = 400
+local CHARGE_SPEED = 1000
+local CHARGE_MAX_SPEED = 1100
 
-local CHARGE_TIME = 1.35
+local CHARGE_TIME = 1.5
 
 
 local COLOUR={0.6,1,0.6}
@@ -188,13 +188,15 @@ return function(x, y)
 
     e.targetID = "enemy"
 
-    EH.PHYS(e,7,"dynamic")
+    EH.PHYS(e,14,"dynamic")
 
     e:add("friction", {
         amount = 6;
         emitter = psys:clone();
         required_vel = 10;
     })
+
+    :add("sigils", {"poison"})
 
     e.collisions = {
         physics = physColFunc

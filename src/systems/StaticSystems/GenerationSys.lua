@@ -110,7 +110,7 @@ local function getChar(world, x, y, height, pick_function)
         -- could be anything! (within pick function constriction bounds)
         return pick_function()
     else
-        return "."
+        return " "
     end
 end
 
@@ -316,20 +316,33 @@ end
 local function makeWalls(world)
     local worldMap = world.worldMap
     for _,ar in ipairs(worldMap) do
-        table.insert(ar, "#")
-        table.insert(ar, 1, "#")
+        table.insert(ar, "~")
+        table.insert(ar, 1, "~")
     end
 
     local q1 = {}
     local q2 = {}
 
     for i=1, #worldMap[1] do
-        table.insert(q1, "%")
-        table.insert(q2, "%")
+        table.insert(q1, "~")
+        table.insert(q2, "~")
     end
 
     table.insert(worldMap, 1, q1)
     table.insert(worldMap, q2)
+
+    local xlen = #worldMap
+    local ylen = #worldMap[1]
+
+    for xx=2, #worldMap-1 do
+        worldMap[xx][2] = "%"
+        worldMap[xx][ylen-1] = "%"  
+    end
+
+    for yy=2, #worldMap[1]-1 do
+        worldMap[2][yy] = "%"
+        worldMap[xlen-1][yy] = "%"
+    end
 end
 
 
@@ -409,8 +422,8 @@ local function addPlayer(world)
     local heightMap = world.heightMap
     assert(#worldMap > 16 and #worldMap[1] > 16,
     "worldMap too small, this is too risky to spawn player in reliably.")
-    for x = rand(4, 10), #worldMap do
-        for y = rand(4, 10), #worldMap[1] do
+    for x = rand(5, 10), #worldMap do
+        for y = rand(5, 10), #worldMap[1] do
             if isGoodFit(world, x, y) then
                 worldMap[x][y] = "@"
                 return x,y

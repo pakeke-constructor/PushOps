@@ -60,6 +60,8 @@ local function update(e, dt)
         local ox, oy = e.pos.x, e.pos.y - 40
         local new_x = ox + RING_DISTANCE * sin(ring._cur_portal_period)
         local new_y = oy + RING_DISTANCE * cos(ring._cur_portal_period)
+        assert(new_x==new_x, "nan spotted")
+        assert(new_y==new_y, "nan spotted")
         ring.pos.z = e.pos.z - 80
         ccall("setPos", ring, new_x, new_y)
     end

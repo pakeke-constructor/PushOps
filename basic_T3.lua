@@ -1,4 +1,5 @@
 
+
 --[[
 
 TYPE :: 'basic'
@@ -46,51 +47,25 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.devil]    = 0.4;
-    [Ents.enemy]    = 0.2;
-    [Ents.cmallow]  = 0.2;
-    [Ents.boxenemy] = 0.2;
-   [Ents.splatenemy]= 0.2;
-    [Ents.blob]     = 0.15;
-    [Ents.boxblob]  = 0.2;
-    [Ents.boxbully] = 0.05;
+    [Ents.devil]     = 0.4;
+    [Ents.demon]     = 0.2;
+    [Ents.enemy]     = 0.2;
+    [Ents.boxenemy]  = 0.2;
+    [Ents.splatenemy]= 0.2;
+    [Ents.boxblob]   = 0.05;
+    [Ents.boxbully]  = 0.05;
 }
 
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.bully] = 1
+    [Ents.boxbully] = 1
 }
-
-
-
-
-local purge_fn = function(e, cam_x, cam_y)
-    -- called at end of level to clear enemies and walls.
-    -- (Passed in as a param to `ccall(apply, .)`  ).
-    if (e.targetID ~= "player")
-    and (Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160) then
-        ccall("damage",e,0xffff)
-    end
-end
-
-
-local function spawn_portal(x, y)
-    local portal = EH.Ents.portal(x, y)
-    portal.portalDestination = {
-        x = 30;
-        y = 30;
-        tier = 2;
-        type="basic"
-    }
-end
-
-
 
 
 return {
     type = 'basic',
-    tier = 2,
+    tier = 3,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
@@ -123,16 +98,6 @@ return {
         n = 6;
         bign = 3
     };
-
-    ratioWin = function(cam_x, cam_y)
-        ccall("apply", purge_fn, cam_x, cam_y)
-        ccall("await", spawn_portal, 1.5, cam_x, cam_y)
-        --[[
-        TODO:
-        play sounds and stuff here. Like, a gong would be cool.
-        have a shockwave also, that would be cool
-        ]]
-    end;
 
     entities = {
     ["#"] = { -- For wall entity.

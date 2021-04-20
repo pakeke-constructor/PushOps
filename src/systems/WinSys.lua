@@ -66,9 +66,9 @@ local bossWinDone = false
 
 
 function WinSys:newWorld()
-    local ratioWinDone = true
-    local voidWinDone = true
-    local bossWinDone = true
+    local ratioWinDone = false
+    local voidWinDone = false
+    local bossWinDone = false
 end
 
 
@@ -88,6 +88,7 @@ local function checkWin(dt)
         GenerationSys SHOULD handle the ratioWin world generation for this.
         SoundSys should handle the sound, and DrawSys should handle the visual feedback
     ]]
+    print("ratio :::: ", enemyCount / enemyCountTotal)
     if (enemyCount / enemyCountTotal) <= CONSTANTS.WIN_RATIO then
         if not ratioWinDone then
             ccall("ratioWin")-- yyeahhh baby
@@ -113,7 +114,7 @@ function WinSys:removed(e)
     local check = false -- we should only check for a win if a boss or enemy was removed
     if e.targetID == "enemy" then
         check = true
-        enemyCount = enemyCount - 1
+    enemyCount = enemyCount - 1
     end
     if e.targetID == "boss" then
         check = true

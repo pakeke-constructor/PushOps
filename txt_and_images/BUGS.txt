@@ -1,65 +1,20 @@
 
-Error: libs/spatial_partition/partition.lua:247: Object disappeared from recorded location in spacial partitioner.
-Ensure that your spacial hasher has a cell-size that is greater than the maximum velocity of any hashed object.
 
+
+Error: libs/spatial_partition/partition.lua:129: Not a number (NaN) found in obj table: 0x1cfdee70. Ensure objects don't have NaN as their x or y fields.
 stack traceback:
         [string "boot.lua"]:777: in function <[string "boot.lua"]:773>
         [C]: in function 'error'
-        libs/spatial_partition/partition.lua:247: in function 'getSet'
-        libs/spatial_partition/partition.lua:142: in function '___rem'
-        libs/spatial_partition/partition.lua:151: in function 'setPosition'
-        src/systems/PartitionSys.lua:27: in function <src/systems/PartitionSys.lua:17>
-        libs/Cyan/cyan.lua:73: in function 'ccall'
-        src/systems/MoveSys.lua:90: in function <src/systems/MoveSys.lua:88>
-        libs/Cyan/cyan.lua:73: in function 'ccall'
-        src/entities/main/bullies/boxbully.lua:90: in function 'onUpdate'
-        src/systems/HybridSys.lua:21: in function <src/systems/HybridSys.lua:18>
+        libs/spatial_partition/partition.lua:186: in function 'getSet'
+        libs/spatial_partition/partition.lua:129: in function 'updateObj'
+        libs/spatial_partition/partition.lua:121: in function 'update'
+        src/systems/PartitionSys.lua:37: in function <src/systems/PartitionSys.lua:36>
         libs/Cyan/cyan.lua:73: in function 'call'
         src/misc/unique/gamestate.lua:21: in function 'update'
         [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
         [C]: in function 'xpcall'
 
-
-
-This entity is a physics block. Its been splatted, so it wont
-be in the physics partition
-
-object disappeared from partition:  
-{
-  ___mask = 1049592,
-  acc = (+0.000,+0.000,+0.000),
-  bobbing = {
-    magnitude = 0.15,
-    oy = -0.3379095390949,
-    phase = 3,
-    scale = 0.98944032690328,
-    value = 0.92960217935523
-  },
-  collisions = {
-    physics = <function 1>
-  },
-  colour = { 0.88333333333333, 0.83483660130719, 0.055424836601307 },
-  friction = {
-    amount = 0.9,
-    emitter = <userdata 1>,
-    on = true,
-    required_vel = 2
-  },
-  grounded = true,
-  image = {
-    ox = 16,
-    oy = 20,
-    quad = <userdata 2>
-  },
-  physics = {
-    body = <userdata 3>,
-    fixture = <userdata 4>,
-    shape = <userdata 5>
-  },
-  pos = (+1462.335,+955.244,+0.100),
-  pushable = false,
-  splatted = true,
-  vel = (+40.208,+23.497,+0.000)
-}
-
+This bug happened directly after a portal spawned
+SHIIIIT MAN. No T_DUMP for this as well, this could easily be an uncatchable
+nightmare bug
 

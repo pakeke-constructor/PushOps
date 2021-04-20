@@ -38,11 +38,7 @@ local rand = love.math.random
 local cam = require("src.misc.unique.camera")
 local collisions = {
     physics = function(ent,col, speed)
-        if speed > 150  and col.targetID ~= "physics" then
-            if Tools.isOnScreen(ent,cam) then
-                ccall("sound", "deepthud", 0.5, 1) -- this sounds bad!
-            end
-        end
+
     end
 }
 
@@ -76,7 +72,7 @@ return function(x,y)
         required_vel = 2;
         amount = 0.9
     })
-    :add("collisions",collisions)
+    --:add("collisions",collisions)   Turned these off for now
     :add("targetID", "physics")
     :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
 end

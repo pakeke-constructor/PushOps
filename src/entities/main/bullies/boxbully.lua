@@ -95,7 +95,10 @@ local function update(e,dt)
     for i,bl in ipairs(e.orbiting_blocks) do
         local offset = (i*2*math.pi)/e._block_num
         local tick = e._t + offset
-        ccall("setPos", bl, ex + od*sin(tick), ey + od*cos(tick))
+        local xx = ex+od*sin(tick)
+        local yy = ey+od*cos(tick)
+        assert(xx==xx and yy==yy, "nan spotted in boxbully")
+        ccall("setPos", bl, xx, yy)
     end
 end
 

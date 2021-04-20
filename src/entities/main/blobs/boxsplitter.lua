@@ -19,15 +19,15 @@ local Quads = atlas.Quads
 
 local ai_types = { "ORBIT", "LOCKON" }
 
--- 
 
 local COLOURS = {
-    {0.8,0.2,0.5,0.7};
-    {0.6,0.5,0.4,0.7};
-    {0.4,0.8,0.3,0.6};
-    {0.3,0.9,0.2,0.6};
-    {0.2,1.0,0.1,0.6}
+    {0.4, 0.4,  0.4,   0.7};
+    {0.35,0.5,  0.35,  0.7};
+    {0.3, 0.6,  0.3,   0.6};
+    {0.2, 0.7,  0.2,   0.6};
+    {0.2, 1.0,  0.1,   0.6}
 }
+
 
 local SIGILS = {"crown"}
 
@@ -55,7 +55,7 @@ end
 
 local function spawn2(pos, split_gen)
     local a = EH.Ents.boxsplitter(pos.x + 9, pos.y - 9)
-    if r()<0.75 then
+    if r()<0.3 then
         EH.Ents.block(pos.x, pos.y)
     end
     local b = EH.Ents.boxsplitter(pos.x - 9, pos.y + 9)
@@ -95,8 +95,6 @@ local function onDeath(e)
     EH.TOK(e,1,3)
     if e.split_generation < MAX_GENERATIONS-1 then
         ccall("await", spawn2, 0, e.pos, e.split_generation)
-    elseif e.split_generation < MAX_GENERATIONS then
-        ccall("await", spawnSmall, 0, e.pos)
     end
 end
 

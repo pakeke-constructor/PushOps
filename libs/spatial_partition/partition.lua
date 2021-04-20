@@ -183,6 +183,7 @@ function Partition:getSet(obj)
     local x, y = floor(obj.pos.x/self.size_x), floor(obj.pos.y/self.size_y)
     
     if (x ~= x) or (y ~= y) then -- Checking for nasty NaNs.
+        Tools.dump(obj, "NaN found in entity position component. Good luck mate.. youll need it\n")
         error("Not a number (NaN) found in obj " .. tostring(obj) .. ". Ensure objects don't have NaN as their x or y fields.", 2)
     end
 

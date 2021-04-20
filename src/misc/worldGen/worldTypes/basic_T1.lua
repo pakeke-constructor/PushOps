@@ -55,7 +55,7 @@ local enemySpawns = Tools.weighted_selection{
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.bully] = 0.8;
+    [Ents.boxsplitter] = 0.8;
     [Ents.ghost_squad] = 0.2;
     [function(x,y)
         for i=-1,0 do
@@ -111,7 +111,7 @@ return {
                         -- this to a table. 
 
     enemies = {
-        n = 10;
+        n = 13;
         n_var = 1;
 
         bign = 1;
@@ -137,7 +137,7 @@ return {
     ["e"] = {
         max = 200;
         function(x,y)
-            for i=0, rand(1,2) do
+            for i=0, 1+rand(1,2) do
                 local f = enemySpawns()
                 f(x+(i-1)*40, y+(i-1)*40)
             end
@@ -148,6 +148,24 @@ return {
         max = 10;
         function(x,y)
             bigEnemySpawns()(x,y)
+        end
+    };
+
+    ["%"] = {
+        max=math.huge;
+        function(x,y)
+            Ents.inviswall(x,y)
+        end
+    };
+
+    ["~"] = {
+        max=math.huge;
+        function(x,y)
+            for i=1, 4 + rand()*3 do
+                local X = x+160*(rand()-0.5)
+                local Y = y+160*(rand()-0.5)
+                Ents.fakepine(X,Y)    
+            end
         end
     };
 
@@ -187,10 +205,6 @@ return {
         end
     };
 
-    ['%'] = {
-        max = 999999; --no max;
-        Ents.wall -- had to change to regular wall due to destruction
-    };
 
     ['l'] = {
         max = 100;
