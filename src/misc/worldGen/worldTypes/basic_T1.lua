@@ -171,7 +171,7 @@ return {
 
 
     ["p"] = {
-        max = 300, -- 60 max
+        max = 300,
         function(x, y)
             for i = 1, rand(1,3) do
                 Ents.block(
@@ -183,7 +183,7 @@ return {
     };
 
     ["P"] = {
-        max = 3, -- Max spawns :: 3
+        max = 3, 
         function(x, y)
             local block_ctor = Ents.block
             for i = 1, rand(3,6) do

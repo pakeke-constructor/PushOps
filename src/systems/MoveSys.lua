@@ -86,6 +86,9 @@ local ccall = Cyan.call
 
 
 function MoveSys:setPos(e, x, y, z)
+    assert(x==x, "Nan found x")
+    assert(y==y, "Nan found y")
+    assert(z==z, "Nan found z")
     assert(e.pos, er_missing_pos)
     ccall("_setPos", e,x,y) -- This is BADD!! I hate this. I dont see a cleaner way tho.
                             -- order must be respected, else the partitions will goof up

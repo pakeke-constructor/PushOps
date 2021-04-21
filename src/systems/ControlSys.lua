@@ -158,9 +158,14 @@ local r = love.math.random
 
 local function afterPush(player)
     if Cyan.exists(player) then
+        player.control.canPush = true
+    end
+end
+
+local function pushFeedback(player)
+    if Cyan.exists(player)then
         ccall("sound", "reload", 0.2)
         ccall("emit", "shell", player.pos.x, player.pos.y, 1, r(2,3))
-        player.control.canPush = true
     end
 end
 
@@ -182,7 +187,8 @@ local function push(ent)
         Camera:shake(8, 1, 60) -- this doesnt work, RIP
 
         ent.control.canPush = false
-        ccall("await", afterPush, CONSTANTS.PUSH_COOLDOWN + r()/5, ent)
+        ccall("await", pushFeedback, CONSTANTS.PUSH_COOLDOWN/4, ent)
+        ccall("await", afterPush, CONSTANTS.PUSH_COOLDOWN, ent)
 
         for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
             if e ~= ent then
@@ -207,6 +213,8 @@ local function afterPull(player)
     end
 end
 
+
+
 local function pull(ent)
     assert(ent.control, "?????")
 
@@ -217,7 +225,7 @@ local function pull(ent)
         ccall("sound", "moob")
         ccall("shockwave", x, y, 130, 4, 7, 0.3)
         ccall("moob", x, y, ent.strength/1.3, 300)
-        ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN + r()/5, ent)
+        ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN, ent)
 
         for e in (TargetPartitions.interact):iter(x, y) do
             if e ~= ent then

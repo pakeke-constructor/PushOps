@@ -65,12 +65,6 @@ local voidWinDone = false
 local bossWinDone = false
 
 
-function WinSys:newWorld()
-    local ratioWinDone = false
-    local voidWinDone = false
-    local bossWinDone = false
-end
-
 
 
 
@@ -126,12 +120,18 @@ function WinSys:removed(e)
 end
 
 
-function WinSys:purge( )
-    bossCountTotal=0
-    bossCount=0
 
-    enemyCount=0
-    enemyCountTotal=0
+
+function WinSys:purge( )
+    bossCountTotal  = 0
+    enemyCountTotal = 0
+
+    enemyCount = 0
+    bossCount  = 0
+
+    ratioWinDone = false
+    voidWinDone = false
+    bossWinDone = false
 end
 
 

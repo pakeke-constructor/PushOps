@@ -14,7 +14,6 @@ stack traceback:
         [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
         [C]: in function 'xpcall'
 
-This bug happened directly after a portal spawned
 SHIIIIT MAN. No T_DUMP for this as well, this could easily be an uncatchable
 nightmare bug
 
