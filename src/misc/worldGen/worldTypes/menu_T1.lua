@@ -26,7 +26,7 @@ return {
             ]]
             function(x,y)
                 for i=1, 1 do
-                    EH.Ents.cmallow(x+i*5,y+i*5)
+                    EH.Ents.splatbully(x+i*5,y+i*5)
                 end
             end;
             max=0xfff
