@@ -407,11 +407,14 @@ local function isGoodFit(world, x, y)
     local edge_threshold = world.edge_threshold or DEFAULT_EDGE_THRESHOLD
 
     local is_within_border = (1 < x and x < world.x) and (1 < y and y < world.y)
+    if not is_within_border then
+        return false -- yeah its scuffed. The other tests gotta be chopped
+    end
 
     local h = world.heightMap[x][y]
-    local good_noise = h < wall_threshold and h > edge_threshold
+    local good_noise = h < wall_threshold - edge_threshold
 
-    return is_within_border and good_noise and (not isWall(world, x, y))
+    return good_noise and (not isWall(world, x, y))
 end
 
 

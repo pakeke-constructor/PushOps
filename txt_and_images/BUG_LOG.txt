@@ -386,3 +386,40 @@ object disappeared from partition:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+ahhh crap man, its error time.
+If you can, please contact Oli and show a full screenshot of this screen. TY!
+       PLATFORM : Windows
+src/systems/StaticSystems/GenerationSys.lua:412: attempt to compare nil with number
+
+Traceback
+
+conf.lua:112: in function 'handler'
+src/systems/StaticSystems/GenerationSys.lua:412: in function 'isGoodFit'
+src/systems/StaticSystems/GenerationSys.lua:427: in function 'addPlayer'
+src/systems/StaticSystems/GenerationSys.lua:621: in function 'procGenerateWorld'
+src/systems/StaticSystems/GenerationSys.lua:657: in function <src/systems/StaticSystems/GenerationSys.lua:635>
+libs/Cyan/cyan.lua:73: in function 'ccall'
+src/misc/unique/portal_function.lua:18: in function 'func'
+src/systems/StaticSystems/AbstractSys.lua:76: in function <src/systems/StaticSystems/AbstractSys.lua:69>
+libs/Cyan/cyan.lua:73: in function 'call'
+src/misc/unique/gamestate.lua:21: in function 'update'
+[C]: in function 'xpcall'
+
+Bug fixed:
+If a character was tested that was out of range of the fit,
+it needed to return false immediately, else lua errors on comparison with
+nil
+
+

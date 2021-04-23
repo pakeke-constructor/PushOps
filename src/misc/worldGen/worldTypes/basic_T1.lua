@@ -139,7 +139,7 @@ return {
         function(x,y)
             for i=0, 1+rand(1,2) do
                 local f = enemySpawns()
-                f(x+(i-1)*40, y+(i-1)*40)
+                f(x+(i-1)*10, y+(i-1)*10)
             end
         end
     };
