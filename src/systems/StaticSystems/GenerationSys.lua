@@ -392,8 +392,11 @@ end
 
 local function isWall(world, x, y)
     local worldMap = world.worldMap
-    return  ((worldMap[x][y] == "%") or (worldMap[x][y] == "#"))
+    return  ((worldMap[x][y] == "%") or (worldMap[x][y] == "#") or (worldMap[x][y]=="~"))
 end
+
+
+
 
 
 
@@ -402,14 +405,23 @@ local function isGoodFit(world, x, y)
         returns whether the position is a fit
         (i.e, whether it is within the bounds of the worldMap,
         AND is greater than noise threshold)
+        (AND has no walls next to it)
     ]]
-    local wall_threshold = world.wall_threshold or DEFAULT_WALL_THRESHOLD
-    local edge_threshold = world.edge_threshold or DEFAULT_EDGE_THRESHOLD
-
     local is_within_border = (1 < x and x < world.x) and (1 < y and y < world.y)
     if not is_within_border then
         return false -- yeah its scuffed. The other tests gotta be chopped
     end
+
+    for xoff=-1,1 do
+        for yoff=-1,1 do
+            if isWall(world, x + xoff, y + yoff) then
+                return false -- its too close to a wall
+            end
+        end
+    end
+
+    local wall_threshold = world.wall_threshold or DEFAULT_WALL_THRESHOLD
+    local edge_threshold = world.edge_threshold or DEFAULT_EDGE_THRESHOLD
 
     local h = world.heightMap[x][y]
     local good_noise = h < wall_threshold - edge_threshold
@@ -500,7 +512,7 @@ local function findGoodFit(world, X, Y)
             end
         end
 
-        if n > 30 then
+        if n > 30 then -- 30 is max tries
             return false -- lookup failed
         end
 

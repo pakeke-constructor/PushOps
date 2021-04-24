@@ -102,8 +102,14 @@ end
 
 local st = "Target entity requires a velocity component!"
 
+local cexists = Cyan.exists
+
 function MoveSys:addVel(ent, dx, dy)
     assert(ent.vel, st)
+
+    if not cexists(ent) then
+        return
+    end
 
     if ent.physics then
         local vx, vy = ent.physics.body:getLinearVelocity( )
@@ -140,6 +146,10 @@ end
 
 function MoveSys:setVel(ent, dx, dy)
     assert(ent.vel, st)
+
+    if not cexists(ent) then
+        return
+    end
 
     if ent.physics then
         local max_vel

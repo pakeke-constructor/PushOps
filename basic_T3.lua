@@ -4,7 +4,7 @@
 
 TYPE :: 'basic'
 
-tier :: T2 :: 2
+tier :: T3 :: 3
 
 
 ]]

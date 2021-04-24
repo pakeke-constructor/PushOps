@@ -37,3 +37,25 @@ src/systems/WinSys.lua:125: in function <src/systems/WinSys.lua:123>
 libs/Cyan/cyan.lua:73: in function 'call'
 src/misc/unique/gamestate.lua:21: in function 'update'
 [C]: in function 'xpcall'
+
+TODO
+TODO
+TODO
+TODO!!!!
+OKAY, I figured out the bug.
+The bug is due to the nature of Cyan.clear and Cyan.flush.
+ECS is only flushed on a root ccallback. So when :purge is invoked,
+the entities are cleared, but entities remain in the ECS because :purge is not a 
+root call, and is instead called from `InteractionSys`. From there, 
+:newWorld is called directly. This sets the WinSys enemy counters
+to 0 instantly, however, at the next ECS flush, the old entities that are not 
+supposed to be apart of the new world are killed, and WinSys thinks
+that they were apart of the new world. Since the entities from the previous world
+obviously did not contribute to the total enemy counter, this is why enemy count
+pops into the negatives. PHEW... ok, now how to fix:
+
+A solution would be to delay the worldgen by a frame and call it at a root call.
+This would probably involve some extra functions in Cyan.
+A hacky alternative would be to plug the :newWorld call into the next update loop.
+We know that update will always (or should always, TODO add a check for this) be
+one level up from the root level.

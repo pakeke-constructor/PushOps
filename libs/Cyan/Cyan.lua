@@ -142,7 +142,7 @@ do
             tmp[i]:delete()
             tmp[i] = nil
         end
-        assert(#tmp==0,"?")
+        assert(#tmp==0,"buffer should be cleared?")
     end
 end
 

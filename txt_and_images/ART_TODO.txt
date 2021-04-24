@@ -4,6 +4,10 @@
 Change outline colours to a softer colour,
 i.e. a dark brown or dark purple
 
+Maybe do this in a shader instead! could be easier
+
+
+
 
 
 

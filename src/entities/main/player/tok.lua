@@ -46,10 +46,10 @@ return function(x, y)
     end
     
     e.speed={
-        speed=250;
-        max_speed=250
+        speed=300;
+        max_speed=300
     }
-    e.size = 10
+    e.size = 2
     e.behaviour = {
         move={
             type="CLOCKON";
