@@ -44,7 +44,8 @@ local r = love.math.random
 local collisionsComp = {
     physics = function(self, e, speed)
         if e.targetID=="player" then
-            ccall("damage",e,self.strength or 10)
+            assert(self.strength, "not given strength")
+            ccall("damage",e,self.strength)
         end
         ccall("kill",self)
     end
@@ -66,6 +67,8 @@ return function(x,y)
     :add("hp", {hp = 100, max_hp = 100, regen=-100/4})
     
     :add("size",16)
+
+    :add("strength", 35)
 
     :add("friction", {
         emitter = fpsys:clone();

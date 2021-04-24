@@ -9,11 +9,14 @@ Block letter entities
 
 local Ents = EH.Ents
 
-
-local letters = "adeghlmoprsuvkt"
+        --     abcdefghijklmnopqrstuvwxyz
+local letters = "adeghilmoprsuvktxz"
 
 for i = 1, #letters do
     local c = letters:sub(i,i)
+    if c == " " then
+        goto continue
+    end
     local name = "letter_"..c
     
     -- ahhh, luajit dont like loop closures. oh well
@@ -28,6 +31,7 @@ for i = 1, #letters do
         :add("pushable",true)
         :add("targetID", "physics")
     end
+    ::continue::
 end
 
 
@@ -39,6 +43,6 @@ end
 -- letters are placed directly into EH.entities
 -- (I know, its weird.)
 return function()
-    error("all_letters_.lua  => you werent supposed to instantiate this....")
+    error("block_letters_.lua  => you werent supposed to instantiate this....")
 end
 

@@ -91,7 +91,7 @@ function HealthSys:damage(ent, amount)
     if self:has(ent) and ent.hp.iframe_count < 0 then
         local hp = ent.hp
         hp.hp = hp.hp - amount
-
+        
         if ent.onDamage then
             ent:onDamage(amount)
         end

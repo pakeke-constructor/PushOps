@@ -25,8 +25,8 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1, 1 do
-                    EH.Ents.splatbully(x+i*5,y+i*5)
+                for i=1,10 do
+                    EH.Ents.wizard(x + i*10,y + i*10)
                 end
             end;
             max=0xfff

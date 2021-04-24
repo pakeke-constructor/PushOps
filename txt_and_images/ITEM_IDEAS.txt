@@ -2,6 +2,7 @@
 
 Titan Slayer
     Deal 50% extra damage to bosses
+    (Wizard boss wont appear when this is done)
 
 
 Challenger I

@@ -165,6 +165,12 @@ function Partition:remove(obj)
 end
 
 
+function Partition:size(x,y)
+    --returns the size of the cell at x, y
+    return #(self[floor(x/self.size_x)][floor(y/self.size_y)].objects)
+end
+
+
 function Partition:frozenAdd(obj)
     -- This obj stays in a constant position.
     -- Much more efficient- use when possible

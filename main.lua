@@ -40,14 +40,16 @@ do
     _G.Tools = require"libs.tools.tools"
 
     -- math lib additions
-    _G.math.vec3 = require "libs.math.NM_vec3"
-    _G.math.dot  = require "libs.math.dot"
+    _G.math.vec3  = require "libs.math.NM_vec3"
+    _G.math.dot   = require "libs.math.dot"
+    _G.math.roman = require "libs.math.NM_roman" -- base 10 to roman numeral converter
 
     -- Entity construction helper functions / util
     _G.EH = require 'src.entities._EH'
 
     _G.CONSTANTS = require"src.misc._CONSTANTS"
 end
+
 
 
 -- NO MORE MONKEY BUSINESS PAST THIS POINT !!!

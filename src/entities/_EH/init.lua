@@ -74,6 +74,8 @@ function EH.PC(e1,e2,speed)
         default physics collision function.
         Entity takes damage from source, and damages player if applicable.
 
+        (ONLY SHOULD BE USED BY ENEMIES!)
+
         Returns `true` if the collision was a hard collision,
         `false` otherwise.
     ]]
@@ -83,11 +85,13 @@ function EH.PC(e1,e2,speed)
         end
     end
 
-    if speed > CONSTANTS.ENT_DMG_SPEED then
+    if speed > CONSTANTS.ENT_DMG_SPEED and e2.targetID=="physics" then
+        local armour = e1.armour or 1
+        assert(armour >= 0, "armour is negative, you know this is scuffed")
         if e1.vel then
-            ccall("damage", e1, (speed - e1.vel:len()))
+            ccall("damage", e1, (speed - e1.vel:len())/armour)
         else
-            ccall("damage",e1,speed)
+            ccall("damage",e1,speed/armour)
         end
         return true -- Yes, the speed collision is greater than required
     end

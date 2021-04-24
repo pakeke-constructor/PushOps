@@ -82,7 +82,6 @@ local function checkWin(dt)
         GenerationSys SHOULD handle the ratioWin world generation for this.
         SoundSys should handle the sound, and DrawSys should handle the visual feedback
     ]]
-    print("ratio :::: ", enemyCount / enemyCountTotal)
     if (enemyCount / enemyCountTotal) <= CONSTANTS.WIN_RATIO then
         if not ratioWinDone then
             ccall("ratioWin")-- yyeahhh baby
@@ -120,6 +119,12 @@ function WinSys:removed(e)
 end
 
 
+
+function WinSys:update(dt)
+    if enemyCount < 0 then
+        error("wtf man...")
+    end
+end
 
 
 function WinSys:purge( )
