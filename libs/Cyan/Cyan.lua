@@ -89,6 +89,8 @@ do
     -- flag to ensure that Cyan.flush() isnt accidentally called recursively
     local is_flush_running = false
 
+    local ccall = Cyan.call -- shorthand
+
     -- Flushes all entities that need to be deleted
     function Cyan.flush()
         --[[
@@ -100,6 +102,8 @@ do
             return
         end
         is_flush_running = true
+
+        ccall("preflush") -- custom callback
 
         local sys
         local remove_set = Entity.___remove_set
@@ -119,6 +123,8 @@ do
         end
 
         remove_set:clear()
+
+        ccall("postflush") -- custom callback
 
         is_flush_running = false
     end

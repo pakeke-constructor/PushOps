@@ -66,7 +66,7 @@ local ShockWaves = Tools.set()
 
 
 
-local set, add, get, remove
+local set, add, remove
 do
     function add(ent)
         --[[
@@ -77,17 +77,11 @@ do
         Indexer_max_depth = max(Indexer_max_depth, zindx)
         Indexer_min_depth = min(Indexer_min_depth, zindx)
     end
-    function get(ent)
-        --[[
-            Returns position in Indexer of ent.
-        ]]
-        return positions[ent]
-    end
     function remove(ent)
         --[[
             Removes entity from previous Indexer location.
         ]]
-        local gett = get(ent)
+        local gett = positions[ent]
         Indexer[gett]:remove(ent)
         return gett
     end
@@ -148,7 +142,7 @@ local drawShockWaves
 local setFont = love.graphics.setFont
 
 
-local draw_master = function()
+local function mainDraw()
     local setColor = lg.setColor
     local isOnScreen = Tools.isOnScreen
 
@@ -195,10 +189,10 @@ end
 
 
 function DrawSys:draw()
-    draw_master()
+    mainDraw()
     
     lg.push()
-    lg.scale(camera.scale)
+    lg.scale(5)
     ccall("drawUI")
     lg.pop()
 end

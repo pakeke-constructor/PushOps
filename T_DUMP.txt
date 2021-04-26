@@ -1,0 +1,33 @@
+body was destroyed: 
+
+lua tostring::table: 0x1411bbc0
+{
+  ___mask = 1573832,
+  draw = {
+    h = 32,
+    ox = 16,
+    oy = 16,
+    w = 32
+  },
+  friction = {
+    amount = 1.4,
+    emitter = <userdata 1>,
+    on = true,
+    required_vel = 10
+  },
+  grounded = false,
+  image = {
+    ox = 16,
+    oy = 16,
+    quad = <userdata 2>
+  },
+  physics = {
+    body = <userdata 3>,
+    fixture = <userdata 4>,
+    shape = <userdata 5>
+  },
+  pos = (+613.330,+649.186,+694.713),
+  pushable = true,
+  targetID = "physics",
+  vel = (+0.000,+0.000,-98.100)
+}

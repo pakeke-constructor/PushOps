@@ -28,8 +28,8 @@ local initNewEntities
 local init_set = Tools.set()
 
 
-local function beginContact(fixture_A, fixture_B, contact_obj)
 
+local function beginContact(fixture_A, fixture_B, contact_obj)
     local ent_A = fixture_to_ent[fixture_A]
     local ent_B = fixture_to_ent[fixture_B]
 
@@ -143,8 +143,10 @@ end
 
 
 
+
 local function initialize(ent)
     local body_str = ent.physics.body
+
     ent.physics.body = love.physics.newBody(
         World, ent.pos.x, ent.pos.y, body_str
     )
@@ -172,6 +174,8 @@ local function initialize(ent)
 end
 
 
+
+
 local er1 = [[
 Attempted to construct ent when physics world was locked.
 This kinda sucks; there is no good solution.
@@ -196,9 +200,13 @@ end
 
 
 
+
 function PhysicsSys:removed(ent)
+    print(ent)
     fixture_to_ent[ent.physics.fixture] = nil
 
+    -- FUTURE OLI HERE:
+    -- why are these if statements here???
     if not ent.physics.fixture:isDestroyed() then
         ent.physics.fixture:destroy()
     end

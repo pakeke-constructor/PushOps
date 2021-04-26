@@ -35,6 +35,10 @@ local function updateVelo(ent, dt)
 
     if ent.physics then
         local body = ent.physics.body
+
+        if body:isDestroyed() then
+            Tools.dump(ent, "body was destroyed: \n")
+        end
         local vx, vy = body:getLinearVelocity()
 
         if dist(vx, vy) > max_vel then

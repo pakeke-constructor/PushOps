@@ -150,6 +150,7 @@ function Tools.dump(e, str)
     if str then
         f:write(str)
     end
+    f:write("\nlua tostring::" .. tostring(e) .. "\n")
     f:write(inspect(e))
 
     f:close()
