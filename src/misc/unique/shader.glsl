@@ -105,6 +105,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     }
 
     if (navyblind){
+        // switch blue and red
         float n_temp;
         n_temp = final[2];
         final[2] = final[0];

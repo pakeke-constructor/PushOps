@@ -125,7 +125,6 @@ motion ={
 text = "abcde" -- draws the text `abcde` at ent's position
 
 
-
 --[[
     NOTE: Physics component does things differently. Upon being added to the
     phy_sics system, the `body` string will be reassigned to a `body` object,
@@ -323,6 +322,7 @@ portalDestination = {
 }
 
 
-```
 
+
+```
 

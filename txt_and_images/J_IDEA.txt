@@ -13,7 +13,7 @@ Set a maximum number of blocks for each local area
 
 
 Extremely hard boss,
-put the first person who killed the boss in the game
+The first few people who kill the boss get to suggest game ideas
 
 
 
@@ -21,7 +21,8 @@ Minimap
 
 
 
-Explosive walls, bouncy walls
+Explosive walls,
+bouncy walls with fixture:setRestitution() :)  
 
 
 Enemies that destroy blocks in certain radii

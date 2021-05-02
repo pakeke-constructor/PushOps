@@ -54,14 +54,22 @@ function ControlSys:added(e)
 end
 
 
+
+-- We have to keep a boolean var to check if purge was invoked.
+-- (signalling a lose condition during a purge would be terrrrible)
+local duringPurge = false
+
+
 function ControlSys:removed(e)
-    if #self.group == 1 then
-        -- then this is the last player in game.
-        -- lock the camera, emit the lose callback; worldGen will handle it
-        -- from here
-        lock_cam_x = e.pos.x
-        lock_cam_y = e.pos.y
-        ccall("lose")
+    if not duringPurge then
+        if #self.group == 1 then
+            -- then this is the last player in game.
+            -- lock the camera, emit the lose callback; worldGen will handle it
+            -- from here
+            lock_cam_x = e.pos.x
+            lock_cam_y = e.pos.y
+            ccall("lose")
+        end
     end
 end
 
@@ -114,6 +122,8 @@ end
 
 
 function ControlSys:update(dt)
+    duringPurge = false -- obviously if a frame has passed, it will no longer
+        -- be during a purge callback.
 
     cur_sin_amount = cur_sin_amount + (dt * ROT_FREQ)
     cam_rot = ROT_AMPLITUDE*math.sin(cur_sin_amount)
@@ -314,6 +324,7 @@ end
 
 
 function ControlSys:purge()
+    duringPurge = true
     Cyan.clear( ) -- Deletes all entities.
     -- big operation
 

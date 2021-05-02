@@ -147,11 +147,6 @@ return function(x,y)
         physics = physColFunc
     })
 
-    :add('light',{
-        colour = {-0.14, -0.14, -0.14,1};
-        distance = 20
-    })
-
     enemy:add("motion",
     {
         up = motion_up;

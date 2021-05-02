@@ -96,14 +96,12 @@ do
         --[[
             Removes all entities marked for deletion.
 
-            @return Cyan@
+            @return nil@
         ]]
         if is_flush_running then
             return
         end
         is_flush_running = true
-
-        ccall("preflush") -- custom callback
 
         local sys
         local remove_set = Entity.___remove_set
@@ -123,8 +121,6 @@ do
         end
 
         remove_set:clear()
-
-        ccall("postflush") -- custom callback
 
         is_flush_running = false
     end

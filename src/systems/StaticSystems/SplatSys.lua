@@ -81,6 +81,7 @@ end
 function SplatSys:splat(x,y, range)
     range = range or DEFAULT_SPLAT_DIST
     local ct = 0
+    
     for ent in PhysPartition:iter(x,y)do
         local pos = ent.pos
         if (pos.y ~= y) and (pos.x ~= x) then

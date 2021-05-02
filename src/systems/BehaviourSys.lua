@@ -13,7 +13,6 @@ Runs and update behaviour trees
 local cexists = Cyan.exists
 
 
-local er1 = "wtf? no behaviour comp wahhhhtt??"
 
 local function update(e,dt )
     if cexists(e) then
@@ -22,6 +21,8 @@ local function update(e,dt )
         end
     end
 end
+
+
 
 function BehaviourSys:update(dt)
     for _,e in ipairs(self.group)do

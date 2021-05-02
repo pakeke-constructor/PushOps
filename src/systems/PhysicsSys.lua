@@ -73,15 +73,24 @@ end
 
 
 
-function PhysicsSys:newWorld( world )
+
+function PhysicsSys:purge()
     if World then
         World:destroy()
     end
-
     World = love.physics.newWorld(0,0)
-
     World:setCallbacks(beginContact, nil, nil, nil)
 end
+
+
+function PhysicsSys:newWorld(world)
+    if not World then
+        World = love.physics.newWorld(0,0)
+        World:setCallbacks(beginContact, nil, nil, nil)
+    end
+end
+
+
 
 
 -- TODO :: setGroupIndex is not working as it should, I don't think
@@ -106,7 +115,7 @@ end
 
 
 function PhysicsSys:update(dt)
-    World:update(dt)
+    World:update(dt) 
 end
 
 
@@ -202,11 +211,8 @@ end
 
 
 function PhysicsSys:removed(ent)
-    print(ent)
     fixture_to_ent[ent.physics.fixture] = nil
 
-    -- FUTURE OLI HERE:
-    -- why are these if statements here???
     if not ent.physics.fixture:isDestroyed() then
         ent.physics.fixture:destroy()
     end

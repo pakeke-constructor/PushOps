@@ -70,7 +70,6 @@ Oh, damn, nah, just do `ccall("await", {:newWorld}, 0)`, this'll fix it
 
 
 
-
 ahhh crap man, its error time.
 If you can, please contact Oli and show a full screenshot of this screen. TY!
        PLATFORM : Windows
@@ -91,5 +90,6 @@ world is destroyed. This destroys all the bodies in the world as well, and since
 we have a bunch of destroyed physics bodies and a bunch of alive entities, 
 it clunks out.
 
-ALSO another bug is that WinSys is signalling lose condition on the one frame 
+ALSO another bug is that ControlSys is signalling lose condition on the one frame 
 that the player does not exist
+

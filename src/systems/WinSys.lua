@@ -43,7 +43,6 @@ local bossCountTotal = 0
 local bossCount = 0
 
 
-
 local tmp_hash = { -- temporary debug hasher
     
 }
@@ -76,7 +75,7 @@ local bossWinDone = false
 
 
 
-local function checkWin(dt)
+function WinSys:update(dt)
     --[[
         TODO:
         maybe add an extra check to account
@@ -88,7 +87,6 @@ local function checkWin(dt)
         GenerationSys SHOULD handle the ratioWin world generation for this.
         SoundSys should handle the sound, and DrawSys should handle the visual feedback
     ]]
-    print("enemys: ", enemyCount, "\\\\ total: ", enemyCountTotal)
     if (enemyCount / enemyCountTotal) <= CONSTANTS.WIN_RATIO then
         if not ratioWinDone then
             ccall("ratioWin")-- yyeahhh baby
@@ -111,30 +109,34 @@ end
 
 
 function WinSys:removed(e)
-    local check = false -- we should only check for a win if a boss or enemy was removed
     if e.targetID == "enemy" then
-        check = true
         enemyCount = enemyCount - 1
     end
     if e.targetID == "boss" then
-        check = true
         bossCount = bossCount - 1
-    end
-    if check then
-        checkWin()
     end
 end
 
-
-
-
-function WinSys:purge( )
+function WinSys:newWorld()
     bossCountTotal  = 0
     enemyCountTotal = 0
 
     enemyCount = 0
     bossCount  = 0
 
+    for _,ent in ipairs(self.group)do
+        if ent.targetID=="enemy" then
+            enemyCountTotal = enemyCountTotal + 1
+            enemyCount = enemyCount + 1
+        elseif ent.targetID=="boss" then
+            bossCountTotal = bossCountTotal + 1
+            bossCount = bossCountTotal + 1
+        end
+    end
+end
+
+
+function WinSys:purge( )
     ratioWinDone = false
     voidWinDone = false
     bossWinDone = false
