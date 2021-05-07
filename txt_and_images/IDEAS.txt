@@ -1,19 +1,17 @@
 
 
 
-WHAT SHOLD THE WIN CONDITION BE?
-Maybe win condition for a level is to kill enough
-enemies. Once you kill enough of em, a portal opens
-
-
-Modify level generation such that enemy spawns are
-distributed throughout the level deliberately, and are
-placed a distance from the player spawn
-
+spookyenemy and spookybully, purple-ish enemies with `fade` component
+Maybe make the fade really short as well
+(These guys could be a really hard enemy perhaps? idk)
 
 
 Add a character entity that has 3d (red-blue) sunglasses
 hahahah
+
+
+
+Make Wizard spellcasting animation
 
 
 
@@ -24,15 +22,9 @@ Give feedback with particles and sound.
 
 
 
-
 Add a chest that, when destroyed, gives gold coins.
 Make it so coins act like tokens maybe?
 
-
-
-
-Slime bossfight explosions should damage player.
-Use `ccall("apply")` for this probably 
 
 
 

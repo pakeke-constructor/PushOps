@@ -146,6 +146,17 @@ do
         end
         assert(#tmp==0,"buffer should be cleared?")
     end
+
+
+    -- This is really hacky.. this function was defined in System.lua with access
+    -- the bitshift variables keeping track of how many bits are left.
+    local _getFreeBits = System._cyan_getFreeBits
+    rawset(System,"_cyan_getFreeBits",nil) -- this function is only needed by Cyan.
+                    -- dont want to add clutter
+
+    function Cyan.getFreeBits()
+        return _getFreeBits()
+    end
 end
 
 

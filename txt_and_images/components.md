@@ -4,7 +4,7 @@
 
 -- This file is only kept as a reference for what components look like.
 
--- CURRENTLY  20 / 32   BITS OF COMPONENT MASK HAVE BEEN USED!!!
+-- CURRENTLY  26 / 32   BITS OF COMPONENT MASK HAVE BEEN USED!!!
 -- KEEP THIS NUMBER DOWN
 
 
@@ -35,7 +35,7 @@ end
 
 pos = vec3(0 , 0 , 0) --> vec3
 
-vel = vec3(vel_x, vel_y, vel_z) -->  {vel = vec3, max_vel = 123}
+vel = vec3(vel_x, vel_y, vel_z) -->  vec3
 
 acc = vec3(acc_x, acc_y, acc_z) --> vec3
 
@@ -46,6 +46,7 @@ avel = 0 -- rot velocity (rad/s)
 speed = {speed = 10, max_speed = 100} -- entity speed
 
 strength = 10 -- entity strength (how far can push other entities. Also the range of a push.)
+-- for enemies, player is damaged by ent.strength.
 
 
 toughness = 300
@@ -56,7 +57,7 @@ hardness = 10
 -- If an entity is `hit` by an entity with a higher hardness than itself,
 -- It will take damage equal to the difference in hardness.
 -- default: 0
--- players: 100   -- physics: 99    --
+-- players: 100   -- physics: 99    -- TODO: is this used anymore?? idk
 
 
 light = {

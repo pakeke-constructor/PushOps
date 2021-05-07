@@ -31,8 +31,8 @@ return function(x,y, text, colour, fade)
             -- due to potential of `textfade` component
     
     if fade then
-        back_txt.textfade = fade
-        front_txt.textfade = fade
+        back_txt.fade = fade
+        front_txt.fade = fade
     end
 
     return nil -- This isnt an entity!!!

@@ -26,7 +26,7 @@ return {
             ]]
             function(x,y)
                 for i=1,3 do
-                    EH.Ents.splatbully(x + i*10,y + i*10)
+                    EH.Ents.wizard(x + i*10,y + i*10)
                 end
             end;
             max=0xfff
@@ -97,6 +97,9 @@ return {
                         x + rand(-10, 10),
                         y + rand(-10, 10)
                     )
+                    if rand()<0.1 then
+                        Ents.spookyblock(x+rand(-10,10), y+rand(-10,10))
+                    end
                 end
             end
         };

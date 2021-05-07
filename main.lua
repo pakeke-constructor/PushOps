@@ -42,7 +42,7 @@ do
     -- math lib additions
     _G.math.vec3  = require "libs.math.NM_vec3"
     _G.math.dot   = require "libs.math.dot"
-    _G.math.roman = require "libs.math.NM_roman" -- base 10 to roman numeral converter
+    _G.math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
     _G.table.copy = require "libs.tools.copy"
 
@@ -83,6 +83,8 @@ require("src.systems._SYSTEMS")
 require("src.entities")
 
 require("src.misc._MISC")
+
+print("FREE BITS::", Cyan.getFreeBits())
 
 Tools.assertNoDuplicateRequires()
 

@@ -45,16 +45,6 @@ local cam = require("src.misc.unique.camera")
 
 
 local function supdate(ent)
-    if ent.textfade then
-        assert(ent.colour, "Ent given textfade component, but not a colour?")
-        local dist = Tools.distToPlayer(ent, cam)
-        if dist > ent.textfade then
-            ent.colour[4] = 0
-        else
-            ent.colour[4] = math.min(math.max((ent.textfade / dist)-1, 0), 1)
-        end
-    end
-
     if ent.text ~= ent._old_text then
         -- oh damn, its been re-initialized.
         -- make new text Obj

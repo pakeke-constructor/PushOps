@@ -96,6 +96,20 @@ local function newComponent(comp_name)
 end
 
 
+function System:_cyan_getFreeBits()
+    --[[
+        static private function, to be carried into Cyan.
+            Returns the number of bit components that are
+            yet to be used.
+
+        (note that this function is deleted by Cyan as
+        soon as initialization is complete. Its dumb, I know)
+    ]]
+    return max_shiftnum - compbitbase_shiftnum
+end
+
+
+
 local function getMask(...)
     -- ... is a list of component names.
     local mask = bit.tobit(0)

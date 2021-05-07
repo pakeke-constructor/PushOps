@@ -1,14 +1,17 @@
 
+
+
 Make it so `pull` can charge up, longer = stronger ??????
 (Maybe dont do this as it is less fun)
 
 
 Chain reaction of blocks that go around and destroy any close blocks.
 This discourages creating big groups that make player invincible
-DONE: SplatSys
+DONE: SplatSys :: show jonty! :)
 
 
 Set a maximum number of blocks for each local area
+DONE
 
 
 
@@ -18,6 +21,9 @@ The first few people who kill the boss get to suggest game ideas
 
 
 Minimap
+- we can do this by creating a canvas and rendering the whole map onto it
+at the start. Deal with enemy positions seperately by tapping into enemy
+targetID partition. Ignore physics blocks on minimap
 
 
 
