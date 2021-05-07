@@ -5,7 +5,7 @@ local rand = love.math.random
 
 
 
-local TXT_COLOUR = {100/255, 85/255, 46/255, 0.52}
+local TXT_COLOUR = {120/255, 90/255, 65/255, 0.52}
 
 return {
     type="menu";
@@ -40,37 +40,44 @@ return {
         ["1"] = {
             max=0xff;
             function(x,y)
-                local txt = EH.Ents.txt(x,y)
-                txt.text = " WASD\nto move"
-                txt.colour = TXT_COLOUR
-                txt.pos.z = -50
+                local txt = EH.Ents.goodtxt(x, y-35,
+                    " WASD\nto move",
+                    TXT_COLOUR, 250)
             end
         };
 
         ["2"] = {
             max=0xff;
             function(x,y)
-                local txt = EH.Ents.txt(x,y)
-                txt.text = "Arrow keys\nto push\nand pull"
-                txt.colour = TXT_COLOUR
-                txt.pos.z = -50
+                local txt = EH.Ents.goodtxt(x,y,
+                    "Arrow keys\nto push\nand pull",
+                    TXT_COLOUR, 250)
             end
         };
 
         ["3"] = {
             max=2;
             function(x,y)
-                local txt = EH.Ents.txt(x,y)
-                txt.text = "Kill enemies by\npushing blocks\ninto them!"
-                txt.colour = TXT_COLOUR
-                txt.pos.z = -50
+                local txt = EH.Ents.goodtxt(x, y,
+                    "Colliding blocks\nwill deal damage",
+                    TXT_COLOUR, 250)
+            end
+        };
+
+        ["L"] = {
+            max=1;
+            function(x,y)
+                local txt=EH.Ents.goodtxt(x,y+25,
+                    "PROUDLY MADE\nWITH LOVE 2d",
+                    {0.85,0.45,0.45})
+                EH.Ents.love2d_logo(x,y)
             end
         };
 
         ["t"] = {
             max=0xfff;
             function(x,y)
-            ccall("spawnText", x, y, "push god")
+            ccall("spawnText", x, y, "push game")
         end};
 
         ["e"] = {
@@ -113,7 +120,7 @@ return {
                 Ents.bigwall(x,y)
             end
         };
-        
+
         ['^'] = {
             max = 0xFFFFFFF;
             function(x,y)
@@ -139,9 +146,9 @@ return {
             max = 100;
             function (x, y)
                 if rand()<0.5 then
-                    Ents.mushroom(x+rand()*5,y+rand()*5)            
+                    Ents.mushroom(x+rand()*5, y+rand()*5)            
                 else
-                    Ents.pine(x+rand()*5,y+rand()*5)
+                    Ents.pine(x+rand()*5, y+rand()*5)
                 end
             end
         },
@@ -156,6 +163,8 @@ return {
                     x = 32;
                     y = 32
                 }
+                
+                EH.Ents.goodtxt(x,y+10, "ZONE I",{0.1,0.7,0.1}, 250)
             end
         }
     }

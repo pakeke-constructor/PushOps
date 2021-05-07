@@ -2,11 +2,13 @@
 return{
     MAX_DT = 0.05 -- Maximum value `dt` will ever take.
 ,
+    AVERAGE_DT = 1/60
+,
     GRAVITY = -981
 ,
-    MAX_VEL = 10000
+    MAX_VEL = 5000
 ,
-    AVERAGE_DT = 1/60
+    PHYS_CAP = 45 -- the max number of phys objs allowed in each spatial bucket
 ,
     PUSH_RANGE = 50
 ,

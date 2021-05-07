@@ -44,6 +44,8 @@ do
     _G.math.dot   = require "libs.math.dot"
     _G.math.roman = require "libs.math.NM_roman" -- base 10 to roman numeral converter
 
+    _G.table.copy = require "libs.tools.copy"
+
     -- Entity construction helper functions / util
     _G.EH = require 'src.entities._EH'
 

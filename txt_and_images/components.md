@@ -124,6 +124,8 @@ motion ={
 
 text = "abcde" -- draws the text `abcde` at ent's position
 
+textfade = 100 -- text will fade away from view 100 units away from camera
+
 
 --[[
     NOTE: Physics component does things differently. Upon being added to the

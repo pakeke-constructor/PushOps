@@ -42,7 +42,6 @@ end
 
 
 
-
 return function(x,y)
     return Cyan.Entity( )
     :add("pos", math.vec3(x,y,20))
@@ -58,10 +57,6 @@ return function(x,y)
     :add("onBoom",onBoom)
     :add("onDeath",onDeath)
 
-    :add("bobbing",{
-        magnitude = 0.1;
-        value = 0
-    })
 end
 
 

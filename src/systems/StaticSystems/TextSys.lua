@@ -29,7 +29,7 @@ function TextSys:added(ent)
     ent._old_text = ent.text
     ent._textObj = newText(FONT, ent.text)
     ent.rot = 0
-
+    
     if not ent.draw then
         local ox2, oy2 = ent._textObj:getDimensions( )
         ent:add("draw",{
@@ -40,7 +40,21 @@ function TextSys:added(ent)
 end
 
 
+local cam = require("src.misc.unique.camera")
+
+
+
 local function supdate(ent)
+    if ent.textfade then
+        assert(ent.colour, "Ent given textfade component, but not a colour?")
+        local dist = Tools.distToPlayer(ent, cam)
+        if dist > ent.textfade then
+            ent.colour[4] = 0
+        else
+            ent.colour[4] = math.min(math.max((ent.textfade / dist)-1, 0), 1)
+        end
+    end
+
     if ent.text ~= ent._old_text then
         -- oh damn, its been re-initialized.
         -- make new text Obj
@@ -92,9 +106,11 @@ end
 
 
 
+
+
 function TextSys:spawnText(x,y,str, height, height_variance)
     --[[
-        Spawns block letter text
+        Spawns block letter text (physics blocks)
     ]]
     height = height or 0
     height_variance = height_variance or 0
