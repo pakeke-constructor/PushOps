@@ -72,6 +72,9 @@ draw = { ox = 10, oy = 20 } -- Automatic component.
 
 colour = {1,1,1} -- Colour used with lg.setColor
 
+fade = 100 -- fades into invisibility when this far away from player
+minfade = 0.3 -- ent wont fade below 0.3 alpha
+
 trivial = true/false -- `true` if the entity is a basic image.
                     -- This speeds things up a bit.
 
@@ -125,7 +128,6 @@ motion ={
 
 text = "abcde" -- draws the text `abcde` at ent's position
 
-textfade = 100 -- text will fade away from view 100 units away from camera
 
 
 --[[

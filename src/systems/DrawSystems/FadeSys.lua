@@ -31,8 +31,9 @@ local min = math.min
 
 function FadeSys:update(dt)
     for _, ent in ipairs(self.group)do -- fades the further away from player
+        local minfade = ent.minfade or 0
         local dist = Tools.distToPlayer(ent,cam)
-        ent.colour[4] = min(max((ent.fade / dist)-1, 0), 1)
+        ent.colour[4] = min(max((ent.fade / dist)-1, minfade), 1)
     end
 end
 

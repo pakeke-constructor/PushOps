@@ -125,11 +125,6 @@ function ControlSys:update(dt)
     duringPurge = false -- obviously if a frame has passed, it will no longer
         -- be during a purge callback.
 
-    cur_sin_amount = cur_sin_amount + (dt * ROT_FREQ)
-    cam_rot = ROT_AMPLITUDE*math.sin(cur_sin_amount)
-
-    Camera.rotation=(cam_rot)
-
     Camera:update(dt)
 
     for _,ent in ipairs(self.group) do

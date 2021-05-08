@@ -26,18 +26,22 @@ end
 
 
 local function regularShockwave(x,y, col)
-    ccall("shockwave", x, y, 35, 210, 9, 0.4, col)
+    ccall("shockwave", x, y, 210, 40, 9, 0.4, col)
 end
 
 
-return function(e)
+return function(portal, player)
     --[[
         creates new level with feedback
     ]]
     local R = 3
-    for i=0, R do
-        ccall("await", regularShockwave, (i-1)*(BUF_TIME/R), e.pos.x, e.pos.y - e.pos.z/2, {0.05,0.3,0.3})
+    player.hidden = true
+    ccall("animate", "tp_up", 0,0,0, BUF_TIME/10, 1, nil, player, true)
+    -- TOOD: play a sound here
+    for i=0, R-2 do
+        ccall("await", regularShockwave, (i-1)*(BUF_TIME/R),
+                portal.pos.x, portal.pos.y - portal.pos.z/2, {0.05,0.3,0.3})
     end
-    ccall("await", genLevel, BUF_TIME+0.05, e) -- wait  seconds
+    ccall("await", genLevel, BUF_TIME+0.05, portal) -- wait  seconds
 end
 

@@ -22,7 +22,7 @@ local Cam = require("src.misc.unique.camera")
 local BlockPartition = require("src.misc.unique.partition_targets").physics
 
 
-function LSSys:update(dt)
+function LSSys:sparseupdate(dt)
     for x=-1,1 do
         for y=-1,1 do
             local X, Y = Cam.x + x*P_SIZE, Cam.y + y*P_SIZE

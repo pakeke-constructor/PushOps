@@ -91,6 +91,7 @@ local shoot = EH.Task("_wizard shoot")
 
 
 function shoot:start(e)
+    -- TODO: play wizard cast animation right here
     local vec = (math.vec3(Cam.x, Cam.y, 0) - e.pos)
     if vec:len() == 0 then
         return -- This should never happen tho
@@ -98,35 +99,19 @@ function shoot:start(e)
     vec = vec:normalize()
     local dx = vec.x
     local dy = vec.y
+    ccall("animate", "wizardcast", 0,0,0,
+            0.04, 1, nil, e, true)
     ccall("shootbolt", e.pos.x+dx*15, e.pos.y + dy*15, dx*BOLT_SPEED, dy*BOLT_SPEED)
-    ccall("shockwave", e.pos.x, e.pos.y - 10, 4, 20, 3, 0.1, {0.4,0.05,0.6})
+    ccall("shockwave", e.pos.x, e.pos.y, 4, 20, 3, 0.1, {0.4,0.05,0.6})
 end
 
 function shoot:update(e,dt)
-    if self:runtime(e)>0.2 then
+    if not e.hidden then
         return "n"
     end
     return "r"
 end
 
-local shield = EH.Task("_wizard sheild spell")
-
-function shield:start(e)
-    e._old_wizard_armour = e.armour
-    e.armour = math.huge -- this should negate all dmg
-    ccall("shockwave", e.pos.x, e.pos.y, 4, 40, 3, 0.3)
-end
-function shield:update(e,dt)
-    if self:runtime(e)>0.25 then
-        return "n"
-    end
-    return "r"
-end
-function shield:finish(e)
-    e.armour = e._old_wizard_armour
-end
-
-local tp = EH.Task("_wizard tp")
 
 Tree.chase = {
     "move::ORBIT";

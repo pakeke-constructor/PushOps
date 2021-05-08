@@ -40,6 +40,11 @@ local ccall = Cyan.call
 local r = love.math.random
 
 
+local function onDeath(e)
+    -- TODO sound here
+    ccall("animate", "tp_up", e.pos.x, e.pos.y, e.pos.z+40, 0.01,1,{0.3,0.02,0.4})
+end
+
 
 local collisionsComp = {
     physics = function(self, e, speed)
@@ -78,6 +83,7 @@ return function(x,y)
     EH.PHYS(e,5)
     :add("draw",{oy=0})
     :add("collisions", collisionsComp)
+    :add("onDeath",onDeath)
     return e
 end
 
