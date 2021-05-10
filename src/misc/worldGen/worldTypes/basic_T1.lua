@@ -111,7 +111,7 @@ return {
                         -- this to a table. 
 
     enemies = {
-        n = 13;
+        n = 30;
         n_var = 1;
 
         bign = 1;

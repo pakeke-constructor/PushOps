@@ -25,8 +25,8 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,3 do
-                    EH.Ents.wizard(x + i*10,y + i*10)
+                for i=1,1 do
+                    EH.Ents.pillar(x + i*10,y + i*10)
                 end
             end;
             max=0xfff
@@ -40,7 +40,7 @@ return {
         ["1"] = {
             max=0xff;
             function(x,y)
-                local txt = EH.Ents.goodtxt(x, y-35,
+                local txt = EH.Ents.goodtxt(x, y-35, nil,
                     " WASD\nto move",
                     TXT_COLOUR, 250)
             end
@@ -49,7 +49,7 @@ return {
         ["2"] = {
             max=0xff;
             function(x,y)
-                local txt = EH.Ents.goodtxt(x,y,
+                local txt = EH.Ents.goodtxt(x,y,nil,
                     "Arrow keys\nto push\nand pull",
                     TXT_COLOUR, 250)
             end
@@ -58,7 +58,7 @@ return {
         ["3"] = {
             max=2;
             function(x,y)
-                local txt = EH.Ents.goodtxt(x, y,
+                local txt = EH.Ents.goodtxt(x, y, nil,
                     "Colliding blocks\nwill deal damage",
                     TXT_COLOUR, 250)
             end
@@ -67,7 +67,7 @@ return {
         ["L"] = {
             max=1;
             function(x,y)
-                local txt=EH.Ents.goodtxt(x,y+25,
+                local txt=EH.Ents.goodtxt(x,y+25, nil,
                     "PROUDLY MADE\nWITH LOVE 2d",
                     {0.85,0.45,0.45})
                 EH.Ents.love2d_logo(x,y)
@@ -97,9 +97,6 @@ return {
                         x + rand(-10, 10),
                         y + rand(-10, 10)
                     )
-                    if rand()<0.1 then
-                        Ents.spookyblock(x+rand(-10,10), y+rand(-10,10))
-                    end
                 end
             end
         };
@@ -167,7 +164,7 @@ return {
                     y = 32
                 }
                 
-                EH.Ents.goodtxt(x,y+10, "ZONE I",{0.1,0.7,0.1}, 250)
+                EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
             end
         }
     }

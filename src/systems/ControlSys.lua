@@ -179,6 +179,16 @@ end
 local function push(ent)
     assert(ent.control,"??????????")
     
+    for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
+        if e ~= ent then
+        -- ents cannot interact with themself
+            if e.onInteract and Tools.edist(ent, e) < e.size then
+                e:onInteract(ent, "push")
+                return -- We dont want to push if its an interact
+            end
+        end
+    end
+
     if ent.control.canPush then
         local x = ent.pos.x
         local y = ent.pos.y
@@ -194,15 +204,6 @@ local function push(ent)
         ent.control.canPush = false
         ccall("await", pushFeedback, CONSTANTS.PUSH_COOLDOWN/4, ent)
         ccall("await", afterPush, CONSTANTS.PUSH_COOLDOWN, ent)
-
-        for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
-            if e ~= ent then
-            -- ents cannot interact with themself
-                if e.onInteract and Tools.edist(ent, e) < e.size then
-                    e:onInteract(ent, "push")
-                end
-            end
-        end
     else
         --TODO ::: add feedback here!
         -- the player just tried to push on cooldown

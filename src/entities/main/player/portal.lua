@@ -121,6 +121,9 @@ return function(x, y)
     }
     e.portalDestination = nil -- give nil, so override is forced
 
+    -- Spawn text entity tooltip:
+    EH.Ents.goodtxt(x,y,50,"press > to use",{1,1,1},140)
+
     return e
 end
 

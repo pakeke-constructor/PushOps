@@ -1,6 +1,6 @@
 
 
-Titan Slayer
+Titan Charm
     Deal 50% extra damage to bosses
     (Wizard boss wont appear when this is done)
 
@@ -18,21 +18,21 @@ Challenger I
 
 
 
-Quickness
+Wings
     + Move speed
 
 
-Gladiator
+Gladiator helmet
     deal 2x damage
     take 4x damage
 
 
-Blood rook
+Vampire tooth
     Lifesteal
-        <note: through tok ent>
+        <note: through tok ent, turns tok ent red>
 
 
-Domain master
+spellbook
     Pull and push radius increased
 
 
@@ -41,7 +41,8 @@ Bolt walker
 
 
 Bull walker
-    Increased movement speed, decreased control
+    Increased movement speed, decreased agility
+        <NOTE: less control over movement>
 
 
 Infector
@@ -56,25 +57,25 @@ Infector
         >
 
 
-Patience
+Patience charm
     Standing still regains health
 
 
-Explosive chain
+Explosive charm
     Enemies explode on death
 
 
-Implosive chain
+Implosive charm
     Enemies implode on death
 
 
-Boom walker
-    Crush walls, +Move speed
+TNT boots
+Crush walls, +Move speed
         <NOTE: walls will be crushed by walking over them.
         Their block drop rate should be decrased>
 
 
-Toughness
+Iron potion
     +50% health
     -5% speed
 

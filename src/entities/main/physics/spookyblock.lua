@@ -15,7 +15,7 @@ do
     psys:setRotation(0,math.pi*2)
     psys:setSpread(math.pi/2)
     psys:setEmissionArea("uniform", 10,0)
-    psys:setColors({0.33,0,0.42,0.6}, {0.33,0,0.42,0})
+    psys:setColors({0.43,0,0.52,0.6}, {0.43,0,0.52,0})
     local _,_, pW, pH = psys:getQuads()[1]:getViewport( )
     psys:setOffset(pW/2, pH/2)
 end
@@ -39,7 +39,7 @@ local collisions = {
     end
 }
 
-local COLOUR = {0.33,0,0.42}
+local COLOUR = {0.43,0,0.52}
 
 
 return function(x,y)

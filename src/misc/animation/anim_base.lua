@@ -80,13 +80,13 @@ function Anim:draw()
         local pos = self.tracking.pos
         if pos then
             -- In case entity position component has been deleted
-            draw(image, self.frames[self.current], self.x + pos.x, (self.y + pos.y) - (self.z+pos.z)/2, 0, 1, 1, self.ox, self.oy)
+            draw(image, self.frames[self.current], self.x + pos.x, (self.y + pos.y) - (self.z+pos.z)/2, self.rot, 1, 1, self.ox, self.oy)
             return
         end
     end
 
     draw(image, self.frames[self.current],
-        self.x, self.y - self.z/2, 0, 1, 1, self.ox, self.oy)
+        self.x, self.y - self.z/2, self.rot, 1, 1, self.ox, self.oy)
 end
 
 

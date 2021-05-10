@@ -6,11 +6,18 @@ local Quads = atlas.Quads
 
 
 
-local down = { Quads.red_player_down_1, Quads.red_player_down_2, Quads.red_player_down_3, Quads.red_player_down_4 }
-local up = { Quads.red_player_up_1, Quads.red_player_up_2, Quads.red_player_up_3, Quads.red_player_up_4 }
-local left = { Quads.red_player_left_1, Quads.red_player_left_2, Quads.red_player_left_3, Quads.red_player_left_4 }
-local right = { Quads.red_player_right_1, Quads.red_player_right_2, Quads.red_player_right_3, Quads.red_player_right_4 }
 
+local prefix = "3d_player_"
+local down={}
+local up={}
+local left={}
+local right={}
+for i=1,4 do
+    down[i] = Quads[prefix.."down_"..tostring(i)]
+    up[i] = Quads[prefix.."up_"..tostring(i)]
+    left[i] = Quads[prefix.."left_"..tostring(i)]
+    right[i] = Quads[prefix.."right_"..tostring(i)]
+end
 
 
 local ccall = Cyan.call
