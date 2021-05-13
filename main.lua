@@ -33,7 +33,6 @@ do
         :add("rot", love.math.random()*2*math.pi)
         :add("avel", 0.005)
     end]]
-    
 
     _G.ccall = _G.Cyan.call -- quality of life
 

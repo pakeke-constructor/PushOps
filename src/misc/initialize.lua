@@ -35,8 +35,10 @@ function DEBUG_SYS:draw()
     lg.setColor(1,1,1)
     lg.push()
     lg.reset()
+    love.graphics.rectangle("fill", 5, 95, 250, 60)
     lg.setColor(0,0,0)
-    love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,60)
+    love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,100)
+    love.graphics.print(("MEM USAGE: %d"):format(tostring(collectgarbage("count"))), 10, 120)
     lg.pop()
 end
 
