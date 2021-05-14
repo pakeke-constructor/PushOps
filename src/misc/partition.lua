@@ -21,3 +21,4 @@ local partition = require("libs.spatial_partition.partition")(
 )
 
 return partition
+

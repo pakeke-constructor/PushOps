@@ -129,14 +129,11 @@ return {
     end;
 
     entities = {
-    ["#"] = { -- For wall entity.
-        max = 999999, --No max.
-        Ents.wall
-    };
 
     ["e"] = {
         max = 200;
         function(x,y)
+            EH.Ents.light(x,y)
             for i=0, 1+rand(1,2) do
                 local f = enemySpawns()
                 f(x+(i-1)*10 + (rand()-.5)*20, y+(i-1)*10 + (rand()-.5)*20)
@@ -148,24 +145,6 @@ return {
         max = 10;
         function(x,y)
             bigEnemySpawns()(x,y)
-        end
-    };
-
-    ["%"] = {
-        max=math.huge;
-        function(x,y)
-            Ents.inviswall(x,y)
-        end
-    };
-
-    ["~"] = {
-        max=math.huge;
-        function(x,y)
-            for i=1, 4 + rand()*3 do
-                local X = x+160*(rand()-0.5)
-                local Y = y+160*(rand()-0.5)
-                Ents.fakepine(X,Y)    
-            end
         end
     };
 
@@ -194,7 +173,7 @@ return {
             end
         end
     };
-    
+
     ['^'] = {
         max = 0xFFFFFFF;
         function(x,y)

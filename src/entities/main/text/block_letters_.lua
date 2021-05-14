@@ -30,6 +30,8 @@ for i = 1, #letters do
         :add("image",image)
         :add("pushable",true)
         :add("bobbing", {magnitude=0.2})
+        :add("targetID", "physics")
+        :add("physicsImmune",true) -- so it wont be killed by splat, or by massdeletion
     end
     ::continue::
 end

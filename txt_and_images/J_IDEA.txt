@@ -29,6 +29,10 @@ targetID partition. Ignore physics blocks on minimap
 
 Explosive walls,
 bouncy walls with fixture:setRestitution() :)  
+    -- OLI NOTE: Maybe this idea came from the walls being very bland.
+        perhaps instead, just spice up the artwork of existing walls??
+
+
 
 
 Enemies that destroy blocks in certain radii

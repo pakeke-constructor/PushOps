@@ -1,0 +1,14 @@
+
+
+Mushrooms drop "Mushroom blocks"
+    (or maybe they could drop explosive blocks???)
+
+Mushroom blocks could duplicate when they kill an entity
+
+
+Explosive blocks
+
+
+Pine trees drop "Wood blocks"
+
+

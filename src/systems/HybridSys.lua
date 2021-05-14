@@ -15,6 +15,16 @@ effectively, it allows entities to be hybrids between ents/standard objects.
 local HybridSys = Cyan.System("hybrid")
 
 
+function HybridSys:added(ent)
+    if ent.onLose then
+        -- Add this entity to the onLose callback group
+    end
+    if ent.onRatioWin then
+        -- Add this entity to the onRatioWin callback group
+    end
+end
+
+
 function HybridSys:update(dt)
     for _,e in ipairs(self.group)do
         if e.onUpdate then

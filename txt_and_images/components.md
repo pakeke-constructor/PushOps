@@ -151,6 +151,9 @@ physics = {
     --  This is for when you want friction without particles.
 }
 
+physicsImmune=true/false -- whether this entity is immune
+    --  to splats and being deleted  (physics objs ONLY!)
+
 
 
 collisions = {

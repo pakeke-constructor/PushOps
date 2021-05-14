@@ -3,7 +3,7 @@
 local LightSys = Cyan.System("light")
 
 -- shader consts.
-local BASE_LIGHTING = {0.7, 0.7, 0.7, 1}
+local BASE_LIGHTING = {0.4, 0.4, 0.4, 1}
 local MAX_LIGHT_STRENGTH = 0.45
 local NUM_LIGHTS = 20 -- max N
 local BRIGHTNESS_MODIFIER = 4 -- all light strengths divided by 100
@@ -95,7 +95,7 @@ function LightSys:update()
     local light_distances = {}
 
     for _, e in ipairs(self.group)do
-        if Tools.isOnScreen(e, cam) then
+        if Tools.distToPlayer(e, cam) < 1000 then
             send(e, light_positions, light_colours, light_distances)
         end
     end

@@ -108,7 +108,7 @@ end
 local function onDeath(e)
     for _,bl in ipairs(e.orbiting_blocks) do
         bl.pushable = true
-        bl.splatImmune = false
+        bl.physicsImmune = false -- wont get splatted
     end
 end
 
@@ -125,7 +125,7 @@ return function(x, y)
     for i=1, e._block_num do
         local bl = EH.Ents.block(x,y)
         bl.pushable = false
-        bl.splatImmune = true -- Immune to splats
+        bl.physicsImmune = true -- Immune to splats
 
         table.insert(e.orbiting_blocks, bl)
     end

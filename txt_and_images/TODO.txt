@@ -17,15 +17,9 @@ make (more) wall variations
 
 
 
+Make KeyPressSys more responsive.
+As soon as player pressed keypress button, it will emit a callback
 
-We are gonna need to set a local region cap
-on block entities.
-It may be dangerous for performance on older devices if there
-are like 600 block ents on screen at the same time, as physics is
-O(n log n) still, bordering on O(n^2) if they are compacted.
-
-SOLUTION: Add stuff to spatial_partition.lua to allow you to count num
-objects in local region. Then you can set a cap easily
 
 
 
@@ -33,13 +27,6 @@ objects in local region. Then you can set a cap easily
 
 Test BuffSystem!
 Im pretty sure its all goods but wont hurt ey 
-
-
-
-Check ParticleSys for memory leaks!!!
-(Best way to do this -> check that no excess ParticleSyses are being
-created when not neccessary)
-
 
 
 

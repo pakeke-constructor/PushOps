@@ -7,7 +7,8 @@ local Quads = atlas.Quads
 
 
 
-local prefix = "3d_player_"
+
+local prefix = "red_player_"
 local down={}
 local up={}
 local left={}
@@ -95,8 +96,8 @@ return function(x,y)
         d = 'move_right';
         right = 'push';
         left = 'pull';
-        up="zoomIn";
-        down="zoomOut"
+        up = "push";
+        down = "pull"
     })
 
     e:add('light',{

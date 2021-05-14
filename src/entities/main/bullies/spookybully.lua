@@ -37,11 +37,7 @@ end
 local collisions = {
     physics = function(e,ot,s)
         if EH.PC(e,ot,s) then
-            -- add noise or something here
-            local col = e.colour
-            ccall("shockwave", e.pos.x, e.pos.y, 20, 50, 6, 0.2,
-                {col[1]-0.1,col[2]-0.1,col[3]-0.1})
-            ccall("splat", e.pos.x, e.pos.y)
+            -- TODO: add noise or something here
         end
     end
 }
@@ -51,7 +47,7 @@ local collisions = {
 
 local function spawnLittles(ent)
     for i=1, math.floor(2.5 + r()) do
-        EH.Ents.splatenemy(ent.pos.x + (r()-.5)*10, ent.pos.y + (r()-.5)*10)
+        EH.Ents.spookyenemy(ent.pos.x + (r()-.5)*10, ent.pos.y + (r()-.5)*10)
     end
 end
 
@@ -62,7 +58,7 @@ end
 
 
 local COLOUR = {
-    0.65,0.9,0.65
+    0.43,0,0.52
 }
 
 
@@ -97,16 +93,18 @@ return function(x, y)
 
     e.onDeath=onDeath
 
+    e.fade = 225
+
     e.hp = {
-        hp=500;
-        max_hp=500
+        hp=800;
+        max_hp=800
     }
 
     e.bobbing = {
         magnitude=0.3 + r()/10;
         value=0
     }
-    e.colour = CONSTANTS.SPLAT_COLOUR
+    e.colour = COLOUR
     e.targetID="enemy"
 
     e.collisions=collisions

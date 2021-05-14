@@ -30,7 +30,7 @@ end
 
 local function spawnMidgets(p)
     for i=1, rand(2,5)do
-        EH.Ents.shroom(p.x + (rand()-0.5)*100, p.y + (rand()-0.5)*100)
+        EH.Ents.shroom(p.x + (rand()-0.5)*30, p.y + (rand()-0.5)*30)
     end
 end
 

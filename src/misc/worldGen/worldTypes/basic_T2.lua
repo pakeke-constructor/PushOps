@@ -80,7 +80,7 @@ local function spawn_portal(x, y)
     portal.portalDestination = {
         x = 30;
         y = 30;
-        tier = 2;
+        tier = 3;
         type="basic"
     }
 end
@@ -135,14 +135,11 @@ return {
     end;
 
     entities = {
-    ["#"] = { -- For wall entity.
-        max = 999999, --No max.
-        Ents.wall
-    };
 
     ["e"] = {
         max = 200;
         function(x,y)
+            EH.Ents.light(x,y)
             for i=-1,rand(1,2) do
                 local f = enemySpawns()
                 f(x+(i-1)*40, y+(i-1)*40)
@@ -190,11 +187,6 @@ return {
                 grass(x + rand(-50, 50), y + rand(-50, 50))
             end
         end
-    };
-
-    ['%'] = {
-        max = 999999; --no max;
-        Ents.wall -- had to change to regular wall due to destruction
     };
 
     ['l'] = {

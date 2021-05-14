@@ -43,7 +43,7 @@ return{
         "coin"
     }
 ,
-    WIN_RATIO = 0.99-- Good value is 0.25
+    WIN_RATIO = 0.35-- Good value is 0.35 (had to make higher because of invisible ents)
     -- percentage of enemies that need to be killed before ccall("winRatio")
 ,
     paused = false  -- debug only  (if not debug only, make an cyan.call event for this)

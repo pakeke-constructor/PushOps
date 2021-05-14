@@ -26,11 +26,12 @@ local left = {}
 local ti = table.insert
 local ts = tostring
 
+local prefix = "bully_"
 for _,i in ipairs(ii) do
-    ti(up, Quads['bully_up_'..ts(i)])
-    ti(down, Quads['bully_down_'..ts(i)])
-    ti(right, Quads['bully_right_'..ts(i)])
-    ti(left, Quads['bully_left_'..ts(i)])
+    ti(up, Quads[prefix..'up_'..ts(i)])
+    ti(down, Quads[prefix..'down_'..ts(i)])
+    ti(right, Quads[prefix..'right_'..ts(i)])
+    ti(left, Quads[prefix..'left_'..ts(i)])
 end
 
 
@@ -79,8 +80,8 @@ return function(x, y)
     }
 
     e.hp = {
-        hp=2000;
-        max_hp=2000
+        hp=1000;
+        max_hp=1000
     }
 
     e.bobbing = {

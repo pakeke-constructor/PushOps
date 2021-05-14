@@ -18,15 +18,15 @@ return {
 
     entities = {
 
-        ["X"] = {
+    ["X"] = {
             --[[
                 Experimental entity slot.
                 This ent could refer to any entity type, it just depends what I
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,1 do
-                    EH.Ents.pillar(x + i*10,y + i*10)
+                for i=1,5 do
+                    EH.Ents.spookybully(x + i*10,y + i*10)
                 end
             end;
             max=0xfff

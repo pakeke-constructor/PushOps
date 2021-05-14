@@ -70,7 +70,7 @@ return function(x,y)
     local INFINITE_BLOB = Cyan.Entity()
 
     :add("pos", math.vec3(x,y,0))
-    
+    :add("text", "GOD")
     :add("vel", math.vec3(0,0,0))
 
     :add("hp", {hp = 100, max_hp = 100})

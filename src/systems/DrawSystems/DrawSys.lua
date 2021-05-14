@@ -192,7 +192,7 @@ function DrawSys:draw()
     mainDraw()
     
     lg.push()
-    lg.scale(5)
+    lg.scale(2)
     ccall("drawUI")
     lg.pop()
 end

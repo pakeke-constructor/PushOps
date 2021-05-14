@@ -40,6 +40,29 @@ return {
         Ents.wall
     };
 
+    ["%"] = {
+        max=math.huge;
+        function(x,y)
+            Ents.inviswall(x,y)
+            for i=1, 2 do--4 + rand()*2 do
+                local X = x+90*(rand()-0.5)
+                local Y = y+90*(rand()-0.5)
+                Ents.fakepine(X,Y)    
+            end
+        end
+    };
+
+    ["~"] = {
+        max=math.huge;
+        function(x,y)
+            for i=1, rand()*4 do--4 + rand()*2 do
+                local X = x+200*(rand()-0.5)
+                local Y = y+200*(rand()-0.5)
+                Ents.fakepine(X,Y)    
+            end
+        end
+    };
+
     ["p"] = {
         max = 300, -- 60 max
         function(x, y)
@@ -73,11 +96,6 @@ return {
                 grass(x + rand(-50, 50), y + rand(-50, 50))
             end
         end
-    };
-
-    ['%'] = {
-        max = 999999; --no max;
-        Ents.wall -- had to change to regular wall due to destruction
     };
 
     ['l'] = {

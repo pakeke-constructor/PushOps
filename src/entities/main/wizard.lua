@@ -123,7 +123,6 @@ Tree.shoot = {
     shoot;
     shoot;
     shoot;
-    "wait::1";
     shoot;
     shoot;
     shoot;

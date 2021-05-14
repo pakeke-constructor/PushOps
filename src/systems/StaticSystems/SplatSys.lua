@@ -57,12 +57,12 @@ local WHITE = {1,1,1,1}
 local function splat(ent)
     -- splats an ent
 
-    if ent.splatImmune then
-        -- its already been splatted
+    if ent.physicsImmune then
+        -- its already been splatted, or is immune
         return
     end
 
-    ent.splatImmune = true
+    ent.physicsImmune = true
 
     ent:remove("targetID") -- this physics obj is gonna die anyway.
     -- we can save some time in the loop by removing from phys partition
