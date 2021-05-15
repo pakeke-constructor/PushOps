@@ -176,6 +176,7 @@ function PushSys:boom(x, y, strength, distance,
                 -- the entity that enacted the force.
             local e_dis = dist(x-eX, y-eY)
 
+            e_dis = max(e_dis, 1) -- minimum of 1 distance (no Nans)
             this_strength = (strength*AVERAGE_DT*100) / e_dis;
 
             -- will only push entities a certain distance away

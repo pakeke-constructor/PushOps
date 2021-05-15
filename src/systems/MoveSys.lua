@@ -109,6 +109,11 @@ local st = "Target entity requires a velocity component!"
 local cexists = Cyan.exists
 
 function MoveSys:addVel(ent, dx, dy)
+    if (not (dx==dx)) or (not (dy==dy)) then
+        Tools.dump(ent, "attempeted to give this ent a NaN velocity")
+        error("gave ent nan velocity")
+    end
+
     assert(ent.vel, st)
 
     if not cexists(ent) then

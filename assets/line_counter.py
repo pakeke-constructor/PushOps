@@ -8,6 +8,8 @@ from os.path import isfile
 
 PATH = 'D:\\PROGRAMMING\\LUA\\SCRIPTS\\push_game'
 
+IGNORE = ["binpack", "set", "sset", "sets"]
+
 
 
 
@@ -42,7 +44,7 @@ def count_lines(path):
             # avoiding local git repo!
             continue
 
-        if fname.startswith("NM_"):
+        if fname.startswith("NM_") or (fname.replace(".lua","").lower() in IGNORE):
             # Not my code!
             # add to inclusive total.
             if isfile(path + "/" + fname):
