@@ -57,7 +57,7 @@ return{
 ,
     DEVILBLIND  = false --==>>>  swaps red-green
 ,
-    NAVYBLIND   = false --==>>>  swaps blue-red
+    NAVYBLIND   = true --==>>>  swaps blue-red
 ,
     MASTER_VOLUME = 0.4-- = 0.4 -- volume is always a number:   0 --> 1
 ,

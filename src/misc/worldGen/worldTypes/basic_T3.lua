@@ -157,11 +157,6 @@ return {
         end
     };
 
-    ['%'] = {
-        max = 999999; --no max;
-        Ents.wall -- had to change to regular wall due to destruction
-    };
-
     ['l'] = {
         max = 100;
         function (x, y)

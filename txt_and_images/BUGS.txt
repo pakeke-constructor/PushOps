@@ -1,11 +1,9 @@
 
-
-
-Error: libs/spatial_partition/partition.lua:129: Not a number (NaN) found in obj table: 0x1cfdee70. Ensure objects don't have NaN as their x or y fields.
+Error: libs/spatial_partition/partition.lua:129: Not a number (NaN) found in obj table: 0x0ad3cae0. Ensure objects don't have NaN as their x or y fields.
 stack traceback:
         [string "boot.lua"]:777: in function <[string "boot.lua"]:773>
         [C]: in function 'error'
-        libs/spatial_partition/partition.lua:186: in function 'getSet'
+        libs/spatial_partition/partition.lua:193: in function 'getSet'
         libs/spatial_partition/partition.lua:129: in function 'updateObj'
         libs/spatial_partition/partition.lua:121: in function 'update'
         src/systems/PartitionSys.lua:37: in function <src/systems/PartitionSys.lua:36>
@@ -14,82 +12,806 @@ stack traceback:
         [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
         [C]: in function 'xpcall'
 
-SHIIIIT MAN. No T_DUMP for this as well, this could easily be an uncatchable
-nightmare bug
+
+NaN found in entity position component. Good luck mate.. youll need it
+
+This entity is a cmallow btw. Potentially to do with ccall("push") or ccall("pull")?
+Also important to note that the cmallow was trapped when emitting these callbacks.
+
+lua tostring::table: 0x0ad3cae0
+<1>{
+  ___mask = 3826425,
+  behaviour = {
+    move = {
+      id = "player",
+      initialized = false,
+      orbit_speed = 1.2,
+      orbit_tick = 0,
+      target = (+971.509,+1412.889,+0.000),
+      target_ent = <2>{
+        ___mask = 3828460,
+        acc = (+0.000,+0.000,+0.000),
+        bobbing = {
+          magnitude = 0.32,
+          oy = -1.2970728159646,
+          phase = 4,
+          scale = 0.91893294900222,
+          value = 0.74666546563192
+        },
+        control = {
+          a = "move_left",
+          canPull = true,
+          canPush = true,
+          d = "move_right",
+          down = "pull",
+          left = "pull",
+          move_down = false,
+          move_left = true,
+          move_right = false,
+          move_up = false,
+          pull = false,
+          push = true,
+          right = "push",
+          s = "move_down",
+          up = "push",
+          w = "move_up"
+        },
+        draw = {
+          h = 16,
+          ox = 8,
+          oy = 8,
+          w = 16
+        },
+        friction = {
+          amount = 6,
+          emitter = <userdata 1>,
+          on = true,
+          required_vel = 10
+        },
+        grounded = true,
+        hp = {
+          hp = 63.5569745,
+          iframe_count = -0.0025687999996989,
+          iframes = 0.5,
+          max_hp = 100,
+          regen = 1
+        },
+        light = {
+          colour = { 1, 1, 1, 1 },
+          distance = 5
+        },
+        motion = {
+          animation_len = 4,
+          current = 0.30617619999994,
+          current_direction = "left",
+          down = { <userdata 2>, <userdata 3>, <userdata 4>, <userdata 5> },
+          interval = 0.15,
+          left = { <userdata 6>, <userdata 7>, <userdata 8>, <userdata 9> },
+          ox = 8,
+          oy = 8,
+          required_vel = 120,
+          right = { <userdata 10>, <userdata 11>, <userdata 12>, <userdata 13> },
+          sounds = {
+            [2] = "footstep",
+            [4] = "footstep",
+            last_index = 2,
+            pitch = 1,
+            pitch_v = 0.2,
+            vol = 0.8
+          },
+          up = { <userdata 14>, <userdata 15>, <userdata 16>, <userdata 17> }
+        },
+        onDamage = <function 1>,
+        physics = {
+          body = <userdata 18>,
+          fixture = <userdata 19>,
+          shape = <userdata 20>
+        },
+        pos = (+1029.457,+1303.983,+0.100),
+        pushable = true,
+        sigils = { "strength" },
+        speed = {
+          max_speed = 210,
+          speed = 20
+        },
+        strength = 100,
+        targetID = "player",
+        vel = (-164.359,+125.367,+0.000)
+      },
+      type = "IDLE"
+    },
+    tree = <3>{
+      _ent_indexes = {
+        [<4>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 0,
+              target = (+232.601,+1839.137,+0.000),
+              type = "RAND"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 1.8498640877914,
+            phase = 2,
+            scale = 1.0578082527435,
+            value = 1.2312330109739
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <5>{ 0.6, 1, 0.6 },
+          draw = {
+            h = 32,
+            ox = 16,
+            oy = 16,
+            w = 32
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 21>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 1700,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0.7393591,
+            current_direction = "left",
+            down = <6>{ <userdata 22>, <userdata 23>, <userdata 24>, <userdata 25> },
+            interval = 0.3,
+            left = <7>{ <userdata 26>, <userdata 27>, <userdata 28>, <userdata 29> },
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <8>{ <userdata 30>, <userdata 31>, <userdata 32>, <userdata 33> },
+            up = <9>{ <userdata 34>, <userdata 35>, <userdata 36>, <userdata 37> }
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 38>,
+            fixture = <userdata 39>,
+            shape = <userdata 40>
+          },
+          pos = (+441.899,+1627.412,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (-5.636,+0.827,+0.000)
+        }] = 2,
+        [<10>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 0,
+              target = (+1233.969,+1718.322,+0.000),
+              type = "RAND"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.26652324799101,
+            phase = 6,
+            scale = 0.99167114850028,
+            value = 0.96668459400112
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 32,
+            ox = 16,
+            oy = 16,
+            w = 32
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 41>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 1700,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0.55789159999968,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.3,
+            left = <table 7>,
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 42>,
+            fixture = <userdata 43>,
+            shape = <userdata 40>
+          },
+          pos = (+1213.587,+1648.859,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (+36.493,+124.377,+0.000)
+        }] = 2,
+        [<11>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 0,
+              target = (+977.996,+1633.081,+0.000),
+              type = "RAND"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -1.8498640877915,
+            phase = 5,
+            scale = 0.94219174725652,
+            value = 0.76876698902607
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 32,
+            ox = 16,
+            oy = 16,
+            w = 32
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 44>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 1700,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 1.1543090999999,
+            current_direction = "right",
+            down = <table 6>,
+            interval = 0.3,
+            left = <table 7>,
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 45>,
+            fixture = <userdata 46>,
+            shape = <userdata 40>
+          },
+          pos = (+747.045,+1637.855,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (+107.268,-2.198,+0.000)
+        }] = 2,
+        [<12>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 0,
+              target = (+160.239,+1407.216,+0.000),
+              type = "RAND"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = -0.26652324799101,
+            phase = 6,
+            scale = 0.99167114850028,
+            value = 0.96668459400112
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 32,
+            ox = 16,
+            oy = 16,
+            w = 32
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 47>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 1700,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0.16728089999979,
+            current_direction = "left",
+            down = <table 6>,
+            interval = 0.3,
+            left = <table 7>,
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 48>,
+            fixture = <userdata 49>,
+            shape = <userdata 40>
+          },
+          pos = (+143.386,+1260.642,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (-18.170,+16.810,+0.000)
+        }] = 2,
+        [<13>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 0,
+              target = (+548.473,+1747.994,+0.000),
+              type = "RAND"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 1.8498640877914,
+            phase = 2,
+            scale = 1.0578082527435,
+            value = 1.2312330109739
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 32,
+            ox = 16,
+            oy = 16,
+            w = 32
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 50>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 1700,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 1.0123967999999,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.3,
+            left = <table 7>,
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 51>,
+            fixture = <userdata 52>,
+            shape = <userdata 40>
+          },
+          pos = (+542.765,+1683.620,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (+0.000,+11.386,+0.000)
+        }] = 2,
+        [<14>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 0,
+              target = (+553.149,+1741.569,+0.000),
+              type = "RAND"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 1.5833408398005,
+            phase = 1,
+            scale = 1.0494794012438,
+            value = 1.1979176049751
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          draw = {
+            h = 32,
+            ox = 16,
+            oy = 16,
+            w = 32
+          },
+          friction = {
+            amount = 6,
+            emitter = <userdata 53>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = 1700,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0,
+            current_direction = "down",
+            down = <table 6>,
+            interval = 0.3,
+            left = <table 7>,
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 54>,
+            fixture = <userdata 55>,
+            shape = <userdata 40>
+          },
+          pos = (+409.235,+1397.114,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (-0.000,+0.531,+0.000)
+        }] = 2,
+        [<table 1>] = 3,
+        [<15>{
+          ___mask = 3826425,
+          behaviour = {
+            move = {
+              id = "player",
+              initialized = true,
+              orbit_speed = 1.2,
+              orbit_tick = 5.2034852399998,
+              target = (+805.072,+493.129,+0.000),
+              target_ent = <table 2>,
+              type = "ORBIT"
+            },
+            tree = <table 3>
+          },
+          bobbing = {
+            magnitude = 0.25,
+            oy = 1.3372137811979,
+            phase = 4,
+            scale = 1.0417879306624,
+            value = 1.1671517226497
+          },
+          collisions = {
+            physics = <function 2>
+          },
+          colour = <table 5>,
+          friction = {
+            amount = 6,
+            emitter = <userdata 56>,
+            on = true,
+            required_vel = 10
+          },
+          grounded = true,
+          hp = {
+            hp = -28.329794378955,
+            iframe_count = -0.1,
+            max_hp = 1700,
+            regen = 0
+          },
+          motion = {
+            animation_len = 4,
+            current = 0.13952720000025,
+            current_direction = "up",
+            down = <table 6>,
+            interval = 0.3,
+            left = <table 7>,
+            ox = 16,
+            oy = 16,
+            required_vel = 1,
+            right = <table 8>,
+            up = <table 9>
+          },
+          onDeath = <function 3>,
+          physics = {
+            body = <userdata 57>,
+            fixture = <userdata 58>,
+            shape = <userdata 40>
+          },
+          pos = (+1036.368,+331.437,+0.100),
+          pushable = false,
+          sigils = { "poison" },
+          speed = {
+            max_speed = 400,
+            speed = 360
+          },
+          targetID = "enemy",
+          vel = (+27.205,-87.402,+0.000)
+        }] = 2,
+        <metatable> = <16>{
+          __mode = "k"
+        }
+      },
+      _ent_paths = {
+        [<table 4>] = "idle",
+        [<table 10>] = "idle",
+        [<table 11>] = "idle",
+        [<table 12>] = "idle",
+        [<table 13>] = "idle",
+        [<table 14>] = "idle",
+        [<table 1>] = "charge",
+        [<table 15>] = "angry",
+        <metatable> = <table 16>
+      },
+      callbacks = {},
+      choose = <function 4>,
+      name = "cmallow behaviour tree",
+      paths = {
+        angry = { {
+            finish = <function 5>,
+            name = "_copy_move::ORBIT",
+            parent = <table 3>,
+            runtimes = {
+              <metatable> = <17>{
+                __index = <function 6>,
+                __mode = "k"
+              }
+            },
+            start = <function 7>,
+            update = <function 8>,
+            <metatable> = <18>{
+              __index = {
+                _reset = <function 9>,
+                _update = <function 10>,
+                finish = <function 5>,
+                runtime = <function 11>,
+                start = <function 12>,
+                type = "Task"
+              }
+            }
+          }, {
+            finish = <function 13>,
+            name = "_copy_wait::4",
+            parent = <table 3>,
+            runtimes = {
+              [<table 15>] = 0.31795990000001,
+              <metatable> = <table 17>
+            },
+            start = <function 14>,
+            update = <function 15>,
+            <metatable> = <table 18>
+          } },
+        charge = { {
+            finish = <function 5>,
+            name = "_copy__cmallow spin task",
+            parent = <table 3>,
+            runtimes = {
+              <metatable> = <table 17>
+            },
+            start = <function 16>,
+            update = <function 17>,
+            <metatable> = <table 18>
+          }, {
+            finish = <function 18>,
+            name = "_copy__cmallow charge task",
+            parent = <table 3>,
+            runtimes = {
+              <metatable> = <table 17>
+            },
+            start = <function 19>,
+            update = <function 20>,
+            <metatable> = <table 18>
+          }, {
+            finish = <function 5>,
+            name = "_copy__cmallow spin task",
+            parent = <table 3>,
+            runtimes = {
+              [<table 1>] = 0.51786469999961,
+              <metatable> = <table 17>
+            },
+            start = <function 16>,
+            update = <function 17>,
+            <metatable> = <table 18>
+          } },
+        idle = { {
+            finish = <function 5>,
+            name = "_copy_move::RAND",
+            parent = <table 3>,
+            runtimes = {
+              <metatable> = <table 17>
+            },
+            start = <function 21>,
+            update = <function 8>,
+            <metatable> = <table 18>
+          }, {
+            finish = <function 22>,
+            name = "_copy_wait::3",
+            parent = <table 3>,
+            runtimes = {
+              [<table 4>] = 2.7865784999997,
+              [<table 10>] = 2.7865784999997,
+              [<table 11>] = 2.7865784999997,
+              [<table 13>] = 2.7865784999997,
+              [<table 14>] = 2.7865784999997,
+              [<table 12>] = 2.7865784999997,
+              <metatable> = <table 17>
+            },
+            start = <function 23>,
+            update = <function 24>,
+            <metatable> = <table 18>
+          } }
+      },
+      <metatable> = {
+        __index = {
+          _kill = <function 25>,
+          _reset = <function 26>,
+          call = <function 27>,
+          choose = <function 28>,
+          getPath = <function 29>,
+          next = <function 30>,
+          on = <function 31>,
+          type = "Node",
+          update = <function 32>
+        },
+        __newindex = <function 33>
+      }
+    }
+  },
+  bobbing = {
+    magnitude = 0.25,
+    oy = 0.26652324799098,
+    phase = 3,
+    scale = 1.0083288514997,
+    value = 1.0333154059989
+  },
+  collisions = {
+    physics = <function 2>
+  },
+  colour = <table 5>,
+  draw = {
+    h = 32,
+    ox = 16,
+    oy = 16,
+    w = 32
+  },
+  friction = {
+    amount = 6,
+    emitter = <userdata 59>,
+    on = true,
+    required_vel = 10
+  },
+  grounded = true,
+  hidden = true,
+  hp = {
+    hp = 1700,
+    iframe_count = -0.1,
+    max_hp = 1700,
+    regen = 0
+  },
+  motion = {
+    animation_len = 4,
+    current = 0,
+    current_direction = "right",
+    down = <table 6>,
+    interval = 0.3,
+    left = <table 7>,
+    ox = 16,
+    oy = 16,
+    required_vel = 1,
+    right = <table 8>,
+    up = <table 9>
+  },
+  onDeath = <function 3>,
+  physics = {
+    body = <userdata 60>,
+    fixture = <userdata 61>,
+    shape = <userdata 40>
+  },
+  pos = (nan,nan,+0.100),
+  pushable = false,
+  sigils = { "poison" },
+  speed = {
+    max_speed = 400,
+    speed = 360
+  },
+  targetID = "enemy",
+  vel = (nan,nan,+0.000)
+}
 
 
 
-
-
-
-Enemy count in WinSys is negative. This could be a bug in Cyan.lua...
-hopefully not
-
-ahhh crap man, its error time.
-If you can, please contact Oli and show a full screenshot of this screen. TY!
-       PLATFORM : Windows
-src/systems/WinSys.lua:125: wtf man...
-
-Traceback
-conf.lua:112: in function 'handler'
-[C]: in function 'error'
-src/systems/WinSys.lua:125: in function <src/systems/WinSys.lua:123>
-libs/Cyan/cyan.lua:73: in function 'call'
-src/misc/unique/gamestate.lua:21: in function 'update'
-[C]: in function 'xpcall'
-
-TODO
-TODO
-TODO
-TODO!!!!
-OKAY, I figured out the bug.
-The bug is due to the nature of Cyan.clear and Cyan.flush.
-ECS is only flushed on a root ccallback. So when :purge is invoked,
-the entities are cleared, but entities remain in the ECS because :purge is not a 
-root call, and is instead called from `InteractionSys`. From there, 
-:newWorld is called directly. This sets the WinSys enemy counters
-to 0 instantly, however, at the next ECS flush, the old entities that are not 
-supposed to be apart of the new world are killed, and WinSys thinks
-that they were apart of the new world. Since the entities from the previous world
-obviously did not contribute to the total enemy counter, this is why enemy count
-pops into the negatives. PHEW... ok, now how to fix:
-
-A solution would be to delay the worldgen by a frame and call it at a root call.
-This would probably involve some extra functions in Cyan.
-A hacky alternative would be to plug the :newWorld call into the next update ccall.
-We know that update will always (or should always, TODO add a check for this) be
-one level up from the root level.
-Oh, damn, nah, just do `ccall("await", {:newWorld}, 0)`, this'll fix it
-
-
-
-
-
-
-
-
-
-
-ahhh crap man, its error time.
-If you can, please contact Oli and show a full screenshot of this screen. TY!
-       PLATFORM : Windows
-src/systems/MoveSys.lua:42: Attempt to use destroyed body.
-
-Traceback
-conf.lua:112: in function 'handler'
-[C]: in function 'getLinearVelocity'
-src/systems/MoveSys.lua:42: in function 'updateVelo'
-src/systems/MoveSys.lua:80: in function <src/systems/MoveSys.lua:78>
-libs/Cyan/cyan.lua:73: in function 'call'
-src/misc/unique/gamestate.lua:21: in function 'update'
-[C]: in function 'xpcall'
-
-Source of bug:
-:newWorld is called, but the entities are being produced, and THEN the physics
-world is destroyed. This destroys all the bodies in the world as well, and since
-we have a bunch of destroyed physics bodies and a bunch of alive entities, 
-it clunks out.
-
-ALSO another bug is that ControlSys is signalling lose condition on the one frame 
-that the player does not exist
 

@@ -130,6 +130,7 @@ function MoveSys:addVel(ent, dx, dy)
             max_vel = min(ent.speed.max_speed or MAX_VEL, MAX_VEL)
         end
 
+        assert(max_vel ~= 0, "ur gonna get a NaN here man")
         local ratio = min(dist(vx, vy) / max_vel, 1)
         
         -- Cube the ratio to be more easy on slow moving objs:
