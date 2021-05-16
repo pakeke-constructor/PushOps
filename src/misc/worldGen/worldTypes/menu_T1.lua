@@ -25,8 +25,8 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,5 do
-                    EH.Ents.spookybully(x + i*10,y + i*10)
+                for i=1,1 do
+                    EH.Ents.demon(x + i*10,y + i*10)
                 end
             end;
             max=0xfff

@@ -6,7 +6,8 @@ local atlas = require( "assets.atlas" )
 
 local Quads = atlas.Quads
 
-local mush = Quads.mushroom
+local mushes = {Quads.red_mushroom_1, Quads.red_mushroom_2}
+local mush = mushes[1]
 
 local _,_,w,h = mush:getViewport()
 local shape = love.physics.newCircleShape(4)
@@ -43,7 +44,7 @@ end
 return function(x,y)
     return Cyan.Entity( )
     :add("pos", math.vec3(x,y,0))
-    :add("image", {quad = mush, oy=60})
+    :add("image", {quad = Tools.rand_choice(mushes), oy=60})
     :add("physics", {
         body = "static";
         shape = shape

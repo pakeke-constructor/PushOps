@@ -1,0 +1,30 @@
+
+
+
+
+
+
+Zone 1:
+    Easy mobs,
+    lots of box ents
+    h:(devil ent)
+
+Zone 2:
+    Relatively easy mobs,
+    introduction to mallows
+    h:(bully)
+
+Zone 3:
+    introduction to splatenemy
+    h:(boxbully)
+
+Zone 4:
+    introduction to spookyblock
+    and boxbully
+
+Zone 5:
+    spookybully
+
+
+
+

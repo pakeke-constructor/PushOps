@@ -7,7 +7,7 @@ local partition = require("src.misc.partition")
 local ccall = Cyan.call
 local rand = love.math.random
 
-local BUF_TIME = 0.4 -- wait BUF_TIME seconds then spawn new world
+local BUF_TIME = 0.7 -- wait BUF_TIME seconds then spawn new world
 
 
 
@@ -36,6 +36,8 @@ return function(portal, player)
     ]]
     local R = 3
     player.hidden = true
+    ccall("sound", "boom")
+    ccall("sound", "teleport",0.4)
     ccall("animate", "tp_up", 0,0,0, BUF_TIME/10, 1, nil, player, true)
     -- TOOD: play a sound here
     for i=0, R-2 do
@@ -44,4 +46,5 @@ return function(portal, player)
     end
     ccall("await", genLevel, BUF_TIME+0.05, portal) -- wait  seconds
 end
+
 

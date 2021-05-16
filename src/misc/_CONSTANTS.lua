@@ -55,9 +55,9 @@ return{
 ,
     COLOURBLIND = false --==>>>  swaps blue-green
 ,
-    DEVILBLIND  = false --==>>>  swaps red-green
+    DEVILBLIND  = true --==>>>  swaps red-green
 ,
-    NAVYBLIND   = true --==>>>  swaps blue-red
+    NAVYBLIND   = false --==>>>  swaps blue-red
 ,
     MASTER_VOLUME = 0.4-- = 0.4 -- volume is always a number:   0 --> 1
 ,

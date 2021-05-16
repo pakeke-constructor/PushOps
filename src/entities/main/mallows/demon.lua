@@ -15,7 +15,7 @@ local ccall = Cyan.call
 local rand = love.math.random
 
 
-local COLOUR={0.58,0.9,0.47}
+local COLOUR={0.68,0.9,0.47}
 
 local MINION_COLOUR = {0.78, 1, 0.6}
 

@@ -150,7 +150,7 @@ local function getNormalizedBias(bX, bY, eX, eY, bias_group, bias_angle)
 end
 
 
-
+local max = math.max
 
 function PushSys:boom(x, y, strength, distance, 
                         vx, vy, bias_group, bias_angle) -- optional arguments.
