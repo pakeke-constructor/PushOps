@@ -44,7 +44,7 @@ return {
         max=math.huge;
         function(x,y)
             Ents.inviswall(x,y)
-            for i=1, 2 do--4 + rand()*2 do
+            for i=1, (rand()*2) do--4 + rand()*2 do
                 local X = x+90*(rand()-0.5)
                 local Y = y+90*(rand()-0.5)
                 Ents.fakepine(X,Y)    

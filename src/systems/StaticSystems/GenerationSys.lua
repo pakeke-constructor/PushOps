@@ -13,7 +13,10 @@ local DEFAULT_EDGE_THRESHOLD = 0.2
 
 
 -- Frequency modifier of noise. 
-local FREQUENCY = 1.2;
+local FREQUENCY = 1.2
+
+
+local WALL_BORDER_LEN = 6
 
 
 --[[
@@ -315,33 +318,37 @@ end
 
 local function makeWalls(world)
     local worldMap = world.worldMap
+    local BLEN = WALL_BORDER_LEN
+
     for _,ar in ipairs(worldMap) do
-        table.insert(ar, "~")
-        table.insert(ar, 1, "~")
+        for i=1,BLEN do
+            table.insert(ar, "~")
+            table.insert(ar, 1, "~")
+        end
     end
 
-    local q1 = {}
-    local q2 = {}
-
-    for i=1, #worldMap[1] do
-        table.insert(q1, "~")
-        table.insert(q2, "~")
+    for i=1,BLEN do
+        local q1 = {}
+        local q2 = {}
+        for i=1, #worldMap[1] do
+            table.insert(q1, "~")
+            table.insert(q2, "~")
+        end
+        table.insert(worldMap, 1, q1)
+        table.insert(worldMap, q2)
     end
-
-    table.insert(worldMap, 1, q1)
-    table.insert(worldMap, q2)
 
     local xlen = #worldMap
     local ylen = #worldMap[1]
 
-    for xx=2, #worldMap-1 do
-        worldMap[xx][2] = "%"
-        worldMap[xx][ylen-1] = "%"  
+    for xx=BLEN, #worldMap-BLEN do
+        worldMap[xx][BLEN] = "%"
+        worldMap[xx][ylen-(BLEN)] = "%"  
     end
 
-    for yy=2, #worldMap[1]-1 do
-        worldMap[2][yy] = "%"
-        worldMap[xlen-1][yy] = "%"
+    for yy=BLEN, #worldMap[1]-BLEN do
+        worldMap[BLEN][yy] = "%"
+        worldMap[xlen-BLEN][yy] = "%"
     end
 end
 
@@ -622,10 +629,11 @@ local function procGenerateWorld(world)
             error("invalid structureRule id :: "..rule_id)
         end
     else
-        local def_id = "default_T" .. tostring(tier)
+        assert(world.tier, ("worldtype %s did not have a tier"):format(world.type or '<nil type>'))
+        local def_id = "default_T" .. tostring(world.tier)
         structureRule = StructureRules[ def_id ]
         if not structureRule then
-            error("Default structureRule for tier "..tostring(tier).." did not exist")
+            error("Default structureRule for tier "..tostring(world.tier).." did not exist")
         end
     end
     world.structureRule = structureRule
@@ -676,7 +684,7 @@ function GenSys:newWorld(world, worldMap)
 
     makeEnts(world)
 
-    --[[ 
+    --[[  ]]
     for _,tab in ipairs(worldMap) do
         print(table.concat(tab, " "))
     end

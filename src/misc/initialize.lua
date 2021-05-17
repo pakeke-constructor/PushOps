@@ -1,12 +1,24 @@
 
 
-
+--[[ ]]
 Cyan.call("newWorld",{
     x=100,y=100,
     tier = 1,
     type = 'menu'
 }, require("src.misc.worldGen.menu"))
 
+--]]
+
+
+--[[
+local gladmap = require("gladiator_map")
+ccall("newWorld",{
+    x = #gladmap[1];
+    y = #gladmap;
+    tier=1;
+    type="gladiator"
+}, gladmap)
+--]]
 local rand = love.math.random
 
 local Ents = require("src.entities")

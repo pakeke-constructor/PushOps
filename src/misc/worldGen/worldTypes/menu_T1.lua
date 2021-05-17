@@ -26,7 +26,7 @@ return {
             ]]
             function(x,y)
                 for i=1,1 do
-                    EH.Ents.demon(x + i*10,y + i*10)
+                    EH.Ents.blue_mushroom(x + i*10,y + i*10)
                 end
             end;
             max=0xfff
@@ -111,13 +111,6 @@ return {
                         y + rand(-32, 32)
                     )
                 end
-            end
-        };
-
-        ['w'] = {
-            max = 1;
-            function(x,y)
-                Ents.bigwall(x,y)
             end
         };
 

@@ -53,13 +53,13 @@ return{
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
 ,
-    COLOURBLIND = false --==>>>  swaps blue-green
+    COLOURBLIND = true --==>>>  swaps blue-green
 ,
-    DEVILBLIND  = true --==>>>  swaps red-green
+    DEVILBLIND  = false --==>>>  swaps red-green
 ,
-    NAVYBLIND   = false --==>>>  swaps blue-red
+    NAVYBLIND   = true --==>>>  swaps blue-red
 ,
-    MASTER_VOLUME = 0.4-- = 0.4 -- volume is always a number:   0 --> 1
+    MASTER_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1
 ,
     DEBUG = true
 }

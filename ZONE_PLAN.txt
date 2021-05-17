@@ -5,7 +5,7 @@
 
 
 Zone 1:
-    Easy mobs,
+    Easy mobs, (ghost, enemy, box blobs and boxenemies)
     lots of box ents
     h:(devil ent)
 
@@ -19,12 +19,26 @@ Zone 3:
     h:(boxbully)
 
 Zone 4:
-    introduction to spookyblock
-    and boxbully
+    introduction to spookyblock, spookyenemy, 
+    purple grass and blue mushrooms
+    h:(boxbully)
 
 Zone 5:
-    spookybully
+    introduction to wizard
+    h:(spookybully + boxbully)
 
+Zone 6:
+    lots of devils, no box enemies,
+    intro to ghost squad
+    h:(spookybully)
 
+Zone 7:
+    grass is replaced with small yellow mushrooms
+    introduction to worm
+    h:(splatbully)
 
+Zone 8:
+    Boss, either slime, bigworm, or bigbully (todo)
+        -- if player is playing 1hp character,
+        -- spawn boss wizard (super DUPER hard boss, only 1 block)
 
