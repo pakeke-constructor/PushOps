@@ -41,8 +41,11 @@ emits a boom next to them, they die and spawn 8-9 physics blocks.
 
 game name ideas{
     PushOPS
-    SuperPush
-    Q_Push
+    - SuperPush 
+    UltraShove
+    BitShove
+    BoomShove
+    Q_Push 
     Push God
 }
 

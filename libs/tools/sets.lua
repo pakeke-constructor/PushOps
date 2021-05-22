@@ -45,7 +45,7 @@ function SSet:clear()
    local obj
    local objs = self.objects
    local ptrs = self.pointers
-   for i=1, #self.objects do
+   for i=1, self.size do
       obj = objs[i]
       ptrs[obj] = nil
       objs[i] = nil    

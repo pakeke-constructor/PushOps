@@ -26,7 +26,7 @@ return {
             ]]
             function(x,y)
                 for i=1,1 do
-                    EH.Ents.blue_mushroom(x + i*10,y + i*10)
+                    EH.Ents.bigworm(x + i*10,y + i*10)
                 end
             end;
             max=0xfff

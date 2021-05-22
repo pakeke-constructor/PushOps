@@ -1,45 +1,4 @@
 
---[[
-
-TYPE :: 'basic'
-
-tier :: T1 :: 1
-
-
-]]
-
-
---[[
-
-World map will be encoded by a 2d array of characters.
-Capital version of any character stands for "spawn multiple."
-
-.  :  nothing (empty space)
-#  :  wall
-e  :  enemy spawn
-r  :  rare enemy spawn
-u  :  unique enemy spawn (i.e. crowd control enemy, enemies that are bad solo)
-n  :  neutral mob spawn
-!  :  Bossfight
-$  :  shop (add this at the end)
-c  :  coin (add this at the end)
-@  :  player spawn
-&  :  exit level / next level
-p  :  physics object
-q :  spiky physics object (damages player upon hit)
-^  :  decoration area (grass, nice ground texture, etc)
-l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant mushroom)
-*  :  collectable artefact / trophy!!
-
-
-
-(NYI:)
-In order to spawn entities, the worldGen will pick a random
-constructor function from the respective char table.
-That constructor function will then be called and an
-entity will be placed.
-
-]]
 local Ents = require("src.entities")
 local rand = love.math.random
 
