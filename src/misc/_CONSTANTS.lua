@@ -48,16 +48,21 @@ return{
 ,
     paused = false  -- debug only  (if not debug only, make an cyan.call event for this)
 ,
-    GRASS_COLOUR = {0.4,1,0.5} -- colour of ground grass    
+    grass_colour = {0.4,1,0.5} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
+,
+    GRASS_COLOURS = {
+        green = {0.4,1,0.5};
+        aqua  = {117/255, 201/255, 165/255}
+    }
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
 ,
-    COLOURBLIND = true --==>>>  swaps blue-green
+    COLOURBLIND = false --==>>>  swaps blue-green
 ,
     DEVILBLIND  = false --==>>>  swaps red-green
 ,
-    NAVYBLIND   = true --==>>>  swaps blue-red
+    NAVYBLIND   = false --==>>>  swaps blue-red
 ,
     MASTER_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1
 ,

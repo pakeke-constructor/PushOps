@@ -1,4 +1,8 @@
 
+
+
+
+
 --[[
 
 `worldTypes` is a table of the form ::
@@ -14,7 +18,7 @@
         [2] = other_T2
     }
 }
- 
+
 
 
 
@@ -90,7 +94,7 @@ local charProbability_mt = {
 
 local worldTypes = { }
 
-for _, wType in pairs(Auxiliary) do
+for name, wType in pairs(Auxiliary) do
     local type = wType.type
     local tier = wType.tier
 

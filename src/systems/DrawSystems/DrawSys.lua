@@ -148,7 +148,7 @@ local function mainDraw()
 
     ccall("transform")
     
-    setColor(CONSTANTS.GRASS_COLOUR)
+    setColor(CONSTANTS.grass_colour)
     setFont(font)
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
@@ -197,6 +197,24 @@ function DrawSys:draw()
     lg.pop()
 end
 
+
+
+
+
+function DrawSys:setGrassColour(colour, a)
+    if a then
+        error("Grass colour expected a table, not (R, G, B)")
+    end
+    if type(colour) == "string" then
+        local col = CONSTANTS.GRASS_COLOURS[colour]
+        if not col then
+            error("Colour string "..colour.." did not have a CONSTANT.GRASS_COLOUR value.")
+        end
+        CONSTANTS.grass_colour = col
+        return
+    end
+    CONSTANTS.GRASS_COLOUR = colour
+end
 
 
 

@@ -13,10 +13,8 @@ local BUF_TIME = 0.7 -- wait BUF_TIME seconds then spawn new world
 
 
 local genLevel = function(e)
-    ccall("purge")
     local dest = e.portalDestination or error("No portal destination given")
-    Cyan.flush()
-    ccall("newWorld", {
+    ccall("switchWorld", {
         x = dest.x;
         y = dest.y;
         type = dest.type;

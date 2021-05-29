@@ -50,3 +50,14 @@ game name ideas{
 }
 
 
+
+
+company name idea w/ logo:
+
+pakeke-construction
+       { & }
+where `&` is some symbol maybe?
+maybe lambda, delta, psi, phi symbol would all be cool
+(probably lambda or delta)
+
+

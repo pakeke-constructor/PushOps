@@ -27,7 +27,6 @@ local ccall = Cyan.call
 
 
 
-local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
 
 local physColFunc = function(ent, oth, speed)
     EH.PC(ent,oth,speed)
@@ -72,7 +71,7 @@ return function(x,y)
 
     :add("hp", {hp = 100, max_hp = 100})
 
-    :add("speed", {speed = 100, max_speed = math.random(150,200)})
+    :add("speed", {speed = 140, max_speed = math.random(200,250)})
 
     :add("strength", 40)
 

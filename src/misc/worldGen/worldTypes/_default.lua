@@ -27,6 +27,16 @@ end
 
 return {
 
+    -- NOTE:: YOU DONT NEED TO USE THESE CALLBACKS! they are optional; things will work fine without em
+    construct = function(world, worldMap)
+        -- Callback for when this wType is constructed
+        -- (worldMap is only available if passed in)
+    end;
+    destruct = function()
+        -- Callback for when this wType is destructed
+    end;
+
+
     lose = function( x, y )
         -- wait a bit, then respawn player at menu
         ccall("shockwave", x, y, 10, 700, 30, .57, {0.8,0.05,0.05})

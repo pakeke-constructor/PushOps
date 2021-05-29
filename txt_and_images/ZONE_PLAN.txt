@@ -1,9 +1,5 @@
 
 
-
-
-
-
 Zone 1:
     Easy mobs, (ghost, enemy, box blobs and boxenemies)
     lots of box ents
@@ -34,6 +30,7 @@ Zone 6:
 
 Zone 7:
     grass is replaced with small yellow mushrooms
+    grass colour is yellow
     introduction to worm
     h:(splatbully)
 

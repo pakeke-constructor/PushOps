@@ -20,10 +20,10 @@ local cexists = Cyan.exists
 
 local BLOCK_NUM = 5
 
-local MAX_BLOCK_ORBIT = 50
-local MIN_BLOCK_ORBIT = 40
+local MAX_BLOCK_ORBIT = 60
+local MIN_BLOCK_ORBIT = 50
 
-local ORBIT_SPEED = 3.3
+local ORBIT_SPEED = 3
 
 
 
@@ -52,7 +52,7 @@ local floor = math.floor
 local spawnF = function(p)
     for i=1, floor(r()*4) do
         local x,y = r()-0.5, r()-0.5
-        EH.Ents.block(p.x + x*15, p.x + y*15)
+        EH.Ents.block(p.x + x*45, p.x + y*45)
     end
 end
 
@@ -62,7 +62,6 @@ local collisions = {
         if EH.PC(e,ot,s) then
             -- add noise or something here
             local p = e.pos
-            ccall("await", spawnF, 0, p)
             ccall("shockwave", e.pos.x, e.pos.y, 20, 50, 6, 0.2)
         end
     end
@@ -180,7 +179,7 @@ return function(x, y)
     e.colour = {col,col,col}
 
     EH.FR(e)
-    EH.PHYS(e,15)
+    EH.PHYS(e,12)
     return e
 end
 

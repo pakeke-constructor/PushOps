@@ -43,6 +43,8 @@ When all the transformations need to be applied, this func is called
 # untransform
 Removes all draw transformations/shaders (basically just pops from lg.push stack.)
 
+# setGrassColour( colour )
+`colour` is either a  string (see CONSTANTS.GRASS_COLOURS) or a {r g b} table.
 
 # addSigil( ent, sigilName )
 Adds a sigil to ent
@@ -189,4 +191,7 @@ Frees all memory in preperation for new world gen (including destroying ents)
 # }, worldMap=nil)
 Changes the world to a new world. New parameters will be added to this in future.
 
+# switchWorld(world, worldMap=nil)
+Same as newWorld, but purges the current world and calls the
+appropriate destruct/construct callbacks.
 

@@ -46,17 +46,14 @@ local rand = love.math.random
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
     [Ents.enemy]    = 0.5;
-    [Ents.mallow]   = 0.3;
-    [Ents.boxenemy] = 0.2;
+    [Ents.boxenemy] = 0.3;
     [Ents.blob]     = 0.3;
-    [Ents.boxblob]  = 0.2;
+    [Ents.boxblob]  = 0.3;
     [Ents.ghost]    = 0.1
 }
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.boxsplitter] = 0.8;
-    [Ents.ghost_squad] = 0.2;
     [function(x,y)
         for i=-1,0 do
             Ents.devil(x+(i*15), y+(i*15))

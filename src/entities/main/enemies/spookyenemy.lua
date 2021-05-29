@@ -34,7 +34,7 @@ local motion_right = { Quads.enemy_right_1, Quads.enemy_right_2, Quads.enemy_rig
 
 
 
-local COLOUR={0.43,0,0.52,0.6}
+local COLOUR={0.43,0,0.52,1}
 
 
 local ccall = Cyan.call
@@ -102,9 +102,9 @@ return function(x,y)
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
-    :add("hp", {hp = 100, max_hp = 100})
+    :add("hp", {hp = 400, max_hp = 400})
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
-    :add("fade", 225)
+    :add("fade", 350)
 
     if r() < 0.3 then
         enemy:add("sigils",{"poison"})
@@ -120,7 +120,7 @@ return function(x,y)
         body  = "dynamic"
     })
 
-    :add("colour", COLOUR)
+    :add("colour", table.copy(COLOUR))
 
     :add("bobbing", {magnitude = 0.25 , value = 0})
     

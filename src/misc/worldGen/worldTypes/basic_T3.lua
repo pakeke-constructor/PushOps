@@ -49,11 +49,11 @@ local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
     [Ents.devil]     = 0.4;
     [Ents.demon]     = 0.2;
-    [Ents.enemy]     = 0.2;
-    [Ents.boxenemy]  = 0.2;
-    [Ents.splatenemy]= 0.2;
-    [Ents.boxblob]   = 0.05;
-    [Ents.boxbully]  = 0.05;
+    [Ents.mallow]    = 0.2;
+    [Ents.enemy]     = 0.1;
+    [Ents.boxenemy]  = 0.5;
+    [Ents.splatenemy]= 0.5;
+    [Ents.boxblob]   = 0.15;
 }
 
 
@@ -63,6 +63,29 @@ local bigEnemySpawns = Tools.weighted_selection{
 }
 
 
+
+local purge_fn = function(e, cam_x, cam_y)
+    -- called at end of level to clear enemies and walls.
+    -- (Passed in as a param to `ccall(apply, .)`  ).
+    if (e.targetID ~= "player")
+    and (Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160) then
+        ccall("damage",e,0xffff)
+    end
+end
+
+
+local function spawn_portal(x, y)
+    local portal = EH.Ents.portal(x, y)
+    portal.portalDestination = {
+        x = 30;
+        y = 30;
+        tier = 4;
+        type="basic"
+    }
+end
+
+
+
 return {
     type = 'basic',
     tier = 3,
@@ -70,6 +93,16 @@ return {
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
 
+    ratioWin = function(cam_x, cam_y)
+        ccall("apply", purge_fn, cam_x, cam_y)
+        ccall("await", spawn_portal, 1.5, cam_x, cam_y)
+        --[[
+        TODO:
+        play sounds and stuff here. Like, a gong would be cool. 
+        have a shockwave also, that would be cool
+        ]]
+    end;
+    
     PROBS = {
             -- World generation:
             -- Probability of each character occuring.
@@ -95,8 +128,8 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     enemies = {
-        n = 6;
-        bign = 3
+        n = 20;
+        bign = 2
     };
 
     entities = {

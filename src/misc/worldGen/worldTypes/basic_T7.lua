@@ -4,23 +4,17 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.enemy]    = 0.5;
-    [Ents.mallow]   = 0.3;
-    [Ents.boxenemy] = 0.2;
-    [Ents.blob]     = 0.3;
-    [Ents.boxblob]  = 0.2;
-    [Ents.ghost]    = 0.1
+    [Ents.boxenemy]    = 0.5;
+    [Ents.splatenemy]  = 0.3;
+    [Ents.boxblob]     = 0.2;
+    [Ents.boxblob]     = 0.2;
+    [Ents.ghost]       = 0.1;
+    [Ents.boxsplitter] = 0.05
 }
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.boxsplitter] = 0.8;
-    [Ents.ghost_squad] = 0.2;
-    [function(x,y)
-        for i=-1,0 do
-            Ents.devil(x+(i*15), y+(i*15))
-        end
-    end] = 0.5
+    [Ents.splatbully] = 1;
 }
 
 
@@ -40,7 +34,7 @@ local function spawn_portal(x, y)
     portal.portalDestination = {
         x = 30;
         y = 30;
-        tier = 2;
+        tier = 8;
         type="basic"
     }
 end
@@ -49,10 +43,11 @@ end
 
 return {
     type = 'basic',
-    tier = 1,
+    tier = 7,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
+        
 
     PROBS = {
             -- World generation:
@@ -70,8 +65,8 @@ return {
                         -- this to a table. 
 
     enemies = {
-        n = 30;
-        n_var = 1;
+        n = 25;
+        n_var = 4;
 
         bign = 1;
         bign_var = 0

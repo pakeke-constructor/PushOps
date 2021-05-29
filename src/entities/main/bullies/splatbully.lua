@@ -84,8 +84,8 @@ return function(x, y)
     e.strength = 25
     e.colour = COLOUR    
     e.speed={
-        speed=120;
-        max_speed=130
+        speed=90;
+        max_speed=110
     }
 
     e.behaviour={
@@ -98,8 +98,8 @@ return function(x, y)
     e.onDeath=onDeath
 
     e.hp = {
-        hp=500;
-        max_hp=500
+        hp=600;
+        max_hp=600
     }
 
     e.bobbing = {

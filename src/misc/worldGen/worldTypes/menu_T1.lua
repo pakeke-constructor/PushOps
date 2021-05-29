@@ -25,8 +25,8 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,1 do
-                    EH.Ents.bigworm(x + i*10,y + i*10)
+                for i=1,5 do
+                    EH.Ents.spookyenemy(x + i*10,y + i*10)
                 end
             end;
             max=0xfff
@@ -151,7 +151,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 1;
+                    tier = 5;--TODO: change back to 1
                     type = "basic";
                     x = 32;
                     y = 32

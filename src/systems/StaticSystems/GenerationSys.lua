@@ -684,13 +684,39 @@ function GenSys:newWorld(world, worldMap)
 
     makeEnts(world)
 
-    --[[  ]]
+    --[[  
     for _,tab in ipairs(worldMap) do
         print(table.concat(tab, " "))
     end
     --]]
-
 end
+
+
+
+
+
+function GenSys:switchWorld(world, worldMap)
+    if world_tier and world_type then
+        local oldWType = WorldTypes[world_type][world_tier]
+        if oldWType.destruct then
+            oldWType.destruct( )
+        end
+    end
+    ccall("purge")
+    Cyan.flush()
+    ccall("newWorld", world, worldMap)
+    if world_tier and world_type then
+        local newWorldType = WorldTypes[world_type][world_tier]
+        if newWorldType.construct then
+            newWorldType.construct(world, worldMap)
+        end
+    end
+end
+
+
+
+
+
 
 
 -- Win and lose conditions

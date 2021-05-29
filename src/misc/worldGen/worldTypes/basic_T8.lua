@@ -61,7 +61,7 @@ end
 
 return {
     type = 'basic',
-    tier = 1,
+    tier = 8,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.

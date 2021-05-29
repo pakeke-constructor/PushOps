@@ -93,7 +93,7 @@ return function(x, y)
     e.collisions=collisions
 
     EH.FR(e)
-    EH.PHYS(e,15)
+    EH.PHYS(e,11)
     return e
 end
 

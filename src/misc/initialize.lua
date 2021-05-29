@@ -37,7 +37,6 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k == "e" then
-        ccall("splat",cam.x, cam.y)
     end
 end
 
@@ -65,7 +64,7 @@ end
 
 function DEBUG_SYS:update(dt)
     tick = (tick + dt*3) % (2*math.pi)
-    CONSTANTS.GRASS_COLOUR = {sin(tick + 1), sin(tick + 2), sin(tick +3)}
+    CONSTANTS.grass_colour = {sin(tick + 1), sin(tick + 2), sin(tick +3)}
 end
 
 ]]
