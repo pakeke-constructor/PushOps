@@ -673,8 +673,11 @@ function GenSys:newWorld(world, worldMap)
     world.worldType = worldType
     assert(worldType, "HUH? worldTypes[type][tier] gave nil")
 
-    if not worldMap then
+    if WorldTypes[type][tier].construct then
+        WorldTypes[type][tier].construct(world, worldMap)
+    end
 
+    if not worldMap then
         worldMap = setmetatable({ }, worldMap_mt)
         world.worldMap = worldMap
         procGenerateWorld(world)
@@ -705,12 +708,6 @@ function GenSys:switchWorld(world, worldMap)
     ccall("purge")
     Cyan.flush()
     ccall("newWorld", world, worldMap)
-    if world_tier and world_type then
-        local newWorldType = WorldTypes[world_type][world_tier]
-        if newWorldType.construct then
-            newWorldType.construct(world, worldMap)
-        end
-    end
 end
 
 

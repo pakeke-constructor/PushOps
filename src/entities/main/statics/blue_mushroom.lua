@@ -33,6 +33,7 @@ local function spawnMidgets(p)
     for i=1, rand(2,5)do
         local e = EH.Ents.ghost(p.x + (rand()-0.5)*30, p.y + (rand()-0.5)*30)
         e.colour = {0.4,0.4,0.8}
+        e.fade = 200
     end
 end
 

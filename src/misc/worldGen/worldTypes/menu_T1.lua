@@ -16,6 +16,10 @@ return {
         bign=0
     };
 
+    construct = function()
+        ccall("setGrassColour","green")
+    end;
+
     entities = {
 
     ["X"] = {
@@ -25,8 +29,8 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,5 do
-                    EH.Ents.spookyenemy(x + i*10,y + i*10)
+                for i=1,3 do
+                    EH.Ents.bully(x + i*10,y + i*10)
                 end
             end;
             max=0xfff
@@ -151,7 +155,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 5;--TODO: change back to 1
+                    tier = 1;
                     type = "basic";
                     x = 32;
                     y = 32

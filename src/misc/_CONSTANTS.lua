@@ -56,6 +56,15 @@ return{
         aqua  = {117/255, 201/255, 165/255}
     }
 ,
+    SAVE_DATA_FNAME = "game.png" -- save data filename
+    -- We encode as a png so people wont tamper with it ahahahahaha
+,
+    SAVE_DATA = {
+        -- The default save data for a program.
+        -- Putting this in CONSTANTS.lua ensures future compatibility.
+        tokens = 0; -- the number of tokens player has collected
+    }
+,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
 ,
     COLOURBLIND = false --==>>>  swaps blue-green

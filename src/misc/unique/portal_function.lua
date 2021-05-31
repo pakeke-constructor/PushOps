@@ -7,7 +7,7 @@ local partition = require("src.misc.partition")
 local ccall = Cyan.call
 local rand = love.math.random
 
-local BUF_TIME = 0.7 -- wait BUF_TIME seconds then spawn new world
+local BUF_TIME = 0.35 -- wait BUF_TIME seconds then spawn new world
 
 
 

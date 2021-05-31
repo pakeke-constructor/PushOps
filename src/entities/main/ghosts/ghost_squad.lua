@@ -151,9 +151,5 @@ return function(x, y)
     e.collisions = {physics=pCF}
     e.onDeath=onDeath
     e.colour = GHOST_COL
-    e.light = {
-        colour = {0.5,0.5,0.5,1};
-        distance = 20; -- radius of 100 pixels
-    }
 end
 

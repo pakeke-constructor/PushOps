@@ -4,11 +4,6 @@
 local ccall = Cyan.call
 local EH=_G.EH
 
-local function onUpdate( e,dt )
-    local ratio = e.hp.hp / e.hp.max_hp
-    e.light.distance = e.original_distance * ratio
-end
-
 
 return function ( x, y )
     local e = Cyan.Entity()

@@ -69,3 +69,24 @@ libs/Cyan/cyan.lua:73: in function 'call'
 src/misc/unique/gamestate.lua:21: in function 'update'
 [C]: in function 'xpcall'
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Bug when tapping teleport twice in close succession
+
+
+

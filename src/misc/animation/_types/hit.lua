@@ -4,8 +4,8 @@ local Quads = EH.Quads
 
 -- Field init ==>
 local frames = { } --overwrite this
-for i=1,5 do
-    table.insert(frames, Quads["hit2_"..tostring(i)])
+for i=1,6 do
+    table.insert(frames, Quads["hit"..tostring(i)])
 end
 
 

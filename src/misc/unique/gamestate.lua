@@ -63,6 +63,11 @@ function gamestate.mousepressed(x,y, button, istouch, presses)
 end
 
 
+function gamestate.quit()
+    cyan.call("quit")
+    return false --Yes, we should indeed quit
+end
+
 
 
 

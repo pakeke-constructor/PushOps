@@ -69,6 +69,7 @@ function EH.PHYS(e, rad, type)
 end
 
 
+
 function EH.PC(e1,e2,speed)
     --[[
         default physics collision function.
@@ -93,6 +94,8 @@ function EH.PC(e1,e2,speed)
         else
             ccall("damage",e1,speed/armour)
         end
+        local p = e1.pos
+        ccall("animate", "hit", p.x, p.y, p.z, 0.07,nil)
         return true -- Yes, the speed collision is greater than required
     end
     return false -- No, the collision speed was not enough to warrant hard collision

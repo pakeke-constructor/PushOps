@@ -84,8 +84,14 @@ local function spawn_portal(x, y)
 end
 
 
+local WH = require("src.misc.worldGen.WH")
 
 return {
+
+    construct = function(wor,wmap)
+        WH.lights(wor, wmap, 15, 10)
+    end;
+
     type = 'basic',
     tier = 1,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
