@@ -44,6 +44,7 @@ entity will be placed.
 
 ]]
 local Ents = require("src.entities")
+local WH = require("src.misc.worldGen.WH")
 local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
@@ -86,11 +87,14 @@ local function spawn_portal(x, y)
 end
 
 
-
 return {
-    construct = function()
+
+    construct = function(wor,wmap,px,py)
+        WH.zonenum(4,px,py)
+        WH.lights(wor, wmap, 15, 10)
         ccall("setGrassColour", "aqua")
     end;
+
     destruct = function(  )
         ccall("setGrassColour", "green")
     end;

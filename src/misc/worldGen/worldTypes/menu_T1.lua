@@ -29,8 +29,11 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,3 do
-                    EH.Ents.bully(x + i*10,y + i*10)
+                for i=1,14 do
+                    EH.Ents.enemy(x + i*10,y + i*10)
+                end
+                for i=1,1 do
+                    EH.Ents.mushroomblock(x + i*10 + 50,y + i*10)
                 end
             end;
             max=0xfff

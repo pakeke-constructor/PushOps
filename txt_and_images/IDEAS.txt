@@ -37,6 +37,12 @@ emits a boom next to them, they die and spawn 8-9 physics blocks.
 
 
 
+-- MAYBE DONT DO THIS- SCOPE CREEP
+If a block letter gets more than 10 hits on an enemy, turn
+it red next round. (Or something.) Red block letters will explode like mushroom blocks
+
+
+
 
 
 game name ideas{
@@ -57,7 +63,7 @@ company name idea w/ logo:
 pakeke-construction
        { & }
 where `&` is some symbol maybe?
-maybe lambda, delta, psi, phi symbol would all be cool
+maybe lambda, delta, psi, omega, phi symbol would all be cool
 (probably lambda or delta)
 
 

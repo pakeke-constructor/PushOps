@@ -115,7 +115,8 @@ end
 
 Tree.chase = {
     "move::ORBIT";
-    "wait::2"
+    "wait::2",
+    "wait::r"
 }
 
 Tree.shoot = {
@@ -127,7 +128,8 @@ Tree.shoot = {
     shoot;
     shoot;
     "move::ORBIT";
-    "wait::2"
+    "wait::1",
+    "wait::r"
 }
 
 

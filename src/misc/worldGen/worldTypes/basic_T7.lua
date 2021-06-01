@@ -1,5 +1,6 @@
 
 local Ents = require("src.entities")
+local WH = require("src.misc.worldGen.WH")
 local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
@@ -41,13 +42,17 @@ end
 
 
 
+
 return {
     type = 'basic',
     tier = 7,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
-        
+    
+    construct = function(wor,wmap)
+        WH.lights(wor, wmap, 15, 10)
+    end;
 
     PROBS = {
             -- World generation:
@@ -68,7 +73,7 @@ return {
         n = 25;
         n_var = 4;
 
-        bign = 1;
+        bign = 2;
         bign_var = 0
     };
 

@@ -88,7 +88,10 @@ function EH.PC(e1,e2,speed)
 
     if speed > CONSTANTS.ENT_DMG_SPEED and e2.targetID=="physics" then
         local armour = e1.armour or 1
-        assert(armour >= 0, "armour is negative, you know this is scuffed")
+        if armour <= 0 then
+            Tools.dump(e1)
+            error("armour is negative, you know this is scuffed. (ent dumped btw)")
+        end
         if e1.vel then
             ccall("damage", e1, (speed - e1.vel:len())/armour)
         else

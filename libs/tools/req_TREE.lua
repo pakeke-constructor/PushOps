@@ -10,12 +10,12 @@ including sub folders.
 ]]
 
 
-
 function req_TREE(PATH, shover)
     local T = love.filesystem.getDirectoryItems(PATH)
-    table.sort(T) -- Sorts by alphabetical I think?? hopefully she'll be right
+
+    table.stable_sort(T) -- Sorts by alphabetical I think?? hopefully she'll be right
     -- (basically we just need to be consistent across different OS; because lf.getDirectoryItems isn't)
-    
+
     local shover = shover or {}
 
     for _,fname in ipairs(T) do
@@ -40,7 +40,4 @@ function req_TREE(PATH, shover)
 end
 
 
-
 return req_TREE
-
-

@@ -118,7 +118,7 @@ end
 
 local BLOCK_NUM = 3
 
-local FADE_DIST = 320
+local FADE_DIST = 200
 
 
 return function(x, y)

@@ -1,30 +1,29 @@
 
 
 
-
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
 -- This emitter's ParticleSystems must not have particles that survive for
 -- any longer than this!
-local MAX_PARTICLE_TIME = 1.4
+local MAX_PARTICLE_TIME = 1
 
 
 local psys = love.graphics.newParticleSystem(atlas.image)
 
 
 do
-    psys:setQuads(Quads.shotgunshell)
+    psys:setQuads(Quads.bot)
 
-    psys:setParticleLifetime(1.2, MAX_PARTICLE_TIME)
+    psys:setParticleLifetime(0.6, MAX_PARTICLE_TIME)
     --psys:setLinearAcceleration(0,0,200,200)
     psys:setDirection(-math.pi/2)
-    psys:setSpeed(100,110)
+    psys:setSpeed(60,70)
     psys:setEmissionRate(0)
-    psys:setSpread(math.pi/4)
-    psys:setEmissionArea("uniform", 3,2)
-    psys:setColors({1,1,1}, {1,1,1,0.9})
-    psys:setSpin(-5,-5)
+    psys:setSpread(math.pi/2)
+    psys:setEmissionArea("uniform", 10,10)
+    psys:setColors({1,1,1}, {1,1,1,0.5})
+    psys:setSpin(0,0)
     psys:setRotation(-2*math.pi, 2*math.pi)
     psys:setRelativeRotation(false)
     psys:setLinearAcceleration(0, 250)
@@ -34,17 +33,43 @@ do
 end
 
 
-local psyses = {
-    psys
-}
+local psyses = {}
+
+do
+    --[[
+        This bit of code is for loading the quads,
+        and creating particleSystems out of each of them
+    ]]
+    local ps_quads = {} -- these are the quads that get emitted:
+    for i=1, 8 do
+        local quad = "red_mushroom_particle"..tostring(i)
+        table.insert(ps_quads, quad)
+    end
+
+    for i,str in ipairs(ps_quads) do
+        
+        if str == "NULL CHECK" then
+            error("Did you forget to name the quads in `ps_quads`?")
+        end
+
+        local quad = Quads[str]
+        assert(quad, "undefined quad :: ".. str)
+
+        local newps = psys:clone()
+        newps:setQuads(quad)
+
+        table.insert(psyses, newps)
+    end
+end
 
 
 
 
 local emitter
 emitter = {
-    psyses = {},
-    type = "shell",
+    psyses = psyses,
+
+    type = "small_mushroom",
     runtime = 0
 }
 

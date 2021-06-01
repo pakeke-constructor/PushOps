@@ -43,6 +43,7 @@ entity will be placed.
 
 ]]
 local Ents = require("src.entities")
+local WH = require("src.misc.worldGen.WH")
 local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
@@ -92,6 +93,11 @@ return {
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
+
+    construct = function(wor,wmap,px,py)
+        WH.zonenum(3,px,py)
+        WH.lights(wor, wmap, 15, 10)
+    end;
 
     ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)

@@ -53,13 +53,14 @@ return{
 ,
     GRASS_COLOURS = {
         green = {0.4,1,0.5};
-        aqua  = {117/255, 201/255, 165/255}
+        aqua  = {50/255, 220/255, 185/255};
+        yellow = {255/255, 250/255, 66/255}
     }
 ,
     SAVE_DATA_FNAME = "game.png" -- save data filename
     -- We encode as a png so people wont tamper with it ahahahahaha
 ,
-    SAVE_DATA = {
+    SAVE_DATA_DEFAULT = {
         -- The default save data for a program.
         -- Putting this in CONSTANTS.lua ensures future compatibility.
         tokens = 0; -- the number of tokens player has collected

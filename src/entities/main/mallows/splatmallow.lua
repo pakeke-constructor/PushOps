@@ -20,7 +20,7 @@ for i=1,4 do
     ti(right, EH.Quads["mallow_right_"..tostring(i)])
 end
 
-local COLOUR={0.7,1,0.7}
+local COLOUR=CONSTANTS.SPLAT_COLOUR
 
 
 
@@ -48,7 +48,7 @@ psys:setOffset(pW/2, pH/2)
 
 
 
-local Tree = EH.Node("mallow behaviour tree")
+local Tree = EH.Node("splat mallow behaviour tree")
 
 
 local Camera = require("src.misc.unique.camera")
@@ -68,15 +68,17 @@ end
 
 
 
-local mallow_spin_task = EH.Task("_mallow spin task")
+local splat_spin_task = EH.Task("_splat mallow spin task")
 
-mallow_spin_task.start = function(t,e)
+splat_spin_task.start = function(t,e)
+    e._previous_splatmallow_armour = e.armour
+    e.armour = math.huge -- make invincible
     ccall("setMoveBehaviour", e,"IDLE")
     ccall("setVel", e, 0,0)
-    ccall("animate", 'mallowspin', 0,0,0, 0.1, 3, e.colour, e, true)
+    ccall("animate", 'mallowspin', 0,0,0, 0.06, 1, e.colour, e, true)
 end
 
-mallow_spin_task.update=function(t,e)
+splat_spin_task.update=function(t,e,dt)
     ccall("setVel",e,0,0)
     if e.hidden then
         -- Repeat until the entity is no longer hidden.
@@ -86,17 +88,31 @@ mallow_spin_task.update=function(t,e)
     end
 end
 
+splat_spin_task.finish = function(t,e)
+    if Cyan.exists(e) then
+        local x, y = e.pos.x, e.pos.y
+        ccall("moob", x, y, 70, 250)
+        ccall("shockwave",  x, y, 160, 30, 10, 0.4, table.copy(CONSTANTS.SPLAT_COLOUR))
+        ccall("splat",  x, y, 70)
+        e.armour = e._previous_splatmallow_armour
+    end
+end
+
 
 Tree.spin = {
-    mallow_spin_task,
+    splat_spin_task,
+    splat_spin_task,
+    splat_spin_task,
+    splat_spin_task,
+    splat_spin_task,
     "move::LOCKON",
-    "wait::2",
+    "wait::1",
     "wait::r"
 }
 
 Tree.angry = {
     "move::ORBIT",
-    "wait::3",
+    "wait::2",
     "wait::r"
 }
 
@@ -113,7 +129,7 @@ local r = love.math.random
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
-    ccall("emit", 'dust', e.pos.x,e.pos.y,e.pos.z, 15)
+    ccall("emit", 'splat', e.pos.x,e.pos.y,e.pos.z, 25)
     EH.TOK(e,r(4,6))
 end
 
@@ -162,7 +178,7 @@ return function(x, y)
 
     e.onDeath = onDeath
 
-    e.colour = COLOUR
+    e.colour = table.copy(COLOUR)
 
     e.behaviour = {
         move={

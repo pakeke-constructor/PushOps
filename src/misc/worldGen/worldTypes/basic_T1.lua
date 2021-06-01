@@ -88,7 +88,8 @@ local WH = require("src.misc.worldGen.WH")
 
 return {
 
-    construct = function(wor,wmap)
+    construct = function(wor,wmap, px, py)
+        WH.zonenum(1, px,py)
         WH.lights(wor, wmap, 15, 10)
     end;
 

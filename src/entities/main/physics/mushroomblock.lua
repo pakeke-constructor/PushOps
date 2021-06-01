@@ -1,5 +1,10 @@
 
+--[[
 
+Mushroom blocks explode on impact with enemy
+
+
+]]
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
@@ -15,7 +20,7 @@ do
     psys:setRotation(0,math.pi*2)
     psys:setSpread(math.pi/2)
     psys:setEmissionArea("uniform", 10,0)
-    psys:setColors({0.3,0.3,0.3,0.5}, {0.3,0.3,0.3,0.5})
+    psys:setColors({0.8,0.1,0.1}, {0.8,0.1,0.1,0.5})
     --psys:setSpin(-40,40)
     --psys:setRotation(0, 2*math.pi)
     --psys:setRelativeRotation(false)
@@ -29,16 +34,31 @@ local block_shape = love.physics.newRectangleShape(w/2,h/2)
 
 
 local sprites = {
-    Quads.slant_block, Quads.slant_block2
+    Quads.mushroom_block
 }
+
+local function dmgEnemies(ent, x, y)
+    local eX, eY = ent.pos.x, ent.pos.y
+    if Tools.dist(x-eX, y-eY) < 90 then
+        ccall("damage", ent, 100)
+    end
+end
 
 
 local ccall = Cyan.call
 local rand = love.math.random
 local cam = require("src.misc.unique.camera")
 local collisions = {
-    physics = function(ent,col, speed)
-
+    physics = function(self, col, speed)
+        if speed > CONSTANTS.ENT_DMG_SPEED and col.targetID=="enemy" then
+            local x, y, z = self.pos.x, self.pos.y, self.pos.z
+            ccall("boom", x, y, 100, 100)
+            ccall("animate", "push", x,y+25,z, 0.06, nil, {0.8,0.1,0.1}) 
+            ccall("shockwave", x, y, 14, 200, 10, 0.4)
+            ccall("sound", "boom")
+            ccall("apply", dmgEnemies, x, y, "enemy")
+            ccall("kill", self)
+        end
     end
 }
 
@@ -50,6 +70,11 @@ for i=120,0,-5 do
 end
 
 
+local function onDeath(e)
+    ccall("emit", "mushroom", e.pos.x, e.pos.y, e.pos.z, 3)
+end
+
+
 return function(x,y)
     if (not x) or (not y) then error("hey! stop it") end
     local abs = math.abs
@@ -57,11 +82,11 @@ return function(x,y)
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
     :add("acc", math.vec3(0,0,0))
-    :add("colour", Tools.rand_choice(colours))
     :add("physics", {
         shape = block_shape;
         body  = "dynamic"
     })
+    :add("onDeath",onDeath)
     :add("pushable",true)
     :add("bobbing", {magnitude = 0.15, value = 0})
     :add("friction", {
@@ -69,7 +94,7 @@ return function(x,y)
         required_vel = 2;
         amount = 0.9
     })
-    --:add("collisions",collisions)   Turned these off for now
+    :add("collisions",collisions)
     :add("targetID", "physics")
     :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
 end

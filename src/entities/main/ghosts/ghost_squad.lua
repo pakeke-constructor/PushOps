@@ -95,7 +95,7 @@ end
 
 
 local onDeath = function(e)
-    ccall("shockwave", e.pos.x,e.pos.y, 4,240,4, 0.9, {1,0.1,0.1})
+    ccall("shockwave", e.pos.x,e.pos.y, 4,140,4, 0.3, {1,0.1,0.1})
     for _,u in ipairs(e.child_ghost_ents)do
         ccall("kill",u)
     end

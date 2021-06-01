@@ -16,7 +16,7 @@ local data = require("src.misc.unique.savedata")
 Ensure saveData is up to data
 
 ]]
-for k,v in pairs(CONSTANTS.SAVE_DATA) do -- This is the default save data state
+for k,v in pairs(CONSTANTS.SAVE_DATA_DEFAULT) do -- This is the default save data state
     if not data[k] then
        data[k] = v
     end
@@ -29,7 +29,6 @@ function SaveDataSys:quit()
 end
 
 function SaveDataSys:update()
-    data.tokens = data.tokens + 1
 end
 
 

@@ -39,7 +39,7 @@ end
 
 
 local function onDeath(e)
-    ccall("emit", "smoke", e.pos.x, e.pos.y, e.pos.z, rand(5,10))
+    ccall("emit", "small_mushroom", e.pos.x, e.pos.y, e.pos.z, 1)
     EH.TOK(e,1)
 end
 

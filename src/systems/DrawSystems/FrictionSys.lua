@@ -76,7 +76,7 @@ local lgdraw = love.graphics.draw
 
 function FrictionSys:drawEntity(ent)
     if self:has(ent) then
-        if ent.friction.emitter then
+        if ent.friction.emitter and ent.grounded then
             if not(ent.friction.emitter:isStopped()) then
                 lgdraw(ent.friction.emitter, 0, 8) -- Draw at 0, 8. (at bottom of ent)
             end

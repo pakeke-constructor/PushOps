@@ -1,4 +1,5 @@
 
+
 --[[
 
 
@@ -15,7 +16,6 @@ git push origin master
 
 
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
-
 
 -- MONKEY BUSINESS STARTS HERE !!!
 setmetatable(_G, {})
@@ -44,6 +44,8 @@ do
     _G.math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
     _G.table.copy = require "libs.tools.copy"
+    _G.table.shuffle = require "libs.NM_fisher_yates_shuffle.shuffle"
+    require("libs.NM_stable_sort.sort"):export() -- exports to `_G.table`
 
     -- Entity construction helper functions / util
     _G.EH = require 'src.entities._EH'

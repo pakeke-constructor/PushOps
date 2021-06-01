@@ -236,7 +236,7 @@ local function pull(ent)
         ent.control.canPull = false
         ccall("sound", "moob")
         ccall("shockwave", x, y, 130, 4, 7, 0.3)
-        ccall("moob", x, y, ent.strength/1.3, 300)
+        ccall("moob", x, y, ent.strength/1.7, 300)
         ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN, ent)
 
         for e in (TargetPartitions.interact):iter(x, y) do

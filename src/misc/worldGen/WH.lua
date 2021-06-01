@@ -35,5 +35,10 @@ function WH.lights(world, worldMap, num_lights, light_distance)
 end
 
 
+function WH.zonenum(tier, px, py)
+    local txt = "zone " .. math.roman(tier)
+    ccall("spawnText", px, py - 60, txt, 600, 10)
+end
+
 
 return WH

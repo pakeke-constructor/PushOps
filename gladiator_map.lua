@@ -25,20 +25,21 @@ local s = [[
 ########################
  ###################### 
 ]]
- 
+
+
     
-    
-local k = {}
+
+local map = {}
     
 for line in s:gmatch("[^\n]+") do
     local n = {}
     for i=1,line:len() do
         table.insert(n, line:sub(i,i))
     end
-    table.insert(k,n)
+    table.insert(map, n)
 end
     
-return k
+return map
     
     
     

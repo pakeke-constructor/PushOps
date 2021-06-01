@@ -28,7 +28,7 @@ end
 return {
 
     -- NOTE:: YOU DONT NEED TO USE THESE CALLBACKS! they are optional; things will work fine without em
-    construct = function(world, worldMap)
+    construct = function(world, worldMap, player_x, player_y )
         -- Callback for when this wType is constructed
         -- (worldMap is only available if passed in)
     end;

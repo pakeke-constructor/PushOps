@@ -1,4 +1,6 @@
 
+
+Entity in question: physics object
 Happened when killing a boxbully.
 I suspect this has to do with the ent being flung thru a physics wall,
 and going too fast
@@ -87,6 +89,34 @@ src/misc/unique/gamestate.lua:21: in function 'update'
 
 
 Bug when tapping teleport twice in close succession
+(I think its when sound is played for the first time in quick succession)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What happens when player dies after pressing teleport?
+(Should probably make player invincible)
 
 

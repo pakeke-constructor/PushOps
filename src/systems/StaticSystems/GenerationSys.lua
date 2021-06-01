@@ -643,6 +643,7 @@ local function procGenerateWorld(world)
     makeWalls(world)
     local player_x, player_y = addPlayer(world)
     addEnemies(world, player_x, player_y)
+    return player_x, player_y
 end
 
 
@@ -653,6 +654,16 @@ local world_tier
 -- ===>
 -- callbacks here
 -- ===>
+
+local function getPlayerXY(worldMap)
+    for i=1, #worldMap do
+        for j=1,#worldMap[i] do
+            if worldMap[i][j] == "@" then
+                return i,j
+            end
+        end
+    end
+end
 
 
 function GenSys:newWorld(world, worldMap)
@@ -673,16 +684,23 @@ function GenSys:newWorld(world, worldMap)
     world.worldType = worldType
     assert(worldType, "HUH? worldTypes[type][tier] gave nil")
 
-    if WorldTypes[type][tier].construct then
-        WorldTypes[type][tier].construct(world, worldMap)
-    end
-
+    local player_x, player_y
     if not worldMap then
         worldMap = setmetatable({ }, worldMap_mt)
         world.worldMap = worldMap
-        procGenerateWorld(world)
+        player_x, player_y = procGenerateWorld(world)
     else
         world.worldMap = worldMap
+        player_x, player_y = getPlayerXY(worldMap)        
+    end
+
+    if WorldTypes[type][tier].construct then
+        WorldTypes[type][tier].construct(world, worldMap,
+                            player_y * 64, player_x * 64)
+                    -- times by 64 to get real world pos
+                    -- ALSO, WTF. The x and y are switched. Ahhh, I knew i
+                    -- shouldnt have messed with this shit. Now there are
+                    -- no excuses, this is literally spagetti code
     end
 
     makeEnts(world)

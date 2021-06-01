@@ -24,20 +24,23 @@ local function onBoom(e,x,y, strength)
     if Tools.dist(e.pos.x-x, e.pos.y-y) < 60 and strength>1 then
         ccall("damage",e,100)
         local p = e.pos
-        ccall("emit","smoke",p.x, p.y, p.z, 18)
+        ccall("emit","mushroom",p.x, p.y, p.z + 50, 2)
     end
 end
 
 
 local function spawnMidgets(p)
     for i=1, rand(2,5)do
-        EH.Ents.shroom(p.x + (rand()-0.5)*30, p.y + (rand()-0.5)*30)
+        EH.Ents.shroom(p.x + (rand()-0.5)*50, p.y + (rand()-0.5)*40)
+    end
+    if rand()<0.7 then
+        EH.Ents.mushroomblock(p.x,p.y)
     end
 end
 
 local function onDeath(e)
     local p = e.pos
-    ccall("emit","smoke",p.x, p.y, p.z, 18)
+    ccall("emit","mushroom",p.x, p.y, p.z + 50, 5)
     ccall("await", spawnMidgets, 0, p)
 end
 

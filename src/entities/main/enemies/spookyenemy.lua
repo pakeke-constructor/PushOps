@@ -104,7 +104,7 @@ return function(x,y)
     :add("acc", math.vec3(0,0,0))
     :add("hp", {hp = 400, max_hp = 400})
     :add("speed", {speed = 145, max_speed = math.random(200,240)})
-    :add("fade", 350)
+    :add("fade", 200)
 
     if r() < 0.3 then
         enemy:add("sigils",{"poison"})

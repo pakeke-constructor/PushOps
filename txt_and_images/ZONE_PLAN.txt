@@ -15,22 +15,26 @@ Zone 3:
     h:(boxbully)
 
 Zone 4:
+a   aqua/blue grass
     introduction to spookyblock, spookyenemy, 
     purple grass and blue mushrooms
     h:(boxbully)
 
 Zone 5:
+    aqua/blue grass
     introduction to wizard
-    h:(spookybully + boxbully)
-
-Zone 6:
-    lots of devils, no box enemies,
-    intro to ghost squad
     h:(spookybully)
 
-Zone 7:
+Zone 6:
+    Yellow grass
     grass is replaced with small yellow mushrooms
-    grass colour is yellow
+    lots of devils, no box enemies,
+    intro to ghost squad
+    h:(splatbully)
+
+Zone 7:
+    yellow grass
+    grass is replaced with small yellow mushrooms
     introduction to worm
     h:(splatbully)
 
