@@ -29,6 +29,8 @@ local ccall = Cyan.call
 
 local r = love.math.random
 
+local DAMAGE = 30
+
 
 
 local collisionsComp = {
@@ -37,7 +39,7 @@ local collisionsComp = {
             if e.armour == 0 then
                 error("Player armour 0?? wat")
             end
-            ccall("damage",e,10/(e.armour or 1))
+            ccall("damage",e,DAMAGE/(e.armour or 1))
         end
         ccall("kill",self)
     end

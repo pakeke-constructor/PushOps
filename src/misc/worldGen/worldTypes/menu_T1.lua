@@ -29,12 +29,7 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                for i=1,14 do
-                    EH.Ents.enemy(x + i*10,y + i*10)
-                end
-                for i=1,1 do
-                    EH.Ents.mushroomblock(x + i*10 + 50,y + i*10)
-                end
+                EH.Ents.boxbully(x,y)
             end;
             max=0xfff
         };
@@ -49,7 +44,7 @@ return {
             function(x,y)
                 local txt = EH.Ents.goodtxt(x, y-35, nil,
                     " WASD\nto move",
-                    TXT_COLOUR, 250)
+                    TXT_COLOUR, 200)
             end
         };
 
@@ -58,7 +53,7 @@ return {
             function(x,y)
                 local txt = EH.Ents.goodtxt(x,y,nil,
                     "Arrow keys\nto push\nand pull",
-                    TXT_COLOUR, 250)
+                    TXT_COLOUR, 200)
             end
         };
 
@@ -67,7 +62,7 @@ return {
             function(x,y)
                 local txt = EH.Ents.goodtxt(x, y, nil,
                     "Colliding blocks\nwill deal damage",
-                    TXT_COLOUR, 250)
+                    TXT_COLOUR, 200)
             end
         };
 
@@ -75,8 +70,8 @@ return {
             max=1;
             function(x,y)
                 local txt=EH.Ents.goodtxt(x,y+25, nil,
-                    "PROUDLY MADE\nWITH LOVE 2d",
-                    {0.85,0.45,0.45})
+                    "PROUDLY MADE\nWITH LOVE 2D",
+                    {0.9,0.4,0.8})
                 EH.Ents.love2d_logo(x,y)
             end
         };
@@ -125,14 +120,8 @@ return {
             max = 0xFFFFFFF;
             function(x,y)
                 local grass = Ents.grass
-                local stone = Ents.stone
-                for i=1, rand(8,9) do
+                for i=1, rand(8,11) do
                     grass(x + rand(-50, 50), y + rand(-50, 50))
-                end
-                if rand()<0.3 then
-                    for i=1, rand(2,3)do
-                        stone(x + rand(-10, 10), y + rand(-10, 10))                    
-                    end
                 end
             end
         };

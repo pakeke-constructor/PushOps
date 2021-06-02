@@ -149,8 +149,8 @@ return function(x, y)
     }
     
     e.speed={
-        speed=105;
-        max_speed=115
+        speed=75;
+        max_speed=85
     }
 
     e.strength = 20

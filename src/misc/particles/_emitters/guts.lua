@@ -19,7 +19,7 @@ do
     psys:setSpeed(50,55)
     psys:setEmissionRate(0)
     psys:setSpread(math.pi/2)
-    psys:setEmissionArea("uniform", 6,6)
+    psys:setEmissionArea("uniform", 6,12)
     psys:setColors({1,1,1}, {1,0.5,0.5,0.5})
     psys:setSpin(-10,10)
     psys:setRotation(-2*math.pi, 2*math.pi)

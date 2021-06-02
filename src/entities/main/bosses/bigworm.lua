@@ -42,9 +42,11 @@ local GRAVITYMOD = 0.5
 
 local COLOUR = {0.86,0.86,0.86}
 
+local BULLET_SPEED = 180
+
 
 local bigrocks = {}
-for x=1,3 do
+for x=2,3 do
     local quad_name = 'bigrock' .. tostring(x)
     table.insert(bigrocks, Quads[quad_name])
 end
@@ -79,7 +81,7 @@ end
 
 WormTree.jump = {
     wormJump,
-    "wait::5"
+    "wait::4"
 }
 
 WormTree.wait = {
@@ -119,7 +121,7 @@ end
 
 local rand = love.math.random
 local floor = math.floor
-
+local cos, sin = math.cos, math.sin
 
 local function onSurface(e)
     -- TODO: play sound in these callbacks
@@ -127,11 +129,19 @@ local function onSurface(e)
     ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
 end
 
+
 local function onGround(e)
     local p=e.pos
+    local angle = rand() * 2 * math.pi
+    ccall("shoot", p.x, p.y, BULLET_SPEED * sin(angle), BULLET_SPEED * cos(angle))
     ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
 end
 
+
+local function onDeath(wormnode)
+    local p = wormnode.pos
+    ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
+end
 
 
 local function wormNodeCtor(worm)
@@ -155,6 +165,7 @@ local function wormNodeCtor(worm)
         onSurface = onSurface;
         onGround = onGround
     }
+    wn.onDeath=onDeath
     wn.rot = rand()*2*math.pi
     wn.avel = (rand()-0.5)/10
     wn.image = Tools.rand_choice(bigrocks)
@@ -178,10 +189,14 @@ return function(x,y)
 
     local len = math.floor(love.math.random(MIN_LEN, MAX_LEN))
 
+    worm._nodes = {worm}
+    worm._hearts= {}
+
     -- Create big chain of worm nodes.
     local last = worm
     for x=1,len do
         last = wormNodeCtor(last)
+        table.insert(worm._nodes, last)
     end
 
     worm.dig = {
@@ -206,6 +221,11 @@ return function(x,y)
         };
         tree=WormTree
     }
+
+    for i=1,5 do
+        EH.Ents.wormheart(worm)
+    end
+
     return worm
 end
 

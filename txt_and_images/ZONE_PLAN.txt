@@ -39,7 +39,9 @@ Zone 7:
     h:(splatbully)
 
 Zone 8:
+    Green grass
     Boss, either slime, bigworm, or bigbully (todo)
         -- if player is playing 1hp character,
         -- spawn boss wizard (super DUPER hard boss, only 1 block)
+
 

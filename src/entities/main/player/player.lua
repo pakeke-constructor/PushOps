@@ -8,16 +8,16 @@ local Quads = atlas.Quads
 
 
 
-local prefix = "red_player_"
+local prefix = "blank_player_"
 local down={}
 local up={}
 local left={}
 local right={}
-for i=1,4 do
-    down[i] = Quads[prefix.."down_"..tostring(i)]
-    up[i] = Quads[prefix.."up_"..tostring(i)]
-    left[i] = Quads[prefix.."left_"..tostring(i)]
-    right[i] = Quads[prefix.."right_"..tostring(i)]
+for _,i in ipairs{1,2,1,4} do
+    table.insert(down, Quads[prefix.."down_"..tostring(i)])
+    table.insert(up,Quads[prefix.."up_"..tostring(i)])
+    table.insert(left,Quads[prefix.."left_"..tostring(i)])
+    table.insert(right, Quads[prefix.."right_"..tostring(i)])
 end
 
 
@@ -67,6 +67,8 @@ return function(x,y)
     :add("bobbing", {magnitude = 0.32 , value = 0})
 
     EH.FR(e)
+
+    :add("colour",{0.6,0.05,0.05})
 
     :add("motion",
     {

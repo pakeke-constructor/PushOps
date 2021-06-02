@@ -24,11 +24,11 @@ local cexists = Cyan.exists
 
 
 
-local BIND_COLOUR = {0.6, 0.03, 0.08, 0.2}
+local BIND_COLOUR = {0.6, 0.03, 0.08, 0.05}
 
 local N_BINDINGS = 5
 
-local WIDTH = 5 -- width of binding lines
+local WIDTH = 13 -- width of binding lines
 
 
 
@@ -41,6 +41,8 @@ local spd_cmp = {
 
 local function physColFunc(e1, e2, speed)
     if EH.PC(e1,e2,speed)then
+        local p = e1.pos
+        ccall("emit", "guts", p.x, p.y, p.z, 4+rand(6,10))
         -- make the worm nodes spit out particles, make a sound etc.
     end
 end
@@ -128,6 +130,8 @@ local function onDeath(e)
         -- worm is out of hearts. kill it
         ccall("kill",parent)
     end
+
+    EH.TOK(e,4)
 end
 
 local quad_arr
@@ -157,7 +161,7 @@ return function(parent, sanity_check)
     local e = Cyan.Entity()
     EH.PV(e, parent.pos.x + 50*(rand()-0.5), parent.pos.y + 50*(rand()-0.5))
 
-    assert(parent._nodes, "All worms must have `ent._nodex` for the wormhearts to bind to")
+    assert(parent._nodes, "All worms must have `ent._nodes` for the wormhearts to bind to")
     assert(parent._hearts, "All worms must have `ent._hearts` for the hearts to reside in")
 
     table.insert(parent._hearts, e)
@@ -173,8 +177,8 @@ return function(parent, sanity_check)
     e.targetID = "enemy"
 
     e.hp = {
-        hp = 1000;
-        max_hp=1000
+        hp = 4000;
+        max_hp = 4000
     }
 
     e.onDeath = onDeath
@@ -201,7 +205,7 @@ return function(parent, sanity_check)
 
     e.behaviour.move.target_ent = parent
 
-    EH.BOB(e, 0.18)
+    EH.BOB(e, 0.25)
 
     EH.PHYS(e, 13)
 
