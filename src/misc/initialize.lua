@@ -37,7 +37,8 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k == "e" then
-        ccall("emit",("blue_mushroom"),cam.x,cam.y, 0, 2)
+        local e = EH.Ents.bullyblock(cam.x + 200, cam.y)
+        ccall("setVel", e, -600,0)
     end
 end
 

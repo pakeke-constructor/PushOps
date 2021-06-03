@@ -29,7 +29,9 @@ return {
                 am testing rn!
             ]]
             function(x,y)
-                EH.Ents.boxbully(x,y)
+                for i=1,1 do
+                    EH.Ents.boxbully(x + i*10,y)
+                end
             end;
             max=0xfff
         };

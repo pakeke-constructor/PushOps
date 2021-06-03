@@ -166,7 +166,7 @@ return function(x, y)
         magnitude=0.3 + r()/10;
         value=0
     }
-    e.sigils = {"strength"}
+    e.sigils ={"crown"}-- {"strength"}
     e.targetID="enemy"
 
     e.hybrid=true

@@ -1,17 +1,10 @@
 
 
 
-spookyenemy and spookybully, purple-ish enemies with `fade` component
-Maybe make the fade really short as well
-(These guys could be a really hard enemy perhaps? idk)
-
-
 Add a character entity that has 3d (red-blue) sunglasses
 hahahah
 
 
-
-Make Wizard spellcasting animation
 
 
 

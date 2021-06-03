@@ -156,7 +156,7 @@ local function wormNodeCtor(worm)
         distance = DISTANCE;
         onDetatch = onDetatch
     }
-    local r = rand()/10
+    local r = rand()/6
     wn.colour = {COLOUR[1]+r, COLOUR[2]+r, COLOUR[3]+r}
     wn.vel = math.vec3(0,0,0)
     wn.dig = {

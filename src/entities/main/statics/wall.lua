@@ -30,7 +30,7 @@ end
 local rand = love.math.random
 
 local function spawnFunc(p)
-    for i=1,rand(3,5) do
+    for i=1,rand(1,2) do
         EH.Ents.block(p.x + (rand()-0.5)*30, p.y + (rand()-0.5)*30)
     end 
 end
@@ -56,7 +56,7 @@ return function(x,y)
     })
     :add("onBoom",onBoom)
     :add("onDeath",onDeath)
-
+    :add("targetID","static")
 end
 
 

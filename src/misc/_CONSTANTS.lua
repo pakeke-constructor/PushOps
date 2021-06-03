@@ -38,6 +38,7 @@ return{
         "player";
         "physics";
         "enemy";
+        "static";
         "neutral";
         "interact";
         "coin"

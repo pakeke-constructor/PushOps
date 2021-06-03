@@ -8,7 +8,8 @@ local Quads = atlas.Quads
 
 
 
-local prefix = "blank_player_"
+local prefix = "red_player_"
+local COLOUR = {1,1,1,1}
 local down={}
 local up={}
 local left={}
@@ -68,7 +69,7 @@ return function(x,y)
 
     EH.FR(e)
 
-    :add("colour",{0.6,0.05,0.05})
+    :add("colour",COLOUR)
 
     :add("motion",
     {

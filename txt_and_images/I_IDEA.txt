@@ -1,0 +1,25 @@
+
+
+Have a main lobby where main c can talk to other NPC's and change skin
+
+
+
+Boss worm shoots faster on low HP
+
+
+
+unbreakable walls
+
+
+
+
+Blocks that become unpushable.
+Perhaps put a sigil above the blocks that looks like stars orbiting, like a dazed
+symbol or a stunned symbol or something.
+(Maybe purple enemies cause this?)
+
+
+
+boxbully shoots his blocks outwards,
+and shatters on a wall.
+

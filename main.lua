@@ -25,14 +25,15 @@ do
     -- main ECS
     _G.Cyan = require "libs.Cyan.cyan"
 
-    --[[ heres something real dumb :   
+    --[[ heres something real dumb :  
     local Ent = Cyan.Entity
     _G.Cyan.Entity = function()
         return Ent()
         -- hahahhahaha
         :add("rot", love.math.random()*2*math.pi)
-        :add("avel", 0.005)
-    end]]
+        :add("avel", love.math.random()/20)
+    end
+    --]]
 
     _G.ccall = _G.Cyan.call -- quality of life
 
