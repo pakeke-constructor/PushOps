@@ -23,3 +23,7 @@ symbol or a stunned symbol or something.
 boxbully shoots his blocks outwards,
 and shatters on a wall.
 
+
+bounce blocks when hit ground
+
+

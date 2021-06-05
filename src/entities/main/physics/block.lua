@@ -36,11 +36,6 @@ local sprites = {
 local ccall = Cyan.call
 local rand = love.math.random
 local cam = require("src.misc.unique.camera")
-local collisions = {
-    physics = function(ent,col, speed)
-
-    end
-}
 
 
 local colours = {}
@@ -50,18 +45,43 @@ for i=120,0,-5 do
 end
 
 
+local function onMoob(e, x, y, strength)
+    --[[
+        Okay....
+        We want ent to rotate AC+ve if it gets pulled right,
+        and clockwise if it gets pulled left
+    ]]
+    --local rotStrength = ((e.pos-math.vec3(x,y,0)):normalize() * strength).x / 628.318
+    e.avel = (rand()-0.5)*0.07
+end
+
+
+
+local abs = math.abs
+local function onUpdate(e,dt)
+    if e.grounded then
+        e.rot = 0
+        e.avel = 0
+    end
+end
+
+
 return function(x,y)
     if (not x) or (not y) then error("hey! stop it") end
     local abs = math.abs
     return Cyan.Entity()
     :add("pos", math.vec3(x,y,0))
     :add("vel", math.vec3(0,0,0))
+    :add("rot", 0)
+    :add("avel",0)
     :add("acc", math.vec3(0,0,0))
     :add("colour", Tools.rand_choice(colours))
     :add("physics", {
         shape = block_shape;
         body  = "dynamic"
     })
+    --:add("onBoom", onBoom) -- Does this look better off or on? get feedback
+    :add("onMoob", onMoob)
     :add("pushable",true)
     :add("bobbing", {magnitude = 0.15, value = 0})
     :add("friction", {
@@ -72,6 +92,8 @@ return function(x,y)
     --:add("collisions",collisions)   Turned these off for now
     :add("targetID", "physics")
     :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
+    :add("onUpdate", onUpdate)
+    :add("hybrid", true)
 end
 
 

@@ -48,12 +48,8 @@ do
     _G.table.shuffle = require "libs.NM_fisher_yates_shuffle.shuffle"
     require("libs.NM_stable_sort.sort"):export() -- exports to `_G.table`
 
-    -- Entity construction helper functions / util
-    _G.EH = require 'src.entities._EH'
-
     _G.CONSTANTS = require"src.misc._CONSTANTS"
 end
-
 
 
 -- NO MORE MONKEY BUSINESS PAST THIS POINT !!!
@@ -69,6 +65,11 @@ setmetatable(_G, {
     end,
     __metatable = "defensive"
 })
+
+
+
+-- Entity construction helper functions / util
+rawset(_G, "EH", require 'src.entities._EH')
 
 
 

@@ -37,6 +37,13 @@ it red next round. (Or something.) Red block letters will explode like mushroom 
 
 
 
+Cracked blocks: 
+just like normal blocks, except:
+when a cracked block does a hard collision, it changes sprite to be cracked.
+after another hard collision, it will break.
+
+
+
 
 game name ideas{
     PushOPS

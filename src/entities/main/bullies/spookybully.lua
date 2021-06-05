@@ -178,8 +178,8 @@ return function(x, y)
 
     e.targetID="enemy"
 
-    e.hybrid=true
     e.onUpdate=update
+    e.hybrid=true
 
     e.collisions=collisions
 
@@ -191,4 +191,5 @@ return function(x, y)
     EH.PHYS(e,12)
     return e
 end
+
 

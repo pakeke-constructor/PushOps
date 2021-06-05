@@ -705,7 +705,7 @@ function GenSys:newWorld(world, worldMap)
 
     makeEnts(world)
 
-    --[[  
+    --[[  ]]
     for _,tab in ipairs(worldMap) do
         print(table.concat(tab, " "))
     end

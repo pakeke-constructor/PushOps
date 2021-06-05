@@ -23,6 +23,19 @@ local BlockPartition = require("src.misc.unique.partition_targets").physics
 
 
 function LSSys:sparseupdate(dt)
+    local X,Y = Cam.x, Cam.y
+    local len = BlockPartition:size(X, Y)
+    if len > PHYS_CAP then
+        local ct = 0
+        for ent in BlockPartition:iter(X,Y) do
+            if ct >= (len - PHYS_CAP) then
+                break
+            end
+            ct = ct + 1
+            ccall("kill", ent)
+        end
+    end
+    --[[
     for x=-1,1 do
         for y=-1,1 do
             local X, Y = Cam.x + x*P_SIZE, Cam.y + y*P_SIZE
@@ -39,7 +52,7 @@ function LSSys:sparseupdate(dt)
                 end
             end
         end
-    end
+    end]]
 end
 
 

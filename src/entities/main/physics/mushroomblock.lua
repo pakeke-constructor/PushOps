@@ -78,25 +78,19 @@ end
 return function(x,y)
     if (not x) or (not y) then error("hey! stop it") end
     local abs = math.abs
-    return Cyan.Entity()
-    :add("pos", math.vec3(x,y,0))
-    :add("vel", math.vec3(0,0,0))
-    :add("acc", math.vec3(0,0,0))
-    :add("physics", {
-        shape = block_shape;
-        body  = "dynamic"
-    })
-    :add("onDeath",onDeath)
-    :add("pushable",true)
-    :add("bobbing", {magnitude = 0.15, value = 0})
-    :add("friction", {
-        emitter = psys:clone();
-        required_vel = 2;
-        amount = 0.9
-    })
-    :add("collisions",collisions)
-    :add("targetID", "physics")
-    :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
+    local mush = EH.Ents.block(x,y)
+    mush.onDeath = onDeath
+    local sprite = Tools.random_choice(sprites)
+    
+    local _,_, bw, bh = mush.image.quad:getViewport()
+    local _,_,w,h = sprite:getViewport()
+    assert(bw == w and bh == h, "Mushroom block imgs gotta be same size as physics block imgs")
+
+    mush.friction.emitter = psys:clone()
+    mush.image.quad = sprite
+    mush.colour=nil
+    mush.collisions = collisions
+    return mush
 end
 
 

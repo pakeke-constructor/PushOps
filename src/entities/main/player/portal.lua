@@ -103,9 +103,10 @@ return function(x, y)
     e.targetID = "interact"
 
     e.size = PORTAL_DISTANCE
-    
-    e.hybrid = true -- switched to hybrid OOP for this
+
     e.onUpdate = update
+    e.hybrid = true -- switched to hybrid OOP for this
+
     e.onInteract = portalFunc
 
     -- portal destination

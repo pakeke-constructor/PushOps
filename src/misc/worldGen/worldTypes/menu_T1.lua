@@ -36,11 +36,6 @@ return {
             max=0xfff
         };
 
-        ["#"] = { -- For wall entity.
-            max = 999999, --No max.
-            Ents.wall
-        };
-
         ["1"] = {
             max=0xff;
             function(x,y)
@@ -81,7 +76,7 @@ return {
         ["t"] = {
             max=0xfff;
             function(x,y)
-            ccall("spawnText", x, y, "push game")
+            ccall("spawnText", x, y, "push ops")
         end};
 
         ["e"] = {
@@ -96,7 +91,7 @@ return {
         ["p"] = {
             max = 300, -- 300 max
             function(x, y)
-                for i = 1, rand(3,6) do
+                for i = 1, 1 do--rand(3,6) do
                     Ents.block(
                         x + rand(-10, 10),
                         y + rand(-10, 10)
@@ -128,11 +123,6 @@ return {
             end
         };
 
-        ['%'] = {
-            max = 0xFFFFFFFF; --no max;
-            Ents.wall
-        };
-
         ['l'] = {
             max = 100;
             function (x, y)
@@ -144,7 +134,7 @@ return {
             end
         },
 
-        ['&'] = {
+        ['&&&'] = { -- Turn off for now.
             max = 0xfff;
             function(x,y)
                 local portal = Ents.portal(x,y)

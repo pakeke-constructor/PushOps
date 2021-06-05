@@ -148,9 +148,9 @@ return function(x, y)
         max_hp=2000
     }
     
-    e.speed={
-        speed=75;
-        max_speed=85
+    e.speed={ -- originally:  speed=75,  max_speed=85
+        speed=100;
+        max_speed=110
     }
 
     e.strength = 20
@@ -158,7 +158,9 @@ return function(x, y)
     e.behaviour={
         move={
             id="player";
-            type="CLOCKON"
+            type="CORBIT";
+            orbit_tick = 0;
+            orbit_speed = 0.1
         }
     }
 
@@ -169,8 +171,8 @@ return function(x, y)
     e.sigils ={"crown"}-- {"strength"}
     e.targetID="enemy"
 
-    e.hybrid=true
     e.onUpdate=update
+    e.hybrid=true
 
     e.collisions=collisions
 

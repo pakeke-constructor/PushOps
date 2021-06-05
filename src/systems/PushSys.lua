@@ -151,6 +151,7 @@ end
 
 
 local max = math.max
+local rand = love.math.random
 
 function PushSys:boom(x, y, strength, distance, 
                         vx, vy, bias_group, bias_angle) -- optional arguments.
@@ -200,6 +201,9 @@ function PushSys:boom(x, y, strength, distance,
 
                 ccall("animate", "shock", 0, 0, 50, 0.02, nil, nil, ent)
                 -- Push the entities away according to `strength` and distance.
+                
+                -- Add Z velocity to bounce em up.
+                ent.vel.z = rand(100,200)
             end
         end
     end
@@ -223,9 +227,8 @@ function PushSys:moob(x, y, strength, distance)
     for ent in partition:longiter(x, y) do
         local eX, eY = ent.pos.x, ent.pos.y
 
-        if ent.onBoom then
-            -- is negative, because this is `moob` callback
-            ent:onBoom(x,y,-strength)
+        if ent.onMoob then
+            ent:onMoob(x,y,strength)
         end
 
         if ent.vel and ent.pushable and (eX ~= x and eY ~= y) then
@@ -245,7 +248,7 @@ function PushSys:moob(x, y, strength, distance)
                 -- Push the entities away according to `strength` and distance.
 
                 -- Add Z velocity to bounce em up.
-                ent.vel.z = rand(100,300)
+                ent.vel.z = rand(150,350)
             end
         end
     end

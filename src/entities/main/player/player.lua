@@ -103,11 +103,6 @@ return function(x,y)
         down = "pull"
     })
 
-    e:add('light',{
-          colour = {1,1,1,1};
-          distance = 5
-    })
-
     :add("sigils", {"strength"})
 
     return e

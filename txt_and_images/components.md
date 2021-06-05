@@ -24,7 +24,8 @@ armour = 2; -- Damage reduced by 2 times (defaults to 1.)
 onDeath = function(e) end -- callback for when ent dies.
 onDamage = function(e, dmg) end -- callback for taking dmg
 onBoom   = function(e, x,y, strength) end -- callback for `boom`.
-                                     -- when `moob` is invoked, `strength` is negative.
+onMoob = function(e, x,y, strength) end -- callback for `moob`.
+
 onInteract = function(e, interacting_ent, type)
 -- when player `push` or `pull` next to  targetID = "interact"
 -- type is either `pull` or `push`.
@@ -41,7 +42,7 @@ acc = vec3(acc_x, acc_y, acc_z) --> vec3
 
 rot = 0 -- rotation in rads
 avel = 0 -- rot velocity (rad/s)
-
+rfriction = 0.1 -- rotational friction. Loses 10% of rot speed per second
 
 speed = {speed = 10, max_speed = 100} -- entity speed
 
@@ -190,6 +191,9 @@ dig = {
     onGround  = function(e)end -- ent goes into ground;
     z_min = -1 -- doesnt go below z=-1 (default = -1)
 }
+
+grounded = true/false -- read-only field used by gravitySys. 
+                    -- false if ent is in the air
 
 gravitymod = 1 -- modifies the gravity (-1 means ent goes up, 0.5 = half grav)
 

@@ -19,19 +19,28 @@ for i = 1, #letters do
     end
     local name = "letter_"..c
     
-    -- ahhh, luajit dont like loop closures. oh well
-    local image = {
-        quad = EH.Quads[name]
-    }
-    assert(image.quad,"fix")
+    assert(EH.Quads[name],"fix")
 
     Ents[name] = function(x,y)
+        local letter = EH.Ents.block(x,y)
+
+        local _,_, bw, bh = letter.image.quad:getViewport()
+        local _,_,w,h = EH.Quads[name]:getViewport()
+        assert(bw == w and bh == h, "Block letter imgs gotta be same size as physics block imgs")
+
+        letter.image.quad = EH.Quads[name]
+        letter.physicsImmune = true
+        letter.bobbing.magnitude = 0.2
+        letter.colour=nil
+        return letter
+        --[[
         return EH.FR(EH.PHYS(EH.PV(Cyan.Entity(), x, y), 10), 1.4)
         :add("image",image)
         :add("pushable",true)
         :add("bobbing", {magnitude=0.2})
         :add("targetID", "physics")
         :add("physicsImmune",true) -- so it wont be killed by splat, or by massdeletion
+        ]]
     end
     ::continue::
 end

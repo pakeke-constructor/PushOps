@@ -62,6 +62,14 @@ return {
         end
     };
 
+    ["+"] = {
+        max=0xff;
+        function(x,y)
+            local light = EH.Ents.light(x,y)
+            light.distance = 15
+        end
+    };
+
     ["~"] = {
         max=math.huge;
         function(x,y)

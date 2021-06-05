@@ -134,6 +134,7 @@ q :  spiky physics object (damages player upon hit)
 ^  :  decoration area (grass, nice ground texture, etc)
 l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant mushroom)
 *  :  collectable artefact / trophy!!
++  :  light
 
 ]]
 

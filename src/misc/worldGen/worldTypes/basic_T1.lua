@@ -33,6 +33,7 @@ l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant
 
 
 
+
 (NYI:)
 In order to spawn entities, the worldGen will pick a random
 constructor function from the respective char table.
@@ -51,6 +52,7 @@ local enemySpawns = Tools.weighted_selection{
     [Ents.boxblob]  = 0.3;
     [Ents.ghost]    = 0.1
 }
+
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >

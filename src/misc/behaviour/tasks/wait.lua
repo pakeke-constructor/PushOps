@@ -18,7 +18,7 @@ local ccall = Cyan.call
 
 
 for N = 1, 10 do
-    name = "wait::"..tostring(N)
+    local name = "wait::"..tostring(N)
     local task = B.Task(name)
 
     task.start = function(t,e)

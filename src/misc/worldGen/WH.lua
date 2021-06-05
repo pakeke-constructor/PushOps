@@ -18,7 +18,6 @@ local rand = love.math.random
 function WH.lights(world, worldMap, num_lights, light_distance)
     local size_x = world.x * 64
     local size_y = world.y * 64
-    print("Sizes:" , size_x, size_y)
     assert(num_lights, "expected a number of lights")
     local ct =  math.ceil(math.sqrt(num_lights))
     for x = 1, ct do

@@ -23,6 +23,7 @@ end
 Tools.rand_choice = function(Tools)
     return Tools[floor(rand(1, #Tools))]
 end
+Tools.random_choice = Tools.rand_choice -- alias
 
 Tools.dot = function(x1,y1,x2,y2)
     return (x1*x2) + (y1*y2)
