@@ -66,7 +66,7 @@ return {
         max=0xff;
         function(x,y)
             local light = EH.Ents.light(x,y)
-            light.distance = 15
+            light.light.distance = 160
         end
     };
 

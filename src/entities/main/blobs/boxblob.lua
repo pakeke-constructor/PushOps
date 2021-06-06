@@ -42,8 +42,8 @@ local function onDamage(e)
 end
 
 
-local function spawnBoxBloblets(pos)
-    for i=1, r(2,4) do
+local function spawnBlocks(pos)
+    for i=1, r(1,2) do
         EH.Ents.block(pos.x,pos.y)
     end
 end
@@ -53,7 +53,7 @@ local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
     ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
-    ccall("await", spawnBoxBloblets, 0, p)
+    ccall("await", spawnBlocks, 0, p)
     EH.TOK(e,r(1,3))
 end
 

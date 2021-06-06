@@ -56,7 +56,7 @@ local r = love.math.random
 
 local function makeBlocks(p)
     -- p is position vector
-    local u = r(3,4)
+    local u = r(1,2)
     for i=1,u do
         EH.Ents.block(p.x + i*6 - u*3, p.y + i*6 - u*3)
     end

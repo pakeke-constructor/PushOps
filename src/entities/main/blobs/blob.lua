@@ -41,8 +41,8 @@ end
 
 local function onDeath(e)
     local p = e.pos
-    ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
-    ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+    ccall("emit", "guts", p.x, p.y, p.z, r(8,11))
+    ccall("emit", "dust", p.x, p.y, p.z, 8)
     EH.TOK(e,r(1,3))
 end
 

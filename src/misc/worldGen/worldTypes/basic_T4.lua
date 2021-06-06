@@ -91,7 +91,7 @@ return {
 
     construct = function(wor,wmap,px,py)
         WH.zonenum(4,px,py)
-        WH.lights(wor, wmap, 15, 10)
+        WH.lights(wor, wmap, 15, 150)
         ccall("setGrassColour", "aqua")
     end;
 

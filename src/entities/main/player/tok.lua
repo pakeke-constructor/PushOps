@@ -16,22 +16,29 @@ local function playerColFunc(ent, player, dt)
     ccall("kill",ent)
 end
 
-
+--[[
 local f={1,2,3,4}
 for i,v in ipairs(f) do
-    f[i]=Quads["tok"..tostring(v)]
+    f[i]=Quads["bigtok"..tostring(v)]
 end
 local f_rv = {4,3,2,1}
 for ii,vv in ipairs(f_rv) do
-    f_rv[ii]=Quads["tok"..tostring(vv)]
+    f_rv[ii]=Quads["bigtok"..tostring(vv)]
 end
+]]
 
+
+local f={1,2,3,2}
+for i,v in ipairs(f) do
+    f[i] = Quads["coin"..tostring(v)]
+end
+local f_rv = f
 
 
 
 local ANIM_INTERVAL = 0.1
 
-
+local COLOUR = {255/255, 215/255, 0}
 
 return function(x, y)
     local e = Cyan.Entity()
@@ -46,6 +53,8 @@ return function(x, y)
         -- (gives nice variation)
         e.animation.frames = f_rv
     end
+
+    e.colour = COLOUR
     
     e.speed={
         speed=300;

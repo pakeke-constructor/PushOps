@@ -28,7 +28,7 @@ function WH.lights(world, worldMap, num_lights, light_distance)
             local y = (properheight) * (y / ct) + LIGHT_PLACEMENT_OFFSET --+ (rand()-0.5)*2*LIGHT_PLACEMENT_R_AMPLITUDE
 
             local light = EH.Ents.light(x,y)
-            light.distance = light_distance
+            light.light.distance = light_distance
         end
     end
 end

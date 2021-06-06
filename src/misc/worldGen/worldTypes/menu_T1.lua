@@ -134,12 +134,12 @@ return {
             end
         },
 
-        ['&&&'] = { -- Turn off for now.
+        ['&'] = { -- Turn off for now.
             max = 0xfff;
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 1;
+                    tier = 4;
                     type = "basic";
                     x = 32;
                     y = 32

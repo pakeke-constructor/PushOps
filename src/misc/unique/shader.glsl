@@ -45,7 +45,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
         //if (dist_to_light < light_distances[i]){
         
         adding_light = ((light_colours[i]*light_distances[i]))
-                        / (sqrt(dist_to_light) * brightness_modifier);
+                        / ((dist_to_light) * brightness_modifier);
         // Cap the light brightness so it cannot be too bright
         adding_light.x = max(min(max_light_strength, adding_light.x), -max_light_strength);
         adding_light.y = max(min(max_light_strength, adding_light.y), -max_light_strength);;

@@ -63,21 +63,6 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k == "e" then
-        local e = EH.Ents.bullyblock(cam.x + 200, cam.y)
-        ccall("setVel", e, -600,0)
-    end
-    if k=="kp1" then
-        challengeMe(e1s)
-    end
-    if k=="kp2" then
-        challengeMe(e2s)
-        challengeMe(e1s)
-    end
-    if k=="kp3" then
-        challengeMe(e3s)
-        for i=1,5 do
-            challengeMe(e1s)
-        end
     end
 end
 
