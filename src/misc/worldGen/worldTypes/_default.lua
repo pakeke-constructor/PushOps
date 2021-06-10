@@ -12,7 +12,7 @@ all iterations of basic_T1, basic_T2 etc.
 local Ents = require("src.entities")
 local rand = love.math.random
 
-local menu = require("src.misc.worldGen.menu")
+local menu = require("src.misc.worldGen.menu_map")
 
 
 local function goToMenu()
@@ -41,7 +41,7 @@ return {
         -- wait a bit, then respawn player at menu
         ccall("shockwave", x, y, 10, 700, 30, .57, {0.8,0.05,0.05})
         ccall("spawnText", x, y, "rekt", 750,100)
-        ccall("await", goToMenu, 6)
+        ccall("await", goToMenu, 4)
     end;
 
     entities = {

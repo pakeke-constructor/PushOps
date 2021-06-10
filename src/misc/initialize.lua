@@ -5,7 +5,7 @@ Cyan.call("newWorld",{
     x=100,y=100,
     tier = 1,
     type = 'menu'
-}, require("src.misc.worldGen.menu"))
+}, require("src.misc.worldGen.menu_map"))
 
 --]]
 
