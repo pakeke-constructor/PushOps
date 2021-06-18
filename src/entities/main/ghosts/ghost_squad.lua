@@ -52,7 +52,8 @@ local function invisGhost(x,y, parent)
             orbit_tick=0;
             orbit_radius = rand(30,100);
             target = parent.pos  -- this is allowed, because VECORBIT is safely mutable
-        }}
+        }
+    }
     e.animation = {
         frames = GHOST_FRAMES;
         interval = 0.05
@@ -151,5 +152,6 @@ return function(x, y)
     e.collisions = {physics=pCF}
     e.onDeath=onDeath
     e.colour = GHOST_COL
+    return e
 end
 

@@ -27,3 +27,7 @@ and shatters on a wall.
 bounce blocks when hit ground
 
 
+Bullies turn into a skeleton or skull when they die,
+gives nicer feedback.
+    -NOTE: maybe just add lots of particles instead?
+

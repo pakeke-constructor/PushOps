@@ -68,30 +68,20 @@ def add_all_lines(path):
 
 START_NOTE = '''
 
-
 --[[
 
 
 Hello, reader
 
 This file is to visualize the scale of my project.
-It consists of all the lua files that I am responsible for
+It consists of all the lua and glsl files that I am responsible for
 making throughout my project. (Other people's libraries
 are not shown.)
 
 
 
 
-
-
-
-
-
-
-
 ]]
-
-
 
 '''
 
