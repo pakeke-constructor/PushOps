@@ -96,7 +96,9 @@ local function getFreeSource(src)
     if not src:isPlaying() then
         return src
     else
-        for _, clone in ipairs(availableSourceClones[src].objects) do
+        local srcSet = availableSourceClones[src]
+        assert(srcSet, "srcSet was nil, why?")
+        for _, clone in ipairs(srcSet.objects) do
             if not clone:isPlaying() then
                 return clone
             end
@@ -140,7 +142,7 @@ function SoundSys:sound(sound, volume, pitch,
 
     if soundGroups[sound] then
         local group = soundGroups[sound]
-        playSound( rand_choice(group.mainSounds), volume, pitch, volume_variance, pitch_variance )
+        playSound( rand_choice(group.mainSounds), volume, pitch, volume_variance, pitch_variance)
         for _,src in ipairs(group.backgroundSounds) do
             playSound(src, volume, pitch, volume_variance, pitch_variance )
         end

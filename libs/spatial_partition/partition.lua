@@ -114,6 +114,14 @@ end
 
 
 
+--[[
+    The last x and y position of each object in the spatial hash.
+    (As in, the position of the object the last time it was updated.)
+]]
+local currentXIndex = setmetatable( {}, {__mode="k"} )
+local currentYIndex = setmetatable( {}, {__mode="k"} )
+-- (__mode just lessens GC burden.)
+
 
 
 function Partition:update()
@@ -127,13 +135,23 @@ end
 function Partition:updateObj(obj)
     -- ___rem and ___add functions have been inlined for performance.
     self:getSet(obj):remove(obj)   -- Same as self:___rem(obj)
-    self[floor(obj.pos.x/self.size_x)][floor(obj.pos.y/self.size_y)]:add(obj) -- Same as self:___add(obj)
+    local pos = obj.pos
+    local indexX = floor(pos.x/self.size_x)
+    local indexY = floor(pos.y/self.size_y)
+    currentXIndex[obj] = indexX
+    currentYIndex[obj] = indexY
+    self[indexX][indexY]:add(obj)
 end
 
 
 
 function Partition:___add(obj)
-    self[floor(obj.pos.x/self.size_x)][floor(obj.pos.y/self.size_y)]:add(obj)
+    local pos = obj.pos
+    local indexX = floor(pos.x/self.size_x)
+    local indexY = floor(pos.y/self.size_y)
+    currentXIndex[obj] = indexX
+    currentYIndex[obj] = indexY
+    self[indexX][indexY]:add(obj)
 end
 
 
@@ -143,14 +161,20 @@ function Partition:___rem(obj)
 end
 
 
+
 function Partition:setPosition(obj, x, y)
     --[[
         Note that the user must change the x,y fields independently,
         after this function has been called
     ]]
     self:___rem(obj)
-    self[floor(x/self.size_x)][floor(y/self.size_y)]:add(obj)
+    local indexX = floor(x/self.size_x) 
+    local indexY = floor(y/self.size_y)
+    currentXIndex[obj] = indexX
+    currentYIndex[obj] = indexY
+    self[indexX][indexY]:add(obj)
 end
+
 
 
 function Partition:add(obj)
@@ -173,68 +197,21 @@ end
 
 function Partition:frozenAdd(obj)
     -- This obj stays in a constant position.
-    -- Much more efficient- use when possible
+    -- Much more efficient for updating- use when possible
     self:___add(obj)
 end
 
 
-local er1 =
-[[Object disappeared from recorded location in spacial partitioner.
-Ensure that your spacial hasher has a cell-size that is greater than the maximum velocity of any hashed object.
-
-]]
 
 
 function Partition:getSet(obj)
-    local x, y = floor(obj.pos.x/self.size_x), floor(obj.pos.y/self.size_y)
-    
-    if (x ~= x) or (y ~= y) then -- Checking for nasty NaNs.
-        Tools.dump(obj, "NaN found in entity position component. Good luck mate.. youll need it\n")
-        error("Not a number (NaN) found in obj " .. tostring(obj) .. ". Ensure objects don't have NaN as their x or y fields.", 2)
-    end
-
+    local x, y = currentXIndex[obj], currentYIndex[obj]
     local set_ = self[x][y]
+    
     -- Try for easy way out: Assume the object hasn't moved out of it's cell
     if set_:has(obj) then
         return set_, x, y
     end
-    -- This is what unnessesary performance squeezing looks like. (Used to be a loop)
-    -- Horizontal and vertical cells are checked first as they are the most likely case.
-    set_ = self[x-1][y]
-    if set_:has(obj) then
-        return set_, x-1, y
-    end
-    set_ = self[x+1][y] 
-    if set_:has(obj) then
-        return set_, x+1, y
-    end
-    set_ = self[x][y-1]
-    if set_:has(obj) then
-        return set_, x, y-1
-    end
-    set_ = self[x][y+1]
-    if set_:has(obj) then
-        return set_, x, y+1
-    end
-    set_ = self[x-1][y-1]
-    if set_:has(obj) then
-        return set_, x-1, y-1
-    end
-    set_ = self[x-1][y+1]
-    if set_:has(obj) then
-        return set_, x-1, y+1
-    end
-    set_ = self[x+1][y-1]
-    if set_:has(obj) then
-        return set_, x+1, y-1
-    end
-    set_ = self[x+1][y+1]
-    if set_:has(obj) then
-        return set_, x+1, y+1
-    end
-    --[[
-    Old code::: This is functionally equivalent to above, above is slightly quicker tho
-    (Just because we can directly examine the most likely changed positions of obj first)
 
     for X = x-1, x+1 do
         for Y = y-1, y+1 do
@@ -243,21 +220,18 @@ function Partition:getSet(obj)
                 return set_, X, Y
             end
         end
-    end]]
-    
-    -- THIS IS UNIQUE TO PUSH_GAME!!! 
-    -- AGAIN, DOOOO NOOOOT push this to github as a standalone!!!!!!!!!
-    Tools.dump(obj, "object disappeared from partition:  \n")
-
+    end
+    Tools.dump(obj,"partition bug , gimme a look:  \n\n")
     -- Object has moved further than it's cell neighbourhood boundary.
     -- Throw err
-    error(er1)
+    error("What? obj disappeared from partition... this is a bug with partition.lua I think")
 end
 
 
 
 -- An extra function that will override Partition:getSet if a call to Partition:setGetters is made.
 function Partition:moddedGetSet(obj)
+    error("this aint running right..?")
     local x, y = floor(self.___getx(obj)/self.size_x), floor(self.___gety(obj)/self.size_y)
     local set_ = self[x][y]
     -- Try for easy way out: Assume the object hasn't moved out of it's cell
@@ -317,10 +291,12 @@ end
 
 -- An extra function that will override Partition:___add if a call to Partition:setGetters is made.
 function Partition:modded____add(obj)
+    error("dont run this in push game")
     self[floor(self.___getx(obj)/self.size_x)][floor(self.___gety(obj)/self.size_y)]:add(obj)
 end
 -- An extra function that will override Partition:update_object if a call to Partition:setGetters is made.
 function Partition:moddedUpdateObj(obj)
+    error("dont run this in push game pls")
     -- ___rem and ___add functions have been inlined for performance.
     self:getSet(obj):remove(obj)                                     -- Same as self:___rem(obj)
     self[floor(self.___getx(obj)/self.size_x)][floor(self.___gety(obj)/self.size_y)]:add(obj) -- Same as self:___add(obj)
@@ -329,12 +305,12 @@ end
 
 
 function Partition:setGetters( x_getter, y_getter )
+    error("HELLO!!! why is this being called??? this shouldnt be called please")
+
     assert(type(x_getter) == "function", "expected type function, got type:  " .. tostring(type(x_getter)))
     assert(type(y_getter) == "function", "expected type function, got type:  " .. tostring(type(y_getter)))
     self.___getx = x_getter
     self.___gety = y_getter
-
-    error("Why/where is this code running")
     self.getSet = self.moddedGetSet
     self.___add = self.modded____add
     self.updateObj = self.moddedUpdateObj
