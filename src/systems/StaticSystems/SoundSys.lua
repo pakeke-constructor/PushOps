@@ -73,8 +73,23 @@ for k,src in pairs(sounds) do
         if k:sub(s+1,s+2)=="bg" then
             table.insert(group.backgroundSounds, src)  
         else
+            assert(k:sub(s+1,s+4) == "main", "wrong sound filetype for `".. k .."`.\n See SoundSys")
             table.insert(group.mainSounds, src)
         end
+    else
+        --[[
+            If there is no `_`, it means that its a simple filename,
+            i.e.   beam.mp3
+            We just construct a group for it and put it in as the main sound
+        ]]
+        soundGroups[k] = soundGroups[k] or {
+            mainSounds = {};
+            backgroundSounds = { }
+        }
+        availableSourceClones[src] = Tools.set()
+        local group = soundGroups[k]
+
+        table.insert(group.mainSounds, src)
     end
 end
 
@@ -97,7 +112,7 @@ local function getFreeSource(src)
         return src
     else
         local srcSet = availableSourceClones[src]
-        assert(srcSet, "srcSet was nil, why?")
+        assert(srcSet, "srcSet was nil, why? (src: " .. tostring(src) .." )")
         for _, clone in ipairs(srcSet.objects) do
             if not clone:isPlaying() then
                 return clone
