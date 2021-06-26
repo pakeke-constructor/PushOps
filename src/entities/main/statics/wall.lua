@@ -54,6 +54,7 @@ return function(x,y)
         hp=WALL_HP;
         max_hp=WALL_HP
     })
+    --:add("colour",CONSTANTS.grass_colour)
     :add("onBoom",onBoom)
     :add("onDeath",onDeath)
     :add("targetID","static")

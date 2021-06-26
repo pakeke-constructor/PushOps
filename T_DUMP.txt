@@ -1,3 +1,0 @@
-
-lua tostring::Source: 0x0241dc3e6280
-<userdata 1>

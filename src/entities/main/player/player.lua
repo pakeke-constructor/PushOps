@@ -1,5 +1,5 @@
 
-local player_shape = love.physics.newCircleShape(10)
+local player_shape = love.physics.newCircleShape(15)
 
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
@@ -50,7 +50,7 @@ return function(x,y)
         iframes = 0.5 -- we want iframes to be high to let player respond
     })
 
-    :add("speed", {speed = 20, max_speed = 210})
+    :add("speed", {speed = 200, max_speed = 210})
 
     :add("strength", 100)
 
@@ -67,7 +67,7 @@ return function(x,y)
 
     :add("bobbing", {magnitude = 0.32 , value = 0})
 
-    EH.FR(e)
+    EH.FR(e, 6)
 
     :add("colour",COLOUR)
 

@@ -131,13 +131,13 @@ return function(x, y)
 
     e.bobbing={magnitude=0.25}
 
-    e.speed = {speed = 160, max_speed = 170}
+    e.speed = {speed = 200, max_speed = 200}
 
     e.pushable=false
 
     e.targetID = "enemy"
 
-    EH.PHYS(e,14)
+    EH.PHYS(e,13)
 
     e:add("friction", {
         amount = 2;
