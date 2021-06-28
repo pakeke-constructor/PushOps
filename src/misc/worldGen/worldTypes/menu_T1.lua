@@ -30,7 +30,7 @@ return {
             ]]
             function(x,y)
                 for i=1,1 do
-                    EH.Ents.mallow(x + i*10,y)
+                    EH.Ents.bigworm(x + i*10,y)
                 end
             end;
             max=0xfff

@@ -195,4 +195,7 @@ Changes the world to a new world. New parameters will be added to this in future
 Same as newWorld, but purges the current world and calls the
 appropriate destruct/construct callbacks.
 
+# finalizeWorld( world, worldMap )
+Called when world has finished generating,
+and after the entities have spawned.
 

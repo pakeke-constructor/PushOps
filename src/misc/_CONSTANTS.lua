@@ -11,6 +11,8 @@ return{
 ,
     PHYS_CAP = 45 -- the max number of phys objs allowed in each spatial bucket
 ,
+    TILESIZE = 64 -- The width and height of tiles in generation sys
+,
     PUSH_RANGE = 50
 ,
     PUSH_COOLDOWN = 0.5

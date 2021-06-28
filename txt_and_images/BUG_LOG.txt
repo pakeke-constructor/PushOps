@@ -555,6 +555,80 @@ Oh, damn, nah, just do `ccall("await", {:newWorld}, 0)`, this'll fix it
 
 
 
+
+
+
+Bug when tapping teleport twice in close succession
+(I think its when sound is played for the first time in quick succession)
+
+
+ahhh crap man, its error time.
+If you can, please contact Oli and show a full screenshot of this screen. TY!
+       PLATFORM : Windows
+src/systems/StaticSystems/SoundSys.lua:99: attempt to index a nil value
+
+Traceback
+
+conf.lua:112: in function 'handler'
+src/systems/StaticSystems/SoundSys.lua:99: in function 'getFreeSource'
+src/systems/StaticSystems/SoundSys.lua:116: in function 'playSound'
+src/systems/StaticSystems/SoundSys.lua:151: in function <src/systems/StaticSystems/SoundSys.lua:128>
+libs/Cyan/cyan.lua:73: in function 'ccall'
+src/misc/unique/portal_function.lua:38: in function 'onInteract'
+src/systems/ControlSys.lua:187: in function 'push'
+src/systems/ControlSys.lua:264: in function <src/systems/ControlSys.lua:260>
+libs/Cyan/cyan.lua:73: in function 'call'
+src/systems/StaticSystems/KeyPressSys.lua:58: in function <src/systems/StaticSystems/KeyPressSys.lua:53>
+libs/Cyan/cyan.lua:73: in function 'call'
+src/misc/unique/gamestate.lua:49: in function <src/misc/unique/gamestate.lua:48>
+[C]: in function 'xpcall'
+
+===== FIXED =======
+Sounds were not being added as a group if they didn't conform
+to the `sound_main1` or `sound_bg1`. 
+EG  `sound.mp3` was added as a src object, but not as a group.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Error: libs/spatial_partition/partition.lua:129: Not a number (NaN) found in obj table: 0x0ad3cae0. Ensure objects don't have NaN as their x or y fields.
 stack traceback:
         [string "boot.lua"]:777: in function <[string "boot.lua"]:773>

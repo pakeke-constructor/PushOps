@@ -7,10 +7,11 @@ local partition = require("src.misc.partition")
 local ccall = Cyan.call
 local rand = love.math.random
 
-local BUF_TIME = 0.35 -- wait BUF_TIME seconds then spawn new world
+local BUF_TIME = 0.75 -- wait BUF_TIME seconds then spawn new world
 
 
-
+-- We need a way to make player invincible during the windup.
+-- Or else we are in for a world of hurt.
 
 local genLevel = function(e)
     local dest = e.portalDestination or error("No portal destination given")
@@ -34,6 +35,18 @@ return function(portal, player)
     ]]
     local R = 3
     player.hidden = true
+
+    if (player.hp and player.hp.hp <= 0) then
+        return --  cancel teleport, player is dead.
+    end
+
+    if player.hp then
+        -- Make invulnerable; player is gonna be reset anyway.
+        local hp = player.hp
+        hp.max_hp = 0xfffffffffffffffffffffffffff
+        hp.hp = 0xfffffffffffffffffffffffffff
+    end
+    
     ccall("sound", "boom")
     ccall("sound", "teleport",0.4)
     ccall("animate", "tp_up", 0,0,0, BUF_TIME/10, 1, nil, player, true)

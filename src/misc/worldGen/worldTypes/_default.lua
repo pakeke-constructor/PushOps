@@ -12,7 +12,7 @@ all iterations of basic_T1, basic_T2 etc.
 local Ents = require("src.entities")
 local rand = love.math.random
 
-local menu = require("src.misc.worldGen.menu_map")
+local menu = require("src.misc.worldGen.maps.menu_map")
 
 
 local function goToMenu()

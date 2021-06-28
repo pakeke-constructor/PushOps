@@ -77,19 +77,7 @@ for k,src in pairs(sounds) do
             table.insert(group.mainSounds, src)
         end
     else
-        --[[
-            If there is no `_`, it means that its a simple filename,
-            i.e.   beam.mp3
-            We just construct a group for it and put it in as the main sound
-        ]]
-        soundGroups[k] = soundGroups[k] or {
-            mainSounds = {};
-            backgroundSounds = { }
-        }
-        availableSourceClones[src] = Tools.set()
-        local group = soundGroups[k]
-
-        table.insert(group.mainSounds, src)
+        error("Incorrect format for sound file: ".. k .."\n See misc/sounds/init.lua")
     end
 end
 

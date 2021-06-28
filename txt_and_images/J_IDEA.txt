@@ -5,15 +5,6 @@ Make it so `pull` can charge up, longer = stronger ??????
 (Maybe dont do this as it is less fun)
 
 
-Chain reaction of blocks that go around and destroy any close blocks.
-This discourages creating big groups that make player invincible
-DONE: SplatSys :: show jonty! :)
-
-
-Set a maximum number of blocks for each local area
-DONE
-
-
 
 Extremely hard boss,
 The first few people who kill the boss get to suggest game ideas
@@ -31,7 +22,9 @@ Explosive walls,
 bouncy walls with fixture:setRestitution() :)  
     -- OLI NOTE: Maybe this idea came from the walls being very bland.
         perhaps instead, just spice up the artwork of existing walls??
-
+(NOTE FROM JONTY:
+Jonty meant chain reaction walls, like splatsys. 
+This could be so breaking thru walls is less tedious.)
 
 
 
@@ -39,7 +32,6 @@ Enemies that destroy blocks in certain radii
 
 
 Enemies that form a cacoon and constantly emit ccall("pull")
-    - 
 
 
 
@@ -53,3 +45,30 @@ Future oli here: YES!!! Good idea
 
 Explosion and chaos ensue when you die
 
+
+
+Potion shop that you can use coins to buy
+
+
+
+
+Icon in UI to show progress thru level
+(Perhaps make a progress circle that surrounds player. When progress circle
+is full, it flashes and explodes, and portal spawns instantly)
+
+Perhaps ultimate beam when changing levels? like thor
+
+
+speedrun timer
+
+
+
+time limit level
+
+
+
+reverse teleport animation upon entering level
+
+
+
+Combo when killing enemies fast

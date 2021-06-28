@@ -1,8 +1,8 @@
 
 
 
-Add a character entity that has 3d (red-blue) sunglasses
-hahahah
+Make it so pulling multiple times in a row
+gets weaker and weaker.
 
 
 

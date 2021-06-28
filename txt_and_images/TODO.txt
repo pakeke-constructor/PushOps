@@ -4,12 +4,6 @@ TODO :::
 
 
 
-We need a better way of constructing new levels.
-Doing it directly thru portal interactions is dumb
-Maybe rout a `ccall("changeLevel")` callback to ControlSys or something??
-
-
-
 
 make (more) wall variations
 
@@ -21,12 +15,6 @@ Make KeyPressSys more responsive.
 As soon as player pressed keypress button, it will emit a callback
 
 
-
-
-
-
-Test BuffSystem!
-Im pretty sure its all goods but wont hurt ey 
 
 
 

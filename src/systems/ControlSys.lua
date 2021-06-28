@@ -367,7 +367,7 @@ function ControlSys:drawUI()
         local hp = self.group[1].hp
         tick = tick + 0.01
         setColor( 0.7 + 0.1*sin(tick) ,0,0)
-        rect("fill", HP_X+2, HP_Y+2, 26 * (hp.hp / (hp.max_hp)), 10)
+        rect("fill", HP_X+3, HP_Y+3, 42 * (hp.hp / (hp.max_hp)), 18)
         setColor(1,1,1)
         atlas:draw(Quads.hp_bar, HP_X, HP_Y)
     end
