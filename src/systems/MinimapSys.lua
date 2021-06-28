@@ -32,12 +32,12 @@ local mapCanvas
 
 
 local function getMapScale(world, wmap)
-    local world_width = world.x * CONSTANTS.TILESIZE
-    local world_height = world.y * CONSTANTS.TILESIZE
+    local world_width = #wmap * CONSTANTS.TILESIZE
+    local world_height = #wmap[1] * CONSTANTS.TILESIZE
     local width  = world_width
     local height = world_height
     local scale = 1
-    while (width > MAX_WIDTH) or (height > MAX_HEIGHT) do
+    while (width > MAX_WIDTH) and (height > MAX_HEIGHT) do
         scale = scale - 0.00001
         width = world_width * scale
         height = world_height * scale
@@ -54,20 +54,19 @@ local heavyDraw
 function MinimapSys:finalizeWorld(world, wmap)
     local scale = getMapScale(world, wmap)
     local TILESIZE = CONSTANTS.TILESIZE
-    mapCanvas = love.graphics.newCanvas(math.ceil(world.x * scale * TILESIZE),
-                                        math.ceil(world.y * scale * TILESIZE))
-    fogCanvas = love.graphics.newCanvas(math.ceil(world.x * scale * TILESIZE),
-                                        math.ceil(world.y * scale * TILESIZE))
+    local canvWidth  = math.ceil(#wmap[1] * scale * TILESIZE)
+    local canvHeight = math.ceil(#wmap * scale * TILESIZE)
+    mapCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
+    fogCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
     
-    print("minimap scale: ",scale)
-
     love.graphics.push()
     love.graphics.setCanvas(mapCanvas)
+    love.graphics.setShader()
     love.graphics.setColor(CONSTANTS.grass_colour)
-    love.graphics.rectangle("fill",0,0,MAX_WIDTH,MAX_HEIGHT)
-    love.graphics.setColor(1,1,1,1)
+    love.graphics.rectangle("fill",0,0, canvWidth, canvHeight)
     --love.graphics.reset()
     love.graphics.scale(scale)
+    love.graphics.setColor(1,1,1,1)
     heavyDraw()
     love.graphics.setCanvas()
     love.graphics.pop()

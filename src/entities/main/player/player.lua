@@ -46,7 +46,7 @@ return function(x,y)
     :add("hp", {
         hp = 100,
         max_hp = 100,
-        regen = 1,
+        regen = 3,
         iframes = 0.5 -- we want iframes to be high to let player respond
     })
 

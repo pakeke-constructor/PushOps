@@ -108,7 +108,7 @@ function DrawSys:removed( ent )
     -- Callback for entity removal
     remove(ent)
     positions[ent] = nil
-    ent.draw = nil
+    --ent.draw = nil
 end
 
 

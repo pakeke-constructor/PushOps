@@ -74,6 +74,10 @@ function TextSys:drawEntity(ent)
         local bob_comp = ent.bobbing or default_bob
         local sway_comp = ent.swaying or default_sway
         local draw = ent.draw
+        if not ent.draw then
+            Tools.dump(ent,"get a load of this guy. didnt have .draw comp")
+            error("same old")
+        end
 
         lgdraw(
             ent._textObj,

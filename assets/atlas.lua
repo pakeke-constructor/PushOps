@@ -12,6 +12,7 @@ local atlas = Atlas(2048,2048)--size = 2048 pixels^2
 
 
 
+
 atlas.path = "assets/sprites/"
 
 
@@ -26,6 +27,9 @@ atlas.quads = setmetatable({},
         rawset(PROXY, k, v)
     end; __index = PROXY
 })
+
+
+
 
 
 

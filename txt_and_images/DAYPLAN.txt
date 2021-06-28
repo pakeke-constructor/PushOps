@@ -1,16 +1,16 @@
 
 
-Do minimap and UI
-
-
-Make boss level
-
-
-
-
-
 
 ===== TOMMOROW::: ======
+
+Finish minimap and UI
+
+Make boss level  (just basics, can add to later)
+
+
+
+
+===== NEXT::: ======
 
 Make skin selection
 

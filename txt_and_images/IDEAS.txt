@@ -1,6 +1,12 @@
 
 
 
+In the lobby shop, make a little
+treasure chest that runs around after you when you need
+to spend your gold.
+
+
+
 Make it so pulling multiple times in a row
 gets weaker and weaker.
 
