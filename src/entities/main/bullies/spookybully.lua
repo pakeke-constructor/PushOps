@@ -86,6 +86,9 @@ local ORBIT_SPEED = 3
 local sin = math.sin
 local cos = math.cos
 
+local cexists = Cyan.exists
+
+
 
 local function update(e,dt)
     -- percentage of full HP

@@ -20,7 +20,7 @@ local genLevel = function(e)
         y = dest.y;
         type = dest.type;
         tier = dest.tier
-    })
+    }, dest.map or nil)
 end
 
 
