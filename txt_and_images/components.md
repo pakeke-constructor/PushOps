@@ -331,6 +331,8 @@ portalDestination = {
     y = 35 -- world height
     tier = 1
     type = "basic"
+    
+    map = nil -- The world map, (OPTIONAL)
 }
 
 

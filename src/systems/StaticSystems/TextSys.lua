@@ -76,7 +76,7 @@ function TextSys:drawEntity(ent)
         local draw = ent.draw
         if not ent.draw then
             Tools.dump(ent,"get a load of this guy. didnt have .draw comp")
-            error("same old")
+            error("same old: cexists?: "..tostring(Cyan.exists(ent)))
         end
 
         lgdraw(

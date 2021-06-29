@@ -91,7 +91,7 @@ local physColFunc = function(e1, e2, speed)
 end
 
 
-local RAND_or_IDLE = {"RAND", "IDLE"}
+local RAND_or_IDLE = {"RAND"}
 
 
 

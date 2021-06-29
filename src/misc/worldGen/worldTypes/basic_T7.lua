@@ -30,13 +30,17 @@ local purge_fn = function(e, cam_x, cam_y)
 end
 
 
+
+local bossMap = require("src.misc.worldGen.maps.boss_map")
+
 local function spawn_portal(x, y)
     local portal = EH.Ents.portal(x, y)
     portal.portalDestination = {
         x = 30;
         y = 30;
         tier = 8;
-        type="basic"
+        type="basic";
+        map = bossMap
     }
 end
 

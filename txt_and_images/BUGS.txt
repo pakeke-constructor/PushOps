@@ -1,5 +1,4 @@
 
-
 Happened after entering a new level with minimap
 turned on.
 
@@ -22,12 +21,81 @@ stack traceback:
         [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
         [C]: in function 'xpcall'
 
-
-
-
 FOUND SOMETHING:
 The draw component is being set to nil by DrawSys:removed(ent).
-Why this is happening is confusing though, perhaps I'll try clear the
-minimap entity buffer?
+Why this is happening is confusing though, make sure to understand the
+sequencing in this one, its a bit weeeeird.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Error: libs/spatial_partition/partition.lua:227: What? obj disappeared from partition... this is a bug with partition.lua I think
+stack traceback:
+        [string "boot.lua"]:777: in function <[string "boot.lua"]:773>
+        [C]: in function 'error'
+        libs/spatial_partition/partition.lua:227: in function 'getSet'
+        libs/spatial_partition/partition.lua:160: in function '___rem'
+        libs/spatial_partition/partition.lua:170: in function 'setPosition'
+        src/systems/MoveBehaviourSys.lua:381: in function <src/systems/MoveBehaviourSys.lua:370>
+        libs/Cyan/cyan.lua:73: in function 'ccall'
+        src/systems/MoveSys.lua:97: in function <src/systems/MoveSys.lua:92>
+        libs/Cyan/cyan.lua:73: in function 'ccall'
+        src/entities/main/bullies/boxbully.lua:102: in function 'onUpdate'
+        src/systems/HybridSys.lua:59: in function <src/systems/HybridSys.lua:56>
+        libs/Cyan/cyan.lua:73: in function 'call'
+        src/misc/unique/gamestate.lua:21: in function 'update'
+        [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
+        [C]: in function 'xpcall'
+
+partition bug , gimme a look:  
+
+lua tostring::table: 0x24398a88
+{
+  ___mask = 11798248,
+  acc = (+0.000,+0.000,+0.000),
+  avel = 0,
+  bobbing = {
+    magnitude = 0.15,
+    oy = 0.60966722186522,
+    phase = 2,
+    scale = 1.0190521006833,
+    value = 1.1270140045553
+  },
+  colour = { 0.96666666666667, 0.96666666666667, 0.96666666666667 },
+  friction = {
+    amount = 0.9,
+    emitter = <userdata 1>,
+    on = true,
+    required_vel = 2
+  },
+  grounded = true,
+  hybrid = true,
+  image = {
+    ox = 16,
+    oy = 20,
+    quad = <userdata 2>
+  },
+  onMoob = <function 1>,
+  onUpdate = <function 2>,
+  physics = {
+    body = <userdata 3>,
+    fixture = <userdata 4>,
+    shape = <userdata 5>
+  },
+  physicsImmune = true,
+  pos = (+512.640,+1257.646,+0.100),
+  pushable = false,
+  rot = 0,
+  targetID = "physics",
+  vel = (+0.000,+0.000,+0.000)
+}
 

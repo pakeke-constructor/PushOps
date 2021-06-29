@@ -99,9 +99,9 @@ local function update(e,dt)
 
     e._t = (e._t + dt*ORBIT_SPEED)%(2*math.pi)
 
-    for i=e._block_num, 1 do
+    for i=e._block_num, 1, -1 do
         if not cexists(e.orbiting_blocks[i]) then
-            e.orbiting_blocks[i] = nil
+            table.remove(e.orbiting_blocks, i)
             e._block_num = e._block_num - 1  
         end
     end

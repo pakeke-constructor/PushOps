@@ -7,7 +7,7 @@ local partition = require("src.misc.partition")
 local ccall = Cyan.call
 local rand = love.math.random
 
-local BUF_TIME = 0.75 -- wait BUF_TIME seconds then spawn new world
+local BUF_TIME = 0.6 -- wait BUF_TIME seconds then spawn new world
 
 
 -- We need a way to make player invincible during the windup.
@@ -49,7 +49,7 @@ return function(portal, player)
     
     ccall("sound", "boom")
     ccall("sound", "teleport",0.4)
-    ccall("animate", "tp_up", 0,0,0, BUF_TIME/10, 1, nil, player, true)
+    ccall("animate", "tp_up", 0,-24,0, BUF_TIME/10, 1, nil, player, true)
     -- TOOD: play a sound here
     for i=0, R-2 do
         ccall("await", regularShockwave, (i-1)*(BUF_TIME/R),

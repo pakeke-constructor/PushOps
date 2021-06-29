@@ -75,6 +75,18 @@ end
 
 
 
+
+function ControlSys:finalizeWorld()
+    -- Play tp down animation
+    if #self.group >= 1 then
+        ccall("animate", "tp_down", 0,-24,0, 0.6/10, 1, nil, self.group[1], true)
+    end
+end
+
+
+
+
+
 local function findEntToPush(ent)
     --[[
         returns the closest ent that is able to be pushed by `ent`.
@@ -339,38 +351,6 @@ end
 function ControlSys:newWorld()
     lock_cam_x = nil
     lock_cam_y = nil
-end
-
-
-
---[[
-
-Drawing health Bar
-
-]]
-local setColor = love.graphics.setColor
-local rect = love.graphics.rectangle
-local draw = love.graphics.draw
-local atlas = require("assets.atlas")
-local Quads = atlas.Quads
-local lg=love.graphics
-local HP_X = 10
-local HP_Y = 8
-
-local tick = 0
-local sin = math.sin
-
-function ControlSys:drawUI()
-    -- check that a player exists
-    if self.group[1] then
-        -- At the moment, we only support 1 health bar.
-        local hp = self.group[1].hp
-        tick = tick + 0.01
-        setColor( 0.7 + 0.1*sin(tick) ,0,0)
-        rect("fill", HP_X+3, HP_Y+3, 42 * (hp.hp / (hp.max_hp)), 18)
-        setColor(1,1,1)
-        atlas:draw(Quads.hp_bar, HP_X, HP_Y)
-    end
 end
 
 
