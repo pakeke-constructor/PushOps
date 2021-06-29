@@ -95,7 +95,7 @@ function PSys:emit(type, x,y,z , n_particles, colour) -- default colour white
 
     setColour(colour or WHITE)
 
-    emitter:emit(x,y, n_particles)
+    emitter:emit(x,y, n_particles, colour or WHITE)
     in_use:add(emitter)
     
     local z_dep = get_z_index(y,z)
@@ -112,7 +112,7 @@ end
 
 function PSys:drawIndex( z_dep )
     for _, emtr in ipairs(indexed_emitters[z_dep].objects) do
-        setColour(1,1,1)
+        setColour(emtr.colour)
         emtr:draw(emtr.x, emtr.y, emtr.z)
     end
 end

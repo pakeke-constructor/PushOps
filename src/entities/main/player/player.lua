@@ -8,7 +8,7 @@ local Quads = atlas.Quads
 
 
 
-local prefix = "3d_player_"
+local prefix = "dual_player_"
 local COLOUR = {1,1,1,1}
 local down={}
 local up={}

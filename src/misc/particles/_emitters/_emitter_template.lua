@@ -75,7 +75,11 @@ emitter.mt = {__index = emitter}
 local ceil = math.ceil
 local rand = math.random
 
-function emitter:emit(x,y,n)
+local setColor = love.graphics.setColor
+
+function emitter:emit(x,y,n, colour)
+    self.colour = colour
+    setColor(self.colour)
     for i, ps in ipairs(self.psyses) do
         ps:emit(n)
     end

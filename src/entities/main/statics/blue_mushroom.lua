@@ -24,7 +24,7 @@ local function onBoom(e,x,y, strength)
     if Tools.dist(e.pos.x-x, e.pos.y-y) < 60 and strength>1 then
         ccall("damage",e,100)
         local p = e.pos
-        ccall("emit","smoke",p.x, p.y, p.z, 18)
+        ccall("emit","blue_mushroom",p.x, p.y - 20, p.z, 2)
     end
 end
 
@@ -39,7 +39,7 @@ end
 
 local function onDeath(e)
     local p = e.pos
-    ccall("emit","smoke",p.x, p.y, p.z, 18)
+    ccall("emit","blue_mushroom",p.x, p.y - 20, p.z, 4)
     ccall("await", spawnMidgets, 0, p)
 end
 

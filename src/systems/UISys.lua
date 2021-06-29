@@ -21,7 +21,7 @@ Yeah thats what I'll do
 ]]
 
 
-local fogCanvas  -- Canvas that holds "fog of war"
+local dynamicCanvas  -- Canvas that holds "fog of war", and positions n stuff
 local mapCanvas
 
 
@@ -41,6 +41,7 @@ local MINIMAP_BORDER_WIDTH = 4
 local MINIMAP_MAX_WIDTH = 94 -- in pixels
 local MINIMAP_MAX_HEIGHT  = 94
 
+local mapScale = 1
 
 local tick = 0
 local sin = math.sin
@@ -74,12 +75,17 @@ function UISys:finalizeWorld(world, wmap)
     --[[
         constructs minimap
     ]]
+    if not CONSTANTS.minimap_enabled then
+        return
+    end
+
     local scale = getMapScale(world, wmap)
+    mapScale = scale
     local TILESIZE = CONSTANTS.TILESIZE
     local canvWidth  = math.ceil(#wmap[1] * scale * TILESIZE)
     local canvHeight = math.ceil(#wmap * scale * TILESIZE)
     mapCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
-    fogCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
+    dynamicCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
 
     love.graphics.push()
     love.graphics.setCanvas(mapCanvas)
@@ -94,9 +100,6 @@ function UISys:finalizeWorld(world, wmap)
     love.graphics.pop()
 end
 
-
-function UISys:heavyupdate(dt)
-end
 
 
 --[[
@@ -140,6 +143,7 @@ local function drawMiniMap()
     love.graphics.setShader(miniMapShader)
     love.graphics.draw(mapCanvas, main_x, main_y)
     love.graphics.setShader()
+    love.graphics.draw(dynamicCanvas, main_x, main_y)
     love.graphics.setLineWidth(BORDER_WIDTH)
     love.graphics.rectangle("line", main_x, main_y, mmw, mmh)
     love.graphics.setLineWidth(1)
@@ -158,11 +162,37 @@ function UISys:drawUI()
     if self.group[1] then
         drawHpBar(self.group[1]) -- Only 1 health bar supported.
     end
-    drawMiniMap()
+
+    if CONSTANTS.minimap_enabled then
+        drawMiniMap()
+    end
 end
 
 
 
+function UISys:sparseupdate(dt)
+    --[[
+        draws player position and stuff
+    ]]
+    --assume player is 1st entity in group
+    if self.group[1] and CONSTANTS.minimap_enabled then
+        local player = self.group[1]
+        local w, h = dynamicCanvas:getWidth(), dynamicCanvas:getHeight()
+        local old_line_width = love.graphics.getLineWidth()
+
+        love.graphics.setCanvas(dynamicCanvas)
+        love.graphics.clear()
+        local x, y = math.floor(player.pos.x * mapScale), math.floor(player.pos.y * mapScale)
+
+        love.graphics.setLineWidth(1)
+        love.graphics.setColor(1,0,0)
+        love.graphics.line(0,y,w,y)
+        love.graphics.line(x,0,x,h)
+        love.graphics.circle("line", x, y, 3)
+        love.graphics.setColor(1,1,1,1)
+        love.graphics.setCanvas()
+    end
+end
 
 
 
