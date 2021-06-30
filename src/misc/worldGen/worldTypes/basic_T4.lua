@@ -136,7 +136,7 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     enemies = {
-        n = 32; n_var = 4;
+        n = 32; n_var = 2;
         bign = 2
     };
 

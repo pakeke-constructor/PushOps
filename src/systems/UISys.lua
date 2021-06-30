@@ -36,7 +36,7 @@ local HP_Y = 8
 local MINIMAP_X = 8
 local MINIMAP_Y = 8
 
-local MINIMAP_BORDER_WIDTH = 4
+local MINIMAP_BORDER_WIDTH = 3
 
 local MINIMAP_MAX_WIDTH = 94 -- in pixels
 local MINIMAP_MAX_HEIGHT  = 94

@@ -139,7 +139,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 4;
+                    tier = 1;
                     type = "basic";
                     x = 32;
                     y = 32

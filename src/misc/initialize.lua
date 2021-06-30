@@ -63,6 +63,7 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k == "e" then
+        EH.Ents.immuneblock(cam.x,cam.y)
     end
 end
 

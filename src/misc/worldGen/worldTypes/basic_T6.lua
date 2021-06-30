@@ -5,7 +5,7 @@
 
 TYPE :: 'basic'
 
-tier :: T3 :: 3
+tier :: T6 :: 6
 
 
 ]]
@@ -49,15 +49,11 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.devil]      = 0.1;
-    [Ents.demon]      = 0.05;
-    [Ents.mallow]     = 0.15;
-    [Ents.wizling]     = 0.3;
-    [Ents.spookyenemy]= 0.4;
-    [Ents.splatenemy] = 0.25;
-    [Ents.boxbully]   = 0.15;
+    [Ents.devil]      = 0.2;
+    [Ents.wizling]     = 0.1;
+    [Ents.splatenemy] = 0.8;
+    [Ents.boxbully]   = 0.05;
     [Ents.boxenemy]   = 0.2;
-    [Ents.ghost_squad]= 0.05;
     [Ents.boxsplitter]= 0.05
 }
 
@@ -146,7 +142,7 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     enemies = {
-        n = 24;
+        n = 32;
         bign = 3
     };
 

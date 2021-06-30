@@ -3,21 +3,25 @@ local Ents = require("src.entities")
 local WH = require("src.misc.worldGen.WH")
 local rand = love.math.random
 
+
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.boxenemy]    = 0.5;
-    [Ents.splatenemy]  = 0.3;
-    [Ents.boxblob]     = 0.2;
-    [Ents.boxblob]     = 0.2;
-    [Ents.ghost]       = 0.1;
-    [Ents.boxsplitter] = 0.05
+    [Ents.devil]      = 0.2;
+    [Ents.demon]      = 0.05;
+    [Ents.mallow]     = 0.05;
+    [Ents.wizling]     = 0.1;
+    [Ents.splatenemy] = 0.8;
+    [Ents.boxbully]   = 0.15;
+    [Ents.boxenemy]   = 0.5;
+    [Ents.ghost_squad]= 0.05;
+    [Ents.boxsplitter]= 0.05
 }
+
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.splatbully] = 1;
+    [Ents.splatbully]  = 1;
 }
-
 
 
 local purge_fn = function(e, cam_x, cam_y)

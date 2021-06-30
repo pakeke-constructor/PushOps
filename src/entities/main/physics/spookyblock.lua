@@ -55,7 +55,7 @@ return function(x,y)
         body  = "dynamic"
     })
     :add("pushable",true)
-    :add("fade",200)
+    :add("fade",300)
     :add("bobbing", {magnitude = 0.15, value = 0})
     :add("friction", {
         emitter = psys:clone();

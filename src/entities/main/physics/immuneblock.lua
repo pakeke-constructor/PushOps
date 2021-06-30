@@ -17,6 +17,7 @@ return function(x,y)
     local block = EH.Ents.block(x,y)
     block.image.quad = Tools.rand_choice(quads)
     block.physicsImmune = true
+    block.colour = CONSTANTS.SPLAT_COLOUR
 end
 
 
