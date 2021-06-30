@@ -144,6 +144,7 @@ function PhysicsSys:heavyupdate(dt)
             local body = e.physics.body
             body:setActive(true) -- Is in range so wake up
         else
+            body:setLinearVelocity(0,0)
             body:setActive(false)
         end
     end

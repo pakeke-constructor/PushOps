@@ -1,6 +1,7 @@
 
 
 -- TODO make better art for this
+-- ==> the splats need to be bigger
 
 
 

@@ -81,6 +81,8 @@ end
 function SplatSys:splat(x,y, range)
     range = range or DEFAULT_SPLAT_DIST
     local ct = 0
+
+    EH.Ents.splotch(x,y)
     
     for ent in PhysPartition:iter(x,y)do
         local pos = ent.pos

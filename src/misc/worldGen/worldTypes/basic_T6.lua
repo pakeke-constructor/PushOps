@@ -54,7 +54,7 @@ local enemySpawns = Tools.weighted_selection{
     [Ents.mallow]     = 0.15;
     [Ents.wizling]     = 0.3;
     [Ents.spookyenemy]= 0.4;
-    [Ents.splatenemy] = 0.15;
+    [Ents.splatenemy] = 0.25;
     [Ents.boxbully]   = 0.15;
     [Ents.boxenemy]   = 0.2;
     [Ents.ghost_squad]= 0.05;
@@ -64,9 +64,18 @@ local enemySpawns = Tools.weighted_selection{
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.spookybully] = 0.5;
+    [Ents.splatbully]  = 0.5;
     [Ents.boxbully]    = 0.5
 }
+
+
+local function spawnBlock(x,y)
+    if rand() < 0.2 then
+        EH.Ents.immuneblock(x,y)
+    else
+        EH.Ents.block(x,y)
+    end
+end
 
 
 
@@ -168,7 +177,7 @@ return {
         max = 300, -- 60 max
         function(x, y)
             for i = 1, rand(1,3) do
-                Ents.block(
+                spawnBlock(
                     x + rand(-10, 10),
                     y + rand(-10, 10)
                 )
@@ -179,9 +188,8 @@ return {
     ["P"] = {
         max = 3, -- Max spawns :: 3
         function(x, y)
-            local block_ctor = Ents.block
             for i = 1, rand(3,6) do
-                block_ctor(
+                spawnBlock(
                     x + rand(-32, 32),
                     y + rand(-32, 32)
                 )
@@ -192,7 +200,7 @@ return {
     ['^'] = {
         max = 0xFFFFFFF;
         function(x,y)
-            local grass = Ents.purpgrass
+            local grass = Ents.bluegrass
             for i=1, rand(8,9) do
                 grass(x + rand(-50, 50), y + rand(-50, 50))
             end
@@ -203,9 +211,9 @@ return {
         max = 100;
         function (x, y)
             if rand()<0.3 then
-                Ents.mushroom(x+rand()*5,y+rand()*5)            
+                Ents.mushroom(x+(rand()-0.5)*60,y+(rand()-.5)*60)            
             else
-                Ents.blue_mushroom(x+rand()*5,y+rand()*5)
+                Ents.blue_mushroom(x+(rand()-.5)*60,y+(rand()-.5)*60)
             end
         end
     }

@@ -54,7 +54,7 @@ return function(x,y)
         shape = block_shape;
         body  = "dynamic"
     })
-    :add("pushable",false)
+    :add("pushable",true)
     :add("fade",200)
     :add("bobbing", {magnitude = 0.15, value = 0})
     :add("friction", {

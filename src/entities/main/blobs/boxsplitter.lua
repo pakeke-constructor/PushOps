@@ -92,7 +92,7 @@ end
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(4,7))
-    ccall("emit", "smoke", p.x, p.y, p.z, r(3,5))
+    ccall("emit", "dust", p.x, p.y, p.z, r(3,5))
     EH.TOK(e,1,3)
     if e.split_generation < MAX_GENERATIONS-1 then
         ccall("await", spawn2, 0, e.pos, e.split_generation)

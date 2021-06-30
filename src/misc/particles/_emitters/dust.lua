@@ -7,7 +7,7 @@ local Quads = atlas.Quads
 
 -- This emitter's ParticleSystems must not have particles that survive for
 -- any longer than this!
-local MAX_PARTICLE_TIME = 0.4
+local MAX_PARTICLE_TIME = 0.65
 
 
 local psys = love.graphics.newParticleSystem(atlas.image)
@@ -15,7 +15,7 @@ local psys = love.graphics.newParticleSystem(atlas.image)
 
 do
     psys:setQuads(Quads.circ4, Quads.circ3, Quads.circ2, Quads.circ1)
-    psys:setParticleLifetime(0.2, MAX_PARTICLE_TIME)
+    psys:setParticleLifetime(0.4, MAX_PARTICLE_TIME)
     --psys:setLinearAcceleration(0,0,200,200)
     psys:setDirection(-math.pi/2)
     psys:setSpeed(60,70)

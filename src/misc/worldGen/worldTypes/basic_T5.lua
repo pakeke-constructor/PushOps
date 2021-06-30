@@ -143,7 +143,7 @@ return {
     entities = {
     ["#"] = { -- For wall entity.
         max = 999999, --No max.
-        Ents.wall
+        Ents.spookywall
     };
 
     ["e"] = {
@@ -167,7 +167,7 @@ return {
         max = 300, -- 60 max
         function(x, y)
             for i = 1, rand(1,3) do
-                Ents.block(
+                Ents.spookyblock(
                     x + rand(-10, 10),
                     y + rand(-10, 10)
                 )
@@ -202,9 +202,9 @@ return {
         max = 100;
         function (x, y)
             if rand()<0.3 then
-                Ents.mushroom(x+rand()*5,y+rand()*5)            
+                Ents.mushroom(x+rand()*90,y+rand()*90)            
             else
-                Ents.blue_mushroom(x+rand()*5,y+rand()*5)
+                Ents.blue_mushroom(x+(rand()-.5)*90,y+(rand()-.5)*90)
             end
         end
     }
