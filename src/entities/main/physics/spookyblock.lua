@@ -1,5 +1,18 @@
 
 
+
+
+return function(x,y)
+    local block = EH.Ents.block(x,y)
+    block.colour = {0.43,0,0.52}
+    block.fade = 300
+    return block
+end
+
+
+
+--[[
+
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
@@ -39,7 +52,6 @@ local collisions = {
     end
 }
 
-local COLOUR = {0.43,0,0.52}
 
 
 return function(x,y)
@@ -68,5 +80,5 @@ return function(x,y)
 end
 
 
-
+]]
 

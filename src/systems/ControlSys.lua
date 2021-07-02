@@ -269,7 +269,7 @@ end
 
 
 
-function ControlSys:keytap(key)
+function ControlSys:keypressed(key)
     for _, ent in ipairs(self.group) do
         local c = ent.control
         if c[key] == 'push' then
@@ -279,6 +279,8 @@ function ControlSys:keytap(key)
         end
     end
 end
+
+
 
 
 
@@ -308,6 +310,10 @@ function ControlSys:keyheld(key, time)
                 if push_ent then
                     ent:add("pushing", push_ent)
                 end
+            end
+        elseif purpose == "pull" then
+            if ent.control.canPull then
+                pull(ent)
             end
         end
     end

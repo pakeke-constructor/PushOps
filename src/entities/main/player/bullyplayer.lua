@@ -1,7 +1,7 @@
 
 
 
-local player_shape = love.physics.newCircleShape(10)
+local player_shape = love.physics.newCircleShape(15)
 
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
@@ -9,7 +9,6 @@ local Quads = atlas.Quads
 
 local down,left,right,up
 do 
-
     local ii = {1,2,1,3}
     up = {}
     down = {}
@@ -37,6 +36,21 @@ local function onDamage(e)
 end
 
 
+local function physColFunc(ent, your_dead, speed)
+    if your_dead.hp then
+        ccall("damage", your_dead, 0xffffffffffffffff)
+        if your_dead.hp.hp <= 0 then
+            local x, y, z = ent.pos.x, ent.pos.y, ent.pos.z
+            -- boom will be biased towards enemies with 1.2 radians
+            ccall("boom", x, y, ent.strength, 100, 0,0, "enemy", 1.2)
+            ccall("animate", "push", x,y+25,z, 0.03) 
+            ccall("shockwave", x, y, 4, 130, 7, 0.3)
+            ccall("sound", "boom")
+        end
+    end
+end
+
+
 
 return function(x,y)
     local e = Cyan.Entity()
@@ -46,15 +60,15 @@ return function(x,y)
     :add("acc", math.vec3(0,0,0))
     
     :add("hp", {
-        hp = 0xffffffffffffffffff,
-        max_hp = 0xffffffffffff,
-        regen = 0xffffffffff,
-        iframes = 0.5 -- we want iframes to be high to let player respond
+        hp = 0xfff,
+        max_hp = 0xfff,
+        regen = 20,
+        iframes = 0
     })
 
-    :add("speed", {speed = 20, max_speed = 210})
+    :add("speed", {speed = 300, max_speed = 300})
 
-    :add("strength", 100)
+    :add("strength", 1)
 
     :add("targetID", "player")
 
@@ -65,6 +79,10 @@ return function(x,y)
     :add("physics", {
         shape = player_shape;
         body  = "dynamic"
+    })
+
+    :add("collisions",{
+        physics = physColFunc
     })
 
     :add("bobbing", {magnitude = 0.32 , value = 0})
@@ -93,19 +111,16 @@ return function(x,y)
     e:add("control",     {
         canPush = true;
         canPull = true;
-        w = 'up';
-        a = 'left';
-        s = 'down';
-        d = 'right';
-        k = 'push';
-        l = 'pull';
+        w = 'move_up';
+        a = 'move_left';
+        s = 'move_down';
+        d = 'move_right';
+        right = 'push';
+        left = 'pull';
+        up = "push";
+        down = "pull";
         i="zoomIn";
         j="zoomOut"
-    })
-
-    e:add('light',{
-          colour = {1,1,1,1};
-          distance = 30
     })
 
     :add("sigils", {"strength"})

@@ -71,6 +71,10 @@ return function(x,y)
     local abs = math.abs
     return Cyan.Entity()
     :add("pos", math.vec3(x,y,0))
+    :add("hp", {
+        hp = 1000;
+        max_hp = 1000
+    })
     :add("vel", math.vec3(0,0,0))
     :add("rot", 0)
     :add("avel",0)

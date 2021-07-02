@@ -22,7 +22,7 @@ setmetatable(_G, {})
 
 do
     -- main ECS
-    _G.Cyan = require "libs.Cyan.cyan"
+    _G.Cyan = require "libs.Cyan.Cyan"
 
     --[[ heres something real dumb :  
     local Ent = Cyan.Entity
@@ -75,8 +75,6 @@ rawset(_G, "EH", require 'src.entities._EH')
 -- Load fennel transpiler
 local fennel = require("libs.NM_fennel.fennel")
 table.insert(package.loaders or package.searchers, fennel.searcher)
--- Load macros first.
-require("src.misc.unique.usrMacros")
 
 
 

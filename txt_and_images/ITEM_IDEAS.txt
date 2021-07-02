@@ -22,9 +22,11 @@ Wings
     + Move speed
 
 
+
 Gladiator helmet
     deal 2x damage
     take 4x damage
+
 
 
 Vampire tooth
@@ -32,17 +34,21 @@ Vampire tooth
         <note: through tok ent, turns tok ent red>
 
 
+
 spellbook
     Pull and push radius increased
+
 
 
 Bolt walker
     Pull is replaced with a dash
 
 
+
 Bull walker
     Increased movement speed, decreased agility
         <NOTE: less control over movement>
+
 
 
 Infector
@@ -93,5 +99,6 @@ Nothing
         >
 
 
-
+Consumable, super push, converts blocks into mushroom blocks,
+one time use or once per stage
 

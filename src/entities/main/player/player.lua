@@ -58,7 +58,7 @@ return function(x,y)
 
     :add("onDamage", onDamage)
 
-    :add("pushable",true)
+    :add("pushable", true)
 
     :add("physics", {
         shape = player_shape;

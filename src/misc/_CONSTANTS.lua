@@ -17,7 +17,7 @@ return{
 ,
     PUSH_COOLDOWN = 0.5
 ,
-    PULL_COOLDOWN = 0.5
+    PULL_COOLDOWN = 0.6
 ,
     PHYSICS_LINEAR_DAMPING = 0.05
 ,
