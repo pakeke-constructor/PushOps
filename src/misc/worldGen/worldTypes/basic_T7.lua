@@ -58,8 +58,13 @@ return {
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
     
-    construct = function(wor,wmap)
-        WH.lights(wor, wmap, 15, 10)
+    construct = function(wor,wmap,px,py)
+        WH.zonenum(6, px,py)
+        WH.lights(wor, wmap, 15, 180)
+        ccall("setGrassColour", "yellow")
+    end;
+    destruct = function(  )
+        ccall("setGrassColour", "green")
     end;
 
     PROBS = {
