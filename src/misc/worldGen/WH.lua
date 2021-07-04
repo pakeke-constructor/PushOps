@@ -11,6 +11,7 @@ local WH = setmetatable({},{__index=error})
 
 
 
+
 local LIGHT_PLACEMENT_OFFSET = 200
 local LIGHT_PLACEMENT_R_AMPLITUDE = 300
 local rand = love.math.random

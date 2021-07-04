@@ -144,7 +144,7 @@ function EH.TOK(e, amount)
     ]]
     local x,y = e.pos.x,e.pos.y
     for i=1,amount do
-        EH.Ents.tok(x+(60*(rand()-0.5)), y+(60*(rand()-0.5)))
+        EH.Ents.tok(x+rand(-30,30), y+rand(-30,30))
     end
 end
 

@@ -68,7 +68,7 @@ return function(x,y)
 
     :add("speed", {speed = 300, max_speed = 300})
 
-    :add("strength", 1)
+    :add("strength", 50)
 
     :add("targetID", "player")
 

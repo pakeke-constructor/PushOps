@@ -272,6 +272,8 @@ control = {
         pull = false
 }
 
+playerType = "red" -- The type of player 
+
 
 -- Camera tracks this ent
 track = true / false

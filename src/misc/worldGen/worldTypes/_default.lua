@@ -129,7 +129,7 @@ return {
     ["@"] = {
         max = 1;
         function(x,y)
-            return Ents.bullyplayer(x,y)
+            return Ents.player(x,y)
         end
     }
     }

@@ -53,7 +53,7 @@ end
 
 local function spawnBloblets(e)
     for i=1,rand(2,3) do
-        local w=EH.Ents.bloblet(e.pos.x + 10*(rand()-0.5), e.pos.y + 10*(rand()-0.5))
+        local w=EH.Ents.bloblet(e.pos.x + rand(-5,5), e.pos.y + rand(-5,5))
         assert(w,"???")
         w.colour=e.colour
     end
@@ -62,7 +62,7 @@ end
 local function splitterOnDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, rand(4,7))
-    ccall("emit", "smoke", p.x, p.y, p.z, rand(3,5))
+    ccall("emit", "dust", p.x, p.y, p.z, rand(3,5))
     EH.TOK(e,1,3)
     ccall("await", spawnBloblets, 0, e)
 end
@@ -71,7 +71,7 @@ end
 local spawnLittleBlobs = function(e)
     local x,y = e.pos.x,e.pos.y
     for i=1,rand(4,5) do
-        local u=EH.Ents.blob(x + 20*(rand()-0.5), y + 20*(rand()-0.5))
+        local u=EH.Ents.blob(x + rand(-10,10), y + rand(-10,10))
         u.hp.hp = 700
         u.hp.max_hp = 700
         u.onDeath = splitterOnDeath
@@ -141,7 +141,7 @@ local function miniBlobOnDeath(e)
     num_mini_blobs = num_mini_blobs - 1
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, rand(4,7))
-    ccall("emit", "smoke", p.x, p.y, p.z, rand(3,5))
+    ccall("emit", "dust", p.x, p.y, p.z, 2)
     EH.TOK(e,1)
 end
 

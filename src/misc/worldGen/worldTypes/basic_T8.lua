@@ -12,29 +12,11 @@ tier 8
 
 
 local Ents = require("src.entities")
+local WH = require("src.misc.worldGen.WH")
+
+local menu_map = require("src.misc.worldGen.maps.menu_map")
+
 local rand = love.math.random
-
-local enemySpawns = Tools.weighted_selection{
-    -- [ Ent spawn function ] = <probability of selection >
-    [Ents.enemy]    = 0.5;
-    [Ents.mallow]   = 0.3;
-    [Ents.boxenemy] = 0.2;
-    [Ents.blob]     = 0.3;
-    [Ents.boxblob]  = 0.2;
-    [Ents.ghost]    = 0.1
-}
-
-local bigEnemySpawns = Tools.weighted_selection{
-    -- [ Ent spawn function ] = <probability of selection >
-    [Ents.boxsplitter] = 0.8;
-    [Ents.ghost_squad] = 0.2;
-    [function(x,y)
-        for i=-1,0 do
-            Ents.devil(x+(i*15), y+(i*15))
-        end
-    end] = 0.5
-}
-
 
 
 local purge_fn = function(e, cam_x, cam_y)
@@ -42,9 +24,11 @@ local purge_fn = function(e, cam_x, cam_y)
     -- (Passed in as a param to `ccall(apply, .)`  ).
     if (e.targetID ~= "player")
     and (Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160) then
-        ccall("damage",e,0xffff)
+        ccall("damage",e,0xfffffffff)
     end
 end
+
+
 
 
 local function spawn_portal(x, y)
@@ -52,34 +36,27 @@ local function spawn_portal(x, y)
     portal.portalDestination = {
         x = 30;
         y = 30;
-        tier = 2;
-        type="basic"
+        tier = 1;
+        type="menu";
+        map = menu_map
     }
 end
+
+
+
+local bosses = {
+    EH.Ents.bigworm;
+    EH.Ents.bigblob
+}
+
 
 
 
 return {
     type = 'basic',
     tier = 8,
-    structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
-        -- Note that this is NOT referring to the filename,
-        -- it is referring to the `id` of the structureRule.
 
-    PROBS = {
-            -- World generation:
-            -- Probability of each character occuring.
-            -- Each value is a weight and does not actually represent the probability.
-            -- see `GenerationSys` for what character represents what.
-            ["^"] = 0.8;
-            ["l"] = 0.12;
-            ["p"] = 0.3;
-            ["P"] = 0.01;
-            ["."] = 0.4
-            -- Bossfights, artefacts, are done through special structure generator
-            -- Walls, shops, player spawn, and player exit are done uniquely.
-    }, -- Can modify the char probabilities by setting
-                        -- this to a table. 
+    structureRule = 'default_T1',
 
     enemies = {
         n = 30;
@@ -89,9 +66,14 @@ return {
         bign_var = 0
     };
 
+    construct = function(wor,wmap,px,py)
+        ccall("spawnText", px, py - 220, "oss", 400, 30)
+    end;
+
     ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
         ccall("await", spawn_portal, 1.5, cam_x, cam_y)
+        ccall("spawnText", cam_x, cam_y - 90, "gg", 400, 30)
         --[[
         TODO:
         play sounds and stuff here. Like, a gong would be cool.
@@ -101,46 +83,24 @@ return {
 
     entities = {
 
-    ["e"] = {
-        max = 200;
+    ["!"] = {
+        max=1;
         function(x,y)
-            for i=0, 1+rand(1,2) do
-                local f = enemySpawns()
-                f(x+(i-1)*10 + (rand()-.5)*20, y+(i-1)*10 + (rand()-.5)*20)
-            end
+            Tools.rand_choice(bosses)(x,y)
         end
     };
-
-    ["E"] = {
-        max = 10;
-        function(x,y)
-            bigEnemySpawns()(x,y)
-        end
-    };
-
 
     ["p"] = {
         max = 300,
         function(x, y)
-            for i = 1, rand(1,3) do
+            for i = 1, rand(1,2) do
                 Ents.block(
                     x + rand(-10, 10),
                     y + rand(-10, 10)
                 )
             end
-        end
-    };
-
-    ["P"] = {
-        max = 3, 
-        function(x, y)
-            local block_ctor = Ents.block
-            for i = 1, rand(3,6) do
-                block_ctor(
-                    x + rand(-32, 32),
-                    y + rand(-32, 32)
-                )
-            end
+            local light = Ents.light(x + rand(-30, 30), y + rand(-30, 30))
+            light.light.distance = 160
         end
     };
 

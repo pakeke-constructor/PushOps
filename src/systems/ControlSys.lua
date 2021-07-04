@@ -340,6 +340,25 @@ end
 
 
 
+local playables = require("src.misc.playables.initialize")
+
+function ControlSys:switchPlayer(type)
+    --[[
+        changes all players to type `X`
+    ]]
+    if not playables[type] then
+        error("unknown playable: "..tostring(type))
+    end
+    
+    local player = self.group[1]
+    playables[player.playerType]:destruct(player)
+    playables[type]:construct(player)
+end
+
+
+
+
+
 
 
 
