@@ -12,6 +12,13 @@ uniform float map_x; // dimensions of minimap
 uniform float map_y;
 
 
+//  colourblindness modes
+uniform bool colourblind;
+uniform bool devilblind;
+uniform bool navyblind;
+
+
+
 // thanks to stackoverflow.com/users/350875/appas for this function!
 // very good pseudorandom generator
 float rand(vec2 co){
@@ -93,6 +100,30 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     final.z = blues[3];
 
     final.w = 1.0;
+
+    if (colourblind){
+        // switch blue and green
+        float b_temp;
+        b_temp = final[2];
+        final[2] = final[1];
+        final[1] = b_temp;
+    }
+
+    if (devilblind){
+        // switch red and green! oooo
+        float r_temp;
+        r_temp = final[0];
+        final[0] = final[1];
+        final[1] = r_temp;
+    }
+
+    if (navyblind){
+        // switch blue and red
+        float n_temp;
+        n_temp = final[2];
+        final[2] = final[0];
+        final[0] = n_temp;
+    }
 
     return final;
 }

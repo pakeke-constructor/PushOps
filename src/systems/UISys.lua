@@ -138,6 +138,9 @@ local function drawMiniMap()
     
     miniMapShader:send("map_x", mmw)
     miniMapShader:send("map_y", mmh)
+    miniMapShader:send("colourblind", CONSTANTS.COLOURBLIND)
+    miniMapShader:send("devilblind",  CONSTANTS.DEVILBLIND)
+    miniMapShader:send("navyblind",   CONSTANTS.NAVYBLIND)
 
     love.graphics.setColor(1,1,1)
     love.graphics.setShader(miniMapShader)

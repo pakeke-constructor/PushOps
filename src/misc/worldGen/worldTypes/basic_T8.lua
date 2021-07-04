@@ -67,7 +67,7 @@ return {
     };
 
     construct = function(wor,wmap,px,py)
-        ccall("spawnText", px, py - 220, "oss", 400, 30)
+        ccall("spawnText", px, py - 220, "boss", 400, 30)
     end;
 
     ratioWin = function(cam_x, cam_y)

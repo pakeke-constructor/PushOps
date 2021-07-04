@@ -41,7 +41,7 @@ return {
             function(x,y)
                 local txt = EH.Ents.goodtxt(x, y-35, nil,
                     " WASD\nto move",
-                    TXT_COLOUR, 200)
+                    TXT_COLOUR, 250)
             end
         };
 
@@ -139,10 +139,10 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 1;
+                    tier = 8;
                     type = "basic";
                     x = 32;
-                    y = 32
+                    y = 32;map=require("src.misc.worldGen.maps.boss_map")
                 }
                 
                 EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
