@@ -176,6 +176,10 @@ Shoots a bullet in a direction
 Frees all memory in preperation for new world gen (including destroying ents)
 
 
+# switchPlayer( type )
+Changes the player type into a new player type  (see src/misc/playables)
+
+
 # ratioWin ( )  Win condition by ratio, see WinSys
 # voidWin ( )   Win condition when #enemies == 0
 # bossWin ( )   Win condition when no bosses on map

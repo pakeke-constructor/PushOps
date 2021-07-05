@@ -66,6 +66,11 @@ local function onUpdate(e,dt)
 end
 
 
+local function onDeath(ent)
+    ccall("emit","rocks", ent.pos.x, ent.pos.y, 10, 2)
+end
+
+
 return function(x,y)
     if (not x) or (not y) then error("hey! stop it") end
     local abs = math.abs
@@ -93,6 +98,7 @@ return function(x,y)
         required_vel = 2;
         amount = 0.9
     })
+    :add("onDeath", onDeath)
     --:add("collisions",collisions)   Turned these off for now
     :add("targetID", "physics")
     :add("image", {quad = Tools.rand_choice(sprites), oy = 20})

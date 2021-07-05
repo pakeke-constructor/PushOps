@@ -191,16 +191,19 @@ end
 
 local function push(ent)
     assert(ent.control,"??????????")
-    
+
+    local shouldStopPush = false
+
     for e in (TargetPartitions.interact):iter(ent.pos.x, ent.pos.y) do
         if e ~= ent then
         -- ents cannot interact with themself
             if e.onInteract and Tools.edist(ent, e) < e.size then
-                e:onInteract(ent, "push")
-                return -- We dont want to push if its an interact
+                shouldStopPush = e:onInteract(ent, "push") or shouldStopPush
             end
         end
     end
+
+    if shouldStopPush then return end
 
     if ent.control.canPush then
         local x = ent.pos.x
@@ -245,19 +248,23 @@ local function pull(ent)
     if ent.control.canPull then
         local x,y = ent.pos.x, ent.pos.y
 
-        ent.control.canPull = false
-        ccall("sound", "moob", 0.7, 1, 0, 0.2)
-        ccall("shockwave", x, y, 130, 4, 7, 0.3)
-        ccall("moob", x, y, ent.strength/1.7, 300)
-        ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN, ent)
+        local shouldStopPull = false
 
         for e in (TargetPartitions.interact):iter(x, y) do
             if e ~= ent then
                 -- ents cannot interact with themself
                 if e.onInteract and Tools.edist(ent, e) < e.size then
-                    e:onInteract(ent, "pull")
+                    shouldStopPull = e:onInteract(ent, "pull") or shouldStopPull
                 end
             end
+        end
+
+        if not shouldStopPull then
+            ent.control.canPull = false
+            ccall("sound", "moob", 0.7, 1, 0, 0.2)
+            ccall("shockwave", x, y, 130, 4, 7, 0.3)
+            ccall("moob", x, y, ent.strength/1.7, 300)
+            ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN, ent)
         end
     else
         --TODO ::: add feedback here!
@@ -351,6 +358,7 @@ function ControlSys:switchPlayer(type)
     end
     
     local player = self.group[1]
+
     playables[player.playerType]:destruct(player)
     playables[type]:construct(player)
 end

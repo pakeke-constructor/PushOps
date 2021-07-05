@@ -6,7 +6,7 @@ local atlas = require( "assets.atlas" )
 
 local Quads = atlas.Quads
 
-local mushes = {Quads.blue_mushroom_1, Quads.blue_mushroom_2}
+local mushes = {Quads.blue_mushroom_1, Quads.blue_mushroom_2,Quads.blue_mushroom_3, Quads.blue_mushroom_4}
 local mush = mushes[1]
 
 local _,_,w,h = mush:getViewport()

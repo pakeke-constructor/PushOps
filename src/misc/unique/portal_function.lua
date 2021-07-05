@@ -29,33 +29,37 @@ local function regularShockwave(x,y, col)
 end
 
 
-return function(portal, player)
+return function(portal, player, type)
     --[[
         creates new level with feedback
     ]]
-    local R = 3
-    player.hidden = true
+    if type == "push" then
+        local R = 3
+        player.hidden = true
 
-    if (player.hp and player.hp.hp <= 0) then
-        return --  cancel teleport, player is dead.
-    end
+        if (player.hp and player.hp.hp <= 0) then
+            return --  cancel teleport, player is dead.
+        end
 
-    if player.hp then
-        -- Make invulnerable; player is gonna be reset anyway.
-        local hp = player.hp
-        hp.max_hp = 0xfffffffffffffffffffffffffff
-        hp.hp = 0xfffffffffffffffffffffffffff
+        if player.hp then
+            -- Make invulnerable; player is gonna be reset anyway.
+            local hp = player.hp
+            hp.max_hp = 0xfffffffffffffffffffffffffff
+            hp.hp = 0xfffffffffffffffffffffffffff
+        end
+        
+        --ccall("sound", "boom")
+        ccall("sound", "teleport",0.4)
+        ccall("animate", "tp_up", 0,-24,0, BUF_TIME/10, 1, nil, player, true)
+        -- TOOD: play a sound here
+        for i=0, R-2 do
+            ccall("await", regularShockwave, (i-1)*(BUF_TIME/R),
+                    portal.pos.x, portal.pos.y - portal.pos.z/2, {0.05,0.3,0.3})
+        end
+        ccall("await", genLevel, BUF_TIME+0.05, portal) -- wait  seconds
+        
+        return true -- Yes, we want push to be cancelled
     end
-    
-    ccall("sound", "boom")
-    ccall("sound", "teleport",0.4)
-    ccall("animate", "tp_up", 0,-24,0, BUF_TIME/10, 1, nil, player, true)
-    -- TOOD: play a sound here
-    for i=0, R-2 do
-        ccall("await", regularShockwave, (i-1)*(BUF_TIME/R),
-                portal.pos.x, portal.pos.y - portal.pos.z/2, {0.05,0.3,0.3})
-    end
-    ccall("await", genLevel, BUF_TIME+0.05, portal) -- wait  seconds
 end
 
 

@@ -148,10 +148,11 @@ local function mainDraw()
 
     ccall("transform")
     
-    setColor(CONSTANTS.grass_colour)
     setFont(font)
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
+
+    setColor(CONSTANTS.grass_colour)
     lg.rectangle("fill", -10000,-10000, 20000,20000)
 
     setColor(1,1,1)

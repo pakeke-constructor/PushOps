@@ -29,8 +29,9 @@ onMoob = function(e, x,y, strength) end -- callback for `moob`.
 onInteract = function(e, interacting_ent, type)
 -- when player `push` or `pull` next to  targetID = "interact"
 -- type is either `pull` or `push`.
--- ALSO, e.size must be bigger than interacting distance!
-    --(done in ControlSys)
+-- ALSO, e.size must be bigger than interacting distance!  (done in ControlSys)
+
+-- If boolean `true` is returned, the push or pull is cancelled.
 end
 
 

@@ -109,6 +109,13 @@ local function onDeath(e)
         bl.pushable = true
         bl.physicsImmune = false -- wont get splatted
     end
+
+    local p = e.pos
+    for x = -10, 10, 20 do
+        for y = -10, 10, 20 do
+            ccall("emit", "rocks", p.x + x, p.y + y, 0, 2)
+        end
+    end
 end
 
 

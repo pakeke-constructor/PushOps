@@ -105,6 +105,8 @@ return function(x,y)
 
     :add("sigils", {"strength"})
 
+    :add("playerType","red")
+
     return e
 end
 

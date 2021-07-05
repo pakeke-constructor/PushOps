@@ -30,7 +30,7 @@ return {
             ]]
             function(x,y)
                 for i=1,1 do
-                    EH.Ents.bigworm(x + i*10,y)
+                    --EH.Ents.bigworm(x + i*10,y)
                 end
             end;
             max=0xfff
@@ -139,10 +139,10 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 8;
+                    tier = 1;
                     type = "basic";
                     x = 32;
-                    y = 32;map=require("src.misc.worldGen.maps.boss_map")
+                    y = 32
                 }
                 
                 EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)

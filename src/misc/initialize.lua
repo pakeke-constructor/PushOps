@@ -63,7 +63,10 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k == "e" then
-        EH.Ents.immuneblock(cam.x,cam.y)
+        local p = cam
+        local pil =EH.Ents.playerpillar(p.x,p.y)
+        pil.playerType = "challenge"
+        pil.playerPillarImage = EH.Quads.dual_player_down_1
     end
 end
 

@@ -140,6 +140,7 @@ end
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
+    ccall("emit", "rocks", p.x, p.y, 0, 3)
     ccall("await", makeBlocks, 0, p)
     EH.TOK(e,r(4,6))
 end

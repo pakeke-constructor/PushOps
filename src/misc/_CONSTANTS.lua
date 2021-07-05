@@ -72,7 +72,7 @@ return{
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
 ,
-    COLOURBLIND = true --==>>>  swaps blue-green
+    COLOURBLIND = false --==>>>  swaps blue-green
 ,
     DEVILBLIND  = false --==>>>  swaps red-green
 ,
