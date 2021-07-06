@@ -66,7 +66,7 @@ function DEBUG_SYS:keypressed(k)
         local p = cam
         local pil =EH.Ents.playerpillar(p.x,p.y)
         pil.playerType = "challenge"
-        pil.playerPillarImage = EH.Quads.dual_player_down_1
+        pil.playerPillarImage = EH.Quads.bully_down_1
     end
 end
 

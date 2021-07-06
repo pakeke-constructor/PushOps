@@ -13,7 +13,7 @@ local Quads = atlas.Quads
 local function onInteract(self, player, type)
     if type == "push" then
         ccall("switchPlayer", self.playerType)
-        --TOOD: play sound here
+        --TOOD: play sound here; give feedback
         return true
     end
 end
@@ -24,7 +24,7 @@ local function onDraw(self)
         error("player pillar type: " .. (tostring(self.playerType)) .. " not given image")
     end
     local _,_,qw, qh = self.playerPillarImage:getViewport()
-    atlas:draw(self.playerPillarImage, self.pos.x, self.pos.y - 30,
+    atlas:draw(self.playerPillarImage, self.pos.x, self.pos.y - 32,
                 0,1,1,qw/2,qh/2)
 end
 
@@ -47,5 +47,7 @@ return function(x,y)
     :add("onDraw", onDraw)
     :add("hybrid",true)
     :add("size",50)
+    EH.BOB(pillar)
     return pillar
 end
+
