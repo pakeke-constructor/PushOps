@@ -79,6 +79,10 @@ function TextSys:drawEntity(ent)
             error("same old: cexists?: "..tostring(Cyan.exists(ent)))
         end
 
+        if ent.text:match("%$") then
+            print("POS Z:",ent.pos.z)
+        end
+
         lgdraw(
             ent._textObj,
             floor(pos.x), floor(pos.y - pos.z/2),

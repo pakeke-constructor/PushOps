@@ -13,6 +13,7 @@ unbreakable walls
 
 
 
+
 Blocks that become unpushable.
 Perhaps put a sigil above the blocks that looks like stars orbiting, like a dazed
 symbol or a stunned symbol or something.

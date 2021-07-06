@@ -12,3 +12,13 @@ Explosive blocks
 Pine trees drop "Wood blocks"
 
 
+
+Blocks become cracked when they kill enemies
+
+
+HP bar is horizontal (hmm do i like this? idk get more feedback)
+
+
+
+Some enemies lose movement ability when pushed (so that enemies get pushed back)
+

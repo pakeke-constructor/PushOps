@@ -64,9 +64,7 @@ function DEBUG_SYS:keypressed(k)
     end
     if k == "e" then
         local p = cam
-        local pil =EH.Ents.playerpillar(p.x,p.y)
-        pil.playerType = "challenge"
-        pil.playerPillarImage = EH.Quads.bully_down_1
+        EH.Ents.blue_mushroom(p.x,p.y+20)
     end
 end
 

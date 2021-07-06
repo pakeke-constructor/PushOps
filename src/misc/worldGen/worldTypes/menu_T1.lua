@@ -1,8 +1,19 @@
 
 
 local Ents = require("src.entities")
+
+local WH = require("src.misc.worldGen.WH")
+
+local savedata = require("src.misc.unique.savedata")
+
 local rand = love.math.random
 
+
+local function tokenTextUpdateFn(ent)
+    if ent.tokens_displayed ~= savedata.tokens then
+        ent.text = "Tokens: "..tostring(savedata.tokens)
+    end
+end
 
 
 local TXT_COLOUR = {120/255, 90/255, 65/255, 0.52}
@@ -16,8 +27,9 @@ return {
         bign=0
     };
 
-    construct = function()
+    construct = function(wor,wmap)
         ccall("setGrassColour","green")
+        WH.lights(wor, wmap, 100, 120)
     end;
 
     entities = {
@@ -36,7 +48,7 @@ return {
             max=0xfff
         };
 
-        ["1"] = {
+        ["a"] = {
             max=0xff;
             function(x,y)
                 local txt = EH.Ents.goodtxt(x, y-35, nil,
@@ -45,7 +57,7 @@ return {
             end
         };
 
-        ["2"] = {
+        ["b"] = {
             max=0xff;
             function(x,y)
                 local txt = EH.Ents.goodtxt(x,y,nil,
@@ -54,7 +66,7 @@ return {
             end
         };
 
-        ["3"] = {
+        ["c"] = {
             max=2;
             function(x,y)
                 local txt = EH.Ents.goodtxt(x, y, nil,
@@ -70,6 +82,13 @@ return {
                     "PROUDLY MADE\nWITH LOVE 2D",
                     {0.9,0.4,0.8})
                 EH.Ents.love2d_logo(x,y)
+            end
+        };
+
+        ["%"] = {
+            max = 0xffffff;
+            function(x,y)
+                EH.Ents.strongwall(x,y)
             end
         };
 
@@ -147,7 +166,43 @@ return {
                 
                 EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
             end
-        }
+        };
+
+        ["0"] = {
+            max=1;
+            function(x,y)
+                EH.Ents.goodtxt(x,y-50,nil,"PLAYABLE CHARACTERS",{0.6,0.1,0.05}, 400)
+                
+                local token_txt = EH.Ents.txt(x,y-20,"Tokens: "..tostring(savedata.tokens))
+                token_txt.colour = {0.8,0.2,0.2}
+                token_txt.fade = 350
+                token_txt.onHeavyUpdate = tokenTextUpdateFn -- Need to update
+                token_txt.hybrid = true
+                token_txt.tokens_displayed = savedata.tokens
+            end
+        };
+
+        ["1"] = {
+            max = 1;
+            function(x,y)
+                local ent = EH.Ents.playerpillar(x,y)
+                ent.playerType = "red";
+                ent.playerPillarImage = EH.Quads.red_player_down_1
+                ent.unownedPillarImage = EH.Quads.unknown_player
+                ent.playerCost = 100
+            end
+        };
+
+        ["2"] = {
+            max = 1;
+            function(x,y)
+                local ent = EH.Ents.playerpillar(x,y)
+                ent.playerType = "glasses";
+                ent.playerPillarImage = EH.Quads['3d_player_down_1']
+                ent.unownedPillarImage = EH.Quads.unknown_player
+                ent.playerCost = 100
+            end
+        };
     }
 }
 

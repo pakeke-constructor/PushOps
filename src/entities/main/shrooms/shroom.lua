@@ -105,5 +105,7 @@ return function(x, y)
     })
 
     :add("colour",COLOUR)
+
+    return e
 end
 

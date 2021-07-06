@@ -68,6 +68,13 @@ return{
         -- The default save data for a program.
         -- Putting this in CONSTANTS.lua ensures future compatibility.
         tokens = 0; -- the number of tokens player has collected
+
+        owned_players = {
+            red = true;
+            challenge = false;
+            chuck = false;
+            glasses = false;
+        }
     }
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
