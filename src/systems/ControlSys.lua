@@ -348,6 +348,8 @@ end
 
 
 local playables = require("src.misc.playables.initialize")
+local savedata  = require("src.misc.unique.savedata")
+
 
 function ControlSys:switchPlayer(type)
     --[[
@@ -361,6 +363,8 @@ function ControlSys:switchPlayer(type)
 
     playables[player.playerType]:destruct(player)
     playables[type]:construct(player)
+
+    savedata.playerType = type
 end
 
 

@@ -14,6 +14,8 @@ local rand = love.math.random
 
 local menu = require("src.misc.worldGen.maps.menu_map")
 
+local savedata = require("src.misc.unique.savedata")
+
 
 local function goToMenu()
     ccall("purge")
@@ -129,7 +131,9 @@ return {
     ["@"] = {
         max = 1;
         function(x,y)
-            return Ents.player(x,y)
+            local p = Ents.player(x,y)
+            ccall('switchPlayer', savedata.playerType)
+            return p
         end
     }
     }

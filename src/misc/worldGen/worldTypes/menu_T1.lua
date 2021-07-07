@@ -189,7 +189,7 @@ return {
                 ent.playerType = "red";
                 ent.playerPillarImage = EH.Quads.red_player_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 100
+                ent.playerCost = 0
             end
         };
 
@@ -203,6 +203,28 @@ return {
                 ent.playerCost = 100
             end
         };
+
+        ["3"] = {
+            max = 1;
+            function(x,y)
+                local ent = EH.Ents.playerpillar(x,y)
+                ent.playerType = "blind";
+                ent.playerPillarImage = EH.Quads.blind_player_down_1
+                ent.unownedPillarImage = EH.Quads.unknown_player
+                ent.playerCost = 200
+            end
+        };
+
+        ["4"] = {
+            max=1;
+            function(x,y)
+                local ent = EH.Ents.playerpillar(x,y)
+                ent.playerType = "cyclops";
+                ent.playerPillarImage = EH.Quads.cyclops_player_down_1
+                ent.unownedPillarImage = EH.Quads.unknown_player
+                ent.playerCost = 500
+            end
+        }
     }
 }
 

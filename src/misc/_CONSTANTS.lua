@@ -74,7 +74,10 @@ return{
             challenge = false;
             chuck = false;
             glasses = false;
-        }
+            cyclops = false;
+        };
+
+        playerType = "red"
     }
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}

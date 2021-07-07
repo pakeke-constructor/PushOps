@@ -1,6 +1,6 @@
 
 
-local _,_,w,h=EH.Quads.wall1:getViewport()
+local _,_,w,h=EH.Quads.wall1_1:getViewport()
 local shape = love.physics.newRectangleShape(w/1.3,h/2)
 
 return function(x,y)

@@ -101,6 +101,8 @@ function UISys:finalizeWorld(world, wmap)
 end
 
 
+local NEW_ALPHA = 0.6
+
 
 --[[
 
@@ -110,11 +112,19 @@ Drawing health Bar
 
 
 local function drawHpBar(player)
+    local alpha = 1
+
     love.graphics.push()
+
+    if love.keyboard.isDown("tab") then
+        love.graphics.pop()
+        return -- Don't draw HP bar
+    end
+
     love.graphics.translate(mapCanvas:getWidth() + MINIMAP_BORDER_WIDTH + MINIMAP_X,0)
     local hp = player.hp
     tick = tick + 0.01
-    love.graphics.setColor( 0.7 + 0.1*sin(tick) ,0,0)
+    love.graphics.setColor( 0.7 + 0.1*sin(tick) ,0,0, alpha)
     love.graphics.rectangle("fill", HP_X+3, HP_Y+3, 32-6, (96-6) * (hp.hp / (hp.max_hp)))
     love.graphics.setColor(1,1,1)
     atlas:draw(atlas.Quads.hp_bar_2, HP_X, HP_Y)
@@ -129,17 +139,16 @@ local miniMapShader = love.graphics.newShader(
     love.filesystem.read("src/misc/unique/mapshader.glsl"), nil
 )
 
-local NEW_ALPHA = 0.6
 
 
 local function drawMiniMap()
     local alpha = 1
+    love.graphics.push()
+
     if love.keyboard.isDown("tab") then
         alpha = NEW_ALPHA
         love.graphics.scale(3)
     end
-
-    love.graphics.push()
 
     local BORDER_WIDTH = MINIMAP_BORDER_WIDTH
     local mmw, mmh = mapCanvas:getWidth(), mapCanvas:getHeight()

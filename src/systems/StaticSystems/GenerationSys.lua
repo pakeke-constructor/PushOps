@@ -3,7 +3,7 @@
 local GenSys = Cyan.System( )
 
 
-local DEFAULT_WALL_THRESHOLD = 0.7-- Noise (0->1) must be >=0.8 to form a wall
+local DEFAULT_WALL_THRESHOLD = 0.7-- Noise (0->1) must be >=0.7 to form a wall
 
 
 -- Noise must be 0.1 lower than the DEFAULT_WALL_THRESHOLD in order
@@ -280,6 +280,7 @@ end
 local er_missing_ents = "Missing entities table... what are you, stupid???????!! jk"
 local entCounter_mt = {__index = function() return 0 end}
 
+
 local function makeEnts(world)
     local worldMap = world.worldMap
     local worldType = world.worldType
@@ -301,7 +302,16 @@ local function makeEnts(world)
             end
             entCounter[eType] = entCounter[eType] + 1
             if not(entCounter[eType] > ents[eType].max) then
-                ents[worldMap[x][y]][1](y*64, x*64)
+                local height
+                if world.heightMap then
+                    if not world.heightMap[x] then
+                        print("wmap x?? ",worldMap[x])
+                        error()
+                    end
+                    height = world.heightMap[x][y]
+                end
+
+                ents[worldMap[x][y]][1](y*64, x*64, height)
                 -- What? you have `(y*64, x*64)` as opposed to `(x*64, y*64)`?
                 -- This is because for some reason, the "map matrix" for lack of a better word,
                 -- was transposed. 
@@ -318,12 +328,18 @@ end
 
 local function makeWalls(world)
     local worldMap = world.worldMap
+    local heightMap = world.heightMap
     local BLEN = WALL_BORDER_LEN
 
-    for _,ar in ipairs(worldMap) do
-        for i=1,BLEN do
+    for i=1, #worldMap do
+        local ar = worldMap[i]
+        local height_ar = heightMap[i]
+        for j=1,BLEN do
             table.insert(ar, "~")
             table.insert(ar, 1, "~")
+
+            table.insert(height_ar, 0)
+            table.insert(height_ar, 1, 0)
         end
     end
 
@@ -336,6 +352,15 @@ local function makeWalls(world)
         end
         table.insert(worldMap, 1, q1)
         table.insert(worldMap, q2)
+
+        local h_q1 = {}
+        local h_q2 = {}
+        for i=1, #heightMap[1] do
+            table.insert(h_q1, 0)
+            table.insert(h_q2, 0)
+        end
+        table.insert(heightMap,1,h_q1)
+        table.insert(heightMap,h_q2)
     end
 
     local xlen = #worldMap
@@ -607,7 +632,7 @@ local function procGenerateWorld(world)
 
     local heightMap = {}
     for ii = 1, size_x do
-        heightMap[ii] = { }
+        heightMap[ii] = {}
     end
 
     for X = 1, size_x do
@@ -618,6 +643,7 @@ local function procGenerateWorld(world)
             worldMap[X][Y] = c
         end
     end
+
     world.heightMap = heightMap
 
     local rule_id = worldType.structureRule
@@ -651,9 +677,6 @@ local world_type
 local world_tier
 
 
--- ===>
--- callbacks here
--- ===>
 
 local function getPlayerXY(worldMap)
     for i=1, #worldMap do
@@ -664,6 +687,13 @@ local function getPlayerXY(worldMap)
         end
     end
 end
+
+
+
+
+-- ===>
+-- callbacks here
+-- ===>
 
 
 function GenSys:newWorld(world, worldMap)
