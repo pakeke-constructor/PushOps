@@ -129,8 +129,18 @@ local miniMapShader = love.graphics.newShader(
     love.filesystem.read("src/misc/unique/mapshader.glsl"), nil
 )
 
+local NEW_ALPHA = 0.6
+
 
 local function drawMiniMap()
+    local alpha = 1
+    if love.keyboard.isDown("tab") then
+        alpha = NEW_ALPHA
+        love.graphics.scale(3)
+    end
+
+    love.graphics.push()
+
     local BORDER_WIDTH = MINIMAP_BORDER_WIDTH
     local mmw, mmh = mapCanvas:getWidth(), mapCanvas:getHeight()
     local main_x = MINIMAP_X + BORDER_WIDTH/2
@@ -142,7 +152,7 @@ local function drawMiniMap()
     miniMapShader:send("devilblind",  CONSTANTS.DEVILBLIND)
     miniMapShader:send("navyblind",   CONSTANTS.NAVYBLIND)
 
-    love.graphics.setColor(1,1,1)
+    love.graphics.setColor(1,1,1, alpha)
     love.graphics.setShader(miniMapShader)
     love.graphics.draw(mapCanvas, main_x, main_y)
     love.graphics.setShader()
@@ -150,12 +160,14 @@ local function drawMiniMap()
     love.graphics.setLineWidth(BORDER_WIDTH)
     love.graphics.rectangle("line", main_x, main_y, mmw, mmh)
     love.graphics.setLineWidth(1)
-    love.graphics.setColor(0,0,0)
+    love.graphics.setColor(0,0,0, alpha)
     love.graphics.rectangle("line",MINIMAP_X,MINIMAP_Y,
                         mmw + BORDER_WIDTH, mmh + BORDER_WIDTH)
     love.graphics.rectangle("line", main_x + BORDER_WIDTH/2, main_y + BORDER_WIDTH/2,
                                 mmw - BORDER_WIDTH, mmh - BORDER_WIDTH)
     love.graphics.setColor(1,1,1)
+
+    love.graphics.pop()
 end
 
 
@@ -173,7 +185,7 @@ end
 
 
 
-function UISys:sparseupdate(dt)
+function UISys:update(dt)
     --[[
         draws player position and stuff
     ]]
@@ -191,7 +203,7 @@ function UISys:sparseupdate(dt)
         love.graphics.setColor(1,0,0)
         love.graphics.line(0,y,w,y)
         love.graphics.line(x,0,x,h)
-        love.graphics.circle("line", x, y, 3)
+        love.graphics.circle("line", x, y, 1.5)
         love.graphics.setColor(1,1,1,1)
         love.graphics.setCanvas()
     end
