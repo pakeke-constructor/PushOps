@@ -44,7 +44,8 @@ return{
         "static";
         "neutral";
         "interact";
-        "coin"
+        "coin";
+        "boss"
     }
 ,
     WIN_RATIO = 0.35-- Good value is 0.35 (had to make higher because of invisible ents)

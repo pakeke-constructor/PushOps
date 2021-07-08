@@ -40,3 +40,5 @@ function BehaviourSys:damage(ent, amount)
     end
 end
 
+
+

@@ -120,7 +120,7 @@ Tree.angry = {
 
 local physColFunc = function(e1, e2, speed)
     if EH.PC(e1,e2,speed) then
-        ccall("sound","thud")
+        ccall("sound","hit")
     end
 end
 
@@ -130,7 +130,8 @@ local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(6,10))
     ccall("emit", 'splat', e.pos.x,e.pos.y,e.pos.z, 25)
-    EH.TOK(e,r(4,6))
+    ccall("sound","glassbreak",0.25,0.5,0,0.3)
+    EH.TOK(e,r(2,4))
 end
 
 

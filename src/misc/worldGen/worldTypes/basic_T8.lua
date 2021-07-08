@@ -70,7 +70,7 @@ return {
         ccall("spawnText", px, py - 220, "boss", 400, 30)
     end;
 
-    ratioWin = function(cam_x, cam_y)
+    bossWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
         ccall("await", spawn_portal, 1.5, cam_x, cam_y)
         ccall("spawnText", cam_x, cam_y - 90, "gg", 400, 30)

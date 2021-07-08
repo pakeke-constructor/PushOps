@@ -118,9 +118,7 @@ return function(x,y)
         right = 'push';
         left = 'pull';
         up = "push";
-        down = "pull";
-        i="zoomIn";
-        j="zoomOut"
+        down = "pull"
     })
 
     :add("sigils", {"strength"})

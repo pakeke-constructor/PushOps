@@ -41,10 +41,6 @@ in the first place. I gotta look further into it
 
 
 
-
-
-
-
 When connor started streaming, the screen started flickering black and
 green.
 

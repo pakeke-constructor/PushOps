@@ -3,13 +3,14 @@
 <Voice actor: >
 
 You got a weapon? I like that.
-Grenades, guns, ammunition, yeah, this is all good stuff.
+Grenades, ammunition, yeah, this is all good stuff.
 
 And you? You have no gear, what do you do?
 
 <In background, player pulls and pushes, and decimates
 a bunch of enemies>
 
+<fades too and from black>
 <Music starts playing>
 
 Player goes around fighting, shows different levels, etc
@@ -19,6 +20,8 @@ Shows text:
 <No weapons>
 <No armour>
 <Only a player,  \
-    able to bend physics itself
+    able to bend physics itself>
+
+
 
 

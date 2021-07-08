@@ -124,7 +124,7 @@ Tree.idle = {
 
 local physColFunc = function(e1, e2, speed)
     if EH.PC(e1,e2,speed) then
-        ccall("sound","thud")
+        ccall("sound","hit")
     end
 end
 
@@ -143,6 +143,7 @@ local function spawnAfterDeath(x,y,z)
     ccall("animate", "push", x,y+25,z, 0.03)
     ccall("damage",e1,e1.hp.max_hp/2) -- Lets weaken em a bit so they aren't OP!
     ccall("damage",e2,e2.hp.max_hp/2)
+    ccall("sound","glassbreak",0.3,1,0,0.3)
 end
 
 
@@ -164,7 +165,8 @@ local function onDeath(e)
     ccall("shockwave", p.x,p.y, 160, 3, 9, .4)
     ccall("await", spawnAfterDeath, .3, p.x,p.y,p.z)
     ccall("await", spawnBullets, 0.2, p.x, p.y)
-    EH.TOK(e,r(4,6))
+    ccall("sound","glassbreak",0.25,0.5,0,0.3)
+    EH.TOK(e,r(2,4))
 end
 
 

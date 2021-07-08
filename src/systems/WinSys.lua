@@ -43,22 +43,10 @@ local bossCountTotal = 0
 local bossCount = 0
 
 
-local tmp_hash = { -- temporary debug hasher
-    
-}
-
 
 
 function WinSys:added(e)
-    tmp_hash[e]=true
-    if e.targetID == "enemy" then
-        enemyCount = enemyCount + 1
-        enemyCountTotal = enemyCountTotal + 1
-    end
-    if e.targetID == "boss" then
-        bossCount = bossCount + 1
-        bossCountTotal = bossCountTotal + 1
-    end
+    
 end
 
 
@@ -93,12 +81,16 @@ function WinSys:update(dt)
             ratioWinDone = true
         end
     end
+
     if enemyCount <= 0 then
         if not voidWinDone then
             ccall("voidWin")
             voidWinDone = true
         end
     end
+
+    --print("bossct:",bossCount)
+    
     if bossCount <= 0 then
         if not bossWinDone then
             ccall("bossWin")
@@ -106,6 +98,7 @@ function WinSys:update(dt)
         end
     end
 end
+
 
 
 function WinSys:removed(e)
@@ -116,6 +109,7 @@ function WinSys:removed(e)
         bossCount = bossCount - 1
     end
 end
+
 
 function WinSys:newWorld()
     bossCountTotal  = 0
@@ -130,7 +124,7 @@ function WinSys:newWorld()
             enemyCount = enemyCount + 1
         elseif ent.targetID=="boss" then
             bossCountTotal = bossCountTotal + 1
-            bossCount = bossCountTotal + 1
+            bossCount = bossCount + 1
         end
     end
 end

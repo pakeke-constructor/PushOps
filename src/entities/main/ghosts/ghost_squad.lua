@@ -106,7 +106,7 @@ end
 
 local function pCF(e,e1,s)
     if EH.PC(e,e1,s) then
-        ccall("sound","thud")
+        ccall("sound","hit")
     end
 end
 

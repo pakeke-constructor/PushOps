@@ -1,0 +1,14 @@
+
+
+THINGS THAT 100% MUST BE DONE BEFORE
+RELEASE:
+
+====================================
+
+Change colours of trees in yellow and aqua zones
+
+Discover a way to fix the drawing primitives colour error when streaming
+
+
+
+

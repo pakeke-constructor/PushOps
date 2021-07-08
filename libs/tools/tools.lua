@@ -108,7 +108,7 @@ function Tools.isOnScreen(e, cam)
             well, so we dont get idiots getting stuck in walls
     ]]
     local w,h = getWidth(), getHeight()
-    local p=e.pos
+    local p = e.pos
     local x,y
     x,y = cam:toCameraCoords(p.x, p.y)
     return (-RANGE_LEIGHWAY < x) and (x < w+RANGE_LEIGHWAY)

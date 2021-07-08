@@ -206,8 +206,8 @@ return function(x, y)
         magnitude=0.3
     }
     e.hp={
-        hp=10000;
-        max_hp=10000
+        hp=20000;
+        max_hp=20000
     }
     e.speed = speed
     e.behaviour={
@@ -219,7 +219,7 @@ return function(x, y)
     }
     e.onDeath=onDeath
     e.colour=COLOUR
-    e.targetID = "enemy"
+    e.targetID = "boss"
     e.collisions=col_comp
 end
 

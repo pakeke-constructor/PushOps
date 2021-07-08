@@ -86,7 +86,7 @@ local physColFunc = function(e1, e2, speed)
     if EH.PC(e1,e2,speed) then
         local p =e1.pos
         ccall("emit","guts",p.x,p.y,p.z, r(8,12))
-        ccall("sound", "thud")
+        ccall("sound", "hit")
     end
 end
 

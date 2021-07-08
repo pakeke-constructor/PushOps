@@ -23,6 +23,40 @@ If a bug arises again, check here to ensure that it hasn't been solved previousl
 
 
 
+
+
+
+
+
+
+Error: libs/tools/tools.lua:113: attempt to index local 'p' (a nil value)
+stack traceback:
+        [string "boot.lua"]:777: in function '__index'
+        libs/tools/tools.lua:113: in function 'isOnScreen'
+        src/entities/main/wizling.lua:137: in function 'choose'
+        libs/BehaviourTree/node.lua:188: in function 'update'
+        src/systems/BehaviourSys.lua:20: in function 'update'
+        src/systems/BehaviourSys.lua:29: in function <src/systems/BehaviourSys.lua:27>
+        libs/Cyan/Cyan.lua:73: in function 'call'
+        src/misc/unique/gamestate.lua:21: in function 'update'
+        [string "boot.lua"]:612: in function <[string "boot.lua"]:594>
+        [C]: in function 'xpcall'
+
+Stupid bug. Tree.choose function had a bad signature;
+Tree.choose(e)  instead of  Tree.choose(tree, e)
+
+
+
+
+
+
+
+
+
+
+
+
+
 Error: src/misc/behaviour/movebehaviours/orbit.lua:38: 'struct 263' has no member named 'pos'
 stack traceback:
         [string "boot.lua"]:777: in function '__index'

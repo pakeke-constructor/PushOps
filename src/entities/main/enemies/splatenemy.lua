@@ -72,7 +72,7 @@ local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
 
 local physColFunc = function(e1, e2, speed)
     if EH.PC(e1,e2,speed) then
-        ccall("sound","thud")
+        ccall("sound","hit")
     end
 end
 

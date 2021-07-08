@@ -13,6 +13,7 @@ local function onBoom(e, x,y, strength)
     if strength > 0 and dist(x-p.x, y-p.y)<WALL_DMG_RANGE then
         ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 4, COLOUR)
         ccall("damage",e,101)
+        ccall("sound","crumble",0.5)
     end
 end
 
@@ -28,13 +29,21 @@ end
 local function onDeath(e)
     ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 10, COLOUR)
     ccall("await", spawnFunc, 0, e.pos)
+    if rand() < 0.5 then
+        ccall("sound","crumble",1)
+    else
+        ccall("sound","bigcrumble",0.5)
+    end
 end
 
 
 
 return function(x,y)
     local wall = EH.Ents.wall(x,y)
-    wall.colour = COLOUR
+    wall.colour = table.copy(COLOUR)
+    for i=1, 3 do
+        wall.colour[i] = wall.colour[i] + rand()/10
+    end
     wall.onDeath = onDeath
     wall.onBoom = onBoom
     return wall

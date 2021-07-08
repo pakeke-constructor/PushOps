@@ -3,21 +3,14 @@
 TODO :::
 
 
+Make twitter accounts and reddit account for marketting
+(Also email bot to YT'ers; do this later)
 
 
-make (more) wall variations
+-->>> MOST IMPORTANTLY:  Contact UC entrepreneurship!!!!
 
 
+Get sounds and feedback and everything nailed down for GOOD!
 
-Make guys headband more thick, also add a tiny bit of shading
-(Also try putting black outlines around it, see how that looks)
-
-
-automatically set ent components to nil upon being removed from systems
-(as in, each system is responsible for their respective components!
-MoveSys is responsible for removing .pos and .vel, DrawSys is responsible for removing .draw,
-BobbingSys is responsible for removing .bobbing, etc etc.)
-This will remove a LOT of pressure on GC.
-(especially upon ccall("purge") events.)
 
 

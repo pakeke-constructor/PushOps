@@ -68,6 +68,9 @@ end
 
 local function onDeath(ent)
     ccall("emit","rocks", ent.pos.x, ent.pos.y, 10, 2)
+    if rand() < 0.5 then
+        ccall("sound","crumble",0.5)
+    end
 end
 
 

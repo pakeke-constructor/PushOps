@@ -76,7 +76,7 @@ local ENT_DMG_SPEED = CONSTANTS.ENT_DMG_SPEED
 
 local physColFunc = function(e1, e2, spd)
     if EH.PC(e1,e2,spd) then
-        ccall("sound","thud")
+        ccall("sound","hit")
     end
 end
 
@@ -91,7 +91,6 @@ local shoot = EH.Task("_wizard shoot")
 
 
 function shoot:start(e)
-    -- TODO: play wizard cast animation right here
     local vec = (math.vec3(Cam.x, Cam.y, 0) - e.pos)
     if vec:len() == 0 then
         return -- This should never happen tho
@@ -133,9 +132,9 @@ Tree.shoot = {
 }
 
 
-Tree.choose = function(e)
+Tree.choose = function(tree, e)
     local r = rand()
-    if r < 0.5 then
+    if r < 0.5 and Tools.isOnScreen(e, Cam) then
         return "shoot"
     end
     return "chase"

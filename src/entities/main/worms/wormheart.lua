@@ -44,6 +44,7 @@ local function physColFunc(e1, e2, speed)
         local p = e1.pos
         ccall("emit", "guts", p.x, p.y, p.z, 4+rand(6,10))
         -- make the worm nodes spit out particles, make a sound etc.
+        ccall("sound","hit",1,0.5)
     end
 end
 
@@ -207,11 +208,12 @@ return function(parent, sanity_check)
 
     EH.BOB(e, 0.25)
 
-    EH.PHYS(e, 13)
+    EH.PHYS(e, 20)
 
-    e.hybrid=true
     e.onDraw = onDraw
     e.onHeavyUpdate = chooseNewNodes
+
+    e.hybrid=true
 end
 
 

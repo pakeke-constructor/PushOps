@@ -161,7 +161,7 @@ return {
                     tier = 1;
                     type = "basic";
                     x = 32;
-                    y = 32
+                    y = 32;
                 }
                 
                 EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
@@ -179,6 +179,9 @@ return {
                 token_txt.onHeavyUpdate = tokenTextUpdateFn -- Need to update
                 token_txt.hybrid = true
                 token_txt.tokens_displayed = savedata.tokens
+                local instruction_txt = EH.Ents.txt(x,y,"Use > to buy or use")
+                instruction_txt.colour = {0.8,0.4,0.4}
+                instruction_txt.fade = 400
             end
         };
 
@@ -200,7 +203,7 @@ return {
                 ent.playerType = "glasses";
                 ent.playerPillarImage = EH.Quads['3d_player_down_1']
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 100
+                ent.playerCost = 400
             end
         };
 
@@ -211,7 +214,7 @@ return {
                 ent.playerType = "blind";
                 ent.playerPillarImage = EH.Quads.blind_player_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 200
+                ent.playerCost = 800
             end
         };
 
@@ -222,9 +225,9 @@ return {
                 ent.playerType = "cyclops";
                 ent.playerPillarImage = EH.Quads.cyclops_player_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 500
+                ent.playerCost = 1000
             end
-        }
+        };
     }
 }
 

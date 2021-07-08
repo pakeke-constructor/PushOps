@@ -63,8 +63,7 @@ function DEBUG_SYS:keypressed(k)
         CONSTANTS.paused = not CONSTANTS.paused
     end
     if k == "e" then
-        local p = cam
-        EH.Ents.blue_mushroom(p.x,p.y+20)
+        ccall("sound","glassbreak",0.25,0.5,0,0.3)
     end
 end
 
