@@ -221,9 +221,9 @@ return {
         function(x,y)
             Ents.inviswall(x,y)
             for i=1, (rand()*2) do--4 + rand()*2 do
-                local X = x+90*(rand()-0.5)
-                local Y = y+90*(rand()-0.5)
-                Ents.fakepine(X,Y)    
+                local X = x + rand(-45,45)
+                local Y = y + rand(-45,45)
+                Ents.fakebluepine(X,Y)    
             end
         end
     };
@@ -232,9 +232,9 @@ return {
         max=math.huge;
         function(x,y)
             for i=1, rand()*4 do--4 + rand()*2 do
-                local X = x+200*(rand()-0.5)
-                local Y = y+200*(rand()-0.5)
-                Ents.fakepine(X,Y)    
+                local X = x + rand(-100,100)
+                local Y = y + rand(-100,100)
+                Ents.fakebluepine(X,Y)    
             end
         end
     };

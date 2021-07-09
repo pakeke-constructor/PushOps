@@ -38,8 +38,8 @@ end
 
 
 
-return function(x,y)
-    local wall = EH.Ents.wall(x,y)
+return function(x,y, height)
+    local wall = EH.Ents.wall(x,y, height)
     wall.colour = table.copy(COLOUR)
     for i=1, 3 do
         wall.colour[i] = wall.colour[i] + rand()/5

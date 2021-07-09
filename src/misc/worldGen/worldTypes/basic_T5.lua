@@ -207,7 +207,30 @@ return {
                 Ents.blue_mushroom(x+(rand()-.5)*90,y+(rand()-.5)*90)
             end
         end
-    }
+    };
+
+    ["%"] = {
+        max=math.huge;
+        function(x,y)
+            Ents.inviswall(x,y)
+            for i=1, (rand()*2) do--4 + rand()*2 do
+                local X = x + rand(-45,45)
+                local Y = y + rand(-45,45)
+                Ents.fakebluepine(X,Y)    
+            end
+        end
+    };
+
+    ["~"] = {
+        max=math.huge;
+        function(x,y)
+            for i=1, rand()*4 do--4 + rand()*2 do
+                local X = x + rand(-100,100)
+                local Y = y + rand(-100,100)
+                Ents.fakebluepine(X,Y)    
+            end
+        end
+    };
 }
 }
 

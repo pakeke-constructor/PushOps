@@ -4,7 +4,7 @@ local atlas = require("assets.atlas")
 
 local grasses = {}
 
-for i=1, 5 do
+for i=1, 6 do
     local q = atlas.Quads["blue_grass_"..tostring(i)]
     table.insert(grasses, q)
 end

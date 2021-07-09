@@ -158,7 +158,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 1;
+                    tier = 7;
                     type = "basic";
                     x = 32;
                     y = 32;
@@ -253,7 +253,7 @@ return {
                 sfx.sl_max = 1
                 sfx.sl_name = "SFX_VOLUME"
                 sfx.colour = {0.2,0.3,1}
-                sfx:setValue(CONSTANTS.SFX_VOLUME)
+                sfx:setValue(savedata.sfx_volume or CONSTANTS.SFX_VOLUME)
 
                 EH.Ents.goodtxt(x,y+60,nil,"Music Volume:",{1,0.2,0.2})
                 local music = EH.Ents.slider(x-65,y+140)
@@ -262,7 +262,7 @@ return {
                 music.sl_max = 1
                 music.sl_name = "MUSIC_VOLUME"
                 music.colour = {1,0.2,0.2}
-                music:setValue(CONSTANTS.MUSIC_VOLUME)
+                music:setValue(savedata.music_volume or CONSTANTS.MUSIC_VOLUME)
             end
         };
 
