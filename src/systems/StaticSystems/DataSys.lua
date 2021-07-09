@@ -22,9 +22,15 @@ for k,v in pairs(CONSTANTS.SAVE_DATA_DEFAULT) do -- This is the default save dat
     end
 end
 
+function SaveDataSys:load()
+    CONSTANTS.SFX_VOLUME = data.sfx_volume
+    CONSTANTS.MUSIC_VOLUME = data.music_volume
+end
+
 
 function SaveDataSys:quit()
-    local tokens = CONSTANTS.tokens
+    data.sfx_volume = CONSTANTS.SFX_VOLUME
+    data.music_volume = CONSTANTS.MUSIC_VOLUME
     love.filesystem.write(CONSTANTS.SAVE_DATA_FNAME, json.encode(data))
 end
 

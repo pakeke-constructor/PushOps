@@ -76,9 +76,13 @@ return{
             chuck = false;
             glasses = false;
             cyclops = false;
+            rainbow = false;
         };
 
-        playerType = "red"
+        playerType = "red";
+
+        sfx_volume = 0.4;
+        music_volume = 0.3
     }
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
@@ -91,7 +95,9 @@ return{
 ,
     minimap_enabled = true
 ,
-    MASTER_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1
+    SFX_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1
+,
+    MUSIC_VOLUME = 0.3 --.4   0 --> 1
 ,
     DEBUG = true
 }

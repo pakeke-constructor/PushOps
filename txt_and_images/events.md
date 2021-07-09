@@ -14,6 +14,13 @@ Called every 60 frames
 # sparseupdate ( dt )
 Called every 3 frames
 
+
+# load ( )
+called thru love.load
+# quit ( )
+Called when love2d quits
+
+
 # await ( func, time, ... )
 Applies function `func` `time` seconds later with args `...`
 (KINDA EXPENSIVE)

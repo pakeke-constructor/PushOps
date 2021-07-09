@@ -261,7 +261,6 @@ do
 
         local getted_systems = { }
 
-        -- TODO: change this to bitops.
         for i=1, comp_backrefs[comp].len do
             local sys = comp_backrefs[comp][i]
             if sys:worthy(self) then
@@ -290,7 +289,6 @@ do
     -- Also high space complexity; O(n) garbage-sets created.
     function Entity:_get_all_systems()
 
-        -- TODO: change to bitops
         local systems = set()
         local comps = array()
 

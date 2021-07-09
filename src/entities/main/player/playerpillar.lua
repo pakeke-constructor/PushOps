@@ -24,6 +24,13 @@ local function onInteract(self, player, type)
             -- Then the player owns this character
             ccall("switchPlayer", self.playerType)
             --TOOD: play sound here; give feedback
+            ccall("sound","poof")
+            local x,y = player.pos.x, player.pos.y
+            for i=-1,1 do
+                for j=-1,1 do
+                    ccall("emit", "dust", x + i*10, y + j*10, 0, 4)
+                end
+            end
             return true
         else
             -- Else, provide interface to unlock

@@ -209,12 +209,35 @@ return {
         max = 100;
         function (x, y)
             if rand()<0.3 then
-                Ents.mushroom(x+rand()*90,y+rand()*90) 
+                Ents.bluepine(x+rand()*90,y+rand()*90) 
             else
                 Ents.blue_mushroom(x+(rand()-.5)*90,y+(rand()-.5)*90)
             end
         end
-    }
+    };
+
+    ["%"] = {
+        max=math.huge;
+        function(x,y)
+            Ents.inviswall(x,y)
+            for i=1, (rand()*2) do--4 + rand()*2 do
+                local X = x+90*(rand()-0.5)
+                local Y = y+90*(rand()-0.5)
+                Ents.fakepine(X,Y)    
+            end
+        end
+    };
+
+    ["~"] = {
+        max=math.huge;
+        function(x,y)
+            for i=1, rand()*4 do--4 + rand()*2 do
+                local X = x+200*(rand()-0.5)
+                local Y = y+200*(rand()-0.5)
+                Ents.fakepine(X,Y)    
+            end
+        end
+    };
 }
 }
 

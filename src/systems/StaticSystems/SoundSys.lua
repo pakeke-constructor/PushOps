@@ -119,7 +119,7 @@ local min = math.min
 
 local function playSound(src, vol, pitch, vol_v, p_v)
     src = getFreeSource(src)
-    vol = min(1, vol + vol_v * sin( rand() * 3.14 )) * CONSTANTS.MASTER_VOLUME
+    vol = min(1, vol + vol_v * sin( rand() * 3.14 )) * CONSTANTS.SFX_VOLUME
     src:setVolume(vol)
     src:setPitch (pitch + (p_v) * sin(rand()*3.14))
     
@@ -154,6 +154,34 @@ function SoundSys:sound(sound, volume, pitch,
             error("Missing sound : "..sound)
         end
         playSound(sounds[sound], volume, pitch, volume_variance, pitch_variance)
+    end
+end
+
+
+
+
+local current_music = nil
+
+
+local worldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
+
+
+local function changeMusic(music_str)
+    assert(sounds[music_str], "unknown music:  "..music_str)
+    local src = sounds[music_str]
+    
+    if current_music then
+        current_music:stop()
+    end
+
+    love.audio.play(src)
+end
+
+
+function SoundSys:newWorld(world,_)
+    local wtable = worldTypes[world.type][world.tier]
+    if wtable.music then
+        changeMusic(wtable.music)
     end
 end
 

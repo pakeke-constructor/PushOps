@@ -69,6 +69,11 @@ function gamestate.quit()
 end
 
 
+function gamestate.load()
+    cyan.call("load")
+end
+
+
 
 
 for k,v in pairs(gamestate) do

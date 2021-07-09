@@ -228,6 +228,77 @@ return {
                 ent.playerCost = 1000
             end
         };
+
+        ["5"] = {
+            max=1;
+            function(x,y)
+                local ent = EH.Ents.playerpillar(x,y)
+                ent.playerType = "rainbow";
+                ent.playerPillarImage = EH.Quads.rainbow_display_character
+                ent.unownedPillarImage = EH.Quads.unknown_player
+                ent.playerCost = 3000
+            end
+        };
+
+        ["S"] = {
+            max = 1;
+            function (x,y)
+                --[[
+                    sound control
+                ]]
+                EH.Ents.goodtxt(x,y,nil,"SFX Volume:",{0.2,0.3,1})
+                local sfx = EH.Ents.slider(x-65,y+80)
+                sfx.sl_table = CONSTANTS
+                sfx.sl_min = 0
+                sfx.sl_max = 1
+                sfx.sl_name = "SFX_VOLUME"
+                sfx.colour = {0.2,0.3,1}
+                sfx:setValue(CONSTANTS.SFX_VOLUME)
+
+                EH.Ents.goodtxt(x,y+60,nil,"Music Volume:",{1,0.2,0.2})
+                local music = EH.Ents.slider(x-65,y+140)
+                music.sl_table = CONSTANTS
+                music.sl_min = 0
+                music.sl_max = 1
+                music.sl_name = "MUSIC_VOLUME"
+                music.colour = {1,0.2,0.2}
+                music:setValue(CONSTANTS.MUSIC_VOLUME)
+            end
+        };
+
+        ["C"] = {
+            max = 1;
+            function(x,y)
+                --[[
+                    Colourblind modes
+                ]]
+            end
+        };
+
+        ["H"] = {
+            max=1;
+            function(x,y)
+                --[[
+                    advanced controls help panel
+                ]]
+                local txt = EH.Ents.txt
+                local C1 = {0.5,0.5,0.1}
+                EH.Ents.goodtxt( x, y, nil, "ADVANCED CONTROLS", {0.7,0.7,0.1},nil)
+                local t1 =txt(x,y+30, "ESCAPE to pause, TAB to see minimap")
+                t1.colour = C1
+                local t1_5 = txt(x,y+50,"Hold PUSH to push individual blocks")
+                t1_5.colour = C1
+
+                local C2 = {0.1,0.1,0.6}
+                EH.Ents.goodtxt(x,y+120,nil,"Hello, player! @",{0.5,0.5,1},nil)
+                local t2 = txt(x,y + 140, "I hope you are enjoying my game.")
+                t2.colour = C2
+                local t3 = txt(x,y + 160, "If you have feedback or found a bug,")
+                t3.colour = C2
+                local t4 = txt(x,y + 180, "find me on the discord.")
+                t4.colour=C2
+            end 
+        }
     }
 }
 

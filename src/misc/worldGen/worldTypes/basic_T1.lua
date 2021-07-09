@@ -77,6 +77,7 @@ end
 
 local function spawn_portal(x, y)
     local portal = EH.Ents.portal(x, y)
+    -- TODO: put particles and stuff here
     portal.portalDestination = {
         x = 30;
         y = 30;

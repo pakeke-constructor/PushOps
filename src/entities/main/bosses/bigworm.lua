@@ -124,7 +124,6 @@ local floor = math.floor
 local cos, sin = math.cos, math.sin
 
 local function onSurface(e)
-    -- TODO: play sound in these callbacks
     local p=e.pos
     ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
     ccall("sound","crumble")
@@ -136,9 +135,6 @@ local function onGround(e)
     local angle = rand() * 2 * math.pi
     ccall("shoot", p.x, p.y, BULLET_SPEED * sin(angle), BULLET_SPEED * cos(angle))
     ccall("emit","rocks", p.x,p.y,p.z, floor(rand()*4))
-    if rand() < 0.3 then
-        --ccall("sound","bigcrumble")
-    end
 end
 
 
