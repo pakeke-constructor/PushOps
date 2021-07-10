@@ -5,10 +5,14 @@ RELEASE:
 
 ====================================
 
-Change colours of trees in yellow and aqua zones
-
 Discover a way to fix the drawing primitives colour error when streaming
 
-Ensure window can be resized properly, or disable resizing altogether
+Make custom menu map
+
+Do credits
+
+Do trailer
+
+Implement bullyplayer as a playable character
 
 

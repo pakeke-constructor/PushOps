@@ -131,8 +131,8 @@ return {
     ["@"] = {
         max = 1;
         function(x,y)
-            EH.Ents.bullyplayer(x,y)
-            do return end
+            -- EH.Ents.bullyplayer(x,y)
+            -- do return end
             local p = Ents.player(x,y)
             ccall('switchPlayer', savedata.playerType)
             return p

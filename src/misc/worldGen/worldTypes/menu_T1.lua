@@ -240,6 +240,17 @@ return {
             end
         };
 
+        ["6"] = {
+            max=1;
+            function(x,y)
+                local ent = EH.Ents.playerpillar(x,y)
+                ent.playerType = "bully";
+                ent.playerPillarImage = EH.Quads.bully_down_1
+                ent.unownedPillarImage = EH.Quads.unknown_bully
+                ent.playerCost = 3000
+            end
+        };
+
         ["S"] = {
             max = 1;
             function (x,y)

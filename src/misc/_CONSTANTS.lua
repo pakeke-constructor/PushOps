@@ -1,6 +1,14 @@
 
 
 return{
+    PLAYER_SPEED = 200
+,
+    PLAYER_MAX_SPEED = 210
+,
+    PLAYER_HP = 100
+,
+    PLAYER_REGEN = 3
+,
     MAX_DT = 0.05 -- Maximum value `dt` will ever take.
 ,
     AVERAGE_DT = 1/60
@@ -73,7 +81,7 @@ return{
         owned_players = {
             red = true;
             challenge = false;
-            chuck = false;
+            bully = false;
             glasses = false;
             cyclops = false;
             rainbow = false;

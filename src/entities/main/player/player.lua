@@ -44,13 +44,14 @@ return function(x,y)
     e:add("acc", math.vec3(0,0,0))
     
     :add("hp", {
-        hp = 100,
-        max_hp = 100,
-        regen = 3,
+        hp = CONSTANTS.PLAYER_HP,
+        max_hp = CONSTANTS.PLAYER_HP,
+        regen = CONSTANTS.PLAYER_REGEN,
         iframes = 0.5 -- we want iframes to be high to let player respond
     })
 
-    :add("speed", {speed = 200, max_speed = 210})
+    :add("speed", {speed = CONSTANTS.PLAYER_SPEED,
+                max_speed = CONSTANTS.PLAYER_MAX_SPEED})
 
     :add("strength", 100)
 
