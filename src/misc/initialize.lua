@@ -66,7 +66,7 @@ function DEBUG_SYS:keypressed(k)
         love.event.quit(0)
     end
     if k=="e"then
-        EH.Ents.yellowpine(cam.x,cam.y)
+        --EH.Ents.yellowpine(cam.x,cam.y)
     end
 end
 

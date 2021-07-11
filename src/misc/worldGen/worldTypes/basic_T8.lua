@@ -72,13 +72,9 @@ return {
 
     bossWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
-        ccall("await", spawn_portal, 1.5, cam_x, cam_y)
+        ccall("await", spawn_portal, 0, cam_x, cam_y)
         ccall("spawnText", cam_x, cam_y - 90, "gg", 400, 30)
-        --[[
-        TODO:
-        play sounds and stuff here. Like, a gong would be cool.
-        have a shockwave also, that would be cool
-        ]]
+        ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
     end;
 
     entities = {

@@ -10,7 +10,7 @@ Block letter entities
 local Ents = EH.Ents
 
         --     abcdefghijklmnopqrstuvwxyz
-local letters = "abdeghilmnoprsuvktxz"
+local letters = "abcdeghilmnoprsuvktxz"
 
 for i = 1, #letters do
     local c = letters:sub(i,i)

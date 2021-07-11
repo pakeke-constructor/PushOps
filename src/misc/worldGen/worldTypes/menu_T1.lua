@@ -15,6 +15,10 @@ local function tokenTextUpdateFn(ent)
     end
 end
 
+local function text(x,y,str,col)
+    local te = EH.Ents.txt(x,y,str)
+    te.colour = col
+end
 
 local TXT_COLOUR = {120/255, 90/255, 65/255, 0.52}
 
@@ -158,7 +162,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 7;
+                    tier = 1;
                     type = "basic";
                     x = 32;
                     y = 32;
@@ -225,7 +229,7 @@ return {
                 ent.playerType = "cyclops";
                 ent.playerPillarImage = EH.Quads.cyclops_player_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 1000
+                ent.playerCost = 5000
             end
         };
 
@@ -236,7 +240,7 @@ return {
                 ent.playerType = "rainbow";
                 ent.playerPillarImage = EH.Quads.rainbow_display_character
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 3000
+                ent.playerCost = 10000
             end
         };
 
@@ -247,7 +251,7 @@ return {
                 ent.playerType = "bully";
                 ent.playerPillarImage = EH.Quads.bully_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_bully
-                ent.playerCost = 3000
+                ent.playerCost = 30000
             end
         };
 
@@ -302,13 +306,49 @@ return {
 
                 local C2 = {0.1,0.1,0.6}
                 EH.Ents.goodtxt(x,y+120,nil,"Hello, player! @",{0.5,0.5,1},nil)
-                local t2 = txt(x,y + 140, "I hope you are enjoying my game.")
-                t2.colour = C2
+                text(x,y + 140, "I hope you are enjoying my game.",C2)
                 local t3 = txt(x,y + 160, "If you have feedback or found a bug,")
                 t3.colour = C2
                 local t4 = txt(x,y + 180, "find me on the discord.")
                 t4.colour=C2
             end 
+        };
+
+        ["q"] = {
+            max=1;
+            function(x,y)
+                ccall("spawnText",x,y + 50,"credits")
+                --EH.Ents.goodtxt(x,y,nil,"Credits",{0.8,0.8,0.1},nil)
+
+                local CL = {0.3,0.3,0.9}
+                EH.Ents.goodtxt(x-150, y + 50,nil,"Testers:",table.copy(CL),nil)
+                local testers = {"Eli Flower",
+                                "Felix Webb",
+                                "Jonty Kennedy",
+                                "Isaac Dann",
+                                "Matt Garrett",
+                                "And others."}
+
+                local CLi = {0.35,0.35,1}
+                for i,v in ipairs(testers)do
+                    text(x-150, y + 60 + (i*22), v, CLi)
+                end
+
+                local CR = {0.9,0.35,0.5}
+                EH.Ents.goodtxt(x+150, y+50, nil, "Made using LOVE2d", CR)
+                local GRE = {0.2,0.4,0.2}
+                text(x+150, y+70, "Cheers to the devs:", GRE)
+                
+                local devs = {"slime",
+                            "Bartbes",
+                            "bmelts",
+                              "AuahDark",
+                              "And others."}
+                local LG = {.3,.5,.3}
+                for i,v in ipairs(devs)do
+                    text(x+150, y + 70 + (i*22), v, LG)
+                end
+            end
         }
     }
 }
