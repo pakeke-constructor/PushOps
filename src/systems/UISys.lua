@@ -141,7 +141,13 @@ local function drawHpBar(player)
     love.graphics.translate(mapCanvas:getWidth() + MINIMAP_BORDER_WIDTH + MINIMAP_X,0)
     local hp = player.hp
     tick = tick + 0.01
-    love.graphics.setColor( 0.7 + 0.1*sin(tick) ,0,0, alpha)
+
+    local r,g,b = 0.7, 0, 0
+    if player.hpBarColour then
+        local col = player.hpBarColour
+        r,g,b = col[1], col[2], col[3]
+    end
+    love.graphics.setColor(r + 0.1*sin(tick), g, b, alpha)
     love.graphics.rectangle("fill", HP_X+3, HP_Y+3, 32-6, (96-6) * (hp.hp / (hp.max_hp)))
     love.graphics.setColor(1,1,1)
     atlas:draw(atlas.Quads.hp_bar_2, HP_X, HP_Y)

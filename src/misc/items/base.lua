@@ -1,8 +1,9 @@
 
 
+local base = { }
+
 local mt = {__index = base}
 
-local base = { }
 
 
 local flags = require("src.misc.items.itemflags")

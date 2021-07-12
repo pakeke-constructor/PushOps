@@ -1,54 +1,15 @@
 
 
-Titan Charm
-    Deal 50% extra damage to bosses
-    (Wizard boss wont appear when this is done)
-
-
 Challenger I
     HP is 1
-    Killing 5 enemies unlocks new character
-        < NOTE:
-        when the character is unlocked,
-        this item changes to challenger II, and III, and IV, etc.
-        II = kill 10 enemies to unlock
-        III = complete level to unlock
-        IV  = kill a boss to unlock
-        V   = defeat the wizard boss on 1 hp
-
-
-
-Wings
-    + Move speed
-
-
-
-Gladiator helmet
-    deal 2x damage
-    take 4x damage
-
-
-
-Vampire tooth
-    Lifesteal
-        <note: through tok ent, turns tok ent red>
-
-
-
-spellbook
-    Pull and push radius increased
+    Killing 5 enemies unlocks challenge character
+        when the character is unlocked, this item instead
+        grants 4% move speed
 
 
 
 Bolt walker
     Pull is replaced with a dash
-
-
-
-Bull walker
-    Increased movement speed, decreased agility
-        <NOTE: less control over movement>
-
 
 
 Infector
@@ -63,40 +24,51 @@ Infector
         >
 
 
-Patience charm
-    Standing still regains health
-
-
-Explosive charm
-    Enemies explode on death
-
-
-Implosive charm
-    Enemies implode on death
-
-
-TNT boots
-Crush walls, +Move speed
-        <NOTE: walls will be crushed by walking over them.
-        Their block drop rate should be decrased>
-
-
-Iron potion
-    +50% health
-    -5% speed
 
 
 
-Nothing
-    All you need is less
-        <Note: this upgrade does nothing.
-        It should always be available:
-        it serves as a way to opt out of taking
-        an upgrade.>
-        <
-        If player kills a boss with no upgrades,
-        a new character should be unlocked
-        >
+
+
+
+
+
+
+
+
+
+
+###
+###
+### DEFINITELY DO THESE ONES BELOW :::::
+###
+###
+
+
+pocket watch
+    Boom'ing near enemies slows them down  (not bosses)
+
+
+Reverse pocket watch
+    Moob'ing near enemies slows them down  (not bosses)
+
+
+
+Bull ring
+    Increased movement speed, decreased agility
+        <NOTE: less control over movement>
+
+
+Cyclops eye
+    Removes fade component from all entities in a certain
+    radius, when boom is used
+    If a entity with fade is found, a purple shockwave is shot out
+
+
+Red spore
+    The next boom the player does,
+    all blocks affected will transform into mushroom blocks
+    And a large red shockwave will shoot out
+
 
 
 Consumable, super push, converts blocks into mushroom blocks,

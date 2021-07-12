@@ -12,7 +12,7 @@ functions attached to optional callbacks.
 \
 ]]
 
-local Items = require("src.misc.Items.initialize")
+local Items = require("src.misc.items.initialize")
 local current = {}
 
 function ItemSys:giveUpgrade( upgradeType )
@@ -28,7 +28,9 @@ local callbacks = {
     "heavyupdate";
     "boom";
     "moob";
-    "splat"
+    "splat";
+    "kill";
+    "damage"
 }
 
 
@@ -36,7 +38,7 @@ for _, callback in ipairs(callbacks)do
     ItemSys[callback] = function(self, a,b,c,d,e)
         for _, ite in ipairs(current)do
             if ite[callback] then
-                ite[callback](ite, player, a,b,c,d,e)
+                ite[callback](player, a,b,c,d,e)
             end
         end
     end

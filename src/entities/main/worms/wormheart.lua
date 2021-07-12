@@ -175,7 +175,7 @@ return function(parent, sanity_check)
     e._node_index = 0 -- the index in _bound_nodes that was last changed by
     --`chooseNewNodes()`.
 
-    e.targetID = "enemy"
+    e.targetID = "boss"
 
     e.hp = {
         hp = 4000;
@@ -196,11 +196,11 @@ return function(parent, sanity_check)
 
     e.behaviour = {
         move = {
-            id = "enemy";
+            id = "player";
             type='ORBIT';
             orbit_tick = rand()*6.2;
-            orbit_radius = 25;
-            orbit_speed = 0.4
+            orbit_radius = 155;
+            orbit_speed = 0.04
         }
     }
 

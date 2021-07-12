@@ -45,8 +45,14 @@ local bossCount = 0
 
 
 
-function WinSys:added(e)
-    
+function WinSys:added(ent)
+    if ent.targetID=="enemy" then
+        enemyCountTotal = enemyCountTotal + 1
+        enemyCount = enemyCount + 1
+    elseif ent.targetID=="boss" then
+        bossCountTotal = bossCountTotal + 1
+        bossCount = bossCount + 1
+    end
 end
 
 
@@ -112,6 +118,7 @@ end
 
 
 function WinSys:newWorld()
+    print("WinSys :newWorld")
     bossCountTotal  = 0
     enemyCountTotal = 0
 

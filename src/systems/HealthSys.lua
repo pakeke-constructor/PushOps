@@ -12,12 +12,12 @@ local DEFAULT_IFRAMES = 0 -- default invincibility of 0 seconds
 
 local function checkDead(ent)
     if ent.hp.hp <= 0 then
-        ccall("dead", ent)
+        ccall("kill", ent)
     end
 end
 
 
-function HealthSys:dead(ent)
+function HealthSys:kill(ent)
     --[[
         NOTE that the entity doesn't need to have HP for this
         callback to come into effect.
@@ -28,9 +28,6 @@ function HealthSys:dead(ent)
 
     ent:delete()
 end
-
-HealthSys.kill = HealthSys.dead
-
 
 
 function HealthSys:added( ent )
@@ -128,7 +125,7 @@ end
 local min = math.min
 
 function HealthSys:update(dt)
-    for _, ent in ipairs(self.group )do
+    for _, ent in ipairs(self.group) do
         checkDead(ent)
         local hp = ent.hp
         if hp.regen then

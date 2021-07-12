@@ -13,5 +13,8 @@ Make twitter accounts and reddit account for marketting
 Get sounds and feedback and everything nailed down for GOOD!
 
 
-Custom minimap for menu
+Make it so you have to pass 2 levels of the same type
+    before progressing; rn the game is too short
+
+
 

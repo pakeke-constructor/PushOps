@@ -263,7 +263,7 @@ local function pull(ent)
             ent.control.canPull = false
             ccall("sound", "moob", 0.5, 1, 0, 0.2)
             ccall("shockwave", x, y, 130, 4, 7, 0.3)
-            ccall("moob", x, y, ent.strength/1.7, 300)
+            ccall("moob", x, y, ent.strength/2, 300)
             ccall("await", afterPull, CONSTANTS.PULL_COOLDOWN, ent)
         end
     else

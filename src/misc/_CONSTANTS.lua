@@ -1,9 +1,9 @@
 
 
 return{
-    PLAYER_SPEED = 200
+    PLAYER_SPEED = 170
 ,
-    PLAYER_MAX_SPEED = 210
+    PLAYER_MAX_SPEED = 180
 ,
     PLAYER_HP = 100
 ,
@@ -56,7 +56,7 @@ return{
         "boss"
     }
 ,
-    WIN_RATIO = 0.35-- Good value is 0.35 (had to make higher because of invisible ents)
+    WIN_RATIO = 0.3-- Good value is 0.3 (had to make higher because of invisible ents)
     -- percentage of enemies that need to be killed before ccall("winRatio")
 ,
     paused = false  -- debug only  (if not debug only, make an cyan.call event for this)
