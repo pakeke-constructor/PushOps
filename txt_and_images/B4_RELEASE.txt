@@ -9,8 +9,6 @@ Discover a way to fix the drawing primitives colour error when streaming
 
 Make custom menu map
 
-Do credits
-
 Do trailer
 
 Escape to pause

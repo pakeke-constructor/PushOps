@@ -74,6 +74,9 @@ function gamestate.load()
 end
 
 
+function gamestate.focus( boolean )
+    cyan.call("focus", boolean)
+end
 
 
 for k,v in pairs(gamestate) do

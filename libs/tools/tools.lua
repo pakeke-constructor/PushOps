@@ -94,6 +94,32 @@ do
     end
 end
 
+
+
+local lg = love.graphics
+local WHITE = {1,1,1,1}
+local font = require("src.misc.unique.font")
+
+function Tools.drawText(txt, center_x, center_y, colour, background)
+    --[[
+        background is a colour
+    ]]
+    colour = colour or WHITE
+
+    local ox = font:getWidth(txt) / 2
+    local oy = font:getHeight() / 2
+
+    if background then
+        lg.setColor(background)
+        lg.rectangle("fill", center_x - 2 - ox, center_y - 2 - oy, ox*2 + 4,oy*2 + 4)
+    end
+
+    lg.setColor(colour)
+    lg.print(txt, center_x - ox, center_y - oy)
+end
+
+
+
 local getWidth, getHeight = love.graphics.getWidth, love.graphics.getHeight
 local RANGE_LEIGHWAY = 300
 

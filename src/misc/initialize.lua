@@ -59,12 +59,6 @@ end
 
 
 function DEBUG_SYS:keypressed(k)
-    if k=='p' then
-        CONSTANTS.paused = not CONSTANTS.paused
-    end
-    if k=="escape" then
-        love.event.quit(0)
-    end
     if k=="e"then
         --EH.Ents.yellowpine(cam.x,cam.y)
     end

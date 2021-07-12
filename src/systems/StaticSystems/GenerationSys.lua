@@ -673,10 +673,6 @@ local function procGenerateWorld(world)
 end
 
 
-local world_type
-local world_tier
-
-
 
 local function getPlayerXY(worldMap)
     for i=1, #worldMap do
@@ -691,9 +687,21 @@ end
 
 
 
+
+
+
+local world_type
+local world_tier
+
+local world_width
+local world_height
+
+local world_map -- May be nil
+
 -- ===>
 -- callbacks here
 -- ===>
+
 
 
 function GenSys:newWorld(world, worldMap)
@@ -713,6 +721,13 @@ function GenSys:newWorld(world, worldMap)
     local worldType = WorldTypes[type][tier]
     world.worldType = worldType
     assert(worldType, "HUH? worldTypes[type][tier] gave nil")
+
+    world_width = world.x
+    assert(world_width, "world not given .x comp")
+    world_height = world.y
+    assert(world_height, "world not give .y comp")
+
+    world_map = worldMap
 
     local player_x, player_y
     if not worldMap then
@@ -760,6 +775,18 @@ function GenSys:switchWorld(world, worldMap)
     ccall("newWorld", world, worldMap)
 end
 
+
+
+function GenSys:restartWorld( )
+    if world_tier and world_type then
+        ccall("switchWorld", {
+            x = world_width;
+            y = world_height;
+            type = world_type;
+            tier = world_tier
+        }, world_map or nil)
+    end
+end
 
 
 

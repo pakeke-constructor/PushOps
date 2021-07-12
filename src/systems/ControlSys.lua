@@ -277,6 +277,9 @@ end
 
 
 function ControlSys:keypressed(key)
+    if CONSTANTS.paused then
+        return
+    end
     for _, ent in ipairs(self.group) do
         local c = ent.control
         if c[key] == 'push' then

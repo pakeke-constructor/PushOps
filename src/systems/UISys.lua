@@ -79,6 +79,12 @@ function UISys:finalizeWorld(world, wmap)
         return
     end
 
+    if world.minimap then
+        -- TODO: make custom minimaps here.
+        -- I feel like this is gonna suck
+        return
+    end
+
     local scale = getMapScale(world, wmap)
     mapScale = scale
     local TILESIZE = CONSTANTS.TILESIZE
@@ -116,7 +122,7 @@ local function drawHpBar(player)
 
     love.graphics.push()
 
-    if love.keyboard.isDown("tab") then
+    if love.keyboard.isDown("tab") and (not CONSTANTS.paused) then
         love.graphics.pop()
         return -- Don't draw HP bar
     end
@@ -145,7 +151,7 @@ local function drawMiniMap()
     local alpha = 1
     love.graphics.push()
 
-    if love.keyboard.isDown("tab") then
+    if love.keyboard.isDown("tab") and (not CONSTANTS.paused) then
         alpha = NEW_ALPHA
         love.graphics.scale(3)
     end
@@ -181,6 +187,16 @@ end
 
 
 
+local font = require("src.misc.unique.font")
+local PAUSED = love.graphics.newText(font, "(PAUSED)")
+local PAUSED_WIDTH = PAUSED:getWidth()
+local PAUSED_HEIGHT = PAUSED:getHeight()
+local WHITE = {1,1,1,1}
+local BLACK = {0,0,0}
+local YLO = {1,1,0.1}
+local GRN = {0.1,1,0.1}
+local BLU = {0.05,0.05,1}
+
 function UISys:drawUI()
     -- check that a player exists
     if self.group[1] then
@@ -190,8 +206,55 @@ function UISys:drawUI()
     if CONSTANTS.minimap_enabled then
         drawMiniMap()
     end
+
+    if CONSTANTS.paused then
+        -- Then we draw a grey screen,
+        -- and info on how to unpause
+        local lg = love.graphics
+        lg.setColor(0,0,0,0.6)
+
+        local w,h = lg.getWidth()/2,lg.getHeight()/2
+        lg.rectangle("fill",-10,-10,w+20,h+20)
+
+        Tools.drawText("( PAUSED )", w/2, h/16, WHITE, BLACK)
+        Tools.drawText("press ESCAPE to unpause", w/2, h/16 + 40, YLO, BLACK)
+        Tools.drawText("press Q to exit to menu", w/2, h/16 + 70, BLU, BLACK)
+        Tools.drawText("press R to restart run", w/2, h/16 + 100, GRN, BLACK)
+        Tools.drawText("Press X to exit game", w/2, h/16 + 140, BLACK, WHITE)
+    end
 end
 
+
+local menu_map = require("src.misc.worldGen.maps.menu_map")
+
+function UISys:keypressed(key)
+    if CONSTANTS.paused then
+        if key == "x" then -- quit
+            love.event.quit(0)
+        end
+
+        if key == "q" then
+            -- Exit to menu
+            CONSTANTS.paused = false
+            ccall("switchWorld",{
+                x=100;y=100;
+                tier=1;
+                type='menu'
+            }, menu_map)
+        end
+
+        if key == "r" then
+            -- Restart run... hmm how should this be done
+            CONSTANTS.paused = false
+            ccall("restartWorld") -- Let GenerationSys handle this mess!
+        end
+    end
+
+    if key == "escape" then
+        -- Then we pause the game
+        CONSTANTS.paused = not CONSTANTS.paused
+    end
+end
 
 
 function UISys:update(dt)

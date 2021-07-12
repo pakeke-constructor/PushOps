@@ -320,25 +320,33 @@ return {
                 ccall("spawnText",x,y + 50,"credits")
                 --EH.Ents.goodtxt(x,y,nil,"Credits",{0.8,0.8,0.1},nil)
 
+
+                --[[  game dev  ]]
+                local YLO = {0.9,0.5,0}
+                EH.Ents.goodtxt(x-150, y + 50,nil,"All art and code",YLO)
+                EH.Ents.goodtxt(x-150, y + 70,nil,"by Oli (pakeke)",YLO)
+                --[[================]]
+
+                --[[  TESTERS  ]]
                 local CL = {0.3,0.3,0.9}
-                EH.Ents.goodtxt(x-150, y + 50,nil,"Testers:",table.copy(CL),nil)
+                EH.Ents.goodtxt(x-150, y + 140,nil,"Testers:",table.copy(CL),nil)
                 local testers = {"Eli Flower",
                                 "Felix Webb",
                                 "Jonty Kennedy",
                                 "Isaac Dann",
                                 "Matt Garrett",
                                 "And others."}
-
                 local CLi = {0.35,0.35,1}
                 for i,v in ipairs(testers)do
-                    text(x-150, y + 60 + (i*22), v, CLi)
+                    text(x-150, y + 150 + (i*22), v, CLi)
                 end
+                -- [[===========]]
 
+                --[[  love2d devs  ]]
                 local CR = {0.9,0.35,0.5}
-                EH.Ents.goodtxt(x+150, y+50, nil, "Made using LOVE2d", CR)
+                EH.Ents.goodtxt(x+150, y+80, nil, "Made using LOVE2d", CR)
                 local GRE = {0.2,0.4,0.2}
-                text(x+150, y+70, "Cheers to the devs:", GRE)
-                
+                text(x+150, y+100, "Cheers to the devs:", GRE)
                 local devs = {"slime",
                             "Bartbes",
                             "bmelts",
@@ -346,8 +354,9 @@ return {
                               "And others."}
                 local LG = {.3,.5,.3}
                 for i,v in ipairs(devs)do
-                    text(x+150, y + 70 + (i*22), v, LG)
+                    text(x+150, y + 100 + (i*22), v, LG)
                 end
+                --[[==============]]
             end
         }
     }
