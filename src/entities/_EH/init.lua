@@ -86,7 +86,7 @@ function EH.PC(e1,e2,speed)
         end
     end
 
-    if speed > CONSTANTS.ENT_DMG_SPEED and e2.targetID=="physics" then
+    if e2.targetID=="physics" and speed > CONSTANTS.ENT_DMG_SPEED then
         local armour = e1.armour or 1
         if armour <= 0 then
             Tools.dump(e1)

@@ -12,6 +12,8 @@ and halt input when paused
 
 Make custom menu map
 
+Draw enemies and portal on minimap
+
 
 
 

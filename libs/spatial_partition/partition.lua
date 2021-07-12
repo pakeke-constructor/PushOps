@@ -107,7 +107,9 @@ end
 function Partition:clear()
     for key, val in pairs(self) do
         if type(key) == "number" then
-            self[key] = nil
+            for k, v in pairs(self[key]) do
+                v:clear( )
+            end
         end
     end
 end

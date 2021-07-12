@@ -41,10 +41,13 @@ end
 --- Clears the SSet completely.
 -- @return self
 function SSet:clear()
-   self.objects  = {}
-   self.pointers = {}
-   self.size     = 0
+   for i=1, #self.objects do
+      local o = self.objects[i]
+      self.objects[i] = nil
+      self.pointers[o] = nil
+   end
 
+   self.size     = 0
    return self
 end
 

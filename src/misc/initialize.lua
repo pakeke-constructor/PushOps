@@ -1,10 +1,19 @@
 
 
+local Atlas = require("assets.atlas")
+
+
+local Ents = require("src.entities")
+local cam = require("src.misc.unique.camera")
+
+
+
 --[[ ]]
 Cyan.call("newWorld",{
     x=100,y=100,
     tier = 1,
-    type = 'menu'
+    type = 'menu';
+    minimap = Atlas.Quads.menu_minimap
 }, require("src.misc.worldGen.maps.menu_map"))
 
 --]]
@@ -21,10 +30,6 @@ ccall("newWorld",{
 --]]
 local rand = love.math.random
 
-local Ents = require("src.entities")
-local cam = require("src.misc.unique.camera")
-
-local Atlas = require("assets.atlas")
 
 local DEBUG_SYS = Cyan.System()
 

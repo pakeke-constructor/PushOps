@@ -80,9 +80,21 @@ function UISys:finalizeWorld(world, wmap)
     end
 
     if world.minimap then
-        -- TODO: make custom minimaps here.
-        -- I feel like this is gonna suck
-        return
+        -- world.minimap (should be) a quad
+        local quad = world.minimap
+        assert(quad:type() == "Quad", "eh? bug.")
+        local _,_, canvWidth, canvHeight = quad:getViewport()
+        mapCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
+        dynamicCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
+        
+        love.graphics.push()
+        love.graphics.setCanvas(mapCanvas)
+            atlas:draw(quad)
+        love.graphics.setCanvas()
+        love.graphics.pop()
+
+        mapScale = getMapScale(world, wmap)
+        return 
     end
 
     local scale = getMapScale(world, wmap)
@@ -98,7 +110,6 @@ function UISys:finalizeWorld(world, wmap)
     love.graphics.setShader()
     love.graphics.setColor(CONSTANTS.grass_colour)
     love.graphics.rectangle("fill",0,0, canvWidth, canvHeight)
-    --love.graphics.reset()
     love.graphics.scale(scale)
     love.graphics.setColor(1,1,1,1)
     drawEntities()
@@ -107,7 +118,7 @@ function UISys:finalizeWorld(world, wmap)
 end
 
 
-local NEW_ALPHA = 0.6
+local NEW_ALPHA = 0.5
 
 
 --[[
@@ -211,7 +222,7 @@ function UISys:drawUI()
         -- Then we draw a grey screen,
         -- and info on how to unpause
         local lg = love.graphics
-        lg.setColor(0,0,0,0.6)
+        lg.setColor(0,0,0,0.7)
 
         local w,h = lg.getWidth()/2,lg.getHeight()/2
         lg.rectangle("fill",-10,-10,w+20,h+20)
@@ -257,6 +268,44 @@ function UISys:keypressed(key)
 end
 
 
+
+local Partitions = require("src.misc.unique.partition_targets")
+
+local floor = math.floor
+
+
+local function drawDynamicMap(player)
+    local w, h = dynamicCanvas:getWidth(), dynamicCanvas:getHeight()
+    local old_line_width = love.graphics.getLineWidth()
+
+    love.graphics.setCanvas(dynamicCanvas)
+    love.graphics.clear(0,0,0,0)
+
+    -- Draw player position thing
+    local x, y = floor(player.pos.x * mapScale), floor(player.pos.y * mapScale)
+    love.graphics.setLineWidth(1)
+    love.graphics.setColor(0,0,1)
+    love.graphics.line(0,y,w,y)
+    love.graphics.line(x,0,x,h)
+    love.graphics.circle("line", x, y, 1.5)
+
+    -- Draw enemies
+    love.graphics.setColor(1,0,0,0.2)
+    local epartition = Partitions.enemy
+    local ex, ey
+    -- this is soooo terrible and hacky. Buttt... I don't want to use `pairs`
+    -- in this function
+    assert(epartition.moving_objects, "hacky code needs a rework because partition was (probably) changed")
+    for _,enemy in ipairs(epartition.moving_objects.objects) do
+        ex, ey = floor(enemy.pos.x * mapScale), floor(enemy.pos.y * mapScale)
+        love.graphics.circle("fill", ex, ey, 5)
+    end
+    
+    love.graphics.setColor(1,1,1,1)
+    love.graphics.setCanvas()
+end
+
+
 function UISys:update(dt)
     --[[
         draws player position and stuff
@@ -264,24 +313,17 @@ function UISys:update(dt)
     --assume player is 1st entity in group
     if self.group[1] and CONSTANTS.minimap_enabled then
         local player = self.group[1]
-        local w, h = dynamicCanvas:getWidth(), dynamicCanvas:getHeight()
-        local old_line_width = love.graphics.getLineWidth()
-
-        love.graphics.setCanvas(dynamicCanvas)
-        love.graphics.clear()
-        local x, y = math.floor(player.pos.x * mapScale), math.floor(player.pos.y * mapScale)
-
-        love.graphics.setLineWidth(1)
-        love.graphics.setColor(1,0,0)
-        love.graphics.line(0,y,w,y)
-        love.graphics.line(x,0,x,h)
-        love.graphics.circle("line", x, y, 1.5)
-        love.graphics.setColor(1,1,1,1)
-        love.graphics.setCanvas()
+        drawDynamicMap(player)
     end
 end
 
 
+
+function UISys:focus(focused)
+    if not focused then
+        CONSTANTS.paused = true
+    end
+end
 
 
 
