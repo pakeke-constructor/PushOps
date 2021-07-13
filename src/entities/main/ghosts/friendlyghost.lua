@@ -70,7 +70,7 @@ return function (x,y)
         frames = GHOST_FRAMES;
         interval = 0.05
     }
-    e.targetID="enemy"
+    e.targetID="neutral"
     e.onDeath = invisGhostOnDeath
     e.collisions = {
         enemy = enemyColFunc
@@ -80,7 +80,7 @@ return function (x,y)
         hp=100;
         max_hp=100
     }
-    e._current_cooldown
+    e._current_cooldown = 0 
     e.onUpdate = onUpdate
     e.hybrid = true
     return e

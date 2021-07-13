@@ -43,34 +43,3 @@ Infector
 ###
 ###
 
-
-pocket watch
-    Boom'ing near enemies slows them down  (not bosses)
-
-
-Reverse pocket watch
-    Moob'ing near enemies slows them down  (not bosses)
-
-
-
-Bull ring
-    Increased movement speed, decreased agility
-        <NOTE: less control over movement>
-
-
-Cyclops eye
-    Removes fade component from all entities in a certain
-    radius, when boom is used
-    If a entity with fade is found, a purple shockwave is shot out
-
-
-Red spore
-    The next boom the player does,
-    all blocks affected will transform into mushroom blocks
-    And a large red shockwave will shoot out
-
-
-
-Consumable, super push, converts blocks into mushroom blocks,
-one time use or once per stage
-

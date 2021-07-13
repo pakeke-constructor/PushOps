@@ -2,12 +2,10 @@
 --[[
 
 
-Risky dollar
+Deadly coin
     +1 token per enemy dead,
     but every time an entity dies, it shoots 2 fast bullets
         out in at a random angle
-
-
 
 
 ]]

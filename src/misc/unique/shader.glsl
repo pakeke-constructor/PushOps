@@ -48,8 +48,8 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
                         / ((dist_to_light) * brightness_modifier);
         // Cap the light brightness so it cannot be too bright
         adding_light.x = max(min(max_light_strength, adding_light.x), -max_light_strength);
-        adding_light.y = max(min(max_light_strength, adding_light.y), -max_light_strength);;
-        adding_light.z = max(min(max_light_strength, adding_light.z), -max_light_strength);;
+        adding_light.y = max(min(max_light_strength, adding_light.y), -max_light_strength);
+        adding_light.z = max(min(max_light_strength, adding_light.z), -max_light_strength);
         
         //}
         light_mod += adding_light;

@@ -783,7 +783,7 @@ function GenSys:restartWorld( )
             x = world_width;
             y = world_height;
             type = world_type;
-            tier = world_tier
+            tier = 1
         }, world_map or nil)
     end
 end
@@ -853,7 +853,7 @@ do
             end 
         end
 
-
+        
         function GenSys:bossWin()
             local cam = require("src.misc.unique.camera")
 
