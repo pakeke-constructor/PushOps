@@ -62,10 +62,16 @@ local function challengeMe(sptab, spawns)
 end
 
 
+local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
-        --EH.Ents.yellowpine(cam.x,cam.y)
+        local ox = 0
+        for _, ite in ipairs(itemlist)do
+            local e=EH.Ents.itempillar(cam.x,cam.y + ox)
+            e.itemType = ite
+            ox = ox + 30
+        end
     end
 end
 

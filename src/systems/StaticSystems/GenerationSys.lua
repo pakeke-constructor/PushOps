@@ -827,7 +827,6 @@ do
                 assert(worldType,"?? ")
                 if worldType.ratioWin then
                     ccall('sound', "gong",0.5)
-                    ccall("sound", "superbang",0.4) 
                     worldType.ratioWin(cam.x,cam.y)
                 end
             end
@@ -847,7 +846,6 @@ do
                 assert(worldType,"?? ")
                 if worldType.voidWin then
                     ccall('sound', "gong",0.5)
-                    ccall("sound", "superbang",0.4) 
                     worldType.voidWin(cam.x,cam.y)
                 end
             end 
@@ -867,7 +865,6 @@ do
                 assert(worldType,"?? ")
                 if worldType.bossWin then
                     ccall('sound', "gong",0.5)
-                    ccall("sound", "superbang",0.4) 
                     worldType.bossWin(cam.x,cam.y)
                 end
             end 

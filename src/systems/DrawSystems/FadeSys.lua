@@ -34,11 +34,16 @@ function FadeSys:update(dt)
         local minfade = ent.minfade or 0
         local dist = Tools.distToPlayer(ent,cam)
         --ent.colour[4] = min(max((ent.fade / dist)-1, minfade), 1)
-        ent.colour[4] = min(max((ent.fade / dist)-1, 0), 1)
+        ent.colour[4] = min(max((ent.fade / dist)-1, minfade), 1)
     end
 end
 
 
+function FadeSys:removed(ent)
+    if ent.colour then
+        ent.colour[4] = 1
+    end
+end
 
 
 

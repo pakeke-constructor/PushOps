@@ -19,8 +19,8 @@ local function func(ent, x, y)
         local ratio = max(0, (50 - Tools.dist(pos.x - x, pos.y - y))/50) * MAX_SLOW
 
         local spd = ent.speed
-        spd.speed = spd.speed * ratio
-        spd.max_speed = spd.max_speed * ratio
+        spd.speed = spd.speed * (1-ratio)
+        spd.max_speed = spd.max_speed * (1-ratio)
     end
 end
 

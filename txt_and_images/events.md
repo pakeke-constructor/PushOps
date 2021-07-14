@@ -58,10 +58,14 @@ Adds a sigil to ent
 # removeSigil( ent, sigilName )
 Removes a sigil from an ent
 
+# giveItem( player, itemType )
+Gives an item to a player, (see src/misc/items.) 
+If the player already has the item, this callback does nothing.
+
 
 # emit ( emitter_type, x, y, z,  num_particles )
 emits a burst of particles of `emitter_type` at x,y,z.
-types:  {  guts  beam  dust   smoke  }
+types:  {  guts  beam  dust   smoke  ... }
 
 
 # animate ( animationType, x, y, z, frame_len, cycles,

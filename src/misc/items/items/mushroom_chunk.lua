@@ -7,9 +7,12 @@ Mushroom chunk
 ]]
 
 
+local rand = love.math.random
+
 local function spawnmush(player)
     local pos = player.pos
-    local e = EH.Ents.mushroomblock(pos.x + rand(-15,15), pos.y + rand(-15,15))
+    local e = EH.Ents.mushroomblock(pos.x + rand(-15,15),
+                                    pos.y + rand(-15,15))
 end
 
 

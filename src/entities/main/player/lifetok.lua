@@ -16,7 +16,7 @@ local function playerColFunc(ent, player, dt)
     ccall("animate", "blit", ent.pos.x,ent.pos.y,ent.pos.z, 0.01, 1, {0.6,0,0})
     ccall("sound", "beep", 0.35, 0.35+r()/20)
     if player.hp then
-        player.hp.hp = player.hp.hp + 2
+        ccall("heal", player, 7)
     end
     ccall("kill",ent)
 end

@@ -13,8 +13,7 @@ local PURPLE = {0.43,0,0.52}
 
 
 local function removeFade(ent)
-    ent:remove("fade")
-    ent.minFade = nil
+    ent.minfade = 0.8 -- Ent wont fade below this
     ccall("animate", "blink", 0, 0, 30, 0.12, 9, nil, ent)
 end
 

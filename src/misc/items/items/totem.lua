@@ -6,7 +6,7 @@ gain 2 dark red block orbitals around you
 
 ]]
 
-local RED = {0.65,0,0}
+local COL = {77/255, 132/255, 150/255}
 local radius = 45
 
 local ORBIT_SPEED = 4
@@ -18,8 +18,10 @@ local cexists = Cyan.exists
 
 local function block(x,y)
     local block = EH.Ents.block(x,y)
-    block.colour = RED
+    block.colour = COL
     block.physicsImmune = true
+    block.pushable = false
+    return block
 end
 
 
@@ -47,8 +49,11 @@ return {
             local y = radius * cos(tick)
 
             local px, py = player.pos.x, player.pos.y
-            ccall("setPos", block[1], px + x, py + y)
-            ccall("setPos", block[2], px - x, py - y)
+            if blocks[1] and blocks[2] and 
+                 cexists(blocks[1]) and cexists(blocks[2]) then
+                ccall("setPos", blocks[1], px + x, py + y)
+                ccall("setPos", blocks[2], px - x, py - y)
+            end
         end
     end
 }

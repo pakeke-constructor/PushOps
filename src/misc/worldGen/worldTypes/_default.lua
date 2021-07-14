@@ -16,6 +16,8 @@ local menu = require("src.misc.worldGen.maps.menu_map")
 
 local savedata = require("src.misc.unique.savedata")
 
+local itemlist = require("src.misc.items.itemlist")
+
 
 local function goToMenu()
     ccall("purge")
@@ -128,6 +130,7 @@ return {
             end
         end
     };
+    
     ["@"] = {
         max = 1;
         function(x,y)
@@ -136,6 +139,14 @@ return {
             local p = Ents.player(x,y)
             ccall('switchPlayer', savedata.playerType)
             return p
+        end
+    };
+
+    ["?"] = {
+        max = 4;
+        function(x,y)
+            local pillar = Ents.itempillar(x,y)
+            pillar.itemType = Tools.rand_choice(itemlist)
         end
     }
     }

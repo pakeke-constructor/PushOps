@@ -12,7 +12,7 @@ local ccall = Cyan.call
 local rand = love.math.random
 
 
-local COLOUR = {0.3,0.3,0.95,0.75}
+local COLOUR = {0.3,0.3,0.95,0.45}
 
 
 local GHOST_FRAMES = {}
