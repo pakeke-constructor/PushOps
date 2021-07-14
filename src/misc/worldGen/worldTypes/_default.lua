@@ -142,23 +142,19 @@ return {
         end
     };
 
-    ["?"] = {
+    ["i"] = {
         max = 4;
         function(x,y)
-            local pillar = Ents.itempillar(x,y)
-            pillar.itemType = Tools.rand_choice(itemlist)
+            --[[
+                has a chance to spawn a random item
+            ]]
+            if rand() < 0.7 then
+                local pillar = Ents.itempillar(x,y)
+                pillar.itemType = Tools.rand_choice(itemlist)
+            end
         end
     }
     }
 }
-
-
-
-
-
-
-
-
-
 
 

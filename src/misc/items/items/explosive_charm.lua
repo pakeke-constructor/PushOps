@@ -6,7 +6,7 @@ Enemies explode on death
 ]]
 
 return {
-    dead = function(player, ent)
+    kill = function(player, ent)
         if ent.targetID == "enemy" then
             if ent.pos then
                 local pos = ent.pos

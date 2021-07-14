@@ -33,8 +33,8 @@ local tick = 0
 
 return {
     load = function(player)
-        table.insert(blocks, block(player.pos.x + 45, player.pos.y))
-        table.insert(blocks, block(player.pos.x - 45, player.pos.y))
+        blocks[1] = block(player.pos.x + 45, player.pos.y)
+        blocks[2] = block(player.pos.x - 45, player.pos.y)
     end;
 
     reset = function(player)

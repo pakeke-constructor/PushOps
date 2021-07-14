@@ -23,7 +23,6 @@ local function onInteract(self, player, type)
         ccall("sound","getitem",2,1)
         ccall("sound", "superbang",1)
 
-        do return end
         -- Now kill all item pedestels;
         --  only 1 item allowed to get per level for this pedestal type.
         for _, interact_ent in ipairs(Sets.interact.objects)do

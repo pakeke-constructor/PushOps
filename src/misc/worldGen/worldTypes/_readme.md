@@ -135,7 +135,7 @@ q :  spiky physics object (damages player upon hit)
 l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant mushroom)
 *  :  collectable artefact / trophy!!
 +  :  light
-?  :  random item upgrade
+i  :  random item upgrade
 
 ]]
 

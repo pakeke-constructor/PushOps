@@ -102,3 +102,10 @@ end
 
 
 
+function ItemSys:resetItems()
+    for _, key in ipairs(callbacks) do
+        callbackGroups[key] = nil
+    end
+end
+
+

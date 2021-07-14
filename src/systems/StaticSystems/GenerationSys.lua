@@ -702,6 +702,17 @@ local world_map -- May be nil
 -- callbacks here
 -- ===>
 
+local function maybeResetItems(world)
+    --  This function resets the player's items if needed
+    if world.tier > (world_tier or 0) then
+        return -- There has been a level upgrade; dont worry about it
+    end
+    --[[   Okay, so the :newWorld call is not going up a level; which means that
+        it must either be A: resetting a level   or   B: going to menu.
+        either way we reset the items.    ]]
+    ccall("resetItems")
+end
+
 
 
 function GenSys:newWorld(world, worldMap)
@@ -711,21 +722,22 @@ function GenSys:newWorld(world, worldMap)
     WorldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
 
     local tier = world.tier
-    world_tier = tier
     assert(tier, "world type was not given a tier")
-
     local type = world.type
-    world_type = type
     assert(type, "world type was not given a type")
-
     local worldType = WorldTypes[type][tier]
-    world.worldType = worldType
     assert(worldType, "HUH? worldTypes[type][tier] gave nil")
+    assert(world.x, "world not given .x comp")
+    assert(world.y, "world not give .y comp")
 
+    maybeResetItems(world)
+
+    world.worldType = worldType
+
+    world_tier = tier
+    world_type = type
     world_width = world.x
-    assert(world_width, "world not given .x comp")
     world_height = world.y
-    assert(world_height, "world not give .y comp")
 
     world_map = worldMap
 
@@ -778,6 +790,7 @@ end
 
 
 function GenSys:restartWorld( )
+    ccall("resetItems")
     if world_tier and world_type then
         ccall("switchWorld", {
             x = world_width;

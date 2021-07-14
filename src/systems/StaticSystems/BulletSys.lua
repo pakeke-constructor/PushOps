@@ -27,7 +27,7 @@ local function spawnBolt(x,y,vx,vy)
 end
 
 function BulletSys:shootbolt(x, y, vx, vy)
-    ccall("await", spawnBullet, 0, x,y,vx,vy) -- I hate this too
+    ccall("await", spawnBolt, 0, x,y,vx,vy) -- I hate this too
 end
 
 

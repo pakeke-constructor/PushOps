@@ -13,19 +13,6 @@ local default_T1 = {
     -- Note that after the number of structures has been chosen,
 
 
-    -- These are the required structures. (e.g. player spawn, etc)
-    required = {
-        [{
-             {"???",
-              "???",
-              "???"}
-             ,  
-             {"^^^",
-              "^@^",
-              "^^^"}
-        }] = 1
-    },
-
     structures = {
 
     [  -- Small room structure with coin inside,
@@ -43,9 +30,58 @@ local default_T1 = {
             "?###?",
             "?????"}
         }
+    ] = 0.03 -- weight of being chosen out of all structures
+    ,
+    [ -- Item box
+        {
+            {"?????",
+            "?????",
+            "?????",
+            "?????",
+            "?????"}
+            ,
+            {"?????",
+            "?###?",
+            "?#i#?",
+            "?###?",
+            "?????"}
+        }
     ] = 0.05 -- weight of being chosen out of all structures
     ,
-
+    [  -- Small room structure with coin inside,
+    --  guarded by 'e'.
+        {
+            {"?????",
+            "?????",
+            "?????",
+            "?????",
+            "?????"}
+            ,
+            {"?????",
+            "?###?",
+            "?#^??",
+            "?###?",
+            "?????"}
+        }
+    ] = 0.03 -- weight of being chosen out of all structures
+    ,
+    [  -- Small room structure with coin inside,
+    --  guarded by 'e'.
+        {
+            {"?????",
+            "?????",
+            "?????",
+            "?????",
+            "?????"}
+            ,
+            {"?????",
+            "?###?",
+            "??##?",
+            "???#?",
+            "?????"}
+        }
+    ] = 0.03 -- weight of being chosen out of all structures
+    ,
 
     [
         {  -- Large object surrounded by small objects
@@ -53,7 +89,7 @@ local default_T1 = {
             "???",
             "???"}
             ,
-            {"^p^",
+           {"^p^",
             "plp",
             "^p^"}
         }
@@ -96,7 +132,7 @@ local default_T1 = {
             {"^^.^^.^",
             "^#####^",
             ".#^^.#^",
-            "^^.U^^^",
+            "^^.i^^^",
             "^#^^^#^",
             "p#####.",
             "^p^..^p"}
@@ -117,7 +153,7 @@ local default_T1 = {
             {"? ? ? ? ? ? ?",
             "? # # # # # ?",
             "? # . ? . # ?",
-            "? . ? ? ? # ?",
+            "? . ? i ? # ?",
             "? # . ? . # ?",
             "? # # # # # ?",
             "? ? ? ? ? ? ?"}
@@ -138,7 +174,7 @@ local default_T1 = {
             {"? ? ? ? ? ? ?",
             "? # # # # # ?",
             "? # . ? . # ?",
-            "? # ? ? ? . ?",
+            "? # ? i ? . ?",
             "? # . ? . # ?",
             "? # # # # # ?",
             "? ? ? ? ? ? ?"}
@@ -159,7 +195,7 @@ local default_T1 = {
             {"? ? ? ? ? ? ?",
             "? # # # # # ?",
             "? # . ? . # ?",
-            "? # ? ? ? # ?",
+            "? # ? i ? # ?",
             "? # . ? . # ?",
             "? # # . # # ?",
             "? ? ? ? ? ? ?"}
