@@ -17,6 +17,12 @@ Hi, this is my game. Not sure if it will be finished
 
 `I` and `O` to zoom in and out, but this is just temporary for debug probs
 
+# build into exe: 
+## windows:
+zip file, rename into PushOps.love
+   copy /b D:\PROGRAMMING\LOVE\love.exe+PushOps.love PushOps.exe
+
+
 # Some things to know:
 
 Clojure is not actually used here! The language used is Fennel, a lisp dialect that transpiles to lua

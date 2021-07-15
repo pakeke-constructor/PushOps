@@ -17,7 +17,7 @@ local menu = require("src.misc.worldGen.maps.menu_map")
 local savedata = require("src.misc.unique.savedata")
 
 local itemlist = require("src.misc.items.itemlist")
-
+local itemflags = require("src.misc.items.itemflags")
 
 local function goToMenu()
     ccall("purge")
@@ -149,8 +149,12 @@ return {
                 has a chance to spawn a random item
             ]]
             if rand() < 0.7 then
-                local pillar = Ents.itempillar(x,y)
-                pillar.itemType = Tools.rand_choice(itemlist)
+                local item = Tools.rand_choice(itemlist)
+                if not itemflags[item] then
+                    -- Only spawn the item if the player doesnt have it
+                    local pillar = Ents.itempillar(x,y)
+                    pillar.itemType = item
+                end
             end
         end
     }
