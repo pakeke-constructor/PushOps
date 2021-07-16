@@ -698,6 +698,8 @@ local world_height
 
 local world_map -- May be nil
 
+local world_minimap -- May be nil
+
 -- ===>
 -- callbacks here
 -- ===>
@@ -739,7 +741,8 @@ function GenSys:newWorld(world, worldMap)
     world_width = world.x
     world_height = world.y
 
-    world_map = worldMap
+    world_map = worldMap    -- These two fields may be nil.
+    world_minimap = world.minimap 
 
     local player_x, player_y
     if not worldMap then
@@ -764,7 +767,7 @@ function GenSys:newWorld(world, worldMap)
 
     ccall("finalizeWorld", world, world.worldMap)
 
-    --[[  ]]
+    --[[  
     for _,tab in ipairs(worldMap) do
         print(table.concat(tab, " "))
     end
@@ -796,7 +799,8 @@ function GenSys:restartWorld( )
             x = world_width;
             y = world_height;
             type = world_type;
-            tier = 1
+            tier = 1;
+            minimap = world_minimap or nil
         }, world_map or nil)
     end
 end

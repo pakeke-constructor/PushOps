@@ -40,7 +40,8 @@ local function spawn_portal(x, y)
         x = 30;
         y = 30;
         tier = 1;
-        type="menu"
+        type="menu";
+        
     }
 end
 

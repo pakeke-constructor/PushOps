@@ -1,11 +1,11 @@
 
 return function(x,y)
 
-    return Cyan.Entity()
+    return EH.FR(EH.PHYS(EH.PV(Cyan.Entity(), x,y), 9),3)
     :add("name", "love2d logo")
     :add("image", {
         quad = EH.Quads.love2d_logo
     })
-    :add("pos", math.vec3(x,y,-50))
+    :add("pushable", true)
 end
 

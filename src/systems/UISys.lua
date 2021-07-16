@@ -56,7 +56,7 @@ local function getMapScale(world, wmap)
     local height = world_height
     local scale = 1
     while (width > MINIMAP_MAX_HEIGHT) and (height > MINIMAP_MAX_WIDTH) do
-        scale = scale - 0.00001
+        scale = scale - 0.0001
         width = world_width * scale
         height = world_height * scale
     end
@@ -86,10 +86,10 @@ function UISys:finalizeWorld(world, wmap)
         local _,_, canvWidth, canvHeight = quad:getViewport()
         mapCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
         dynamicCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
-        
+
         love.graphics.push()
         love.graphics.setCanvas(mapCanvas)
-            atlas:draw(quad)
+        atlas:draw(quad,0,0)
         love.graphics.setCanvas()
         love.graphics.pop()
 
@@ -244,6 +244,7 @@ end
 
 local menu_map = require("src.misc.worldGen.maps.menu_map")
 
+
 function UISys:keypressed(key)
     if CONSTANTS.paused then
         if key == "x" then -- quit
@@ -256,7 +257,8 @@ function UISys:keypressed(key)
             ccall("switchWorld",{
                 x=100;y=100;
                 tier=1;
-                type='menu'
+                type='menu';
+                minimap = EH.Quads.menu_minimap
             }, menu_map)
         end
 

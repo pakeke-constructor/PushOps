@@ -118,7 +118,6 @@ end
 
 
 function WinSys:newWorld()
-    print("WinSys :newWorld")
     bossCountTotal  = 0
     enemyCountTotal = 0
 

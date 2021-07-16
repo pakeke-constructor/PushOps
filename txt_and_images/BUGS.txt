@@ -61,3 +61,19 @@ FUCK YES.
 Game sometimes unfocuses randomly.... idk why
 
 
+
+
+
+
+
+
+
+
+
+
+Shoi's bug:
+Push a physics block with held-down-push.
+Go up to a physics wall, face up with block in the wall,
+and let go of UP.
+You should glitch into the block and go flying
+

@@ -86,7 +86,7 @@ require("src.entities")
 
 require("src.misc._MISC")
 
-print(("We got %d bits left in compbitbase"):format(Cyan.getFreeBits()))
+--print(("We got %d bits left in compbitbase"):format(Cyan.getFreeBits()))
 
 Tools.assertNoDuplicateRequires()
 

@@ -1,6 +1,13 @@
 
 
 
+
+Discrete HP bar for enemies (above their head)
+  --- future note: maybe dont do this
+
+
+
+
 In the lobby shop, make a little
 treasure chest that runs around after you when you need
 to spend your gold.

@@ -4,7 +4,7 @@
 
 -- This file is only kept as a reference for what components look like.
 
--- CURRENTLY  26 / 32   BITS OF COMPONENT MASK HAVE BEEN USED!!!
+-- CURRENTLY  27 / 32   BITS OF COMPONENT MASK HAVE BEEN USED!!!
 -- KEEP THIS NUMBER DOWN
 
 
@@ -336,6 +336,7 @@ portalDestination = {
     type = "basic"
     
     map = nil -- The world map, (OPTIONAL)
+    minimap = nil -- the custom minimap (as an atlas quad)
 }
 
 

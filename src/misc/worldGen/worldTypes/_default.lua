@@ -24,7 +24,9 @@ local function goToMenu()
     ccall("newWorld",{
         x=100,y=100,
         tier = 1,
-        type = 'menu'
+        type = 'menu',
+        minimap = EH.Quads.menu_minimap
+
     }, menu)
 end
 

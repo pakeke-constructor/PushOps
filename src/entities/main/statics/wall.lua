@@ -65,7 +65,7 @@ local function spawnFunc(p)
 end
 
 local function onDeath(e)
-    ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 10)
+    ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 4)
     ccall("await", spawnFunc, 0, e.pos)
     if rand() < 0.5 then
         ccall("sound","crumble",1)
