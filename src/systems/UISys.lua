@@ -66,9 +66,6 @@ end
 
 
 
-
-
-
 local drawEntities
 
 function UISys:finalizeWorld(world, wmap)
@@ -88,6 +85,8 @@ function UISys:finalizeWorld(world, wmap)
         dynamicCanvas = love.graphics.newCanvas(canvWidth, canvHeight)
 
         love.graphics.push()
+        love.graphics.reset()
+        love.graphics.setDefaultFilter("nearest", "nearest")
         love.graphics.setCanvas(mapCanvas)
         atlas:draw(quad,0,0)
         love.graphics.setCanvas()

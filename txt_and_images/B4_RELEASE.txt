@@ -7,9 +7,16 @@ RELEASE:
 
 Do trailer
 
-Find a way to fix defocus bug
-
 Export to Mac and linux
 
+
+
+==================================
+After release:
+===================================
+
+Speedrun timer
+
+Elongate levels
 
 

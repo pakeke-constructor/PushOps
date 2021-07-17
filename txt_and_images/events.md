@@ -71,7 +71,7 @@ emits a burst of particles of `emitter_type` at x,y,z.
 types:  {  guts  beam  dust   smoke  ... }
 
 
-# animate ( animationType, x, y, z, frame_len, cycles,
+# animate ( animationType, x, y, z, frame_len, cycles=1,
 #            colour={1,1,1}, track_ent=nil, hide_ent=false )
 Plays animation at x,y,z with specified frame length, and can track an entity.
 NOTE: The animation z depth won't change even when the entity moves! So tracking is only good for short animations

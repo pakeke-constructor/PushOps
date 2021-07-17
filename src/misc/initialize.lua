@@ -67,8 +67,7 @@ local itemlist = require("src.misc.items.itemlist")
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
         local e=Ents.itempillar(cam.x+20,cam.y)
-        e.itemType = "cyclops_eye"
-        Ents.spookyenemy(cam.x - 50, cam.y-50)
+        e.itemType = "pocket_watch"
     end
 end
 

@@ -8,21 +8,31 @@
 
 
 
-local MAX_DIST = 50
-local MAX_SLOW = 0.6 -- 60% slow
+local MAX_DIST = 100
+local MAX_SLOW = 0.15 -- 15% slow
 
 local max = math.max
 
+local slowedEnts = setmetatable({},{__mode="kv"})
+
+
+
 local function func(ent, x, y)
-    if ent.speed then
+    if ent.speed and (not slowedEnts[ent]) then
         -- Slows up to 60%
 
         local pos = ent.pos
-        local ratio = max(0, (50 - Tools.dist(pos.x - x, pos.y - y))/50) * MAX_SLOW
+        local ratio = max(0, (MAX_DIST -
+                        Tools.dist(pos.x - x, pos.y - y))/MAX_DIST) * MAX_SLOW
 
-        local spd = ent.speed
-        spd.speed = spd.speed * (1-ratio)
-        spd.max_speed = spd.max_speed * (1-ratio)
+        if ratio > 0.002 then
+            local spd = ent.speed
+            spd.speed = spd.speed * (1-ratio)
+            spd.max_speed = spd.max_speed * (1-ratio)
+
+            ccall("animate", "time", 0, 0, 30, 0.12, 9, nil, ent)
+            slowedEnts[ent] = true
+        end
     end
 end
 

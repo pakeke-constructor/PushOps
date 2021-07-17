@@ -259,6 +259,8 @@ local function fshift(ent)
     end
 end
 
+
+
 function IndexSys:update()
     for _, ent in ipairs(self.group) do
         fshift(ent)

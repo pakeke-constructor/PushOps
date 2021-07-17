@@ -7,6 +7,8 @@ local PushSys = Cyan.System("pushing")
 A system that handles the pushing of entities.
     (Note: This system holds entities that are *doing* the pushing.)
 
+(Also, this system has static callbacks)
+
 ]]
 
 local partition = require "src.misc.partition"

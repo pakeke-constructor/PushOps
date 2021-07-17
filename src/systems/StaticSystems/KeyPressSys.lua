@@ -3,7 +3,7 @@
 local KeyPressSys = Cyan.System() -- does not take entities.
 
 
-local SHORT_THRESHOLD = 0.2 -- 0.2 seconds is considered a key tap.
+local SHORT_THRESHOLD = 0.5 -- 0.2 seconds is considered a key tap.
 
 
 

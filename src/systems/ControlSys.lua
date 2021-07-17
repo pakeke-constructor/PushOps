@@ -282,10 +282,21 @@ function ControlSys:keypressed(key)
     end
     for _, ent in ipairs(self.group) do
         local c = ent.control
+        if c[key] == 'pull' then
+            pull(ent)
+        end
+    end
+end
+
+
+function ControlSys:keytap(key)
+    if CONSTANTS.paused then
+        return 
+    end
+    for _, ent in ipairs(self.group)do
+        local c = ent.control
         if c[key] == 'push' then
             push(ent)
-        elseif c[key] == 'pull' then
-            pull(ent)
         end
     end
 end
@@ -294,9 +305,10 @@ end
 
 
 
-
-
 function ControlSys:keydown(key)
+    if CONSTANTS.paused then
+        return 
+    end
     for _, ent in ipairs(self.group) do
         local control = ent.control
 
@@ -310,7 +322,16 @@ end
 
 
 
+
+local function givePushingFeedback(player, push_ent)
+    ccall("sound", "unlock",0.5,2)
+    ccall("animate", "hit", 0,0,30, 0.07, nil, nil, push_ent)
+end
+
 function ControlSys:keyheld(key, time)
+    if CONSTANTS.paused then
+        return
+    end
     for _, ent in ipairs(self.group) do
         local control=ent.control
         local purpose = control[key]
@@ -318,6 +339,7 @@ function ControlSys:keyheld(key, time)
             if not ent.pushing then
                 local push_ent = findEntToPush(ent)
                 if push_ent then
+                    givePushingFeedback(ent,push_ent)
                     ent:add("pushing", push_ent)
                 end
             end
