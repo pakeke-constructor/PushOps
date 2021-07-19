@@ -818,8 +818,6 @@ do
 
     -- lose condition
     function GenSys:lose()
-        local cam = require("src.misc.unique.camera")
-
         if world_tier and world_type then
             local wType = WorldTypes[world_type][world_tier]
             assert(wType.lose, "worldTypes must have a lose condition")
@@ -832,8 +830,6 @@ do
     -- these are pretty much all the same...
     do
         function GenSys:ratioWin()
-            local cam = require("src.misc.unique.camera")
-
             if (not StructureRules) or (not WorldTypes)then
                 return -- This means that :newWorld hasnt been called yet.
                 -- very bizzare situation... but oh well.
@@ -851,8 +847,6 @@ do
 
 
         function GenSys:voidWin()
-            local cam = require("src.misc.unique.camera")
-
             if (not StructureRules) or (not WorldTypes)then
                 return -- This means that :newWorld hasnt been called yet.
                 -- very bizzare situation... but oh well.
@@ -870,8 +864,6 @@ do
 
         
         function GenSys:bossWin()
-            local cam = require("src.misc.unique.camera")
-
             if (not StructureRules) or (not WorldTypes)then
                 return -- This means that :newWorld hasnt been called yet.
                 -- very bizzare situation... but oh well.

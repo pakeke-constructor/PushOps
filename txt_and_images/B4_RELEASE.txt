@@ -12,11 +12,22 @@ Export to Mac and linux
 
 
 ==================================
+maybes:
+==================================
+Perhaps pay someone for cover art? 
+    (Or just do a fancy title like
+        gungeon or downwell)
+
+
+
+==================================
 After release:
 ===================================
 
 Speedrun timer
 
 Elongate levels
+
+Endless level
 
 

@@ -66,8 +66,7 @@ local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
-        local e=Ents.itempillar(cam.x+20,cam.y)
-        e.itemType = "pocket_watch"
+        EH.Ents.splatmallow(cam.x, cam.y + 50)
     end
 end
 

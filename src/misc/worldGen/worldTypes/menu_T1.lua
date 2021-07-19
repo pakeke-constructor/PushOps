@@ -8,6 +8,7 @@ local savedata = require("src.misc.unique.savedata")
 
 local rand = love.math.random
 
+local endless_map = require("src.misc.worldGen.maps.endless_map")
 
 local function tokenTextUpdateFn(ent)
     if ent.tokens_displayed ~= savedata.tokens then
@@ -157,8 +158,8 @@ return {
             end
         },
 
-        ['&'] = { -- Turn off for now.
-            max = 0xfff;
+        ['&'] = { 
+            max = 1;
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
@@ -169,6 +170,20 @@ return {
                 }
                 
                 EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
+            end
+        };
+
+        ["E"] = {
+            max = 1;
+            function(x,y)
+                local portal = Ents.portal(x,y)
+                portal.portalDestination = {
+                    tier = 1;
+                    type = 'endless';
+                    x = 24;
+                    y = 24;
+                    map = endless_map;
+                } 
             end
         };
 
@@ -320,7 +335,6 @@ return {
                 ccall("spawnText",x,y + 50,"credits")
                 --EH.Ents.goodtxt(x,y,nil,"Credits",{0.8,0.8,0.1},nil)
 
-
                 --[[  game dev  ]]
                 local YLO = {0.9,0.5,0}
                 EH.Ents.goodtxt(x-150, y + 50,nil,"All art and code",YLO)
@@ -332,7 +346,7 @@ return {
                 EH.Ents.goodtxt(x-150, y + 140,nil,"Testers:",table.copy(CL),nil)
                 local testers = {"Eli Flower",
                                 "Felix Webb",
-                                "Jonty Kennedy",
+                                "Jonty Ken",
                                 "Isaac Dann",
                                 "Matt Garrett",
                                 "And others."}

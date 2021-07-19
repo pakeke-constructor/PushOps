@@ -1,4 +1,6 @@
 
+
+
 local Atlas = require("assets.atlas")
 local Quads = Atlas.Quads
 local EH = EH
@@ -20,7 +22,10 @@ for i=1,4 do
     ti(right, EH.Quads["mallow_right_"..tostring(i)])
 end
 
-local COLOUR=CONSTANTS.SPLAT_COLOUR
+local COLOUR = table.copy(CONSTANTS.SPLAT_COLOUR)
+for i=1,3 do -- Darken splat colour
+    COLOUR[i] = COLOUR[i] * 0.7
+end
 
 
 
@@ -73,9 +78,13 @@ local splat_spin_task = EH.Task("_splat mallow spin task")
 splat_spin_task.start = function(t,e)
     e._previous_splatmallow_armour = e.armour
     e.armour = math.huge -- make invincible
+    local p = e.pos
+    ccall("moob", p.x, p.y, 70, 250)
     ccall("setMoveBehaviour", e,"IDLE")
+    ccall("shockwave", p.x, p.y, 160, 30, 10, 0.4, table.copy(CONSTANTS.SPLAT_COLOUR))
     ccall("setVel", e, 0,0)
     ccall("animate", 'mallowspin', 0,0,0, 0.06, 1, e.colour, e, true)
+    ccall("emit", 'splat', e.pos.x,e.pos.y,e.pos.z, 14)
 end
 
 splat_spin_task.update=function(t,e,dt)
@@ -91,9 +100,9 @@ end
 splat_spin_task.finish = function(t,e)
     if Cyan.exists(e) then
         local x, y = e.pos.x, e.pos.y
-        ccall("moob", x, y, 70, 250)
-        ccall("shockwave",  x, y, 160, 30, 10, 0.4, table.copy(CONSTANTS.SPLAT_COLOUR))
+        ccall("shockwave",  x, y, 30, 160, 10, 0.4, table.copy(CONSTANTS.SPLAT_COLOUR))
         ccall("splat",  x, y, 70)
+        ccall("emit", 'splat', e.pos.x,e.pos.y,e.pos.z, 10)
         e.armour = e._previous_splatmallow_armour
     end
 end
@@ -183,7 +192,7 @@ return function(x, y)
 
     e.behaviour = {
         move={
-            type="IDLE",
+            type="RAND",
             id="player",
             
             orbit_tick = 0,

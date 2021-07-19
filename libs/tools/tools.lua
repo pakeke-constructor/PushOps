@@ -169,10 +169,13 @@ end
 local inspect = require("libs.NM_inspect.inspect")
 
 -- clear dump file
-io.open("T_DUMP.txt","w"):close()
+local tdump = love.filesystem.newFile("T_DUMP.txt", "w")
+tdump:write("")
+tdump:flush()
+tdump:close()
 
 function Tools.dump(e, str)
-    local f = io.open("T_DUMP.txt", "a+")
+    f = love.filesystem.newFile("T_DUMP.txt", "w")
 
     if str then
         f:write(str)
@@ -180,6 +183,7 @@ function Tools.dump(e, str)
     f:write("\nlua tostring::" .. tostring(e) .. "\n")
     f:write(inspect(e))
 
+    f:flush()
     f:close()
 end
 

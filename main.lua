@@ -57,11 +57,6 @@ end
 setmetatable(_G, {
     __newindex = function(_,k) error("DONT MAKE GLOBALS :: " .. tostring(k)) end,
     __index = function(_,k)
-        if k==nil or k=="_ENV" then
-            -- Fennel uses weird _G keys in compiling.
-            -- Not gonna risk monkeypatch.
-            return nil
-        end
         error("UNDEFINED VAR :: " .. tostring(k))
     end,
     __metatable = "defensive"
@@ -75,8 +70,8 @@ rawset(_G, "EH", require 'src.entities._EH')
 
 
 -- Load fennel transpiler
-local fennel = require("libs.NM_fennel.fennel")
-table.insert(package.loaders or package.searchers, fennel.searcher)
+--   local fennel = require("libs.NM_fennel.fennel")
+--  table.insert(package.loaders or package.searchers, fennel.searcher)
 
 
 

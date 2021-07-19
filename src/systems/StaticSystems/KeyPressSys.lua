@@ -50,6 +50,7 @@ end
 
 
 
+
 function KeyPressSys:keyreleased(key, scancode, isrepeat)
     keydown[key] = nil
     keyheld_called[key] = false
@@ -61,10 +62,6 @@ function KeyPressSys:keyreleased(key, scancode, isrepeat)
     time_between_press_and_release[key] = nil
     Cyan.call("keyup", key)
 end
-
-
-
-
 
 
 

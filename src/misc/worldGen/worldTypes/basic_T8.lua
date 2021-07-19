@@ -38,7 +38,8 @@ local function spawn_portal(x, y)
         y = 30;
         tier = 1;
         type="menu";
-        map = menu_map
+        map = menu_map;
+        minimap = EH.Quads.menu_minimap
     }
 end
 
