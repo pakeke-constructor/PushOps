@@ -56,6 +56,7 @@ local enemySpawns = Tools.weighted_selection{
     [Ents.spookyenemy]= 0.6;
     [Ents.boxenemy]   = 0.2;
     [Ents.boxblob]    = 0.2;
+    [Ents.biggerspookyblob] = 0.2
 }
 
 

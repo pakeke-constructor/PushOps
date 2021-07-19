@@ -1,10 +1,7 @@
 
--- TODO:
--- make this blob bigger and more health,
--- as in, edit the sprite
 
 
-local shape = love.physics.newCircleShape(10)
+local shape = love.physics.newCircleShape(15)
 
 local atlas = require "assets.atlas"
 local Quads = atlas.Quads
@@ -44,11 +41,18 @@ local function onDamage(e)
 end
 
 
+local function spawnBlobs(x,y)
+    local E = EH.Ents
+    E.spookyblob(x+10, y-10)
+    E.spookyblob(x-10, y+10)
+end
+
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(8,11))
     ccall("emit", "dust", p.x, p.y, p.z, 8)
-    EH.TOK(e,1)
+    ccall("await", spawnBlobs, 0, p.x,p.y)
+    EH.TOK(e,r(1,3))
 end
 
 
@@ -56,7 +60,7 @@ end
 
 local frames = {0,1,2,1}
 for i,v in ipairs(frames)do
-    frames[i] = EH.Quads["blob"..tostring(v)]
+    frames[i] = EH.Quads["biggerblob"..tostring(v)]
 end
 
 
@@ -69,7 +73,7 @@ return function(x,y)
 
     :add("hp", {hp = 100, max_hp = 100})
 
-    :add("speed", {speed = 140, max_speed = math.random(200,250)})
+    :add("speed", {speed = 260, max_speed = 260})
 
     :add("strength", 40)
 

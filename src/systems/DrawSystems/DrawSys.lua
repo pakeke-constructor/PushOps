@@ -214,7 +214,7 @@ function DrawSys:setGrassColour(colour, a)
         CONSTANTS.grass_colour = col
         return
     end
-    CONSTANTS.GRASS_COLOUR = colour
+    CONSTANTS.grass_colour = colour
 end
 
 

@@ -2,7 +2,7 @@
 
 local EPOCH_TIME = 40 -- 40 seconds per upgrade interval
 
-local SPAWN_TIME = 8 -- seconds
+local SPAWN_TIME = 9 -- seconds
 
 
 local START_SPAWN_MIN = 2 -- starting spawn rates
@@ -27,8 +27,6 @@ local function spawnGroup(ent, x, y)
 
     local min, max = ent._mediator_min_spawns, ent._mediator_max_spawns
     local amount = min + (rand() * (max - min))
-
-    print("spawnGroup!!")
 
     for i=1, amount do
         spawn()(x + rand(-34, 34), y + rand(-34, 34))
@@ -138,9 +136,9 @@ local function initSpawners()
             [E.bully] = 0.2;
             [E.spookyenemy] = 0.3;
             [E.spookybully] = 0.1;
-            [E.splatbully] = 0.15;
             [E.splatmallow] = 0.2;
-            [E.bigworm] = 0.05;
+            [E.bigworm] = 0.02;
+            [E.bigblob] = 0.01;
             [E.wizling] = 0.2;
         }
     end
@@ -167,7 +165,7 @@ return function(x,y)
     e._mediator_max_spawns = 4 -- Max spawns for each direction ('..', 16 maximum)
 
     e._mediator_epoch_time = 0 -- Time since last spawner change
-    e._mediator_spawn_time = 10 -- Time since last spawn 
+    e._mediator_spawn_time = 6 -- Time since last spawn 
 
     e.onUpdate = onUpdate
     e.hybrid = true

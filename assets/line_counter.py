@@ -6,7 +6,7 @@
 import os
 from os.path import isfile
 
-PATH = 'D:\\PROGRAMMING\\LUA\\SCRIPTS\\push_game'
+PATH = 'D:\\PROGRAMMING\\LUA\\_SCRIPTS\\push_game'
 
 IGNORE = ["binpack", "set", "sset", "sets"]
 

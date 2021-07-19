@@ -183,7 +183,9 @@ return {
                     x = 24;
                     y = 24;
                     map = endless_map;
-                } 
+                }
+
+                EH.Ents.goodtxt(x,y+10, nil,"ENDLESS",{0.7,0.1,0.1}, 250)
             end
         };
 

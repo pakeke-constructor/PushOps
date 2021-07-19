@@ -1,20 +1,28 @@
 
 
-local gladiator_colour = {255, 243, 176}
+local grass_col = {255, 243, 176}
 
-for i,v in ipairs(gladiator_colour) do-- to normalized
-    gladiator_colour[i] = v/255
+for i,v in ipairs(grass_col) do-- to normalized
+    grass_col[i] = v/255
 end
 
 local WH = require("src.misc.worldGen.WH")
-
+local menu_map = require("src.misc.worldGen.maps.menu_map")
 
 
 local Ents=EH.Ents
 local rand = love.math.random
 
-local currentMediator = nil
-    -- The current game mediator will be kept here
+
+local function goToMenu()
+    ccall("purge")
+    ccall("newWorld",{
+        x=100,y=100,
+        tier = 1,
+        type = 'menu',
+        minimap = EH.Quads.menu_minimap
+    }, menu_map)
+end
 
 
 return {
@@ -27,10 +35,19 @@ return {
         bign=0; bign_var=0
     };
 
+    lose = function( x, y )
+        -- wait a bit, then respawn player at menu
+        ccall("shockwave", x, y, 10, 700, 30, .57, {0.8,0.05,0.05})
+        ccall("spawnText", x, y, "gg", 750,100)
+        ccall("await", goToMenu, 4)
+    end;
+
     construct = function(wor,wmap,px,py)
-        ccall("spawnText", px, py - 100, "endless", 320, 20)
+        ccall("spawnText", px, py - 160, "endless", 320, 60)
+        ccall("spawnText", px, py + 160, "endless", 320, 60)
+
         WH.lights(wor, wmap, 15, 150)
-        ccall("setGrassColour", table.copy(gladiator_colour))
+        ccall("setGrassColour", table.copy(grass_col))
     end;
 
     entities = {
@@ -56,7 +73,7 @@ return {
             max=0xffff;
             function(x,y)
                 local e =  Ents.pillar(x,y)
-                e.colour = gladiator_colour
+                e.colour = grass_col
             end
         };
 
