@@ -136,7 +136,8 @@ local function initSpawners()
             [E.bully] = 0.2;
             [E.spookyenemy] = 0.3;
             [E.spookybully] = 0.1;
-            [E.splatmallow] = 0.2;
+            [E.biggerspookyblob] = 0.2;
+            [E.blob] = 0.1;
             [E.bigworm] = 0.02;
             [E.bigblob] = 0.01;
             [E.wizling] = 0.2;
