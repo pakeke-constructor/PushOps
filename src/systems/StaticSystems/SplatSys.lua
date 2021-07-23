@@ -99,7 +99,7 @@ function SplatSys:splat(x,y, range)
             {SPLAT_COLOUR[1],
             SPLAT_COLOUR[2],
             SPLAT_COLOUR[3]})
-        ccall("sound", "splat", 0.6, 1, 0.15, 0.5)
+        ccall("sound", "splat", 0.3, 1, 0.15, 0.5)
     end
 end
 

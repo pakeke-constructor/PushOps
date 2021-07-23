@@ -14,11 +14,9 @@ git push origin master
 
 ]]
 
-
-
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
--- MONKEY BUSINESS STARTS HERE !!!
+-- Globals here:
 setmetatable(_G, {})
 
 
@@ -53,7 +51,7 @@ do
 end
 
 
--- NO MORE MONKEY BUSINESS PAST THIS POINT !!!
+-- End globals, (Except EH, few lines down.)
 setmetatable(_G, {
     __newindex = function(_,k) error("DONT MAKE GLOBALS :: " .. tostring(k)) end,
     __index = function(_,k)

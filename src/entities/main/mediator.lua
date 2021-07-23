@@ -161,6 +161,10 @@ return function(x,y)
         spawn_lv4
     }
 
+    e._mediator_direction_index = 1 -- Each direction (left, right, up,) has an index
+                -- This is the current index the mediator is spawning in.
+                -- indexes go from    1 -> 4
+
     e._mediator_spawner_index = 1 -- current spawner in use
     e._mediator_min_spawns = 2 -- Min spawns for each direction (4 directions, 8 minimum)
     e._mediator_max_spawns = 4 -- Max spawns for each direction ('..', 16 maximum)
