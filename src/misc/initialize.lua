@@ -72,7 +72,7 @@ end
 
 
 
-function DEBUG_SYS:draw()
+function DEBUG_SYS:_draw()
     lg.setColor(1,1,1)
     lg.push()
     lg.reset()
