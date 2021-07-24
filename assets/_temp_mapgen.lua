@@ -27,7 +27,7 @@ local function toScreen(x,y)
 end
 
 
-dist = function(x, y)
+local dist = function(x, y)
     return sqrt(x*x + y*y)
 end
 

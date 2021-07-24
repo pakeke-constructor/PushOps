@@ -72,14 +72,15 @@ end
 
 
 
-function DEBUG_SYS:_draw()
+function DEBUG_SYS:draw()
     lg.setColor(1,1,1)
     lg.push()
     lg.reset()
-    love.graphics.rectangle("fill", 5, 95, 150, 40)
+    love.graphics.rectangle("fill", 5, 300, 150, 40)
     lg.setColor(0,0,0)
-    love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,100)
-    love.graphics.print(("MEM USAGE: %d"):format(tostring(collectgarbage("count"))), 10, 120)
+    love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,300)
+    love.graphics.print("time: "..tostring(CONSTANTS.runtime), 10, 320)
+    --love.graphics.print(("MEM USAGE: %d"):format(tostring(collectgarbage("count"))), 10, 320)
     lg.pop()
 end
 

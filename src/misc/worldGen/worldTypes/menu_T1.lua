@@ -166,7 +166,7 @@ return {
                     tier = 1;
                     type = "basic";
                     x = 32;
-                    y = 32;
+                    y = 32
                 }
                 
                 EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
@@ -339,8 +339,8 @@ return {
 
                 --[[  game dev  ]]
                 local YLO = {0.9,0.5,0}
-                EH.Ents.goodtxt(x-150, y + 50,nil,"All art and code",YLO)
-                EH.Ents.goodtxt(x-150, y + 70,nil,"by Oli (pakeke)",YLO)
+                EH.Ents.goodtxt(x-150, y + 50,nil,"Art and code",YLO)
+                EH.Ents.goodtxt(x-150, y + 70,nil,"by myself",YLO)
                 --[[================]]
 
                 --[[  TESTERS  ]]

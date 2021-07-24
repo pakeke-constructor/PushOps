@@ -28,7 +28,6 @@ local s = [[
 
 
 
-
 local map = {}
     
 for line in s:gmatch("[^\n]+") do

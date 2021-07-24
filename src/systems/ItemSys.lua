@@ -102,7 +102,7 @@ end
 
 
 
-function ItemSys:resetItems()
+function ItemSys:reset()
     for _, key in ipairs(callbacks) do
         callbackGroups[key] = nil
     end

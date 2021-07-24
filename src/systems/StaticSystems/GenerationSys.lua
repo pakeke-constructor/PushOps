@@ -704,15 +704,15 @@ local world_minimap -- May be nil
 -- callbacks here
 -- ===>
 
-local function maybeResetItems(world)
-    --  This function resets the player's items if needed
+local function maybeReset(world)
+    --  This function calls to reset callback if needed
     if world.tier > (world_tier or 0) then
         return -- There has been a level upgrade; dont worry about it
     end
     --[[   Okay, so the :newWorld call is not going up a level; which means that
         it must either be A: resetting a level   or   B: going to menu.
-        either way we reset the items.    ]]
-    ccall("resetItems")
+        either way we reset.    ]]
+    ccall("reset")
 end
 
 
@@ -732,7 +732,7 @@ function GenSys:newWorld(world, worldMap)
     assert(world.x, "world not given .x comp")
     assert(world.y, "world not give .y comp")
 
-    maybeResetItems(world)
+    maybeReset(world)
 
     world.worldType = worldType
 
@@ -793,7 +793,7 @@ end
 
 
 function GenSys:restartWorld( )
-    ccall("resetItems")
+    ccall("reset")
     if world_tier and world_type then
         ccall("switchWorld", {
             x = world_width;

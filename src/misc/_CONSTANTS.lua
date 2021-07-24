@@ -61,6 +61,8 @@ return{
 ,
     paused = false  -- debug only  (if not debug only, make an cyan.call event for this)
 ,
+    runtime = 0 -- The time currently taken in the run (note that menu counts as a run)
+,
     grass_colour = {0.4,1,0.5} -- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,

@@ -62,8 +62,9 @@ Removes a sigil from an ent
 Gives an item to a player, (see src/misc/items.) 
 If the player already has the item, this callback does nothing.
 
-# resetItems( )
-Removes all items from player
+# reset( )
+called when the player finishes a run
+(goes back to menu, or restarts run, etc)
 
 
 # emit ( emitter_type, x, y, z,  num_particles )

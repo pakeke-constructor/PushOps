@@ -1,9 +1,9 @@
 
 
-local grass_col = {255, 243, 176}
+local PILLAR_COLOUR = {255, 243, 176}
 
-for i,v in ipairs(grass_col) do-- to normalized
-    grass_col[i] = v/255
+for i,v in ipairs(PILLAR_COLOUR) do-- to normalized
+    PILLAR_COLOUR[i] = v/255
 end
 
 local WH = require("src.misc.worldGen.WH")
@@ -47,7 +47,6 @@ return {
         ccall("spawnText", px, py + 160, "endless", 320, 60)
 
         WH.lights(wor, wmap, 15, 150)
-        ccall("setGrassColour", table.copy(grass_col))
     end;
 
     entities = {
@@ -73,7 +72,7 @@ return {
             max=0xffff;
             function(x,y)
                 local e =  Ents.pillar(x,y)
-                e.colour = grass_col
+                e.colour = PILLAR_COLOUR
             end
         };
 
