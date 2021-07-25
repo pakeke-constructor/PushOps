@@ -11,16 +11,17 @@ local TimerSys = Cyan.System()
 
 
 
-local tick = 0
+local runtime = 0
 
 
 function TimerSys:update(dt)
-    tick = tick + dt
-    CONSTANTS.runtime = tick
+    runtime = runtime + dt
+    CONSTANTS.runtime = runtime
 end
 
 
 function TimerSys:reset()
-    tick = 0
+    runtime = 0
 end
+
 

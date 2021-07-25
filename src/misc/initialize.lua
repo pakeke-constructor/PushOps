@@ -66,7 +66,7 @@ local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
-        EH.Ents.splatenemy(cam.x,cam.y + 50)
+        EH.Ents.bigworm(cam.x, cam.y)
     end
 end
 

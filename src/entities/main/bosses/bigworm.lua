@@ -69,6 +69,7 @@ local wormJump = EH.Task("_worm jump node")
 function wormJump:start(worm)
     worm.vel.z = JUMP_VEL
     worm.pos.z = -1
+    ccall("sound", "deepgrowl", 1, 1, 0.2, 0.4)
 end
 function wormJump:update(worm,dt)
     if worm.pos.z < 0 then
