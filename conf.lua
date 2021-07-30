@@ -72,6 +72,15 @@ local function error_printer(msg, layer)
 end
  
 function _G.love.errorhandler(msg)
+	
+	if rawget(_G, "Cyan") then
+		local cyan = rawget(_G, "Cyan")
+		if cyan.call then
+			cyan.call("quit") -- Try and save user's data last second....
+			-- please please PLEASE work
+		end
+	end
+
 	msg = tostring(msg)
  
 	error_printer(msg, 2)

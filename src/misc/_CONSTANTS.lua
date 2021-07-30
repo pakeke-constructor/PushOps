@@ -89,6 +89,10 @@ return{
             rainbow = false;
         };
 
+        colourblind = false;
+        devilblind = false;
+        navyblind = false;
+
         playerType = "red";
 
         sfx_volume = 0.4;

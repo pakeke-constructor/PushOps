@@ -25,12 +25,21 @@ end
 function SaveDataSys:load()
     CONSTANTS.SFX_VOLUME = data.sfx_volume
     CONSTANTS.MUSIC_VOLUME = data.music_volume
+
+    CONSTANTS.COLOURBLIND = data.colourblind
+    CONSTANTS.NAVYBLIND = data.navyblind
+    CONSTANTS.DEVILBLIND = data.devilblind
 end
 
 
 function SaveDataSys:quit()
     data.sfx_volume = CONSTANTS.SFX_VOLUME
     data.music_volume = CONSTANTS.MUSIC_VOLUME
+
+    data.colourblind = CONSTANTS.COLOURBLIND
+    data.devilblind = CONSTANTS.DEVILBLIND
+    data.navyblind = CONSTANTS.NAVYBLIND
+
     love.filesystem.write(CONSTANTS.SAVE_DATA_FNAME, json.encode(data))
 end
 

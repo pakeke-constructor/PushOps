@@ -304,6 +304,29 @@ return {
                 --[[
                     Colourblind modes
                 ]]
+                y = y + 150
+
+                EH.Ents.goodtxt(x,y-104,nil,"Colourblind Modes:",{0,0.5,0})
+                local txt = EH.Ents.txt(x, y - 84, "(> to toggle)")
+                txt.colour = {0,0.2,0}
+
+                local colourblind = EH.Ents.togglebutton(x - 150, y, CONSTANTS.COLOURBLIND)
+                colourblind.toggleFunction = function()
+                    CONSTANTS.COLOURBLIND = not CONSTANTS.COLOURBLIND
+                    return CONSTANTS.COLOURBLIND
+                end
+
+                local devilblind = EH.Ents.togglebutton(x + 150, y, CONSTANTS.DEVILBLIND)
+                devilblind.toggleFunction = function()
+                    CONSTANTS.DEVILBLIND = not CONSTANTS.DEVILBLIND
+                    return CONSTANTS.DEVILBLIND
+                end
+
+                local navyblind = EH.Ents.togglebutton(x, y, CONSTANTS.NAVYBLIND)
+                navyblind.toggleFunction = function()
+                    CONSTANTS.NAVYBLIND = not CONSTANTS.NAVYBLIND
+                    return CONSTANTS.NAVYBLIND
+                end
             end
         };
 

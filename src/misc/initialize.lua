@@ -67,10 +67,9 @@ local itemlist = require("src.misc.items.itemlist")
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
         EH.Ents.bigworm(cam.x, cam.y)
+        error()
     end
 end
-
-
 
 function DEBUG_SYS:_draw()
     lg.setColor(1,1,1)
