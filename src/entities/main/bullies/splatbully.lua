@@ -42,6 +42,7 @@ local collisions = {
             ccall("shockwave", e.pos.x, e.pos.y, 20, 50, 6, 0.2,
                 {col[1]-0.1,col[2]-0.1,col[3]-0.1})
             ccall("splat", e.pos.x, e.pos.y)
+            ccall("sound","hit", 0.7, 0.85)
         end
     end
 }

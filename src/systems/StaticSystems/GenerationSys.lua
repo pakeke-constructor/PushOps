@@ -882,3 +882,17 @@ do
 end
 
 
+
+
+
+
+
+
+function GenSys:load()    
+    Cyan.call("newWorld",{
+        x=100,y=100,
+        tier = 1,
+        type = 'menu';
+        minimap = EH.Quads.menu_minimap
+    }, require("src.misc.worldGen.maps.menu_map"))
+end

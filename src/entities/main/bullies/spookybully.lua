@@ -38,6 +38,7 @@ local collisions = {
     physics = function(e,ot,s)
         if EH.PC(e,ot,s) then
             -- TODO: add noise or something here
+            ccall("sound","hit", 0.7, 0.85)
         end
     end
 }

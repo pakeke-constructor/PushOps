@@ -9,25 +9,9 @@ local cam = require("src.misc.unique.camera")
 
 
 --[[ ]]
-Cyan.call("newWorld",{
-    x=100,y=100,
-    tier = 1,
-    type = 'menu';
-    minimap = Atlas.Quads.menu_minimap
-}, require("src.misc.worldGen.maps.menu_map"))
-
 --]]
 
 
---[[
-local gladmap = require("gladiator_map")
-ccall("newWorld",{
-    x = #gladmap[1];
-    y = #gladmap;
-    tier=1;
-    type="gladiator"
-}, gladmap)
---]]
 local rand = love.math.random
 
 
@@ -37,37 +21,12 @@ local lg = love.graphics
 
 
 
-local e1s = {
-    EH.Ents.devil;
-    EH.Ents.mallow;
-    EH.Ents.blob;
-    EH.Ents.enemy
-}
-
-local e2s = {
-    EH.Ents.boxbully;
-}
-
-local e3s = {
-    EH.Ents.bigworm
-}
-
-local function challengeMe(sptab, spawns)
-    for i=1,(spawns or 1) do
-        local theta = love.math.random() * 6.25
-        local X = cam.x + math.sin(theta)*420
-        local Y = cam.y + math.cos(theta)*420
-        Tools.rand_choice(sptab)(X,Y)
-    end
-end
-
 
 local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
-        EH.Ents.bigworm(cam.x, cam.y)
-        error()
+        
     end
 end
 

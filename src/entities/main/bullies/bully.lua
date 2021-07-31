@@ -40,6 +40,7 @@ local collisions = {
         if EH.PC(e,ot,s) then
             -- add noise or something here
             ccall("shockwave", e.pos.x, e.pos.y, 20, 50, 6, 0.2)
+            ccall("sound","hit", 0.7, 0.85)
         end
     end
 }

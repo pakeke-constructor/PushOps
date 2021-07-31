@@ -63,6 +63,7 @@ local collisions = {
             -- add noise or something here
             local p = e.pos
             ccall("shockwave", e.pos.x, e.pos.y, 20, 50, 6, 0.2)
+            ccall("sound","hit", 0.7, 0.85)
         end
     end
 }

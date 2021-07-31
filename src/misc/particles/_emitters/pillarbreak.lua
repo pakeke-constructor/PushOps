@@ -25,7 +25,7 @@ do
     psys:setColors({1,1,1}, {1,1,1,0.5})
     psys:setRotation(-2*math.pi, 2*math.pi)
     psys:setRelativeRotation(false)
-    psys:setLinearAcceleration(0, 250)
+    psys:setLinearAcceleration(0, 200)
 
     local _,_, pW, pH = psys:getQuads()[1]:getViewport( )
     psys:setOffset(pW/2, pH/2)
