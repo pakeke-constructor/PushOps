@@ -168,7 +168,7 @@ return function(x, y)
             id="player";
             type="CORBIT";
             orbit_tick = 0;
-            orbit_speed = 0.1
+            orbit_speed = 2
         }
     }
 

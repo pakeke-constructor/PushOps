@@ -1,7 +1,5 @@
 
 
-local moonshine = require("libs.NM_moonshine")
-
 local cyan = _G.Cyan
 
 local gamestate = { }

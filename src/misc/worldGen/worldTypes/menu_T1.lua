@@ -27,6 +27,9 @@ return {
     type="menu";
     tier = 1;
 
+    music = "8bithero_main1",
+    music_volmod = 0.25, -- This song is a bit loud
+
     enemies = {
         n=0;
         bign=0
@@ -163,7 +166,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 1;
+                    tier = 6;
                     type = "basic";
                     x = 32;
                     y = 32
@@ -285,7 +288,7 @@ return {
                 sfx.sl_max = 1
                 sfx.sl_name = "SFX_VOLUME"
                 sfx.colour = {0.2,0.3,1}
-                sfx:setValue(savedata.sfx_volume or CONSTANTS.SFX_VOLUME)
+                sfx:setValue(CONSTANTS.SFX_VOLUME or savedata.sfx_volume)
 
                 EH.Ents.goodtxt(x,y+60,nil,"Music Volume:",{1,0.2,0.2})
                 local music = EH.Ents.slider(x-65,y+140)
@@ -294,7 +297,7 @@ return {
                 music.sl_max = 1
                 music.sl_name = "MUSIC_VOLUME"
                 music.colour = {1,0.2,0.2}
-                music:setValue(savedata.music_volume or CONSTANTS.MUSIC_VOLUME)
+                music:setValue(CONSTANTS.MUSIC_VOLUME or savedata.music_volume)
             end
         };
 

@@ -57,6 +57,8 @@ return {
     type = 'basic',
     tier = 8,
 
+    music = "challenge_main1",
+
     structureRule = 'default_T1',
 
     enemies = {
@@ -76,6 +78,14 @@ return {
         ccall("await", spawn_portal, 0, cam_x, cam_y)
         ccall("spawnText", cam_x, cam_y - 90, "gg", 400, 30)
         ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
+        for x=-70, 70, 10 do
+            for y = -70, 70, 10 do
+                local dist = Tools.dist(x, y)
+                if dist < 400 and dist > 20 then
+                    EH.Ents.tok(cam_x + x, cam_y + y)
+                end
+            end
+        end
     end;
 
     entities = {

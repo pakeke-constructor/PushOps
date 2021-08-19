@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ]]--
 
+error("we aren't using moonshine in PushOps")
+
 local BASE = ...
 
 local moonshine = {}

@@ -46,7 +46,8 @@ end
 
 local function colF(e,e2,s)
     if EH.PC(e,e2,s) then
-        -- TODO: noise or something
+        ccall("shockwave", e.pos.x + rand(-20, 20), e.pos.y + rand(-20, 20), 20, 50, 6, 0.2)
+        ccall("sound","hit", 0.7, 0.85)
     end
 end
 

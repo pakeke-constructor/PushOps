@@ -47,7 +47,7 @@ return function(x,y)
     --[[
         This entity should have a special field:
         .itemType = "item_name"
-        This field denotes the 
+        This field denotes the item it can give player
     ]]
     local ip = Cyan.Entity()
     :add("pos", math.vec3(x,y,0))

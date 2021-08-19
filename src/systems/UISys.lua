@@ -156,7 +156,6 @@ end
 
 
 
-
 local miniMapShader = love.graphics.newShader(
     love.filesystem.read("src/misc/unique/mapshader.glsl"), nil
 )

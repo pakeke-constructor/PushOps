@@ -2,7 +2,7 @@
 
 local EPOCH_TIME = 40 -- 40 seconds per upgrade interval
 
-local SPAWN_TIME = 9 -- seconds
+local SPAWN_TIME = 3 -- seconds
 
 
 local START_SPAWN_MIN = 2 -- starting spawn rates
@@ -28,6 +28,8 @@ local function spawnGroup(ent, x, y)
     local min, max = ent._mediator_min_spawns, ent._mediator_max_spawns
     local amount = min + (rand() * (max - min))
 
+    ccall('shockwave', x, y, 20, 120, 12, 0.4)
+
     for i=1, amount do
         spawn()(x + rand(-34, 34), y + rand(-34, 34))
     end
@@ -39,14 +41,24 @@ end
 
 
 
+local directions = {
+    {0, 1};
+    {1, 0};
+    {0, -1};
+    {-1, 0}
+}
+
 local function spawnEnemies(ent)
     local x, y = ent._mediator_orig_x, ent._mediator_orig_y + CONSTANTS.TILESIZE
     local dist = CONSTANTS.TILESIZE * 4
+    local dir_i = ent._mediator_direction_index
 
-    spawnGroup(ent, x - dist, y)
-    spawnGroup(ent, x + dist, y)
-    spawnGroup(ent, x, y + dist)
-    spawnGroup(ent, x, y - dist)
+    local dir = directions[dir_i]
+    local xmod, ymod = dir[1], dir[2]
+
+    spawnGroup(ent, x + xmod * dist, y + ymod * dist)
+
+    ent._mediator_direction_index = (dir_i % (#directions)) + 1
 end
 
 
@@ -161,7 +173,7 @@ return function(x,y)
         spawn_lv4
     }
 
-    e._mediator_direction_index = 1 -- Each direction (left, right, up,) has an index
+    e._mediator_direction_index = 2 -- Each direction (left, right, up,) has an index
                 -- This is the current index the mediator is spawning in.
                 -- indexes go from    1 -> 4
 
@@ -170,7 +182,7 @@ return function(x,y)
     e._mediator_max_spawns = 4 -- Max spawns for each direction ('..', 16 maximum)
 
     e._mediator_epoch_time = 0 -- Time since last spawner change
-    e._mediator_spawn_time = 6 -- Time since last spawn 
+    e._mediator_spawn_time = 0 -- Time since last spawn 
 
     e.onUpdate = onUpdate
     e.hybrid = true

@@ -20,6 +20,11 @@ return function(x,y)
         quad=Tools.rand_choice(quads)
     })
     :add("colour",CONSTANTS.SPLAT_COLOUR)
+    :add("hp", {
+        hp = 100;
+        max_hp = 100;
+        regen = -3
+    })
 end
 
 

@@ -32,15 +32,26 @@ local push = require("libs.NM_push.push")
 
 
 
+
+local Indexer_max_depth = 0
+local Indexer_min_depth = 0
+
+
+local min = math.min
+local max = math.max
+
+
 -- Ordered drawing data structure
 local Indexer = setmetatable({},
     --[[
         each pixel is represented by a set in Indexer.
         So, doing Indexer[floor(ent.pos.y + ent.pos.z)] will get the set that holds ent.
     ]]
-    {__index = function(t, k)
-        t[k] = Set()
-        return t[k]
+    {__index = function(t, zindx)
+        t[zindx] = Set()
+        Indexer_max_depth = max(Indexer_max_depth, zindx)
+        Indexer_min_depth = min(Indexer_min_depth, zindx)
+        return t[zindx]
     end}
 )
 
@@ -50,13 +61,6 @@ local Indexer = setmetatable({},
 -- Entities in Indexer can always be found.  (y+z positions are updated only when system is ready.)
 local positions = {}
 
-
-
-local Indexer_max_depth = 0
-local Indexer_min_depth = 0
-
-local min = math.min
-local max = math.max
 
 
 -- a Set for all shockwave objects that are being drawn
@@ -74,8 +78,6 @@ do
         ]]
         local zindx = floor((ent.pos.y + ent.pos.z)/2)
         Indexer[zindx]:add(ent)
-        Indexer_max_depth = max(Indexer_max_depth, zindx)
-        Indexer_min_depth = min(Indexer_min_depth, zindx)
     end
     function remove(ent)
         --[[

@@ -6,7 +6,7 @@
 local Quads = require("assets.atlas").Quads
 
 
-local shape = love.physics.newRectangleShape(16,16)
+local shape = love.physics.newRectangleShape(20,20)
 
 local q = {Quads.pillar2}
 

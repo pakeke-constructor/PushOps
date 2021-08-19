@@ -713,6 +713,7 @@ local function maybeReset(world)
         it must either be A: resetting a level   or   B: going to menu.
         either way we reset.    ]]
     ccall("reset")
+    print("RESET CALLED")
 end
 
 

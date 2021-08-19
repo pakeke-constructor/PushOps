@@ -161,6 +161,9 @@ end
 
 
 local current_music = nil
+local current_music_type = nil
+local current_music_volmod = nil -- The current world sound modifier
+        -- (We need this because some songs are different in volume.)
 
 
 local worldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
@@ -169,19 +172,42 @@ local worldTypes = require("src.misc.worldGen.worldTypes._worldTypes")
 local function changeMusic(music_str)
     assert(sounds[music_str], "unknown music:  "..music_str)
     local src = sounds[music_str]
+
+    current_music_type = music_str
     
     if current_music then
         current_music:stop()
     end
 
+    current_music = src
+    src:setLooping(true)
+    local volmod = current_music_volmod or 1
+    src:setVolume(CONSTANTS.MUSIC_VOLUME or volmod)
     love.audio.play(src)
 end
 
 
+function SoundSys:update(dt)
+    if current_music then
+        local volmod = current_music_volmod or 1
+        current_music:setVolume(CONSTANTS.MUSIC_VOLUME * volmod)
+        if CONSTANTS.paused then
+            current_music:pause()
+        else
+            if not current_music:isPlaying() then
+                current_music:resume()
+            end
+        end
+    end
+end
+
+
+
 function SoundSys:newWorld(world,_)
     local wtable = worldTypes[world.type][world.tier]
-    if wtable.music then
+    if wtable.music and wtable.music ~= current_music_type then
         changeMusic(wtable.music)
+        current_music_volmod = wtable.music_volmod or 1
     end
 end
 

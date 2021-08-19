@@ -42,7 +42,7 @@ local dot = math.dot
 
     -- THIS FUNCTION IS FOR DEBUG PURPOSES ONLY !!!!!!!!!!!
 function ControlSys:wheelmoved(dx, dy)
-    Camera.scale = Camera.scale + (dy/30)
+    --Camera.scale = Camera.scale + (dy/30)
 end
 
 

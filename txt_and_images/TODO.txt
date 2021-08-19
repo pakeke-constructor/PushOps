@@ -3,6 +3,8 @@
 TODO :::
 
 
+
+
 Make twitter accounts and reddit account for marketting
 (Also email bot to YT'ers; do this later)
 

@@ -114,6 +114,8 @@ return {
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
 
+    music = "darkalley_main1",
+
     PROBS = {
             -- World generation:
             -- Probability of each character occuring.

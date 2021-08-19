@@ -102,6 +102,9 @@ return {
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
 
+    music = "8bitscrap_main1",
+    music_volmod = 0.25,
+
     PROBS = {
             -- World generation:
             -- Probability of each character occuring.

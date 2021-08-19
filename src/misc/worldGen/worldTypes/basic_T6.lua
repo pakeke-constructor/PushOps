@@ -112,6 +112,8 @@ return {
         ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
     end;
     
+    music = "gameon_main1",
+    music_volmod = 0.75,
 
     type = 'basic',
     tier = 6,

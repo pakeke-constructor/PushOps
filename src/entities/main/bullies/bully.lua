@@ -45,6 +45,20 @@ local collisions = {
     end
 }
 
+local function spawnAfter(e)
+    EH.Ents.enemy(e.pos.x, e.pos.y)
+end
+
+local function onDeath(e)
+    local p = e.pos
+    for x = -10, 10, 20 do
+        for y = -10, 10, 20 do
+            ccall("emit", "dust", p.x + x, p.y + y, 0, 5)
+        end
+    end
+    ccall("await", spawnAfter, 0, e)
+end
+
 
 local COLOUR = {
     0.65,0.9,0.65
@@ -79,6 +93,8 @@ return function(x, y)
             type="CLOCKON"
         }
     }
+
+    e.onDeath = onDeath
 
     e.hp = {
         hp=1000;

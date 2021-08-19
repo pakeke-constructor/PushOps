@@ -249,8 +249,10 @@ function PushSys:moob(x, y, strength, distance)
                 (y-eY)*this_strength)
                 -- Push the entities away according to `strength` and distance.
 
-                -- Add Z velocity to bounce em up.
-                ent.vel.z = rand(150,350)
+                if ent.pos.z < 1 then -- if ent is on ground,
+                    -- Add Z velocity to bounce em up.
+                    ent.vel.z = rand(150,350)
+                end
             end
         end
     end

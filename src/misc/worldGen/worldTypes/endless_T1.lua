@@ -29,6 +29,8 @@ return {
     type="endless",
     tier=1,
 
+    music = "8bithideout_main1",
+
     enemies = {
         n=0;
         n_var=0;

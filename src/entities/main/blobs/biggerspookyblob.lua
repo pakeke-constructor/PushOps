@@ -116,7 +116,7 @@ return function(x,y)
 
     EH.FR(blob)
 
-    :add("colour", Tools.rand_choice(cols))
+    :add("colour", table.copy(Tools.rand_choice(cols)))
 
     return blob
 end
