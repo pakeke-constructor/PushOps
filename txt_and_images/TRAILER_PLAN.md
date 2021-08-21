@@ -129,7 +129,7 @@ Hi, I'm Oli, I'm the developer of PushOps.
     <scene_switch: switches to difference green grass scene (COLOURBLIND)>
 I'm here to help you decide whether this game is for you or not.
 
-This game is an action roguelike, with procedurely generated levels.
+Yeah, so this game is an action roguelike, with procedurely generated levels.
 
 <<MUSIC: beat change :: 0:10 >>
 

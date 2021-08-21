@@ -1,4 +1,24 @@
 
+# music_credit:
+{
+
+Thanks to HeatlyBros for kindly letting me use their music for free.
+
+HeatlyBros channel:
+https://www.youtube.com/channel/UCsLlqLIE-TqDq3lh5kU2PeA
+
+Lobby music: https://youtu.be/Fa_9fh_vML0 
+Zones I-III music:  https://youtu.be/ay-ccm07XmU
+Zones IV-V music:   https://youtu.be/Qa1D5pibGnE
+Zones VI-VII music: https://youtu.be/UHClzbbpTds
+Bossfight music:    https://youtu.be/NrNhn4HeGqs
+Endless lv music:   https://youtu.be/W-3kQA61iHA
+
+
+}
+
+
+
 
 # Main menu / lobby area:
 8 Bit hero

@@ -37,7 +37,7 @@ return {
 
     construct = function(wor,wmap)
         ccall("setGrassColour","green")
-        WH.lights(wor, wmap, 100, 120)
+        WH.lights(wor, wmap, 100, 150)
     end;
 
     entities = {
@@ -166,7 +166,7 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 6;
+                    tier = 1;
                     type = "basic";
                     x = 32;
                     y = 32
