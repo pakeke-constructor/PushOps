@@ -89,7 +89,7 @@ return {
                 local txt=EH.Ents.goodtxt(x,y+25, nil,
                     "PROUDLY MADE\nWITH LOVE 2D",
                     {0.9,0.4,0.8})
-                EH.Ents.love2d_logo(x,y)
+                EH.Ents.love2d_logo(x, y)
             end
         };
 
@@ -227,7 +227,7 @@ return {
                 ent.playerType = "glasses";
                 ent.playerPillarImage = EH.Quads['3d_player_down_1']
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 400
+                ent.playerCost = 500
             end
         };
 
@@ -238,7 +238,7 @@ return {
                 ent.playerType = "blind";
                 ent.playerPillarImage = EH.Quads.blind_player_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 800
+                ent.playerCost = 500
             end
         };
 
@@ -249,7 +249,7 @@ return {
                 ent.playerType = "cyclops";
                 ent.playerPillarImage = EH.Quads.cyclops_player_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 5000
+                ent.playerCost = 1500
             end
         };
 
@@ -260,7 +260,7 @@ return {
                 ent.playerType = "rainbow";
                 ent.playerPillarImage = EH.Quads.rainbow_display_character
                 ent.unownedPillarImage = EH.Quads.unknown_player
-                ent.playerCost = 10000
+                ent.playerCost = 1500
             end
         };
 
@@ -271,7 +271,7 @@ return {
                 ent.playerType = "bully";
                 ent.playerPillarImage = EH.Quads.bully_down_1
                 ent.unownedPillarImage = EH.Quads.unknown_bully
-                ent.playerCost = 30000
+                ent.playerCost = 10000
             end
         };
 
@@ -386,9 +386,9 @@ return {
 
                 --[[  love2d devs  ]]
                 local CR = {0.9,0.35,0.5}
-                EH.Ents.goodtxt(x+150, y+80, nil, "Made using LOVE2d", CR)
+                EH.Ents.goodtxt(x+150, y+140, nil, "Made using LOVE2d", CR)
                 local GRE = {0.2,0.4,0.2}
-                text(x+150, y+100, "Cheers to the devs:", GRE)
+                text(x+150, y+160, "Cheers to the devs:", GRE)
                 local devs = {"slime",
                             "Bartbes",
                             "bmelts",
@@ -396,9 +396,14 @@ return {
                               "And others."}
                 local LG = {.3,.5,.3}
                 for i,v in ipairs(devs)do
-                    text(x+150, y + 100 + (i*22), v, LG)
+                    text(x+150, y + 160 + (i*22), v, LG)
                 end
                 --[[==============]]
+
+                --[[==============]]
+                -- HeatlyBros                
+                EH.Ents.goodtxt(x + 150, y+80, nil, "All Music\nby HeatlyBros",
+                        {0.7, 0.1, 0.1})
             end
         }
     }

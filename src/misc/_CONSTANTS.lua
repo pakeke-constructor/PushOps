@@ -67,7 +67,7 @@ return{
                 -- TODO: Player should be able to change grass colour!
 ,
     GRASS_COLOURS = {
-        green = {0.4,1,0.5};
+        green = {0.3,1,0.4};
         aqua  = {100/255, 150/255, 240/255};
         yellow = {255/255, 250/255, 66/255}
     }

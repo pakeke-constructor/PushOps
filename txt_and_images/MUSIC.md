@@ -10,8 +10,8 @@ https://www.youtube.com/channel/UCsLlqLIE-TqDq3lh5kU2PeA
 Lobby music: https://youtu.be/Fa_9fh_vML0 
 Zones I-III music:  https://youtu.be/ay-ccm07XmU
 Zones IV-V music:   https://youtu.be/Qa1D5pibGnE
-Zones VI-VII music: https://youtu.be/UHClzbbpTds
-Bossfight music:    https://youtu.be/NrNhn4HeGqs
+Zones VI-VII music: https://youtu.be/NrNhn4HeGqs
+Bossfight music:    https://youtu.be/UHClzbbpTds 
 Endless lv music:   https://youtu.be/W-3kQA61iHA
 
 
@@ -51,18 +51,17 @@ https://youtu.be/Qa1D5pibGnE
 
 
 # Stages 6-7:
-Challenge Accepted
-
-    challenge_main1
-https://youtu.be/UHClzbbpTds
-
-
-# Bossfight:
 Game on!
 
     gameon_main1
 https://youtu.be/NrNhn4HeGqs
 
+
+# Bossfight:
+Challenge Accepted
+
+    challenge_main1
+https://youtu.be/UHClzbbpTds
 
 
 

@@ -27,7 +27,7 @@ local itemlist = require("src.misc.items.itemlist")
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
         local e=EH.Ents.itempillar(cam.x, cam.y + 50)
-        e.itemType = "iron_potion"
+        e.itemType = "blue_cross"
     end
 end
 

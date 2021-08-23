@@ -55,12 +55,11 @@ local callbacks = {
     "splat";
     "kill";
     "damage";
---[[
+
     "load";    -- These callbacks are specific to items
-    "reset";   -- (see src/misc/items)
-    "fullLoad"; 
+    "fullLoad";  -- (see src/misc/items)
     "fullReset"
-]]
+
 }
 
 
@@ -105,6 +104,9 @@ end
 function ItemSys:reset()
     for _, key in ipairs(callbacks) do
         callbackGroups[key] = nil
+    end
+    for k,v in pairs(flags)do
+        flags[k] = nil
     end
 end
 
