@@ -12,6 +12,8 @@ for name, item in pairs(items)do
     item.name = name
     setmetatable(item, mt)
 
+    assert(item.description, "Item didn't have description: "..item.name)
+
     item.callbacks = { } -- A list of string denoting callback names that 
                         -- this item tags into
 

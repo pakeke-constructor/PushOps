@@ -9,7 +9,9 @@ return {
             -- Does 50% extra damage
             ent.hp.hp = ent.hp.hp - (amount/2)
         end
-    end
+    end;
+
+    description = "Damage bosses more"
 }
 
 

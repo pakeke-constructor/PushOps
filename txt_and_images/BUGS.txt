@@ -1,15 +1,4 @@
 
-HP bar still grey when complete final level,
-and when have iron_potion upgrade
-
-
-
-
-
-
-
-
-
 
 
 Happened after entering a new level with minimap

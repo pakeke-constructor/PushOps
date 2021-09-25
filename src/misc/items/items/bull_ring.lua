@@ -16,5 +16,7 @@ return {
         if player.speed then
             player.speed.max_speed = player.speed.max_speed * 1.2
         end
-    end
+    end;
+
+    description = "Max speed increased"
 }

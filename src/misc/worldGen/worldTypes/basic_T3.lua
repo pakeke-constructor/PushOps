@@ -96,7 +96,7 @@ return {
 
     construct = function(wor,wmap,px,py)
         WH.zonenum(3,px,py)
-        WH.lights(wor, wmap, 15, 100)
+        WH.lights(wor, wmap, 15, 500)
     end;
 
     ratioWin = function(cam_x, cam_y)

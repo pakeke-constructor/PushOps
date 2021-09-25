@@ -37,7 +37,7 @@ return {
 
     construct = function(wor,wmap)
         ccall("setGrassColour","green")
-        WH.lights(wor, wmap, 100, 150)
+        WH.lights(wor, wmap, 150, 450)
     end;
 
     entities = {

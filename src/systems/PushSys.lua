@@ -48,22 +48,15 @@ end
 
 
 
-function PushSys:removed(ent)
-end
-
-
+local DEFAULT_SIZE = 12 -- 12 seems like a good default size for stuff
 
 function PushSys:update(dt)
     for _, e in ipairs(self.group) do
         local push_ent = e.pushing
         if Cyan.exists(push_ent) then
-            local range
-            if e.size then
-                range = e.size*5
-            else
-                range = 25 -- default range
-            end
-
+            local range = (
+                (e.size or DEFAULT_SIZE) + (push_ent.size or DEFAULT_SIZE)
+            )
             local epos = e.pos
             local ppos = push_ent.pos
             local dx, dy

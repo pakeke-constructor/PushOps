@@ -28,8 +28,11 @@ return {
                 end
             end
         end
-    end
+    end;
 
+    description =
+[[Taking damage spawns
+a mushroom block]]
 }
 
 

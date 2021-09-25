@@ -43,7 +43,9 @@ return {
                         30, 150, 4, 0.4, table.copy(PURPLE))
             end
         end
-    end
+    end;
+
+    description = "Reveals enemies on pull"
 }
 
 

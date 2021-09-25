@@ -14,7 +14,7 @@ do
     psys:setEmissionRate(120)
     psys:setRotation(0,math.pi*2)
     psys:setSpread(math.pi/2)
-    psys:setEmissionArea("uniform", 10,4)
+    psys:setEmissionArea("uniform", 20,8)
     psys:setColors({0.3,0.3,0.3,0.5}, {0.3,0.3,0.3,0.5})
     --psys:setSpin(-40,40)
     --psys:setRotation(0, 2*math.pi)
@@ -24,12 +24,14 @@ do
 end
 
 
-local _,_, w,h = Quads.slant_block:getViewport( )
-local block_shape = love.physics.newCircleShape(w/4)
+local _,_, w,h = Quads.big_slant_block:getViewport( )
+local size = w/4
+
+local block_shape = love.physics.newCircleShape(size)
 
 
 local sprites = {
-    Quads.slant_block, Quads.slant_block2
+    Quads.big_slant_block
 }
 
 
@@ -76,7 +78,7 @@ end
 return function(x,y)
     if (not x) or (not y) then error("hey! stop it") end
     local abs = math.abs
-    return Cyan.Entity()
+    local bb =  Cyan.Entity()
     :add("pos", math.vec3(x,y,0))
     :add("hp", {
         hp = 1000;
@@ -100,12 +102,15 @@ return function(x,y)
         required_vel = 2;
         amount = 0.9
     })
+    :add("size", size * 2)
     :add("onDeath", onDeath)
     --:add("collisions",collisions)   Turned these off for now
     :add("targetID", "physics")
-    :add("image", {quad = Tools.rand_choice(sprites), oy = 20})
-    :add("onUpdate", onUpdate)
+    :add("image", {quad = Tools.rand_choice(sprites)})
+    bb.draw.oy = bb.draw.oy + 10
+    bb:add("onUpdate", onUpdate)
     :add("hybrid", true)
+    return bb
 end
 
 

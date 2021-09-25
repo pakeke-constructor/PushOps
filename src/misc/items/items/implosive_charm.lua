@@ -16,6 +16,8 @@ return {
                 ccall("sound", "moob", 0.3, 1, 0, 0.2)
             end
         end
-    end
+    end;
+
+    description = "Enemies implode on death"
 }   
 

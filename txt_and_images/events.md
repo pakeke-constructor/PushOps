@@ -44,6 +44,10 @@ Called for each entity with `image` and `position` component
 # drawIndex ( z_depth )
 Called for every draw index, so systems can draw in order without caring for entity
 
+# finalDraw ()
+Called as the final callback before untransform is called.
+(TextSys uses this.)
+
 # transform  
 When all the transformations need to be applied, this func is called
 
@@ -83,6 +87,9 @@ Sends out (or in) a cool shockwave
 
 # spawnText ( x, y, text_str,  height=0, variance=0 )
 Spawns block-letter text "text_str" in at specified x,y, with z=height +- variance
+
+# message (x, y, text_str, duration, colour=WHITE, rot )
+Spawns a temporary message at X,Y that goes away after `duration` seconds.
 
 
 # keydown   ( keyname )

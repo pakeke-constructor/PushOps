@@ -22,7 +22,9 @@ return {
         if rand() <= 0.2 then
             ccall("await", spawnmush, 0, x,y)
         end
-    end
+    end;
+
+    description = "Splats spawn mushroom-blocks"
 }
 
 

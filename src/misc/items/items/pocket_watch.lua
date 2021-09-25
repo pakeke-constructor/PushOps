@@ -43,6 +43,8 @@ return {
                 ccall("apply", func, x, y, "enemy")
             end
         end
-    end
+    end;
 
+    description =
+[[Explosions slow nearby enemies]]
 }

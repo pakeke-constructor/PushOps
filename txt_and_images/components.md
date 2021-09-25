@@ -65,6 +65,7 @@ hardness = 10
 light = {
     colour = {1,1,1,1};
     distance = 100; -- radius of 100 pixels
+    height = 0.7; -- "height" of the light, defaults to 0.5
 }
 
 

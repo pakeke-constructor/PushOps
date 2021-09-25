@@ -19,7 +19,9 @@ return {
                 hp.hp = hp.hp - amount
             end
         end
-    end
+    end;
+
+    description = "Health down, damage up"
 }
 
 

@@ -98,7 +98,7 @@ end
 return {
     construct = function(wor,wmap,px,py)
         WH.zonenum(6, px,py)
-        WH.lights(wor, wmap, 15, 180)
+        WH.lights(wor, wmap, 15, 500)
         ccall("setGrassColour", "yellow")
     end;
     destruct = function(  )

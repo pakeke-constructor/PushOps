@@ -17,6 +17,9 @@ return {
                 ccall("sound", "boom", .5)
             end
         end
-    end
+    end;
+
+    description = "Enemies explode on death"
+
 }   
 

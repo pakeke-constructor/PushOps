@@ -187,6 +187,8 @@ local function mainDraw()
 
     drawShockWaves()
 
+    ccall("finalDraw")
+
     ccall("untransform")
 end
 

@@ -4,6 +4,7 @@
 
 Shader for minimap
 
+(UN-USED)
 
 */
 
@@ -110,7 +111,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     }
 
     if (devilblind){
-        // switch red and green! oooo
+        // switch red and green
         float r_temp;
         r_temp = final[0];
         final[0] = final[1];

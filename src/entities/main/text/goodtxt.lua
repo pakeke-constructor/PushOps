@@ -25,7 +25,7 @@ return function(x,y,z, text, colour, fade)
         back_txt:add("pos",math.vec3(x+1,y-1-(z/2),z))
     end
     back_txt:add("text",text)
-    :add("colour", {colour[1]/2,colour[2]/2,colour[3]/2})
+    :add("colour", {colour[1]/2 - 0.2,colour[2]/2 - 0.2,colour[3]/2 - 0.2})
     
 
     local front_txt = Cyan.Entity()

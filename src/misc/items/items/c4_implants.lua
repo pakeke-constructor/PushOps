@@ -32,6 +32,9 @@ return {
 
     update = function(player, dt)
         cooldown = cooldown - dt
-    end
+    end;
+
+    description = "Speed down, Instability up"
 }
+
 

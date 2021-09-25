@@ -4,12 +4,13 @@
 local TextSys = Cyan.System("text", "pos")
 --[[
 
-
-static system responsible for spawning block text ents
-
+Responsible for spawning block letter text, 
+rendering temporary messages,
+and drawing text above entities.
 
 
 ]]
+
 
 
 local LETTER_WIDTH = 28
@@ -103,6 +104,97 @@ function TextSys:sparseupdate(dt)
 end
 
 
+
+local messages = Tools.set()
+
+local WHITE = {1,1,1}
+
+function TextSys:message(x,y, str, duration, colour, rot)
+    --[[
+        Spawns a text message at X, Y that slowly blinks out of existance.
+    ]]
+    local msg = {
+        time = 0;
+        duration = duration;
+        x = x, y = y,
+        str = str,
+        colour = colour or WHITE,
+        rot = rot,
+        ox = FONT:getWidth(str)/2,
+        oy = FONT:getHeight(str)/2
+    }
+    messages:add(msg)
+end
+
+
+local BLINK_THRESHHOLD = 1 -- starts blinking with 2 seconds left
+local BLINK_FREQ = 0.2 -- blinks every 0.15 seconds
+
+
+
+local rembuffer = {}
+
+function TextSys:update(dt)
+    for i, msg in ipairs(messages.objects) do
+        -- update msg object
+        msg.time = msg.time + dt
+        if msg.time > msg.duration then
+            table.insert(rembuffer, msg)
+        end
+    end 
+
+    for i=1,#rembuffer do
+        local m = rembuffer[i]
+        messages:remove(m)
+        rembuffer[i] = nil
+    end
+end
+
+
+function TextSys:purge()
+    messages:clear()
+end
+
+
+
+local function getAlpha(msg)
+    --[[
+        returns an opacity value (0 or 1) that determines
+        the opacity of each message object.
+        
+        We do this so the msg objects appear to "blink" when they are
+        about to disappear.
+    ]]
+    local tleft = msg.duration - msg.time
+    
+    if (tleft < BLINK_THRESHHOLD) then
+        return (math.sin(tleft * (math.pi*2) / BLINK_FREQ) * 0.95 + 1.02)
+    end
+    return 1
+end
+
+
+local setColor = love.graphics.setColor
+local lgprint = love.graphics.print
+
+local BG_OFFSET = 1 -- pixels for the background offset of text
+
+local function drawmsg(msg)
+    local alpha = getAlpha(msg)
+    setColor(msg.colour[1]/2 - 0.3, msg.colour[2]/2 - 0.3, msg.colour[3]/2 - 0.3, alpha)
+    lgprint(msg.str, msg.x + BG_OFFSET, msg.y - BG_OFFSET, msg.rot or 0, 1, 1, msg.ox, msg.oy)
+    lgprint(msg.str, msg.x - BG_OFFSET, msg.y + BG_OFFSET, msg.rot or 0, 1, 1, msg.ox, msg.oy)
+
+    setColor(msg.colour[1], msg.colour[2], msg.colour[3], alpha)
+    lgprint(msg.str, msg.x, msg.y, msg.rot or 0, 1, 1, msg.ox, msg.oy)
+end
+
+
+function TextSys:finalDraw()
+    for i, msg in ipairs(messages.objects) do
+        drawmsg(msg)
+    end
+end
 
 
 

@@ -55,6 +55,8 @@ return {
                 ccall("setPos", blocks[2], px - x, py - y)
             end
         end
-    end
+    end;
+
+    description = "Defensive orbitals"
 }
 

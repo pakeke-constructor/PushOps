@@ -98,7 +98,7 @@ return {
         
     construct = function(wor,wmap, px, py)
         WH.zonenum(2, px,py)
-        WH.lights(wor, wmap, 15, 120)
+        WH.lights(wor, wmap, 15, 500)
     end;
 
 

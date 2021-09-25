@@ -7,11 +7,6 @@ local Ents = require("src.entities")
 local cam = require("src.misc.unique.camera")
 
 
-
---[[ ]]
---]]
-
-
 local rand = love.math.random
 
 
@@ -26,8 +21,8 @@ local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
     if k=="e"then
-        local e=EH.Ents.itempillar(cam.x, cam.y + 50)
-        e.itemType = "blue_cross"
+        local x=EH.Ents.itempillar(cam.x + 20, cam.y)
+        x.itemType = "iron_potion"
     end
 end
 

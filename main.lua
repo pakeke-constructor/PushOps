@@ -28,7 +28,6 @@ do
     local Ent = Cyan.Entity
     _G.Cyan.Entity = function()
         return Ent()
-        -- hahahhahaha
         :add("rot", love.math.random()*2*math.pi)
         :add("avel", love.math.random()/20)
     end

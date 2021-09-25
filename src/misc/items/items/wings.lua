@@ -10,7 +10,9 @@ return {
             spd.speed = spd.speed * 1.15
             spd.max_speed = spd.max_speed * 1.15
         end
-    end
+    end;
+
+    description = "Speed up"
 }
 
 

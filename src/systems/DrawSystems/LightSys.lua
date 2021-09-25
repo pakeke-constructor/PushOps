@@ -3,11 +3,12 @@
 local LightSys = Cyan.System("light")
 
 -- shader consts.
-local BASE_LIGHTING = {0.4, 0.4, 0.4, 1}
+local BASE_LIGHTING = {0.76,0.76,0.76,1}--{0.4, 0.4, 0.4, 1}
 local MAX_LIGHT_STRENGTH = 0.65
 local NUM_LIGHTS = 20 -- max N
 local BRIGHTNESS_MODIFIER = 4 -- all light strengths divided by 100
 
+local DEFAULT_HEIGHT = 0.5
 
 
 local cam = require("src.misc.unique.camera")
@@ -36,7 +37,7 @@ end
 
 
 
-local function send(e, light_positions, light_colours, light_distances)
+local function send(e, light_positions, light_colours, light_distances, light_heights)
     local x,y = cam:toCameraCoords(
         e.pos.x,
         e.pos.y
@@ -44,6 +45,7 @@ local function send(e, light_positions, light_colours, light_distances)
     table.insert(light_positions, {x,y})
     table.insert(light_colours,   e.light.colour)
     table.insert(light_distances, e.light.distance * cam.scale)
+    table.insert(light_heights,   e.light.height or DEFAULT_HEIGHT)
 end
 
 
@@ -93,10 +95,12 @@ function LightSys:update()
     local light_positions = {}
     local light_colours   = {}
     local light_distances = {}
+    local light_heights   = {}
 
     for _, e in ipairs(self.group)do
         if Tools.distToPlayer(e, cam) < 1000 then
-            send(e, light_positions, light_colours, light_distances)
+            send(e, light_positions, light_colours,
+                    light_distances, light_heights)
         end
     end
 
@@ -109,6 +113,7 @@ function LightSys:update()
         table.insert(light_positions, {0,0})
         table.insert(light_colours  , {0,0,0,0})
         table.insert(light_distances, 0)
+        table.insert(light_heights, 0)
     end
 
     local unpack = table.unpack or unpack -- F**CK. This breaks JIT, I didnt want to do this. No choice tho
@@ -118,9 +123,10 @@ function LightSys:update()
     shader:send("light_positions", unpack(light_positions))
     shader:send("light_colours"  , unpack(light_colours))
     shader:send("light_distances", unpack(light_distances))
+    shader:send("light_heights",   unpack(light_heights))
     shader:send("num_lights", NUM_LIGHTS)
     shader:send("base_lighting", BASE_LIGHTING)
-    shader:send("max_light_strength", MAX_LIGHT_STRENGTH)
-    shader:send("brightness_modifier", BRIGHTNESS_MODIFIER)
+    --shader:send("max_light_strength", MAX_LIGHT_STRENGTH)
+    --shader:send("brightness_modifier", BRIGHTNESS_MODIFIER)
 end
 

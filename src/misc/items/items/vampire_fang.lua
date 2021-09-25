@@ -7,7 +7,11 @@ return {
         if ent.pos and ent.targetID=="enemy" then
             EH.Ents.lifetok(ent.pos.x,ent.pos.y)
         end
-    end
+    end;
+
+    description = "Strong lifesteal"
 }
+
+
 
 

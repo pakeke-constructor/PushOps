@@ -63,7 +63,7 @@ return{
 ,
     runtime = 0 -- The time currently taken in the run (note that menu counts as a run)
 ,
-    grass_colour = {0.4,1,0.5} -- colour of ground grass    
+    grass_colour = {0.3,1,0.4}-- colour of ground grass    
                 -- TODO: Player should be able to change grass colour!
 ,
     GRASS_COLOURS = {

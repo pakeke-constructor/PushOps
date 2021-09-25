@@ -13,6 +13,8 @@ return {
                 player.hp.hp = player.hp.hp + 15*dt
             end
         end
-    end
+    end;
+
+    description = "Standing still gives HP"
 }
 

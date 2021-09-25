@@ -3,9 +3,10 @@
 // main shader ==>
 
 // lights
-uniform vec4 light_colours[20]; // max 20 lights at once
-uniform vec2 light_positions[20];
-uniform int  light_distances[20]; // this distance a light can be bright
+uniform vec4  light_colours[20]; // max 20 lights at once
+uniform vec2  light_positions[20];
+uniform int   light_distances[20]; // this distance a light can be bright
+uniform float light_heights[20];
 
 uniform int  num_lights;
 uniform float max_light_strength; // the max light strength (good number is like 0.2 or something)
@@ -25,6 +26,7 @@ uniform bool navyblind;
 
 
 
+
 // thanks to stackoverflow.com/users/350875/appas for this function!
 // very good pseudorandom generator
 float rand(vec2 co){
@@ -32,30 +34,24 @@ float rand(vec2 co){
 }
 
 
-vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+float hillfunc(int radius, float x, float height) {
+    float u = (max(0,(-abs(x)/radius) + height));
+    return u; 
+}
+
+
+vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
 {
-    // Lighting :::
-    vec4 light_mod = base_lighting;
-    //vec2 middle_of_screen = love_ScreenSize.xy/2;
-    vec4 adding_light;
+
+    vec4 light = base_lighting;
 
     for(int i=0; i<num_lights; i++){
-        //adding_light = vec4(0,0,0,1);
         float dist_to_light = length(screen_coords - light_positions[i]);
-        //if (dist_to_light < light_distances[i]){
-        
-        adding_light = ((light_colours[i]*light_distances[i]))
-                        / ((dist_to_light) * brightness_modifier);
-        // Cap the light brightness so it cannot be too bright
-        adding_light.x = max(min(max_light_strength, adding_light.x), -max_light_strength);
-        adding_light.y = max(min(max_light_strength, adding_light.y), -max_light_strength);
-        adding_light.z = max(min(max_light_strength, adding_light.z), -max_light_strength);
-        
-        //}
-        light_mod += adding_light;
+        float strength = hillfunc(light_distances[i], dist_to_light, light_heights[i]);
+        light += light_colours[i] * strength;
     }
-    light_mod.w = 0;
 
+    light.w = 1;
 
     // filmgrain :::
     vec2 sc;
@@ -75,18 +71,19 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     //color = Texel(texture, tc);
     //return  (color*am);
 
-    vec4 colour = Texel(texture, texture_coords);
+    vec4 sprite_colour = Texel(texture, texture_coords);
 
-    for (int n=0;n<4;n++){
-        light_mod[n] = min(1, light_mod[n]);
-    }
 
-    color[0] *= r;
-    color[1] *= g;
-    color[2] *= b;
+    colour[0] *= r;
+    colour[1] *= g;
+    colour[2] *= b;
+
+
+    vec4 addlight = vec4(light.xyz, 0);
 
     vec4 final;
-    final = originally  colour * color * light_mod;
+    light = max(light, base_lighting);
+    final = sprite_colour * colour * light;// + addlight/5;
 
     if (colourblind){
         // switch blue and green
@@ -112,7 +109,6 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
         final[0] = n_temp;
     }
 
-    final.xyz = max(final.xyz, vec3(.12));
     return final;
 }
 

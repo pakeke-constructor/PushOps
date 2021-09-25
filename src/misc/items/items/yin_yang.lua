@@ -1,6 +1,7 @@
 
 return {
     -- Self explanatory
+    description = "Balance is key"
 }
 
 --[[
@@ -16,3 +17,4 @@ TODO:
         a new character should be unlocked
         >
 ]]
+
