@@ -1,6 +1,7 @@
 
-# superPush
-Hi, this is my game. Not sure if it will be finished
+# PushOps
+Hi, this is my game!
+Here is a [video demo](https://youtu.be/q7SY_eWbJjM)
 
 ![menu](https://i.ibb.co/nqXV7pV/menu.png)
 
