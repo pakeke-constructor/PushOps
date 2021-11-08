@@ -4,8 +4,12 @@
 # Next time I develop a game in love2d, remember these things:
 
 Don't forget to use hybrid OOP and ECS!!
-EG: if I ever add upgrades for this game, I should make one base "upgrade entity",
-    and have all other upgrades extend the base upgrade entity
+
+
+
+Items definitely should have been an entity, rather than some obscure object
+handled by some arbitrary system.
+They DEFINITELY should have been entities.
 
 
 
@@ -17,5 +21,6 @@ Make sure to keep stuff like worldGen clean. None of that
 Always try use components for stuff if you can. I.e. instead of doing
 ccall("sound","hit") in physColFuncs, add a `hitsound` component, or
 something along those lines.
+
 
 

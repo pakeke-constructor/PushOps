@@ -20,3 +20,23 @@ Make it so you have to pass 2 levels of the same type
 
 
 
+
+
+
+EXTRA:
+Add dash with spacebar that stuns enemies, and slightly knocks up all
+entities into the air that it passed thru
+Alternatively, the dash could pull 
+
+Aesthetically: Google the Pyke dash ability from League of legends
+
+
+
+
+
+
+
+
+
+
+

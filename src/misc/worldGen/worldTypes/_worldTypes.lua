@@ -60,7 +60,7 @@ req_TREE(PATH)
 
 
 local defaultEntExclusionZones =
-require(PATH:gsub("worldTypes", "").."defaultEntExclusionZones")
+require(PATH:gsub("worldTypes", ""):gsub("%/",".").."defaultEntExclusionZones")
 
 
 

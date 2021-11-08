@@ -157,10 +157,10 @@ end
 function Tools.assertNoDuplicateRequires()
     local cache = {}
     for k,v in pairs(package.loaded) do
-        if cache[k:lower()] then
+        if cache[k:lower():gsub("%/",".")] then
             error("DUPLICATE LUA FILE IN PACKAGE.LOADED:  "..k)
         end
-        cache[k:lower()]=k
+        cache[k:lower():gsub("%/",".")]=k
     end
 end
 

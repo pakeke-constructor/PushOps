@@ -305,8 +305,7 @@ local function makeEnts(world)
                 local height
                 if world.heightMap then
                     if not world.heightMap[x] then
-                        print("wmap x?? ",worldMap[x])
-                        error()
+                        error("wmap x?? ",worldMap[x])
                     end
                     height = world.heightMap[x][y]
                 end
