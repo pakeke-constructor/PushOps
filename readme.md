@@ -3,6 +3,14 @@
 Hi, this is my game!
 Here is a [video demo](https://youtu.be/q7SY_eWbJjM)
 
+A lot of the code here was written when I was still learning,
+so excuse the inconsistent style :P
+
+
+# About this code-base
+## TODO:
+## There needs to be a short overview of this codebase and how to navigate it.
+
 ![menu](https://i.ibb.co/nqXV7pV/menu.png)
 
 ![ingame](https://i.ibb.co/rG5xbkt/ingame.png)
@@ -12,11 +20,11 @@ Here is a [video demo](https://youtu.be/q7SY_eWbJjM)
 
 `WASD` to move.
 
-`K`  to push
+Arrow keys to push and pull.
 
-`L` to pull
+`escape` to pause.
 
-`I` and `O` to zoom in and out, but this is just temporary for debug probs
+
 
 # build into exe: 
 ## windows:
