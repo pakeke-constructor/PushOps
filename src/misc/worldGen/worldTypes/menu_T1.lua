@@ -10,6 +10,9 @@ local rand = love.math.random
 
 local endless_map = require("src.misc.worldGen.maps.endless_map")
 
+local ZONE_GAME_TXT_COLOUR = {0.1,0.7,0.1}
+local ENDLESS_GAME_TXT_COLOUR = {0.7,0.1,0.1}
+
 local function tokenTextUpdateFn(ent)
     if ent.tokens_displayed ~= savedata.tokens then
         ent.text = "Tokens: "..tostring(savedata.tokens)
@@ -172,7 +175,7 @@ return {
                     y = 32
                 }
                 
-                EH.Ents.goodtxt(x,y+10, nil,"ZONE I",{0.1,0.7,0.1}, 250)
+                EH.Ents.goodtxt(x,y+10, nil,"ZONE I",ZONE_GAME_TXT_COLOUR, 250)
             end
         };
 
@@ -188,7 +191,7 @@ return {
                     map = endless_map;
                 }
 
-                EH.Ents.goodtxt(x,y+10, nil,"ENDLESS",{0.7,0.1,0.1}, 250)
+                EH.Ents.goodtxt(x,y+10, nil,"ENDLESS",ENDLESS_GAME_TXT_COLOUR, 250)
             end
         };
 
@@ -404,6 +407,18 @@ return {
                 -- HeatlyBros                
                 EH.Ents.goodtxt(x + 150, y+80, nil, "All Music\nby HeatlyBros",
                         {0.7, 0.1, 0.1})
+            end
+        };
+
+        ["r"] = {
+            max=1;
+            function(x,y)
+                EH.Ents.goodtxt(x, y, nil,
+                    "ZONES BEST TIME: " .. Tools.totime(savedata.basic_time)
+                    ,ZONE_GAME_TXT_COLOUR)
+                EH.Ents.goodtxt(x, y + 50, nil,
+                    "ENDLESS LONGEST RUN: " .. Tools.totime(savedata.endless_time)
+                    ,ENDLESS_GAME_TXT_COLOUR)
             end
         }
     }

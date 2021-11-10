@@ -64,7 +64,6 @@ end
 
 
 
-
 local utf8 = require("utf8")
  
 local function error_printer(msg, layer)
@@ -72,15 +71,6 @@ local function error_printer(msg, layer)
 end
  
 function _G.love.errorhandler(msg)
-	
-	if rawget(_G, "Cyan") then
-		local cyan = rawget(_G, "Cyan")
-		if cyan.call then
-			cyan.call("quit") -- Try and save user's data last second....
-			-- please please PLEASE work
-		end
-	end
-
 	msg = tostring(msg)
  
 	error_printer(msg, 2)
@@ -130,7 +120,7 @@ function _G.love.errorhandler(msg)
  
 	local err = {}
  
-	table.insert(err, "I am deeply sorry, there has been an error!\nIf you can, please contact Oli and show a full screenshot of this screen. TY!\n       PLATFORM : "
+	table.insert(err, "ahhh crap man, its error time.\nIf you can, please contact Oli and show a full screenshot of this screen. TY!\n       PLATFORM : "
 					..tostring(love.system.getOS() or "unknown OS"))
 	table.insert(err, sanitizedmsg)
  
@@ -205,11 +195,6 @@ function _G.love.errorhandler(msg)
 	end
  
 end
-
-
-
-
-
 
 
 

@@ -102,7 +102,7 @@ return{
         devilblind = false;
         navyblind = false;
 
-        basic_time = math.huge;
+        basic_time = 0xffffffffff;
         endless_time = 0;
 
         playerType = "red";

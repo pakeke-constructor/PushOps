@@ -33,6 +33,19 @@ Tools.Path = function(str)
     return str:gsub('%.[^%.]+$', '')
 end
 
+
+local MAX_TIME = 0xfffffffffe
+
+function Tools.totime(seconds)
+    if seconds > MAX_TIME or seconds == 0 then
+        return "None"
+    end
+    -- converts seconds to a readable minute: second format.
+    return tostring(math.floor(seconds / 60)) .. ":" .. tostring(math.floor(seconds % 60))
+end
+
+
+
 local this_pth = Tools.Path(...)
 
 Tools.req_TREE = require(this_pth .. ".req_TREE")

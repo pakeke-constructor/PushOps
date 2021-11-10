@@ -39,12 +39,16 @@ function SaveDataSys:quit()
     data.colourblind = CONSTANTS.COLOURBLIND
     data.devilblind = CONSTANTS.DEVILBLIND
     data.navyblind = CONSTANTS.NAVYBLIND
-
-    love.filesystem.write(CONSTANTS.SAVE_DATA_FNAME, json.encode(data))
+    
+    local succ, err = love.filesystem.write(CONSTANTS.SAVE_DATA_FNAME, json.encode(data))
+    if not succ then
+        error(err)
+    end
 end
 
-function SaveDataSys:update()
+function SaveDataSys:keypressed(k)
+    if k == "k" then -- FOR TESTING ONLY.
+       SaveDataSys:quit()
+    end
 end
-
-
 
