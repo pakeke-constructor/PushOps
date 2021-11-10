@@ -9,6 +9,7 @@ end
 local WH = require("src.misc.worldGen.WH")
 local menu_map = require("src.misc.worldGen.maps.menu_map")
 
+local savedata = require("src.misc.unique.savedata")
 
 local Ents=EH.Ents
 local rand = love.math.random
@@ -42,13 +43,15 @@ return {
         ccall("shockwave", x, y, 10, 700, 30, .57, {0.8,0.05,0.05})
         ccall("spawnText", x, y, "gg", 750,100)
         ccall("await", goToMenu, 4)
+
+        savedata.endless_time = math.max(savedata.endless_time, CONSTANTS.runtime)
     end;
 
     construct = function(wor,wmap,px,py)
         ccall("spawnText", px, py - 160, "endless", 1200, 260)
         ccall("spawnText", px, py + 160, "endless", 1200, 260)
 
-        WH.lights(wor, wmap, 15, 150)
+        WH.lights(wor, wmap, 15, 250)
     end;
 
     entities = {

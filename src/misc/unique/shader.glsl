@@ -23,12 +23,17 @@ uniform bool devilblind;
 uniform bool navyblind;
 
 
+// camera position
+uniform float camx;
+uniform float camy;
+
+
 
 
 // thanks to stackoverflow.com/users/350875/appas for this function!
 // very good pseudorandom generator
 float rand(vec2 co){
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+    return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
 }
 
 
@@ -62,12 +67,14 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     sc.x = screen_coords.x;
     sc.y = screen_coords.y;
 
-    sc.x = floor(sc.x/period);
-    sc.y = floor(sc.y/period);
+    sc.x = floor(sc.x/period) + camx;
+    sc.y = floor(sc.y/period) + camy;
 
-    float r = 0.9 + amount * rand(sc);
-    float g = 0.9 + amount * rand(sc + 91);
-    float b = 0.9 + amount * rand(sc + 213);
+    float noise = rand(sc); 
+
+    float r = 0.9 + amount * noise;
+    float g = 0.9 + amount * noise;
+    float b = 0.9 + amount * noise;
 
     // ORIGINAL ::
     // float am = 0.9 + amount * rand(sc);

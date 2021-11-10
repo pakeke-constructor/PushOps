@@ -14,6 +14,8 @@ tier 8
 local Ents = require("src.entities")
 local WH = require("src.misc.worldGen.WH")
 
+local savedata = require("src.misc.unique.savedata")
+
 local menu_map = require("src.misc.worldGen.maps.menu_map")
 
 local rand = love.math.random
@@ -41,6 +43,8 @@ local function spawn_portal(x, y)
         map = menu_map;
         minimap = EH.Quads.menu_minimap
     }
+
+    savedata.basic_time = math.min(savedata.basic_time, CONSTANTS.runtime)
 end
 
 

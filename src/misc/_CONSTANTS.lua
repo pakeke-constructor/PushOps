@@ -1,5 +1,14 @@
 
+--[[
 
+WOOPS! Sorry, I lied.
+
+Not everything here is a constant.
+
+Everything in UPPER_CASE is a constant,
+The stuff in snake_case probably aren't constants.
+
+]]
 return{
     PLAYER_SPEED = 170
 ,
@@ -93,6 +102,9 @@ return{
         devilblind = false;
         navyblind = false;
 
+        basic_time = math.huge;
+        endless_time = 0;
+
         playerType = "red";
 
         sfx_volume = 0.4;
@@ -106,6 +118,9 @@ return{
     DEVILBLIND  = false --==>>>  swaps red-green
 ,
     NAVYBLIND   = false --==>>>  swaps blue-red
+,
+    SHADER_NOISE_AMOUNT = 0.07,
+    SHADER_NOISE_PERIOD = 5
 ,
     minimap_enabled = true
 ,

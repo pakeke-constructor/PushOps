@@ -18,6 +18,9 @@ local floor = math.floor
 local Atlas = require("assets.atlas")
 local font = require("src.misc.unique.font")
 
+local tileAtlas = require("assets.tile_atlas").atlas
+local tiles = require("assets.tile_atlas").tiles
+
 local push = require("libs.NM_push.push")
 
 --[[push:setupScreen(
@@ -129,6 +132,7 @@ end
 
 
 
+
 local ccall = Cyan.call
 local lg = love.graphics
 
@@ -139,9 +143,29 @@ local rawget = rawget
 local ipairs = ipairs
 
 local camera = require("src.misc.unique.camera")
+local shader = require("src.misc.unique.shader")
+
 local drawShockWaves
 
 local setFont = love.graphics.setFont
+
+
+local function drawGrass(screen_w, screen_h)
+    love.graphics.setColor(CONSTANTS.grass_colour)
+    local LEIGHWAY = 100
+    local OFFSET_LEIGHWAY = 10
+    for x=-LEIGHWAY, screen_w + LEIGHWAY, 64-OFFSET_LEIGHWAY do
+        for y=-LEIGHWAY, screen_h + LEIGHWAY, 64-OFFSET_LEIGHWAY do
+            local wx, wy = camera:toWorldCoords(x, y)
+            wx = math.floor(wx / 64) * 64
+            wy = math.floor(wy / 64) * 64
+            love.math.setRandomSeed(wx + wy)
+            local tile = Tools.rand_choice(tiles)
+            tileAtlas:draw(tileAtlas.quads[tile], wx, wy)
+        end
+    end
+    love.math.setRandomSeed(love.timer.getTime())
+end
 
 
 local function mainDraw()
@@ -154,9 +178,14 @@ local function mainDraw()
     local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
 
+    shader:send("amount", CONSTANTS.SHADER_NOISE_AMOUNT / 3)
+
     setColor(CONSTANTS.grass_colour)
     lg.rectangle("fill", -10000,-10000, 20000,20000)
+    drawGrass(w, h)
+    -- TODO:: reduce noise ampliude for drawing grass.
 
+    shader:send("amount", CONSTANTS.SHADER_NOISE_AMOUNT)
     setColor(1,1,1)
 
     local indx_set

@@ -84,6 +84,9 @@ function atlas:add(sprite, quad)
         sprite = lg.newImage(sprite_path)
         local width,height = sprite:getWidth(), sprite:getHeight()
         local new = self.binpack:insert(width+1, height+1)
+        if (not new) then
+            error("Atlas ran out of space! file name: ".. tostring(sprite_path))
+        end
         -- Converting Image to Canvas:
         local temp_canvas = lg.newCanvas(width, height)
         lg.setCanvas(temp_canvas)

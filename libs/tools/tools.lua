@@ -20,8 +20,8 @@ Tools.edist = function(e1, e2)
     return (e1.pos - e2.pos):len()
 end
 
-Tools.rand_choice = function(Tools)
-    return Tools[floor(rand(1, #Tools))]
+Tools.rand_choice = function(tab)
+    return tab[floor(rand(1, #tab))]
 end
 Tools.random_choice = Tools.rand_choice -- alias
 
