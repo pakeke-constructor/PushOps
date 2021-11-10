@@ -142,7 +142,6 @@ return {
     ["e"] = {
         max = 200;
         function(x,y)
-            EH.Ents.light(x,y)
             for i=-1,rand(1,2) do
                 local f = enemySpawns()
                 f(x+(i-1)*40, y+(i-1)*40)

@@ -20,10 +20,7 @@ local lg = love.graphics
 local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
-    if k=="e"then
-        local x=EH.Ents.itempillar(cam.x + 20, cam.y)
-        x.itemType = "iron_potion"
-    end
+    -- MAKE SURE STUFF ISNT PUT HERE ON RELEASE!
 end
 
 function DEBUG_SYS:_draw()

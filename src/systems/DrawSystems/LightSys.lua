@@ -129,4 +129,3 @@ function LightSys:update()
     --shader:send("max_light_strength", MAX_LIGHT_STRENGTH)
     --shader:send("brightness_modifier", BRIGHTNESS_MODIFIER)
 end
-

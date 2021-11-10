@@ -164,7 +164,7 @@ local function drawGrass(screen_w, screen_h)
             tileAtlas:draw(tileAtlas.quads[tile], wx, wy)
         end
     end
-    love.math.setRandomSeed(love.timer.getTime())
+    love.math.setRandomSeed(3000 * (CONSTANTS.runtime % 234.33454))
 end
 
 

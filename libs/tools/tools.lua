@@ -134,7 +134,7 @@ end
 
 
 local getWidth, getHeight = love.graphics.getWidth, love.graphics.getHeight
-local RANGE_LEIGHWAY = 300
+local RANGE_LEIGHWAY = 400
 
 function Tools.isOnScreen(e, cam)
     --[[

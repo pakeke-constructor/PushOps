@@ -9,7 +9,6 @@ local START_SPAWN_MIN = 2 -- starting spawn rates
 local START_SPAWN_MAX = 4
 
 
-
 local rand = love.math.random
 
 
@@ -93,6 +92,8 @@ local function onUpdate( ent,dt )
         makeGameHarder(ent)
         ent._mediator_epoch_time = 0
     end
+
+    ent.text = Tools.totime(CONSTANTS.runtime)
 end
 
 
@@ -183,6 +184,9 @@ return function(x,y)
 
     e._mediator_epoch_time = 0 -- Time since last spawner change
     e._mediator_spawn_time = 0 -- Time since last spawn 
+
+    e.pos = math.vec3(x,y+100,50)
+    e.text = "0:0"
 
     e.onUpdate = onUpdate
     e.hybrid = true

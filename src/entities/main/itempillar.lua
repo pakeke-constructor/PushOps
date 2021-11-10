@@ -81,7 +81,7 @@ return function(x,y)
     :add("onInteract", onInteract)
     EH.PHYS(ip, 7, "static")
     EH.BOB(ip)
-    ip.draw.oy = 30
+    ip.draw.oy = 32
 
     ip.onDraw = onDraw
     ip.hybrid = true
