@@ -114,7 +114,7 @@ local function getNormalizedBias(bX, bY, eX, eY, bias_group, bias_angle)
 
     for e in partition_targets[bias_group]:iter(eX, eY) do
         local x,y = e.pos.x, e.pos.y
-        if x ~= eX and y ~= eY then
+        if x ~= eX or y ~= eY then
             -- checking that we aren't comparing an ent to itself!!
             local obj_to_target = math.vec3(x - eX, y - eY, 0):normalize( )
             if obj_to_target:dot(boom_to_obj) > dot_value then
