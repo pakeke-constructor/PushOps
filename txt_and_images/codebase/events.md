@@ -3,7 +3,7 @@
 Any callback starting with `_` is a private callback.
 (Used for communicating between systems)
 
-
+```c
 
 # update   ( dt )
 Called every frame
@@ -25,7 +25,8 @@ Called when love2d quits
 Applies function `func` `time` seconds later with args `...`
 (KINDA EXPENSIVE)
 
-# apply ( func, x, y, targetID = <all> )
+
+# apply ( func, x, y, targetID = nil )
 Applies function `func` to all ents in spatial partition at x,y,
 with signature:    func( ent, x, y )
 
@@ -76,10 +77,10 @@ emits a burst of particles of `emitter_type` at x,y,z.
 types:  {  guts  beam  dust   smoke  ... }
 
 
-# animate ( animationType, x, y, z, frame_len, cycles=1,
-#            colour={1,1,1}, track_ent=nil, hide_ent=false )
+# animate ( animationType, x, y, z, frame_len, cycles=1, colour={1,1,1},  track_ent=nil, hide_ent=false )
 Plays animation at x,y,z with specified frame length, and can track an entity.
 NOTE: The animation z depth won't change even when the entity moves! So tracking is only good for short animations
+
 -> see `src.misc.animation._types` for a list of types
 
 # shockwave ( x, y, start_size, end_size, thickness, time, colour=WHITE )
@@ -88,7 +89,7 @@ Sends out (or in) a cool shockwave
 # spawnText ( x, y, text_str,  height=0, variance=0 )
 Spawns block-letter text "text_str" in at specified x,y, with z=height +- variance
 
-# message (x, y, text_str, duration, colour=WHITE, rot )
+# message (x, y, text_str, duration, colour=WHITE, rot=0 )
 Spawns a temporary message at X,Y that goes away after `duration` seconds.
 
 
@@ -110,7 +111,7 @@ See `soundSys` for a more detailed explanation on how sound files are handled
 
 
 # boom (x, y, strength, distance, 
-#                       [vx, vy, bias_group, bias_angle]  )  -- optional args
+#         vx=0, vy=0, bias_group=nil, bias_angle=0  )
 Pushes all close entities away from pos
 bias_group allows you to target certain groups
 bias_angle is the angle in radians that `boom` will target.
@@ -225,3 +226,5 @@ appropriate destruct/construct callbacks.
 Called when world has finished generating,
 and after the entities have spawned.
 
+
+```

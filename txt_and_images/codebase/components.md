@@ -4,9 +4,6 @@
 
 -- This file is only kept as a reference for what components look like.
 
--- CURRENTLY  27 / 32   BITS OF COMPONENT MASK HAVE BEEN USED!!!
--- KEEP THIS NUMBER DOWN
-
 
 
 hp = { 
@@ -19,27 +16,24 @@ hp = {
 }
 
 
-armour = 2; -- Damage reduced by 2 times (defaults to 1.)
 
-onDeath = function(e) end -- callback for when ent dies.
-onDamage = function(e, dmg) end -- callback for taking dmg
-onBoom   = function(e, x,y, strength) end -- callback for `boom`.
-onMoob = function(e, x,y, strength) end -- callback for `moob`.
-
-onInteract = function(e, interacting_ent, type)
--- when player `push` or `pull` next to  targetID = "interact"
--- type is either `pull` or `push`.
--- ALSO, e.size must be bigger than interacting distance!  (done in ControlSys)
-
--- If boolean `true` is returned, the push or pull is cancelled.
-end
+-- The target id that this entity holds.   MUST BE CONSTANT!!!
+-- Used by MoveBehaviourSys and TargetSys.
+targetID = "player"  
+-- "player" :: player / ally
+-- "enemy" :: enemy
+-- "neutral" :: neutral / weak mob
+-- "physics" :: physics object
+-- "coin"    :: coin
+-- "interact" :: shop, portal, artefact
 
 
-pos = vec3(0 , 0 , 0) --> vec3
 
-vel = vec3(vel_x, vel_y, vel_z) -->  vec3
+pos = vec3(0 , 0 , 0) --> position is a vec3
 
-acc = vec3(acc_x, acc_y, acc_z) --> vec3
+vel = vec3(vel_x, vel_y, vel_z) -->  velocity is a vec3
+
+acc = vec3(acc_x, acc_y, acc_z) --> accelleration is a vec3
 
 rot = 0 -- rotation in rads
 avel = 0 -- rot velocity (rad/s)
@@ -47,19 +41,22 @@ rfriction = 0.1 -- rotational friction. Loses 10% of rot speed per second
 
 speed = {speed = 10, max_speed = 100} -- entity speed
 
-strength = 10 -- entity strength (how far can push other entities. Also the range of a push.)
--- for enemies, player is damaged by ent.strength.
+strength = 10 -- entity strength, determines push/pull strength for player.
+-- for enemies, player is damaged by ent.strength when hit.
 
 
 toughness = 300
 -- The speeed an entity can collide at before a :hit() callback is envoked.
+-- (THIS ISN'T REALLY USED!!!!)
 
 
 hardness = 10
+-- (THIS ISN'T REALLY USED EITHER!!!)
 -- If an entity is `hit` by an entity with a higher hardness than itself,
 -- It will take damage equal to the difference in hardness.
 -- default: 0
 -- players: 100   -- physics: 99    -- TODO: is this used anymore?? idk
+-- (THIS ISN'T REALLY USED EITHER!!!)
 
 
 light = {
@@ -86,6 +83,7 @@ image = { quad = quad_from_atlas, ox = 100,  oy = 100 }
         -- ox and oy are offset x and offset y
 
 
+-- For animating entities
 animation = {
     frames = { *quad array }
     interval = 0.7,  -- interval of animation (seconds)
@@ -98,7 +96,7 @@ animation = {
 
     -- optional arg:
     sounds = {  -- plays a sound "soundName" whenever frame 1 ends.
-        [1] = "soundName";
+        [1] = "soundName"; -- Good for footsteps!
         [2] = nil;
         [3] = nil;
             last_index = nil; -- private field (set by sys)
@@ -111,6 +109,7 @@ animation = {
 
 
 
+-- For 4 directional movement animations (like player.)
 motion ={ 
     up    =  { *quad array }
     down  =  { *quad array }
@@ -173,24 +172,17 @@ collisions = {
 
     -- Physics callback based collisions
     physics = function(ent, collide_ent, speed)
-
-    end
+    end -- THIS IS USED A LOT!!!
 }
 
-
-
--- If the player invokes a boom near `e`
-boomFunction = function(e)
-    ...
-end
 
 
 
 -- if an ent has this field, they can go underground
 dig = {
     digging = false/true -- whether this ent is digging or nah
-    onSurface = function(e)end -- ent surfaces
-    onGround  = function(e)end -- ent goes into ground;
+    onSurface = function(ent)end -- ent surfaces
+    onGround  = function(ent)end -- ent goes into ground;
     z_min = -1 -- doesnt go below z=-1 (default = -1)
 }
 
@@ -292,17 +284,6 @@ behaviour = {
 }
 
 
--- The target id that this entity holds.   MUST BE CONSTANT!!!
--- Used by MoveBehaviourSys and TargetSys.
-targetID = "player"  
--- "player" :: player / ally
--- "enemy" :: enemy
--- "neutral" :: neutral / weak mob
--- "physics" :: physics object
--- "coin"    :: coin
--- "interact" :: shop, portal, artefact
-
-
 
 -- Each must be a valid sigil object.
 -- Note that other keyworded fields may or may not be added by the System/
@@ -322,12 +303,35 @@ buff = {
 ]]
 
 
+armour = 2; -- Damage reduced by 2 times (defaults to 1.)
+
+onDeath = function(ent) end -- callback for when ent dies.
+onDamage = function(ent, dmg) end -- callback for taking dmg
+onBoom   = function(ent, x,y, strength) end -- callback for `boom`.
+onMoob = function(ent, x,y, strength) end -- callback for `moob`.
+
+onInteract = function(ent, interacting_ent, type)
+-- Only for entities with ent.targetID = "interact"
+
+-- when player `push` or `pull` next to  targetID = "interact"
+-- type is either `pull` or `push`.
+-- ALSO, ent.size must be bigger than interacting distance!  (done in ControlSys)
+-- If boolean `true` is returned, the push or pull is cancelled.
+end
+
+
+
 hybrid = true -- Added to `HybridSys`. This bridges the gap, 
              -- allows for OOP-ECS hybrid architecture
 
 onUpdate = function(e,dt)end -- part of hybridsys
 onHeavyUpdate = function(e,dt)end -- part of hybridsys
 onDraw = function(e,dt)end -- part of hybridsys
+
+-- These components must be added BEFORE .hybrid is added,
+-- Or else the system won't pick the entities up.
+
+
 
  -- for portals. This component should be overridden as portal is created
 portalDestination = {
@@ -339,7 +343,6 @@ portalDestination = {
     map = nil -- The world map, (OPTIONAL)
     minimap = nil -- the custom minimap (as an atlas quad)
 }
-
 
 
 

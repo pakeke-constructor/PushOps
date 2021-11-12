@@ -4,7 +4,17 @@
     ]]
 
 
-local DISCORD_LINK = "https://discord.gg/Pd4nwmy2HJ"
+
+local FNAME = "src/misc/unique/discord_link.txt"
+local fdat, err
+fdat, err = love.filesystem.read(FNAME)
+if not fdat then
+    error(err)
+end
+
+local DISCORD_LINK = fdat
+
+
 
 local function onInteract(e, interacting, type)
     if type == "push" then

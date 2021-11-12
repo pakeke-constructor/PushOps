@@ -12,18 +12,16 @@ Feel free to contribute to the project!! :)
 
 Be warned though-
 A lot of the code here was written when I was still learning,
-so some of the style is a bit inconsistent.
-
+so some of the code isn't the best. The worldgen is particularly scuffed IMO.
 Also, when this project was nearing completion, I took a few "shortcuts" that
-caused quite a bit of technical debt in the codebase. (Just be wary of this)
+caused quite a bit of technical debt in the codebase. Just be wary of this!
 
 Overall the codebase is still relatively modular and still follows a nice
-ECS-like design, so it's not too bad, but there are some bits
-(COUGH COUGH WORLDGEN) that are especially bad.
+ECS-like design, so it's not too bad.
 
-
-# About this code-base  TODO
-There needs to be a short overview of this codebase and how to navigate it.
+# Codebase structure:
+To read about the codebase structure and how it all fits together,
+follow [This link here.](txt_and_images/codebase/codebase.md)
 
 
 ![menu](https://i.ibb.co/nqXV7pV/menu.png)
@@ -38,13 +36,6 @@ There needs to be a short overview of this codebase and how to navigate it.
 Arrow keys to push and pull.
 
 `escape` to pause.
-
-
-
-# build into exe: 
-## windows:
-zip file, rename into PushOps.love
-   copy /b D:\PROGRAMMING\LOVE\love.exe+PushOps.love PushOps.exe
 
 
 # Some things to know:
