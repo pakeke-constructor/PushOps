@@ -155,6 +155,16 @@ function Tools.isOnScreen(e, cam)
 end
 
 
+function Tools.isInvincible(ent)
+    if not ent.hp then
+        return true
+    elseif ent.hp.iframe_count and ent.hp.iframe_count > 0 then
+        return true
+    end
+    return false
+end
+
+
 function Tools.distToPlayer(e, cam)
     assert(cam, "Not given camera object! Tools.distToPlayer( ent, camera ) ")
     return Tools.dist(e.pos.x - cam.x, e.pos.y - cam.y)

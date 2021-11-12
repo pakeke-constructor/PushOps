@@ -31,6 +31,7 @@ local rand = love.math.random
 local function onDamage(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, rand(7,11))
+    ccall("sound", "hurt")
 end
 
 

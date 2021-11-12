@@ -137,6 +137,10 @@ local function drawHpBar(player)
         return -- Don't draw HP bar
     end
 
+    if Tools.isInvincible(player) then
+        alpha = (math.sin((love.timer.getTime()*50) % (2*math.pi))/2 + 0.5)
+    end
+
     love.graphics.translate(mapCanvas:getWidth() + MINIMAP_BORDER_WIDTH + MINIMAP_X,0)
     local hp = player.hp
     tick = tick + 0.01
@@ -148,7 +152,7 @@ local function drawHpBar(player)
     end
     love.graphics.setColor(r + 0.1*sin(tick), g, b, alpha)
     love.graphics.rectangle("fill", HP_X+3, HP_Y+3, 32-6, (96-6) * (hp.hp / (hp.max_hp)))
-    love.graphics.setColor(1,1,1)
+    love.graphics.setColor(1,1,1, alpha)
     atlas:draw(atlas.Quads.hp_bar_2, HP_X, HP_Y)
     love.graphics.pop()
 end
@@ -201,6 +205,21 @@ local function drawMiniMap()
 end
 
 
+local function drawTimer()
+    if love.keyboard.isDown("tab") and (not CONSTANTS.paused) then
+        return
+    end
+
+    local time = Tools.totime(CONSTANTS.runtime)
+    love.graphics.setColor(0,0,0)
+    love.graphics.print(time, MINIMAP_X,
+                        MINIMAP_Y + MINIMAP_MAX_HEIGHT + 10)
+    love.graphics.setColor(0.9,0.9,0.9)
+    love.graphics.print(time, MINIMAP_X + 1,
+                        MINIMAP_Y + MINIMAP_MAX_HEIGHT + 11)
+end
+
+
 
 local font = require("src.misc.unique.font")
 local PAUSED = love.graphics.newText(font, "(PAUSED)")
@@ -220,6 +239,7 @@ function UISys:drawUI()
 
     if CONSTANTS.minimap_enabled then
         drawMiniMap()
+        drawTimer()
     end
 
     if CONSTANTS.paused then

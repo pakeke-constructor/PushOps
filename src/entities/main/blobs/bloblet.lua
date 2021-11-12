@@ -14,7 +14,7 @@ end
 local colComp={
     physics = function(e,e2,s)
         if EH.PC(e,e2,s) then
-            -- blah
+            ccall("sound", "splat", 0.35, 1, 0.15, 0.5)
         end
     end
 }

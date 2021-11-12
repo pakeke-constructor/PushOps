@@ -215,7 +215,8 @@ local function push(ent)
         ccall("animate", "push", x,y+25,z, 0.03) 
         ccall("shockwave", x, y, 4, 130, 7, 0.3)
         ccall("sound", "boom")
-        Camera:shake(8, 1, 60) -- this doesnt work, RIP
+        
+        -- Camera:shake(8, 1, 60) -- this doesnt work, RIP
 
         ent.control.canPush = false
         ccall("await", pushFeedback, CONSTANTS.PUSH_COOLDOWN/4, ent)
@@ -456,6 +457,8 @@ function ControlSys:transform()
     local x,y = getAveragePosition(self.group)
     
     Camera:follow(x,y)
+
+    Camera:draw()
 end
 
 

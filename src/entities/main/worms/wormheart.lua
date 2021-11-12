@@ -178,8 +178,8 @@ return function(parent, sanity_check)
     e.targetID = "boss"
 
     e.hp = {
-        hp = 1500;
-        max_hp = 1500
+        hp = 3000;
+        max_hp = 3000
     }
 
     e.onDeath = onDeath

@@ -357,6 +357,7 @@ return {
                 t3.colour = C2
                 local t4 = txt(x,y + 180, "find me on the discord.")
                 t4.colour=C2
+                EH.Ents.discord_link(x, y + 200)
             end 
         };
 

@@ -7,8 +7,8 @@ toggleFunction
 ]]
 
 local quadStates = {
-    [true] = "button_active";
-    [false] = "button_inactive"
+    [false] = "button_inactive";
+    [true] = "button_active"
 }
 
 local colourStates = {
