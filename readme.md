@@ -24,6 +24,10 @@ To read about the codebase structure and how it all fits together,
 follow [This link here.](txt_and_images/codebase/codebase.md)
 
 
+-----------------------------------------------------------
+
+
+
 ![menu](https://i.ibb.co/nqXV7pV/menu.png)
 
 ![ingame](https://i.ibb.co/rG5xbkt/ingame.png)

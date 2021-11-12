@@ -5,13 +5,13 @@
 All globals have been defined in `main.lua`.  Take a quick look through them.
 
 
-PushOps uses an Entity Component System (ECS) called Cyan [Give this a skim read.](https://github.com/pakeke-constructor/Cyan)
+PushOps uses an Entity Component System (ECS) called Cyan; [give it a skim read.](https://github.com/pakeke-constructor/Cyan)
+(It's actually more of an entity-system library though,
+because entities are just lua tables, and components are just table keys.)
 
-(It's actually more of an entity-system library though, because entities are just lua tables, and components are just table keys.)
 
+`Cyan.call` or `ccall` is something you will see a lot. This is basically just broadcasting an event that Cyan Systems will latch on to.
 
-`Cyan.call` or `ccall` is something you will see a lot. This is basically just broadcasting an event that ECS systems will latch on to.
-(All Systems can be found in `src/systems`.)
 
 You can find all of the entity components [here.](components.md)
 

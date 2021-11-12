@@ -27,11 +27,6 @@ do
 
     _G.Tools = require"libs.tools.tools" -- Tools
 
-    -- math lib additions
-    _G.math.vec3  = require "libs.math.NM_vec3"
-    _G.math.dot   = require "libs.math.dot"
-    _G.math.roman = require "libs.math.NM_roman" -- roman numeral converter
-
     _G.CONSTANTS = require"src.misc._CONSTANTS"
 end
 
@@ -48,9 +43,16 @@ setmetatable(_G, {
 
 -- These aren't globals, but they are mutating the standard library
 -- So im gonna put em here.
+
+-- Mutate table library:
 table.copy = require "libs.tools.copy"
 table.shuffle = require "libs.NM_fisher_yates_shuffle.shuffle"
 require("libs.NM_stable_sort.sort"):export() -- exports to `_G.table`
+
+-- Mutate math library:
+math.vec3  = require "libs.math.NM_vec3"
+math.dot   = require "libs.math.dot"
+math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
 
 

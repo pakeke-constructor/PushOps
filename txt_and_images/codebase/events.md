@@ -3,7 +3,6 @@
 Any callback starting with `_` is a private callback.
 (Used for communicating between systems)
 
-```c
 
 # update   ( dt )
 Called every frame
@@ -227,4 +226,3 @@ Called when world has finished generating,
 and after the entities have spawned.
 
 
-```
