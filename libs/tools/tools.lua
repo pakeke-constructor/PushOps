@@ -41,7 +41,9 @@ function Tools.totime(seconds)
         return "None"
     end
     -- converts seconds to a readable minute: second format.
-    return tostring(math.floor(seconds / 60)) .. ":" .. tostring(math.floor(seconds % 60))
+    return tostring(math.floor(seconds / 60)) ..
+    ":" .. tostring(math.floor(seconds % 60)) ..
+    "." .. tostring(math.floor(10 * (seconds % 1)))
 end
 
 

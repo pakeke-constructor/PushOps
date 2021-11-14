@@ -40,7 +40,7 @@ return {
 
     construct = function(wor,wmap)
         ccall("setGrassColour","green")
-        WH.lights(wor, wmap, 150, 450)
+        WH.lights(wor, wmap, 15, 450)
     end;
 
     entities = {
@@ -112,9 +112,15 @@ return {
         ["e"] = {
             max = 200;
             function(x,y)
-                Ents.blob(x,y)
-                Ents.enemy(x+5,y+5)
-                Ents.mallow(x-5,y-5)
+                EH.Ents.goodtxt(x-20,y-76, nil,"Area reserved\n for future.",{1,1,1}, 250)
+
+                local range = 140
+                for i=1,10 do
+                    Ents.huhu(x + rand(-range,range), y + rand(-range, range))
+                end
+                for i=1,15 do
+                    Ents.block(x + rand(-range,range), y + rand(-range, range))
+                end
             end
         };
 

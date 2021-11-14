@@ -65,7 +65,7 @@ return function(x,y)
         front_txt.fade = fade
     end
 
-    back_txt.size = 200
+    back_txt.size = 100
     back_txt.onInteract = onInteract
     back_txt.targetID = "interact"
 
