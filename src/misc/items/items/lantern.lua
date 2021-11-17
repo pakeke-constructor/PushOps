@@ -17,7 +17,7 @@ I know that this is spagetti code, but I don't care lol
 
 
 return {
-    description = "Collect fireflys to increase speed"
+    description = "Touching fireflies heals you"
 }
 
 
