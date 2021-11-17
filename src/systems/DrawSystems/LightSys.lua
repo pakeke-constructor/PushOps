@@ -5,8 +5,8 @@ local LightSys = Cyan.System("light")
 -- shader consts.
 local BASE_LIGHTING = {0.76,0.76,0.76,1}--{0.4, 0.4, 0.4, 1}
 local MAX_LIGHT_STRENGTH = 0.65
-local NUM_LIGHTS = 20 -- max N
-local BRIGHTNESS_MODIFIER = 4 -- all light strengths divided by 100
+local NUM_LIGHTS = 7 -- max N
+local BRIGHTNESS_MODIFIER = 4 -- all light strengths divided by 4
 
 local DEFAULT_HEIGHT = 0.5
 
@@ -37,7 +37,8 @@ end
 
 
 
-local function send(e, light_positions, light_colours, light_distances, light_heights)
+local function send(e, light_positions, light_colours, 
+                        light_distances, light_heights)
     local x,y = cam:toCameraCoords(
         e.pos.x,
         e.pos.y
@@ -90,6 +91,10 @@ function LightSys:light(x, y, distance, time, colour, fade)
 end
 
 
+local function less(e1, e2)
+    return Tools.distToPlayer(e1, cam) < Tools.distToPlayer(e2, cam)
+end
+
 
 function LightSys:update()
     local light_positions = {}
@@ -97,19 +102,28 @@ function LightSys:update()
     local light_distances = {}
     local light_heights   = {}
 
+    local num_lights = 0
+    local cand_lights = {}
     for _, e in ipairs(self.group)do
         if Tools.distToPlayer(e, cam) < 1000 then
-            send(e, light_positions, light_colours,
-                    light_distances, light_heights)
+            num_lights = math.min(NUM_LIGHTS, num_lights + 1)
+            table.insert(cand_lights, e)        
         end
     end
 
-    assert((#light_positions == #light_colours)
-        and (#light_positions == #light_distances), "???")
+    table.stable_sort(cand_lights, less) -- Sorts by closest lights,
+        -- closest first.
 
+    for i=1,num_lights do
+        if cand_lights[i] then
+            send(cand_lights[i], light_positions, light_colours, 
+                        light_distances, light_heights)
+        end
+    end
+    
     -- This sucks.
     --TODO: Convert this to a matrix so you can do it efficiently please
-    for i=1, 20-#light_positions do
+    for i=1, NUM_LIGHTS - num_lights do
         table.insert(light_positions, {0,0})
         table.insert(light_colours  , {0,0,0,0})
         table.insert(light_distances, 0)
@@ -124,8 +138,10 @@ function LightSys:update()
     shader:send("light_colours"  , unpack(light_colours))
     shader:send("light_distances", unpack(light_distances))
     shader:send("light_heights",   unpack(light_heights))
-    shader:send("num_lights", NUM_LIGHTS)
+    shader:send("num_lights", num_lights)
     shader:send("base_lighting", BASE_LIGHTING)
     --shader:send("max_light_strength", MAX_LIGHT_STRENGTH)
     --shader:send("brightness_modifier", BRIGHTNESS_MODIFIER)
 end
+
+

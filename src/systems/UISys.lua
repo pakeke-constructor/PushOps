@@ -220,6 +220,24 @@ local function drawTimer()
 end
 
 
+local function drawFPS()
+    if love.keyboard.isDown("tab") and (not CONSTANTS.paused) then
+        return
+    end
+
+    local str = "FPS: " .. tostring(love.timer.getFPS())
+    love.graphics.push()
+    love.graphics.scale(0.5)
+    love.graphics.setColor(0,0,0.2)
+    love.graphics.print(str, 2 * MINIMAP_X,
+                        2 * MINIMAP_Y + 2 * MINIMAP_MAX_HEIGHT + 70)
+    love.graphics.setColor(0,0,0.8)
+    love.graphics.print(str, 2 * MINIMAP_X + 1,
+                       2 * MINIMAP_Y + 2 * MINIMAP_MAX_HEIGHT + 71)
+    love.graphics.pop()
+end
+
+
 
 local font = require("src.misc.unique.font")
 local PAUSED = love.graphics.newText(font, "(PAUSED)")
@@ -240,6 +258,7 @@ function UISys:drawUI()
     if CONSTANTS.minimap_enabled then
         drawMiniMap()
         drawTimer()
+        drawFPS()
     end
 
     if CONSTANTS.paused then

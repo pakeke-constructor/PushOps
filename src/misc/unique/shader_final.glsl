@@ -2,15 +2,17 @@
 // main shader ==>
 
 // lights
-uniform vec4  light_colours[20]; // max 20 lights at once
-uniform vec2  light_positions[20];
-uniform int   light_distances[20]; // this distance a light can be bright
-uniform float light_heights[20];
+#define NUM_LIGHTS 7
+uniform vec4  light_colours[NUM_LIGHTS]; // max NUM_LIGHTS lights at once
+uniform vec2  light_positions[NUM_LIGHTS];
+uniform int   light_distances[NUM_LIGHTS]; // this distance a light can be bright
+uniform float light_heights[NUM_LIGHTS];
 
 uniform int  num_lights;
 uniform float max_light_strength; // the max light strength (good number is like 0.2 or something)
 uniform vec4 base_lighting; // base_lighting will be something like <0.7, 0.7, 0.7>
 uniform float brightness_modifier;
+
 
 // noise
 uniform float amount;
