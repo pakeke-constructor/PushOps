@@ -17,8 +17,8 @@ local cam = require("src.misc.unique.camera")
 local shader = require("src.misc.unique.shader")
 
 
-local getW = Tools.getRenderWidth
-local getH = Tools.getRenderHeight
+local getW = love.graphics.getWidth
+local getH = love.graphics.getHeight
 
 
 function LightSys:setBaseLighting(newValue)

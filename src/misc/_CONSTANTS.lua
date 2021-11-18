@@ -81,10 +81,6 @@ return{
         yellow = {255/255, 250/255, 66/255}
     }
 ,
-    SCALE = 2 -- a good scale factor
-,
-    SCREEN_DIAG_LAPTOP = 1762 -- My laptop screen diagonal size (DrawSys uses.)
-,
     SAVE_DATA_FNAME = "game.png" -- save data filename
     -- We encode as a png so people wont tamper with it ahahahahaha
 ,

@@ -18,12 +18,20 @@ local floor = math.floor
 local Atlas = require("assets.atlas")
 local font = require("src.misc.unique.font")
 
-local camera = require("src.misc.unique.camera")
-
 local tileAtlas = require("assets.tile_atlas").atlas
 local tiles = require("assets.tile_atlas").tiles
 
 local push = require("libs.NM_push.push")
+
+--[[push:setupScreen(
+    love.graphics.getWidth()/3, 
+    love.graphics.getHeight()/3,
+
+    love.graphics.getWidth(),
+    love.graphics.getHeight(), 
+    {fullscreen = false, pixelperfect=false}
+)]]
+
 
 
 
@@ -123,58 +131,18 @@ end
 
 
 
-local renderCanvas
-
-local downSF -- downwards scale factor
-
-local function round(x) return math.floor(x+0.5) end
-
-function DrawSys:changeDimensions(new_w, new_h)
-    local SF = CONSTANTS.SCALE
-    local BASE_DIAG = CONSTANTS.SCREEN_DIAG_LAPTOP
-
-    downSF = round()
-    
-    local screen_diag = (new_w^2 + new_h^2)^0.5
-    local scale = (screen_diag / BASE_DIAG) * SF
-
-    renderCanvas = love.graphics.newCanvas(new_w, new_h)
-    camera.scale = scale
-    camera.w = new_w
-    camera.h = new_h
-end
-
-
-local getW = love.graphics.getWidth
-local getH = love.graphics.getHeight
-
-local function getInitialDimensions()
-    --[[
-        Gets an efficent and good looking guess for the render canvas size.
-    ]]
-    local w, h = getW(), getH()
-    local BASE_DIAG = CONSTANTS.SCREEN_DIAG_LAPTOP
-    local screen_diag = (w^2 + h^2)^0.5
-
-    while screen_diag > BASE_DIAG + 100 do
-        w = w / 2
-        h = h / 2
-        screen_diag = (w^2 + h^2)^0.5
-    end
-
-    return w, h
-end
-
-
-
 
 
 local ccall = Cyan.call
 local lg = love.graphics
 
+local getW = love.graphics.getWidth
+local getH = love.graphics.getHeight
+
 local rawget = rawget
 local ipairs = ipairs
 
+local camera = require("src.misc.unique.camera")
 local shader = require("src.misc.unique.shader")
 
 local drawShockWaves
@@ -200,20 +168,14 @@ local function drawGrass(screen_w, screen_h)
 end
 
 
-
 local function mainDraw()
     local setColor = lg.setColor
     local isOnScreen = Tools.isOnScreen
-    
-    if not renderCanvas then
-        ccall("changeDimensions", getInitialDimensions())
-    end
-    love.graphics.setCanvas(renderCanvas)
 
     ccall("transform")
     
     setFont(font)
-    local w,h = Tools.getRenderWidth(), Tools.getRenderHeight()
+    local w,h = getW(), getH()
     local camx, camy = camera.x, camera.y
 
     shader:send("amount", CONSTANTS.SHADER_NOISE_AMOUNT / 3)
@@ -257,25 +219,11 @@ local function mainDraw()
     ccall("finalDraw")
 
     ccall("untransform")
-
-    love.graphics.setCanvas()
-end
-
-
-local function drawRenderCanvas()
-    lg.push()
-    lg.setColor(1,1,1,1)
-    lg.setShader()
-    --lg.scale(CONSTANTS.SCALE)
-    lg.draw(renderCanvas)
-    lg.pop()
 end
 
 
 function DrawSys:draw()
     mainDraw()
-
-    drawRenderCanvas()
     
     lg.push()
     lg.scale(2)

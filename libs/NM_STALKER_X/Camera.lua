@@ -79,13 +79,11 @@ local Camera = {}
 Camera.__index = Camera
 
 local function new(x, y, w, h, scale, rotation)
-    local width = Tools.getRenderWidth() -- MONKEYPATCH!!!
-    local height = Tools.getRenderHeight() -- sorryyyy....
     return setmetatable({
-        x = x or (w or width)/2, y = y or (h or height)/2,
-        mx = x or (w or width)/2, my = y or (h or height)/2,
-        screen_x = x or (w or width)/2, screen_y = y or (h or height)/2,
-        w = w or width, h = h or height,
+        x = x or (w or lg.getWidth())/2, y = y or (h or lg.getHeight())/2,
+        mx = x or (w or lg.getWidth())/2, my = y or (h or lg.getHeight())/2,
+        screen_x = x or (w or lg.getWidth())/2, screen_y = y or (h or lg.getHeight())/2,
+        w = w or lg.getWidth(), h = h or lg.getHeight(),
         scale = scale or 1,
         rotation = rotation or 0,
         horizontal_shakes = {}, vertical_shakes = {},
