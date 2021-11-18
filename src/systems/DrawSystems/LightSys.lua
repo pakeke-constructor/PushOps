@@ -3,7 +3,7 @@
 local LightSys = Cyan.System("light")
 
 -- shader consts.
-local BASE_LIGHTING = {0.76,0.76,0.76,1}--{0.4, 0.4, 0.4, 1}
+local BASE_LIGHTING = {0.73,0.73,0.73,1}--{0.4, 0.4, 0.4, 1}
 local MAX_LIGHT_STRENGTH = 0.65
 local NUM_LIGHTS = 7 -- max N
 local BRIGHTNESS_MODIFIER = 4 -- all light strengths divided by 4
@@ -14,7 +14,7 @@ local DEFAULT_HEIGHT = 0.5
 local cam = require("src.misc.unique.camera")
 -- X, Y  =  cam:toCameraCoords(x,y)
 
-local shader = require("src.misc.unique.shader")
+local shader = require("src.misc.unique.shader").light
 
 
 local getW = love.graphics.getWidth
@@ -43,9 +43,11 @@ local function send(e, light_positions, light_colours,
         e.pos.x,
         e.pos.y
     )
-    table.insert(light_positions, {x,y})
+
+    local sf = CONSTANTS.SHADER_LIGHT_DOWNSCALE_FACTOR
+    table.insert(light_positions, {x / sf, y / sf})
     table.insert(light_colours,   e.light.colour)
-    table.insert(light_distances, e.light.distance * cam.scale)
+    table.insert(light_distances, e.light.distance * cam.scale / sf)
     table.insert(light_heights,   e.light.height or DEFAULT_HEIGHT)
 end
 

@@ -3,7 +3,7 @@ local ShaderSys = Cyan.System()
 
 
 local setShader = love.graphics.setShader
-local shader = require("src.misc.unique.shader")
+local shader = require("src.misc.unique.shader").main
 local camera = require("src.misc.unique.camera")
 
 function ShaderSys:transform()
