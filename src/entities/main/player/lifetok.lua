@@ -61,6 +61,9 @@ return function(x, y)
             id="player"
         }
     }
+
+    e.sigils = {"strength"}
+    
     e.collisions = {
         area = {
             player = playerColFunc

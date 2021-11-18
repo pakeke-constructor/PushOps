@@ -118,8 +118,6 @@ return {
                     y + rand(-10, 10)
                 )
             end
-            local light = Ents.light(x + rand(-30, 30), y + rand(-30, 30))
-            light.light.distance = 160
         end
     };
 

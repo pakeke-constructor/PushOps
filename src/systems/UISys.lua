@@ -267,7 +267,7 @@ function UISys:drawUI()
         local lg = love.graphics
         lg.setColor(0,0,0,0.7)
 
-        local w,h = lg.getWidth()/2,lg.getHeight()/2
+        local w,h = Tools.getRenderWidth()/2,Tools.getRenderHeight()/2
         lg.rectangle("fill",-10,-10,w+20,h+20)
 
         Tools.drawText("( PAUSED )", w/2, h/16, WHITE, BLACK)

@@ -21,6 +21,9 @@ local itemlist = require("src.misc.items.itemlist")
 
 function DEBUG_SYS:keypressed(k)
     -- MAKE SURE STUFF ISNT PUT HERE ON RELEASE!
+    if k=="e" then
+        
+    end
 end
 
 function DEBUG_SYS:_draw()

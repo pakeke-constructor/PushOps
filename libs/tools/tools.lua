@@ -135,8 +135,30 @@ end
 
 
 
-local getWidth, getHeight = love.graphics.getWidth, love.graphics.getHeight
-local RANGE_LEIGHWAY = 700 -- had to do higher, on Matt's computer it was weird.
+local getW = love.graphics.getWidth
+local getH = love.graphics.getHeight
+
+function Tools.getRenderWidth()
+    local canv = love.graphics.getCanvas()
+    if canv then
+        return canv:getWidth()
+    else
+        return getW()
+    end
+end
+
+function Tools.getRenderHeight()
+    local canv = love.graphics.getCanvas()
+    if canv then
+        return canv:getHeight()
+    else
+        return getH()
+    end
+end
+
+
+
+local RANGE_LEIGHWAY = 400 -- had to do higher, on Matt's computer it was weird.
 
 function Tools.isOnScreen(e, cam)
     --[[
@@ -148,12 +170,13 @@ function Tools.isOnScreen(e, cam)
             ents applied thru MoveBehaviourSys are turned off as
             well, so we dont get idiots getting stuck in walls
     ]]
-    local w,h = getWidth(), getHeight()
+    local w,h = Tools.getRenderWidth(), Tools.getRenderHeight()
     local p = e.pos
     local x,y
     x,y = cam:toCameraCoords(p.x, p.y)
     return (-RANGE_LEIGHWAY < x) and (x < w+RANGE_LEIGHWAY)
     and (-RANGE_LEIGHWAY < y) and (y < h + RANGE_LEIGHWAY)
+
 end
 
 
