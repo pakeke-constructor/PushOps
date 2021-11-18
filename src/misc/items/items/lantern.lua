@@ -17,7 +17,7 @@ I know that this is spagetti code, but I don't care lol
 
 
 return {
-    description = "Touching fireflies heals you"
+    description = "Fireflies heal you"
 }
 
 

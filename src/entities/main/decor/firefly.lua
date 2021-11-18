@@ -22,12 +22,14 @@ return function(x,y)
         colour = WHITE
     }
 
+    e.size = 60
+
     e.collisions = {
         area = {
             player = function(self, player, dt)
                 -- eh this is messy. its close to ship so i dont care
                 if flags.lantern and player.hp then
-                    player.hp = player.hp + LANTERN_REGEN * dt
+                    ccall("heal", player, LANTERN_REGEN * dt)
                 end
             end
         }

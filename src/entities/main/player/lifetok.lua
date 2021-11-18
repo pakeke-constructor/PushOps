@@ -66,5 +66,7 @@ return function(x, y)
             player = playerColFunc
         }
     }
+
+    e.sigils = {"strength"}
 end
 

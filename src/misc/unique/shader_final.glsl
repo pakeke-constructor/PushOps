@@ -46,39 +46,30 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
 
     vec4 light = base_lighting;
 
+    float dist_to_light;
+    float strength;
     for(int i=0; i<num_lights; i++){
-        float dist_to_light = length(screen_coords - light_positions[i]);
-        float strength = hillfunc(light_distances[i], dist_to_light, light_heights[i]);
+        dist_to_light = length(screen_coords - light_positions[i]);
+        strength = hillfunc(light_distances[i], dist_to_light, light_heights[i]);
         light += light_colours[i] * strength;
     }
 
     light.w = 1;
 
     // filmgrain :::
-    vec2 sc;
-    sc.x = screen_coords.x;
-    sc.y = screen_coords.y;
+    vec2 sc = vec2(
+        floor(screen_coords.x/period),
+        floor(screen_coords.y/period)
+    );
 
-    sc.x = floor(sc.x/period);
-    sc.y = floor(sc.y/period);
-
-    float r = 0.9 + amount * rand(sc);
-    float g = 0.9 + amount * rand(sc + 91);
-    float b = 0.9 + amount * rand(sc + 213);
-
-    // ORIGINAL ::
-    // float am = 0.9 + amount * rand(sc);
-   
-    //color = Texel(texture, tc);
-    //return  (color*am);
+    colour *= vec4(
+        0.9 + amount * rand(sc),
+        0.9 + amount * rand(sc + 91),
+        0.9 + amount * rand(sc + 213),
+        1
+    );
 
     vec4 sprite_colour = Texel(texture, texture_coords);
-
-
-    colour[0] *= r;
-    colour[1] *= g;
-    colour[2] *= b;
-
 
     vec4 addlight = vec4(light.xyz, 0);
 
