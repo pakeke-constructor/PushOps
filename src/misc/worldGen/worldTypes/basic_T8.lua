@@ -44,7 +44,9 @@ local function spawn_portal(x, y)
         minimap = EH.Quads.menu_minimap
     }
 
-    savedata.basic_time = math.min(savedata.basic_time, CONSTANTS.runtime)
+    if (savedata.type ~= "bully") then
+        savedata.basic_time = math.min(savedata.basic_time, CONSTANTS.runtime)
+    end
 end
 
 

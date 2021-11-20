@@ -44,7 +44,9 @@ return {
         ccall("spawnText", x, y, "gg", 750,100)
         ccall("await", goToMenu, 4)
 
-        savedata.endless_time = math.max(savedata.endless_time, CONSTANTS.runtime)
+        if (savedata.type ~= "bully") then
+            savedata.endless_time = math.max(savedata.endless_time, CONSTANTS.runtime)
+        end
     end;
 
     construct = function(wor,wmap,px,py)
