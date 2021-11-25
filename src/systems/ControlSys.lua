@@ -11,13 +11,11 @@ TODO: add joystick support, make more robust
 
 ]]
 
-
 local ControlSys = Cyan.System("control")
 
 local Camera = require("src.misc.unique.camera")
 local Partition = require 'src.misc.partition'
 local TargetPartitions = require("src.misc.unique.partition_targets")
-
 
 
 local max, min = math.max, math.min

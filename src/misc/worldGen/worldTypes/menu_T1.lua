@@ -45,7 +45,7 @@ return {
 
     entities = {
 
-    ["X"] = {
+        ["X"] = {
             --[[
                 Experimental entity slot.
                 This ent could refer to any entity type, it just depends what I
@@ -106,8 +106,24 @@ return {
         ["t"] = {
             max=0xfff;
             function(x,y)
-            ccall("spawnText", x, y, "push ops")
-        end};
+                ccall("spawnText", x, y, "push ops")
+            end
+        };
+
+        ["j"] = { --  DEBUG ONLY!!!
+            max=1;
+            function(x,y)
+                do return end
+                ccall("spawnText", x, y, "push")
+                ccall("spawnText", x + 10, y + 50, "ops")
+                for i=1, 8 do
+                    EH.Ents.grass(x - 130 + rand(-50,50), y + rand(-30, 30))
+                end
+                
+                local e = EH.Ents.light(x + 50, y - 50)
+                e.light.distance = 280
+            end
+        };
 
         ["e"] = {
             max = 200;
@@ -424,7 +440,7 @@ return {
                     "ZONES BEST TIME: " .. Tools.totime(savedata.basic_time)
                     ,ZONE_GAME_TXT_COLOUR)
                 EH.Ents.goodtxt(x, y + 50, nil,
-                    "ENDLESS LONGEST RUN: " .. Tools.totime(savedata.endless_time)
+                    "ENDLESS BEST RUN: " .. Tools.totime(savedata.endless_time)
                     ,ENDLESS_GAME_TXT_COLOUR)
             end
         }

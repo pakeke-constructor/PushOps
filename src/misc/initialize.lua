@@ -24,15 +24,6 @@ function DEBUG_SYS:keypressed(k)
 end
 
 function DEBUG_SYS:_draw()
-    lg.setColor(1,1,1)
-    lg.push()
-    lg.reset()
-    love.graphics.rectangle("fill", 5, 300, 150, 40)
-    lg.setColor(0,0,0)
-    love.graphics.print("FPS: ".. tostring(love.timer.getFPS()), 10,300)
-    love.graphics.print("time: "..tostring(CONSTANTS.runtime), 10, 320)
-    --love.graphics.print(("MEM USAGE: %d"):format(tostring(collectgarbage("count"))), 10, 320)
-    lg.pop()
 end
 
 

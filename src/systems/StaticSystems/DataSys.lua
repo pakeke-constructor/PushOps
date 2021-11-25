@@ -45,10 +45,3 @@ function SaveDataSys:quit()
         error(err)
     end
 end
-
-function SaveDataSys:keypressed(k)
-    if k == "k" then -- FOR TESTING ONLY.
-       SaveDataSys:quit()
-    end
-end
-
