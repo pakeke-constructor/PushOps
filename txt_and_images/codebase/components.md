@@ -284,6 +284,8 @@ behaviour = {
 }
 
 
+craft = "name" -- the material type of this entity.
+
 
 -- Each must be a valid sigil object.
 -- Note that other keyworded fields may or may not be added by the System/

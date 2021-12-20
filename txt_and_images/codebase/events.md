@@ -62,6 +62,9 @@ Adds a sigil to ent
 # removeSigil( ent, sigilName )
 Removes a sigil from an ent
 
+# craft (x, y, radius)
+Emits a crafting event a x,y. All materials will be consumed.
+
 # giveItem( player, itemType )
 Gives an item to a player, (see src/misc/items.) 
 If the player already has the item, this callback does nothing.
