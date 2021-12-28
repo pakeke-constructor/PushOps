@@ -124,6 +124,8 @@ return{
 ,
     SHADER_LIGHT_DOWNSCALE_FACTOR = 4 -- Light canvas is 2x as small as screen.
 ,
+    SCALE_FACTOR = 2.5
+,
     minimap_enabled = true
 ,
     SFX_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1

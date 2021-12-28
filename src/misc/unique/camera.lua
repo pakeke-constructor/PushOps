@@ -5,7 +5,8 @@ local Camera = require("libs.NM_STALKER_X.Camera")
 
 
 local SCREEN_DIAG_LAPTOP = 1762 -- My laptop screen diagonal size
-local SF = 2.1 -- A reasonable scale factor
+local SF = CONSTANTS.SCALE_FACTOR -- A reasonable scale factor
+assert(SF, "?")
 
 local SCREEN_DIAG = (love.graphics.getWidth()^2 + love.graphics.getHeight()^2)^0.5
 

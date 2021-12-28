@@ -57,6 +57,8 @@ local bosses = {
 }
 
 
+local light_positions = {-100, 100}
+
 
 
 return {
@@ -100,8 +102,8 @@ return {
         max=1;
         function(x,y)
             Tools.rand_choice(bosses)(x,y)
-            for _, p1 in ipairs(positions) do
-                for _, p2 in ipairs(positions) do
+            for _, p1 in ipairs(light_positions) do
+                for _, p2 in ipairs(light_positions) do
                     local light = Ents.firefly(x + p1 + rand(-40, 40), y + p2 + rand(-40, 40))
                     light.light.distance = 300
                 end
@@ -118,8 +120,6 @@ return {
                     y + rand(-10, 10)
                 )
             end
-            local light = Ents.light(x + rand(-30, 30), y + rand(-30, 30))
-            light.light.distance = 160
         end
     };
 

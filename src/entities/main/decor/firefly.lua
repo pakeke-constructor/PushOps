@@ -12,10 +12,13 @@ for i,v in ipairs(frames)do
     frames[i] = EH.Quads["firefly"..tostring(v)]
 end
 
+local SHOCK_TIME = 0.2 -- seconds between shockwaves
+local time_since_last_shock = 0 
 
 return function(x,y)
     local e = Cyan.Entity()
     EH.PV(e,x,y)
+    e.size = 50
     e.light = {
         height = nil; --There is a default value in lightSys
         distance = 500;
@@ -25,9 +28,19 @@ return function(x,y)
     e.collisions = {
         area = {
             player = function(self, player, dt)
-                -- eh this is messy. its close to ship so i dont care
                 if flags.lantern and player.hp then
-                    player.hp = player.hp + LANTERN_REGEN * dt
+                    ccall("heal", player, LANTERN_REGEN * dt)
+                    
+                    -- do shockwave effcct
+                    time_since_last_shock = time_since_last_shock - dt
+                    if time_since_last_shock <= 0 then
+                        time_since_last_shock = SHOCK_TIME
+                        ccall("shockwave", player.pos.x, player.pos.y,
+                                10, 50, 10, SHOCK_TIME * 1.5, {0.9,0,0})
+                        ccall("shockwave", self.pos.x, self.pos.y,
+                                10, 130, 10, SHOCK_TIME * 3, {0,0,0.9})
+                        
+                    end
                 end
             end
         }
