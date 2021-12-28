@@ -38,8 +38,7 @@ return function(x,y)
                         ccall("shockwave", player.pos.x, player.pos.y,
                                 10, 50, 10, SHOCK_TIME * 1.5, {0.9,0,0})
                         ccall("shockwave", self.pos.x, self.pos.y,
-                                10, 130, 10, SHOCK_TIME * 3, {0,0,0.9})
-                        
+                                10, 100, 10, SHOCK_TIME * 3, {0,0,0.9})          
                     end
                 end
             end

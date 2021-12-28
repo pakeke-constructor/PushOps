@@ -22,8 +22,7 @@ local itemlist = require("src.misc.items.itemlist")
 function DEBUG_SYS:keypressed(k)
     -- MAKE SURE STUFF ISNT PUT HERE ON RELEASE!
     if k == "e" then
-        local p = Ents.itempillar(cam.x,cam.y)
-        p.itemType = "lantern"
+        EH.Ents.multiblock(cam.x,cam.y)
 
         --Ents.crafter(cam.x, cam.y)
     end
