@@ -133,9 +133,9 @@ function LightSys:update()
     end
 
     local unpack = table.unpack or unpack -- F**CK. This breaks JIT, I didnt want to do this. No choice tho
-    -- TODO:
-    -- NOTE: You can fix this unpacking by packing values into a matrix!
-    -- maybe leave it for now, see how this game performs on machines with slower pipeline
+    -- future oli here: Why did I care about JIT breaking here?
+    -- it doesn't even matter  (:
+
     shader:send("light_positions", unpack(light_positions))
     shader:send("light_colours"  , unpack(light_colours))
     shader:send("light_distances", unpack(light_distances))

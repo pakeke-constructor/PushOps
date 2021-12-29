@@ -53,7 +53,7 @@ return {
         ccall("spawnText", px, py - 160, "endless", 1200, 260)
         ccall("spawnText", px, py + 160, "endless", 1200, 260)
 
-        WH.lights(wor, wmap, 15, 350)
+        WH.lights(wor, wmap, 8, 250) --, 250)
     end;
 
     entities = {

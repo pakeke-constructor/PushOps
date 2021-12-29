@@ -16,13 +16,21 @@ local DISCORD_LINK = fdat
 
 
 
+local link_allowed = true
+
+local function allow_link()
+    link_allowed = true
+end
+
 local function onInteract(e, interacting, type)
-    if type == "push" then
+    if type == "push" and link_allowed then
         love.system.setClipboardText(DISCORD_LINK)
         ccall("message", interacting.pos.x, interacting.pos.y,
-            "Discord Link Copied!", 3, {0.5,1,1})
+                "Discord Link Copied!", 3, {0.5,1,1})
         
         ccall("sound", "unlock",1,2)
+        link_allowed = false
+        ccall("await", allow_link, 3)
         return true
     end
 end
