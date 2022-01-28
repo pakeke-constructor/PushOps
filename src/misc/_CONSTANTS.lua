@@ -130,7 +130,7 @@ return{
 ,
     SFX_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1
 ,
-    MUSIC_VOLUME = 0.3 --.4   0 --> 1
+    MUSIC_VOLUME = 0.2 --.4   0 --> 1
 ,
     DEBUG = true
 }
