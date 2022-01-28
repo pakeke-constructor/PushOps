@@ -98,6 +98,11 @@ return {
 
     entities = {
 
+    ["#"] = {
+        max = math.huge;
+        Ents.splatwall
+    };
+
     ["e"] = {
         max = 200;
         function(x,y)

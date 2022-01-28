@@ -1,5 +1,15 @@
 
+--[[
 
+This is unused, because these guys
+are SOOOOOO OP!!!!!!
+
+They pull in your blocks and delete them.
+
+I'm sorry, but these guys weren't fun to verse,
+they were too strong lol!
+
+]]
 
 local Atlas = require("assets.atlas")
 local Quads = Atlas.Quads

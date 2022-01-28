@@ -145,9 +145,9 @@ return {
     };
 
     entities = {
-    ["#"] = { -- For wall entity.
-        max = 999999, --No max.
-        Ents.wall
+    ["#"] = {
+        max = math.huge;
+        Ents.splatwall
     };
 
     ["e"] = {

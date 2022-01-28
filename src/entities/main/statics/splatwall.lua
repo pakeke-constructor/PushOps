@@ -44,13 +44,15 @@ local ccall = Cyan.call
 local WALL_HP = 200;
 local WALL_DMG_RANGE = 80
 
+local COLOUR = table.copy(CONSTANTS.SPLAT_COLOUR)
+
 
 local dist = Tools.dist
 
 local function onBoom(e, x,y, strength)
     local p=e.pos
     if strength > 0 and dist(x-p.x, y-p.y)<WALL_DMG_RANGE then
-        ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 4)
+        ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 4, COLOUR)
         ccall("damage",e,101)
         ccall("sound","crumble",0.5)
     end
@@ -59,13 +61,12 @@ end
 local rand = love.math.random
 
 local function spawnFunc(p)
-    for i=1,rand(1,2) do
-        EH.Ents.block(p.x + rand(-20,20), p.y + rand(-20,20))
-    end 
+    EH.Ents.immuneblock(p.x + rand(-20,20), p.y + rand(-20,20))
+    EH.Ents.block(p.x + rand(-20,20), p.y + rand(-20,20))
 end
 
 local function onDeath(e)
-    ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 4)
+    ccall("emit", "wallbreak", e.pos.x, e.pos.y, e.pos.z, 4, COLOUR)
     ccall("await", spawnFunc, 0, e.pos)
     if rand() < 0.5 then
         ccall("sound","crumble",1)
@@ -105,6 +106,7 @@ return function(x,y, height) -- I hate taking xtra params like this!! ahhh spage
     :add("onBoom",onBoom)
     :add("onDeath",onDeath)
     :add("targetID","static")
+    :add("colour", COLOUR)
 
     return wall
 end

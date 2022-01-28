@@ -6,9 +6,6 @@ Shockwave objects represented as a class, with :new and :update
 and :draw methods.
 
 
-
-
-
     ]]
 }
 
