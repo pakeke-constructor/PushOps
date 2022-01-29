@@ -3,7 +3,7 @@
 
 
 // lights
-#define NUM_LIGHTS 7
+#define NUM_LIGHTS 12
 uniform vec4  light_colours[NUM_LIGHTS]; // max NUM_LIGHTS lights at once
 uniform vec2  light_positions[NUM_LIGHTS];
 uniform int   light_distances[NUM_LIGHTS]; // this distance a light can be bright

@@ -81,8 +81,7 @@ return{
         yellow = {255/255, 250/255, 66/255}
     }
 ,
-    SAVE_DATA_FNAME = "game.png" -- save data filename
-    -- We encode as a png so people wont tamper with it ahahahahaha
+    SAVE_DATA_FNAME = "game.json" -- save data filename
 ,
     SAVE_DATA_DEFAULT = {
         -- The default save data for a program.
