@@ -177,8 +177,8 @@ return function(x, y)
     EH.PV(e,x,y)
 
     e.hp={
-        hp=700,
-        max_hp=700
+        hp=2000,
+        max_hp=2000
     }
 
     e.bobbing={magnitude=0.25}

@@ -31,9 +31,10 @@ end
 
 local function spawnMidgets(p)
     for i=1, rand(2,5)do
-        local e = EH.Ents.blueshroom(p.x + rand(-15,15), p.y + rand(-15,15))
+        local e = EH.Ents.blueshroom(p.x + rand(-20,20), p.y + rand(-20,20))
         e.fade = 250
     end
+    EH.Ents.multiblock(p.x, p.y)
 end
 
 local function onDeath(e)

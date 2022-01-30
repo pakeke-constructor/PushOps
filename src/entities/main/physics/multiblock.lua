@@ -10,8 +10,8 @@ local atlas = require "assets.atlas"
 local Quads = atlas.Quads
 
 
-local COL = {0,0,0.7}
-local COL2 = {0.5,0.5,0.7}
+local COL = CONSTANTS.MULTI_COLOUR
+local COL2 = CONSTANTS.MULTI_COLOUR_FADED
 
 
 local function spawn(x, y)
@@ -31,6 +31,7 @@ local collisions = {
             local x, y, z = self.pos.x, self.pos.y, self.pos.z
             ccall("shockwave", x, y, 14, 100, 10, 0.4, table.copy(COL))
             ccall("sound", "poof")
+            ccall("sound", "pop")
             ccall("await", spawn, 0, self.pos.x, self.pos.y)
             ccall("kill", self)
         end

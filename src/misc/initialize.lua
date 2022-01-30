@@ -26,14 +26,12 @@ function DEBUG_SYS:keypressed(k)
     -- MAKE SURE STUFF ISNT PUT HERE ON RELEASE!
     if k == "e" then
         -- DEBUG ONLY
-        EH.Ents.multiblock(cam.x,cam.y)
+        -- EH.Ents.multiblock(cam.x,cam.y)
 
+        ccall("sound", "pop")
         --Ents.crafter(cam.x, cam.y)
     end
 
-    if k == "q" then
-        EH.Ents.firefly(cam.x,cam.y)
-    end
 end
 
 function DEBUG_SYS:_draw()

@@ -112,6 +112,9 @@ return{
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}
 ,
+    MULTI_COLOUR = {0.1,0.1,0.7},
+    MULTI_COLOUR_FADED = {0.5,0.5,0.7}
+,
     COLOURBLIND = false --==>>>  swaps blue-green
 ,
     DEVILBLIND  = false --==>>>  swaps red-green

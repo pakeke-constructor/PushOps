@@ -20,7 +20,8 @@ Make it so you have to pass 2 levels of the same type
 EXTRA:
 Add dash with spacebar that stuns enemies, and slightly knocks up all
 entities into the air that it passed thru
-Alternatively, the dash could pull 
+Alternatively, the dash could do an empowered pull behind you when it finishes.
+^^^ The latter is probably better and more fitting
 
 Aesthetically: Google the Pyke dash ability from League of legends
 

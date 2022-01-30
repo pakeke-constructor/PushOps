@@ -89,7 +89,7 @@ splat_spin_task.start = function(t,e)
     e._previous_splatmallow_armour = e.armour
     e.armour = math.huge -- make invincible
     local p = e.pos
-    ccall("moob", p.x, p.y, 70, 250)
+    ccall("moob", p.x, p.y, 70, 150)
     ccall("setMoveBehaviour", e,"IDLE")
     ccall("shockwave", p.x, p.y, 100, 30, 10, 0.25, table.copy(CONSTANTS.SPLAT_COLOUR))
     ccall("setVel", e, 0,0)
