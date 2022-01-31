@@ -40,12 +40,16 @@ local function onDamage(e)
     ccall("sound", "pop", 0.45, 1, 0.15, 0.5)
 end
 
+local function spawnMultiBlock(p)
+    EH.Ents.multiblock(p.x,p.y)
+end
 
 local function onDeath(e)
     local p = e.pos
     ccall("emit", "guts", p.x, p.y, p.z, r(8,11))
     ccall("emit", "dust", p.x, p.y, p.z, 8)
     ccall("sound", "pop")
+    ccall("await", spawnMultiBlock, 0, p)
     EH.TOK(e,r(1,3))
 end
 

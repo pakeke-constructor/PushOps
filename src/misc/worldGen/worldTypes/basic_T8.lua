@@ -1,24 +1,80 @@
 
 
+
 --[[
 
-B-B-B-B-B-BOSS FIGHT!!!
+TYPE :: 'basic'
 
+tier :: T8 :: 8
 
-world type:  basic
-tier 8
 
 ]]
 
 
+--[[
+
+World map will be encoded by a 2d array of characters.
+Capital version of any character stands for "spawn multiple."
+
+.  :  nothing (empty space)
+#  :  wall
+e  :  enemy spawn
+r  :  rare enemy spawn
+u  :  unique enemy spawn (i.e. crowd control enemy, enemies that are bad solo)
+n  :  neutral mob spawn
+!  :  Bossfight
+$  :  shop (add this at the end)
+c  :  coin (add this at the end)
+@  :  player spawn
+&  :  exit level / next level
+p  :  physics object
+q :  spiky physics object (damages player upon hit)
+^  :  decoration area (grass, nice ground texture, etc)
+l  :  large immovable structure (basically a solo wall, ie a pillar, tree, giant mushroom)
+*  :  collectable artefact / trophy!!
+
+
+
+(NYI:)
+In order to spawn entities, the worldGen will pick a random
+constructor function from the respective char table.
+That constructor function will then be called and an
+entity will be placed.
+
+
+]]
 local Ents = require("src.entities")
 local WH = require("src.misc.worldGen.WH")
-
-local savedata = require("src.misc.unique.savedata")
-
-local menu_map = require("src.misc.worldGen.maps.menu_map")
-
 local rand = love.math.random
+
+local enemySpawns = Tools.weighted_selection{
+    -- [ Ent spawn function ] = <probability of selection >
+    [Ents.devil]      = 0.2;
+    [Ents.wizling]     = 0.1;
+    [Ents.splatenemy] = 0.4;
+    [Ents.boxbully]   = 0.05;
+    [Ents.multienemy]   = 0.25;
+    [Ents.multiblob]  = 0.25;
+    [Ents.boxsplitter]= 0.05;
+    [Ents.spookymallow] = 0.4
+}
+
+
+local bigEnemySpawns = Tools.weighted_selection{
+    -- [ Ent spawn function ] = <probability of selection >
+    [Ents.splatbully]  = 0.5;
+    [Ents.spookybully] = 0.5
+}
+
+
+local function spawnBlock(x,y)
+    if rand() < 0.2 then
+        EH.Ents.immuneblock(x,y)
+    else
+        EH.Ents.block(x,y)
+    end
+end
+
 
 
 local purge_fn = function(e, cam_x, cam_y)
@@ -26,11 +82,9 @@ local purge_fn = function(e, cam_x, cam_y)
     -- (Passed in as a param to `ccall(apply, .)`  ).
     if (e.targetID ~= "player")
     and (Tools.dist(cam_x-e.pos.x,cam_y-e.pos.y) < 160) then
-        ccall("damage",e,0xfffffffff)
+        ccall("damage",e,0xffff)
     end
 end
-
-
 
 
 local function spawn_portal(x, y)
@@ -38,84 +92,85 @@ local function spawn_portal(x, y)
     portal.portalDestination = {
         x = 30;
         y = 30;
-        tier = 1;
-        type="menu";
-        map = menu_map;
-        minimap = EH.Quads.menu_minimap
+        tier = 9;
+        type="basic"
     }
-
-    if (savedata.type ~= "bully") then
-        savedata.basic_time = math.min(savedata.basic_time, CONSTANTS.runtime)
-    end
 end
 
-
-
-local bosses = {
-    EH.Ents.bigworm;
-    EH.Ents.bigblob
-}
-
-
-local light_positions = {-100, 100}
-
-
-
 return {
-    type = 'basic',
-    tier = 8,
-
-    music = "challenge_main1",
-
-    structureRule = 'default_T1',
-
-    enemies = {
-        n = 30;
-        n_var = 1;
-
-        bign = 1;
-        bign_var = 0
-    };
-
     construct = function(wor,wmap,px,py)
-        ccall("spawnText", px, py - 220, "boss", 400, 30)
+        WH.zonenum(8, px,py)
+        WH.lights(wor, wmap, 15, 500)
+        ccall("setGrassColour", "aqua")
+    end;
+    destruct = function(  )
+        ccall("setGrassColour", "green")
     end;
 
-    bossWin = function(cam_x, cam_y)
+
+    ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
         ccall("await", spawn_portal, 0, cam_x, cam_y)
-        ccall("spawnText", cam_x, cam_y - 90, "gg", 400, 30)
         ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
-        for x=-70, 70, 10 do
-            for y = -70, 70, 10 do
-                local dist = Tools.dist(x, y)
-                if dist < 400 and dist > 20 then
-                    EH.Ents.tok(cam_x + x, cam_y + y)
-                end
-            end
-        end
     end;
 
-    entities = {
+    type = 'basic',
+    tier = 8,
+    structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
+        -- Note that this is NOT referring to the filename,
+        -- it is referring to the `id` of the structureRule.
 
-    ["!"] = {
-        max=1;
+    PROBS = {
+            -- World generation:
+            -- Probability of each character occuring.
+            -- Each value is a weight and does not actually represent the probability.
+            -- see `GenerationSys` for what character represents what.
+            ["^"] = 0.8;
+            ["l"] = 0.12;
+            ["p"] = 0.3;
+            ["P"] = 0.01;
+            ["."] = 0.4
+            -- Bossfights, artefacts, are done through special structure generator
+            -- Walls, shops, player spawn, and player exit are done uniquely.
+    }, -- Can modify the character probabilities by setting
+                        -- this to a table. 
+
+    entExclusionZones = nil, -- Can modify this table also.
+                            -- See `defaultEntExclusionZones.lua`.
+
+    enemies = {
+        n = 32;
+        bign = 3
+    };
+
+    entities = {
+    ["#"] = {
+        max = math.huge;
+        Ents.spookywall
+    };
+
+    ["e"] = {
+        max = 200;
         function(x,y)
-            Tools.rand_choice(bosses)(x,y)
-            for _, p1 in ipairs(light_positions) do
-                for _, p2 in ipairs(light_positions) do
-                    local light = Ents.firefly(x + p1 + rand(-40, 40), y + p2 + rand(-40, 40))
-                    light.light.distance = 300
-                end
+            for i=-1,rand(1,2) do
+                local f = enemySpawns()
+                f(x+(i-1)*40, y+(i-1)*40)
             end
+        end
+    };
+
+    ["E"] = {
+        max = 6;
+        function(x,y)
+            bigEnemySpawns()(x,y)
         end
     };
 
     ["p"] = {
-        max = 300,
+        max = 300, -- 60 max
         function(x, y)
-            for i = 1, rand(1,2) do
-                Ents.block(
+            for i = 1, rand(1,3) do
+                Ents.spookyblock(
                     x + rand(-10, 10),
                     y + rand(-10, 10)
                 )
@@ -123,37 +178,62 @@ return {
         end
     };
 
+    ["P"] = {
+        max = 3, -- Max spawns :: 3
+        function(x, y)
+            local block_ctor = Ents.block
+            for i = 1, rand(3,6) do
+                block_ctor(
+                    x + rand(-32, 32),
+                    y + rand(-32, 32)
+                )
+            end
+        end
+    };
+    
     ['^'] = {
         max = 0xFFFFFFF;
         function(x,y)
-            local grass = Ents.grass
+            local grass = Ents.purpgrass
             for i=1, rand(8,9) do
                 grass(x + rand(-50, 50), y + rand(-50, 50))
             end
         end
     };
 
-
     ['l'] = {
         max = 100;
         function (x, y)
             if rand()<0.5 then
-                Ents.mushroom(x+(rand()-.5)*40,y+(rand()-.5)*40)
+                Ents.bluepine(x+rand(-30,30),y+rand(-30,30))            
             else
-                Ents.pine(x+(rand()-.5)*40,y+(rand()-.5)*40)
+                Ents.blue_mushroom(x+rand(-30,30),y+rand(-30,30))
             end
         end
-    }
+    };
+
+    ["%"] = {
+        max=math.huge;
+        function(x,y)
+            Ents.inviswall(x,y)
+            for i=1, (rand()*2) do--4 + rand()*2 do
+                local X = x + rand(-45,45)
+                local Y = y + rand(-45,45)
+                Ents.fakebluepine(X,Y)    
+            end
+        end
+    };
+
+    ["~"] = {
+        max=math.huge;
+        function(x,y)
+            for i=1, rand()*4 do--4 + rand()*2 do
+                local X = x + rand(-100,100)
+                local Y = y + rand(-100,100)
+                Ents.fakebluepine(X,Y)    
+            end
+        end
+    };
 }
 }
-
-
-
-
-
-
-
-
-
-
 

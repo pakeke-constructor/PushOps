@@ -49,29 +49,25 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.devil]      = 0.2;
-    [Ents.wizling]     = 0.1;
-    [Ents.splatenemy] = 0.8;
-    [Ents.boxbully]   = 0.05;
-    [Ents.boxenemy]   = 0.2;
-    [Ents.boxsplitter]= 0.05
+    [Ents.devil]      = 0.1;
+    [Ents.demon]      = 0.05;
+    [Ents.mallow]     = 0.15;
+    [Ents.wizling]     = 0.3;
+    [Ents.spookyenemy]= 0.4;
+    [Ents.splatenemy] = 0.15;
+    [Ents.boxbully]   = 0.15;
+    [Ents.multienemy]   = 0.2;
+    [Ents.multiblob]  = 0.2;
+    [Ents.ghost_squad]= 0.1;
+    [Ents.biggerspookyblob] = 0.2
 }
 
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.splatbully]  = 0.5;
+    [Ents.spookybully] = 0.5;
     [Ents.boxbully]    = 0.5
 }
-
-
-local function spawnBlock(x,y)
-    if rand() < 0.2 then
-        EH.Ents.immuneblock(x,y)
-    else
-        EH.Ents.block(x,y)
-    end
-end
 
 
 
@@ -97,9 +93,9 @@ end
 
 return {
     construct = function(wor,wmap,px,py)
-        WH.zonenum(6, px,py)
-        WH.lights(wor, wmap, 15, 500)
-        ccall("setGrassColour", "yellow")
+        WH.zonenum(6,px,py)
+        WH.lights(wor, wmap, 15, 300)
+        ccall("setGrassColour", "aqua")
     end;
     destruct = function(  )
         ccall("setGrassColour", "green")
@@ -112,8 +108,6 @@ return {
         ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
     end;
     
-    music = "gameon_main1",
-    music_volmod = 0.75,
 
     type = 'basic',
     tier = 6,
@@ -140,14 +134,14 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     enemies = {
-        n = 32;
+        n = 30; n_var=2;
         bign = 3
     };
 
     entities = {
-    ["#"] = {
-        max = math.huge;
-        Ents.splatwall
+    ["#"] = { -- For wall entity.
+        max = 999999, --No max.
+        Ents.spookywall
     };
 
     ["e"] = {
@@ -171,7 +165,7 @@ return {
         max = 300, -- 60 max
         function(x, y)
             for i = 1, rand(1,3) do
-                spawnBlock(
+                Ents.spookyblock(
                     x + rand(-10, 10),
                     y + rand(-10, 10)
                 )
@@ -182,8 +176,9 @@ return {
     ["P"] = {
         max = 3, -- Max spawns :: 3
         function(x, y)
+            local block_ctor = Ents.block
             for i = 1, rand(3,6) do
-                spawnBlock(
+                block_ctor(
                     x + rand(-32, 32),
                     y + rand(-32, 32)
                 )
@@ -194,7 +189,7 @@ return {
     ['^'] = {
         max = 0xFFFFFFF;
         function(x,y)
-            local grass = Ents.bluegrass
+            local grass = Ents.purpgrass
             for i=1, rand(8,9) do
                 grass(x + rand(-50, 50), y + rand(-50, 50))
             end
@@ -205,9 +200,9 @@ return {
         max = 100;
         function (x, y)
             if rand()<0.3 then
-                Ents.mushroom(x+rand(-30,30),y+rand(-30,30))            
+                Ents.mushroom(x+rand()*90,y+rand()*90)            
             else
-                Ents.yellowpine(x+rand(-30,30),y+rand(-30,30))
+                Ents.blue_mushroom(x+(rand()-.5)*90,y+(rand()-.5)*90)
             end
         end
     };
@@ -217,9 +212,9 @@ return {
         function(x,y)
             Ents.inviswall(x,y)
             for i=1, (rand()*2) do--4 + rand()*2 do
-                local X = x+rand(-45,45)
-                local Y = y+rand(-45,45)
-                Ents.fakeyellowpine(X,Y)    
+                local X = x + rand(-45,45)
+                local Y = y + rand(-45,45)
+                Ents.fakebluepine(X,Y)    
             end
         end
     };
@@ -228,9 +223,9 @@ return {
         max=math.huge;
         function(x,y)
             for i=1, rand()*4 do--4 + rand()*2 do
-                local X = x+rand(-100,100)
-                local Y = y+rand(-100,100)
-                Ents.fakeyellowpine(X,Y)    
+                local X = x + rand(-100,100)
+                local Y = y + rand(-100,100)
+                Ents.fakebluepine(X,Y)    
             end
         end
     };

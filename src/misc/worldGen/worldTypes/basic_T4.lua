@@ -1,11 +1,10 @@
 
 
-
 --[[
 
 TYPE :: 'basic'
 
-tier :: T3 :: 3
+tier :: T4 :: 4
 
 
 ]]
@@ -49,14 +48,14 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.devil]      = 0.1;
-    [Ents.demon]      = 0.05;
-    [Ents.mallow]     = 0.2;
-    [Ents.enemy]      = 0.3;
-    [Ents.spookyenemy]= 0.6;
-    [Ents.boxenemy]   = 0.2;
-    [Ents.boxblob]    = 0.2;
-    [Ents.biggerspookyblob] = 0.2
+    [Ents.devil]     = 0.2;
+    [Ents.demon]     = 0.2;
+    [Ents.mallow]    = 0.2;
+    [Ents.enemy]     = 0.1;
+    [Ents.boxenemy]  = 0.5;
+    [Ents.splatenemy]= 0.1;
+    [Ents.boxblob]   = 0.15;
+    [Ents.trickblock]= 0.15
 }
 
 
@@ -88,39 +87,36 @@ local function spawn_portal(x, y)
 end
 
 
+
 return {
-
-    construct = function(wor,wmap,px,py)
-        WH.zonenum(4,px,py)
-        WH.lights(wor, wmap, 15, 300)
-        ccall("setGrassColour", "aqua")
-    end;
-
-    destruct = function(  )
-        ccall("setGrassColour", "green")
-    end;
-
-    
-    ratioWin = function(cam_x, cam_y)
-        ccall("apply", purge_fn, cam_x, cam_y)
-        ccall("await", spawn_portal, 0, cam_x, cam_y)
-        ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
-    end;
-    
-
     type = 'basic',
     tier = 4,
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
 
-    music = "darkalley_main1",
+    construct = function(wor,wmap,px,py)
+        WH.zonenum(4,px,py)
+        WH.lights(wor, wmap, 15, 500)
+    end;
 
+    ratioWin = function(cam_x, cam_y)
+        ccall("apply", purge_fn, cam_x, cam_y)
+        ccall("await", spawn_portal, 0, cam_x, cam_y)
+        ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
+    end;
+    
     PROBS = {
             -- World generation:
             -- Probability of each character occuring.
             -- Each value is a weight and does not actually represent the probability.
             -- see `GenerationSys` for what character represents what.
+            ["e"] = 0.4;
+            ["E"] = 0.005;
+            ["r"] = 0.02; -- 0.02 weight chance of spawning on random tile.
+            ["R"] = 0.005;
+            ["u"] = 0.01;
+            ["U"] = 0.003;
             ["^"] = 0.8;
             ["l"] = 0.12;
             ["p"] = 0.3;
@@ -135,14 +131,14 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     enemies = {
-        n = 32; n_var = 2;
+        n = 34; n_var=2;
         bign = 2
     };
 
     entities = {
     ["#"] = { -- For wall entity.
         max = 999999, --No max.
-        Ents.spookywall
+        Ents.wall
     };
 
     ["e"] = {
@@ -166,17 +162,10 @@ return {
         max = 300, -- 60 max
         function(x, y)
             for i = 1, rand(1,3) do
-                if rand() < 0.5 then
-                    Ents.block(
-                        x + rand(-10, 10),
-                        y + rand(-10, 10)
-                    )
-                else
-                    Ents.spookyblock(
-                        x + rand(-10, 10),
-                        y + rand(-10, 10)
-                    )
-                end
+                Ents.block(
+                    x + rand(-10, 10),
+                    y + rand(-10, 10)
+                )
             end
         end
     };
@@ -191,13 +180,17 @@ return {
                     y + rand(-32, 32)
                 )
             end
+            if rand() < 0.15 then
+                -- mwahahahah
+                EH.Ents.trickblock(x,y)
+            end
         end
     };
     
     ['^'] = {
         max = 0xFFFFFFF;
         function(x,y)
-            local grass = Ents.purpgrass
+            local grass = Ents.grass
             for i=1, rand(8,9) do
                 grass(x + rand(-50, 50), y + rand(-50, 50))
             end
@@ -207,37 +200,26 @@ return {
     ['l'] = {
         max = 100;
         function (x, y)
-            if rand()<0.3 then
-                Ents.bluepine(x+rand()*90,y+rand()*90) 
+            if rand()<0.5 then
+                Ents.blue_mushroom(x+rand()*20,y+rand()*20)            
             else
-                Ents.blue_mushroom(x+(rand()-.5)*90,y+(rand()-.5)*90)
+                if rand() < 0.5 then
+                    Ents.pine(x+rand()*20,y+rand()*20)
+                else
+                    Ents.mushroom(x+rand()*20, y+rand()*20)
+                end
             end
         end
-    };
-
-    ["%"] = {
-        max=math.huge;
-        function(x,y)
-            Ents.inviswall(x,y)
-            for i=1, (rand()*2) do--4 + rand()*2 do
-                local X = x + rand(-45,45)
-                local Y = y + rand(-45,45)
-                Ents.fakebluepine(X,Y)    
-            end
-        end
-    };
-
-    ["~"] = {
-        max=math.huge;
-        function(x,y)
-            for i=1, rand()*4 do--4 + rand()*2 do
-                local X = x + rand(-100,100)
-                local Y = y + rand(-100,100)
-                Ents.fakebluepine(X,Y)    
-            end
-        end
-    };
+    }
 }
 }
+
+
+
+
+
+
+
+
 
 

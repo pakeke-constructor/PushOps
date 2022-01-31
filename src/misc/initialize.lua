@@ -28,7 +28,6 @@ function DEBUG_SYS:keypressed(k)
         -- DEBUG ONLY
         -- EH.Ents.multiblock(cam.x,cam.y)
 
-        ccall("sound", "pop")
         --Ents.crafter(cam.x, cam.y)
     end
 

@@ -5,7 +5,7 @@
 
 TYPE :: 'basic'
 
-tier :: T3 :: 3
+tier :: T5 :: 5
 
 
 ]]
@@ -51,21 +51,18 @@ local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
     [Ents.devil]      = 0.1;
     [Ents.demon]      = 0.05;
-    [Ents.mallow]     = 0.15;
-    [Ents.wizling]     = 0.3;
-    [Ents.spookyenemy]= 0.4;
-    [Ents.splatenemy] = 0.15;
-    [Ents.boxbully]   = 0.15;
+    [Ents.mallow]     = 0.2;
+    [Ents.enemy]      = 0.3;
+    [Ents.spookyenemy]= 0.6;
     [Ents.boxenemy]   = 0.2;
-    [Ents.ghost_squad]= 0.1;
+    [Ents.boxblob]    = 0.2;
     [Ents.biggerspookyblob] = 0.2
 }
 
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.spookybully] = 0.5;
-    [Ents.boxbully]    = 0.5
+    [Ents.boxbully] = 1
 }
 
 
@@ -90,17 +87,20 @@ local function spawn_portal(x, y)
     }
 end
 
+
 return {
+
     construct = function(wor,wmap,px,py)
         WH.zonenum(5,px,py)
         WH.lights(wor, wmap, 15, 300)
         ccall("setGrassColour", "aqua")
     end;
+
     destruct = function(  )
         ccall("setGrassColour", "green")
     end;
 
-
+    
     ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
         ccall("await", spawn_portal, 0, cam_x, cam_y)
@@ -113,6 +113,8 @@ return {
     structureRule = 'default_T1', -- Use default Tier 1 structure rule for this tier.
         -- Note that this is NOT referring to the filename,
         -- it is referring to the `id` of the structureRule.
+
+    music = "darkalley_main1",
 
     PROBS = {
             -- World generation:
@@ -133,8 +135,8 @@ return {
                             -- See `defaultEntExclusionZones.lua`.
 
     enemies = {
-        n = 30; n_var=2;
-        bign = 3
+        n = 32; n_var = 2;
+        bign = 2
     };
 
     entities = {
@@ -164,10 +166,17 @@ return {
         max = 300, -- 60 max
         function(x, y)
             for i = 1, rand(1,3) do
-                Ents.spookyblock(
-                    x + rand(-10, 10),
-                    y + rand(-10, 10)
-                )
+                if rand() < 0.5 then
+                    Ents.block(
+                        x + rand(-10, 10),
+                        y + rand(-10, 10)
+                    )
+                else
+                    Ents.spookyblock(
+                        x + rand(-10, 10),
+                        y + rand(-10, 10)
+                    )
+                end
             end
         end
     };
@@ -199,7 +208,7 @@ return {
         max = 100;
         function (x, y)
             if rand()<0.3 then
-                Ents.mushroom(x+rand()*90,y+rand()*90)            
+                Ents.bluepine(x+rand()*90,y+rand()*90) 
             else
                 Ents.blue_mushroom(x+(rand()-.5)*90,y+(rand()-.5)*90)
             end

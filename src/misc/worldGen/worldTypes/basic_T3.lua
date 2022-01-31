@@ -48,12 +48,12 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.devil]     = 0.4;
+    [Ents.devil]     = 0.2;
     [Ents.demon]     = 0.2;
     [Ents.mallow]    = 0.2;
     [Ents.enemy]     = 0.1;
     [Ents.boxenemy]  = 0.5;
-    [Ents.splatenemy]= 0.25;
+    [Ents.splatenemy]= 0.15;
     [Ents.boxblob]   = 0.15;
 }
 

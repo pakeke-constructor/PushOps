@@ -17,9 +17,9 @@ Zone 3:
     introduction to demons
     h:(boxbully)
 
-Zone 4: (FULL ZONE TODO)
+Zone 4: (DONE)
     introduction to blue mushrooms
-    introduction to trickblock
+    introduction to trickblock   (TODO: Test trickblock)
     introduction to multienemy
     h:(boxbully)
 
@@ -39,11 +39,13 @@ Zone 6:
 
 Zone 7:  (FULL ZONE TODO)
     aqua/blue grass
-    introduction to 
-    h:()
+    more splat enemies
+    h:(spookybully)
 
-
-
+Zone 8:   (FULL ZONE TODO)
+    aqua / blue grass
+    introduction to spookymallow
+    h:(splatbully)   <---- TODO
 
 
 Zone 9:

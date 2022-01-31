@@ -1,10 +1,16 @@
 
-
 --[[
+
+Future Oli here:
+These little buggers are the funniest little things in the game.
+What a brilliant idea to put them in.
+
 
 Block entity that turns into an enemy when provoked
 (current trigger is when player moves close)
 
+When it gets low on health, it runs away and tries 
+to hide as a block again.
 
 ]]
 
@@ -44,28 +50,15 @@ local right = { Quads.enemy_right_1, Quads.enemy_right_2, Quads.enemy_right_3, Q
 
 
 local function physColFunc(e1,e2,speed)
-    if e2.targetID=="player" then
-        if e1.targetID=="enemy" then
-            ccall("damage", e2, (e1.strength or 20))
-        end
+    if EH.PC(e1, e2, speed) then
+        ccall("sound", "hit")
     end
-
-    if speed > CONSTANTS.ENT_DMG_SPEED and (not e1._is_block) then
-        if e1.vel then
-            ccall("damage", e1, (speed - e1.vel:len()))
-        else
-            ccall("damage",e1,speed)
-        end
-        --[[
-            TODO:
-            sound FX and particles here!
-        ]]
-    end
-    -- no collision, thx
 end
 
 
 
+local EPSILON = 0.0001 -- good enough XD
+-- (Yes, this is spagetti code. I dont care anymore, this needs to be RELEASED)
 
 
 local Tree = EH.Node("trickblock BehaviourTree")
@@ -80,7 +73,7 @@ function Tree:choose(e)
         end
     else
         if e._is_scared then
-            if Tools.distToPlayer(e, cam) > 400 then
+            if Tools.distToPlayer(e, cam) > 200 then
                 return "turnIntoBlock"
             end
         else
@@ -113,13 +106,16 @@ end
 
 
 local TB_task = EH.Task("_ turn into block task")
+
 function TB_task:start(e)
-    e.speed.speed = 0
-    e.speed.max_speed = 0
+    e.speed.speed = EPSILON -- welp, spagetti code here! :)
+    e.speed.max_speed = EPSILON -- we can't set speed to 0 or 
+                           -- else MoveSys will get angry at NaNs.
     e:remove("motion")
     e.animation = e._animation
     e._is_block = true
 end
+
 function TB_task:update(e)
     return'n'
 end
@@ -149,8 +145,22 @@ Tree.wait={
 }
 
 
-local function onDeath(e)
+local r = love.math.random
+
+local function spawnBlock(p)
+    -- p is position vector
+    EH.Ents.block(p.x, p.y)
 end
+
+local function onDeath(e)
+    local p = e.pos
+    ccall("emit","rocks", e.pos.x, e.pos.y, 10, 2)
+    ccall("emit", "dust", p.x, p.y, p.z, r(4,6))
+    ccall("sound","crumble",0.6, 0.6)
+    ccall("await", spawnBlock, 0, p)
+    EH.TOK(e,1)
+end
+
 
 
 return function(x, y)
@@ -209,8 +219,8 @@ return function(x, y)
     }
 
     e.speed = {
-        speed=0;
-        max_speed=0 -- starts off with 0 speed; blocks cannot move!
+        speed=EPSILON;
+        max_speed=EPSILON -- starts off with close to 0 speed; blocks cannot move!
     }
 end
 

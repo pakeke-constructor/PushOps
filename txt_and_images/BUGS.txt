@@ -1,4 +1,28 @@
 
+When trickblock transforms.
+
+ahhh crap man, its error time.
+If you can, please contact Oli and show a full screenshot of this screen. TY!
+       PLATFORM : Windows
+src/systems/MoveSys.lua:138: ur gonna get a NaN here man
+
+Traceback
+
+conf.lua:111: in function 'handler'
+[C]: in function 'assert'
+src/systems/MoveSys.lua:138: in function <src/systems/MoveSys.lua:111>
+libs/Cyan/Cyan.lua:73: in function 'call'
+src/misc/behaviour/movebehaviours/base.lua:50: in function 'updateGotoTarget'
+src/misc/behaviour/movebehaviours/solo.lua:39: in function 'update'
+src/systems/MoveBehaviourSys.lua:284: in function <src/systems/MoveBehaviourSys.lua:275>
+libs/Cyan/Cyan.lua:73: in function 'call'
+src/misc/unique/gamestate.lua:19: in function 'update'
+[C]: in function 'xpcall'
+
+
+
+
+
 
 
 Happened after entering a new level with minimap
