@@ -6,8 +6,7 @@ local rand = love.math.random
 
 local enemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.devil]      = 0.2;
-    [Ents.demon]      = 0.05;
+    [Ents.demon]      = 0.2;
     [Ents.mallow]     = 0.05;
     [Ents.wizling]     = 0.2;
     [Ents.splatenemy] = 0.8;
@@ -20,13 +19,12 @@ local enemySpawns = Tools.weighted_selection{
 
 local bigEnemySpawns = Tools.weighted_selection{
     -- [ Ent spawn function ] = <probability of selection >
-    [Ents.splatbully]  = 0.5;
     [function(x,y)
         EH.Ents.splatmallow(x,y)
         for i=1, 5 do
             EH.Ents.splatenemy(x + rand(-30, 30), y + rand(-30,30))    
         end
-    end] = 0.5
+    end] = 1
 }
 
 

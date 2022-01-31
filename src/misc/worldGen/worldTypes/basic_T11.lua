@@ -51,10 +51,10 @@ end
 
 
 
-local bosses = {
-    EH.Ents.bigworm;
-    EH.Ents.bigblob
-}
+local select_boss = Tools.weighted_selection({
+    [EH.Ents.bigworm] = 0.9;
+    [EH.Ents.bigblob] = 0.1
+})
 
 
 local light_positions = {-100, 100}
@@ -101,7 +101,7 @@ return {
     ["!"] = {
         max=1;
         function(x,y)
-            Tools.rand_choice(bosses)(x,y)
+            select_boss()(x,y)
             for _, p1 in ipairs(light_positions) do
                 for _, p2 in ipairs(light_positions) do
                     local light = Ents.firefly(x + p1 + rand(-40, 40), y + p2 + rand(-40, 40))

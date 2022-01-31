@@ -34,7 +34,6 @@ end
 
 
 
-local bossMap = require("src.misc.worldGen.maps.boss_map")
 
 local function spawn_portal(x, y)
     local portal = EH.Ents.portal(x, y)
@@ -43,7 +42,6 @@ local function spawn_portal(x, y)
         y = 30;
         tier = 10;
         type="basic";
-        map = bossMap
     }
 end
 
