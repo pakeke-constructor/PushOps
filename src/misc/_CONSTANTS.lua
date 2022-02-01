@@ -124,7 +124,7 @@ return{
     SHADER_NOISE_AMOUNT = 0.07,
     SHADER_NOISE_PERIOD = 5
 ,
-    SHADER_LIGHT_DOWNSCALE_FACTOR = 4 -- Light canvas is 2x as small as screen.
+    SHADER_LIGHT_DOWNSCALE_FACTOR = 8 -- Light canvas is X times as small as screen.
 ,
     SCALE_FACTOR = 2.5
 ,
@@ -135,6 +135,8 @@ return{
     MUSIC_VOLUME = 0.17 --   0 --> 1
 ,
     DEBUG = true
+,
+    TEST = false -- TODO: Turn these off when you release!!!!
 }
 
 

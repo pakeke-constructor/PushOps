@@ -34,8 +34,8 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
     sc.y = floor(sc.y/period);
 
     float r = 0.9 + amount * rand(sc);
-    float g = 0.9 + amount * rand(sc + 91);
-    float b = 0.9 + amount * rand(sc + 213);
+    float g = 0.9 + amount * rand(sc + vec2(91, 91));
+    float b = 0.9 + amount * rand(sc + vec2(213, 213));
 
     colour *= vec4(r,g,b,1);
     vec4 final = Texel(texture, texture_coords) * colour;

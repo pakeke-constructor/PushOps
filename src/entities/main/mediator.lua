@@ -13,8 +13,11 @@ local rand = love.math.random
 
 
 local function rblock(x,y)
-    if rand() < 0.15 then
+    local rr = rand()
+    if rr < 0.1 then
         EH.Ents.mushroomblock(x,y)
+    elseif rr < 0.2 then 
+        EH.Ents.multiblock(x,y)
     else
         EH.Ents.block(x,y)
     end
@@ -132,7 +135,8 @@ local function initSpawners()
 
         spawn_lv3 = Tools.weighted_selection{
             [E.demon] = 0.3;
-            [E.boxenemy] = 0.3;
+            [E.multienemy] = 0.3;
+            [E.multiblob] = 0.3;
             [E.boxbully] = 0.3;
             [E.spookyenemy] = 0.5;
             [E.spookybully] = 0.3;
@@ -142,8 +146,10 @@ local function initSpawners()
         spawn_lv4 = Tools.weighted_selection{
             [E.boxbully] = 0.2;
             [E.demon] = 0.4;
-            [E.splatenemy] = 0.2;
+            [E.splatenemy] = 0.08;
             [E.boxenemy] = 0.3;
+            [E.multienemy] = 0.2;
+            [E.multiblob] = 0.2;
             [E.enemy] = 0.3;
             [E.ghost_squad] = 0.2;
             [E.bully] = 0.2;

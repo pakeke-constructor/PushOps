@@ -73,7 +73,7 @@ void sort(float frags[9])
 vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
 {
     vec4 temp_col;
-    vec4 final = Texel(texture, texture_coords) * color;
+    vec4 final = vec4(0,0,0,0);
     vec4 given = Texel(texture, texture_coords) * color;
 
     int ctr = 0;
@@ -82,9 +82,11 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
     float greens[9];
     float blues[9];
 
-    for (float i=-1.0; i<2.0; i++){
-        for (float j=-1.0; j<2.0; j++){
-            temp_col = Texel(MainTex, texture_coords + vec2(i/map_x, j/map_y));
+    for (int i=-1; i<2; i++){
+        for (int j=-1; j<2; j++){
+            vec2 offset = vec2(float(i) / map_x, float(j) / map_y);
+            temp_col = Texel(MainTex, texture_coords + offset);
+            
             int index = (int(i)+1)*3 + (int(j)+1);
             reds[index] = temp_col.x;
             greens[index] = temp_col.y;

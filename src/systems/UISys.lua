@@ -160,9 +160,19 @@ end
 
 
 
+local pth = "src/misc/unique/mapshader.glsl"
 local miniMapShader = love.graphics.newShader(
-    love.filesystem.read("src/misc/unique/mapshader.glsl"), nil
+    love.filesystem.read(pth), nil
 )
+
+if CONSTANTS.TEST then
+    local res, err = love.graphics.validateShader(true, pth)
+    assert(res, err)
+
+    local res2, er2 = love.graphics.validateShader(false, pth)
+    assert(res2, er2)
+end
+
 
 
 

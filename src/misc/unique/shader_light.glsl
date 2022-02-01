@@ -17,7 +17,7 @@ uniform float brightness_modifier;
 
 
 float hillfunc(int radius, float x, float height) {
-    float u = (max(0,(-abs(x)/radius) + height));
+    float u = (max(0.0,(-abs(x)/float(radius)) + height));
     return u; 
 }
 
@@ -32,7 +32,7 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
         light += light_colours[i] * strength;
     }
 
-    light.w = 1;
+    light.w = 1.0;
     
     light = max(light, base_lighting);
     return colour * light;
