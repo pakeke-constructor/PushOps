@@ -1,4 +1,6 @@
+
 name = "PushOps"
+
 default_targets = ["win32", "win64"]
 build_directory = "makelove-build"
 
@@ -6,3 +8,34 @@ love_files = [
     "::git-ls-tree::",
     "-*/.*",
 ]
+
+[win32]
+shared_libraries = [
+    "release/Steam/luasteam_SO/win32/luasteam.dll",
+    "release/Steam/steam_SO/win32/steam_api.dll",
+    "release/Steam/steam_SO/win32/steam_api.lib"
+]
+
+
+[win64]
+shared_libraries = [
+    "release/Steam/luasteam_SO/win64/luasteam.dll",
+    "release/Steam/steam_SO/win64/steam_api64.dll",
+    "release/Steam/steam_SO/win64/steam_api64.lib",
+]
+
+
+[linux]
+shared_libraries = [
+    "release/Steam/luasteam_SO/linux64/luasteam.dll",
+    "release/Steam/steam_SO/linux64/libsteam_api64.dll"
+]
+
+
+[macos]
+shared_libraries = [
+    "release/Steam/luasteam_SO/osx/luasteam.so",
+    "release/Steam/steam_SO/osx/libsteam_api.dylib"
+]
+
+

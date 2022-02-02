@@ -33,6 +33,10 @@ end
 
 
 function SaveDataSys:quit()
+    if rawget(_G, "luasteam") then
+        luasteam.shutdown()
+    end
+    
     data.sfx_volume = CONSTANTS.SFX_VOLUME
     data.music_volume = CONSTANTS.MUSIC_VOLUME
 

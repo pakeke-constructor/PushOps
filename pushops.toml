@@ -1,0 +1,33 @@
+
+[selene]
+base = "lua51"
+name = "love2d"
+
+
+[love]
+any = true
+# TODO: make actual bindings for this
+
+[CONSTANTS]
+any = true
+
+[Tools]
+any = true
+
+[Cyan]
+any = true
+[ccall]
+any = true
+
+[table]
+any = true
+
+[math]
+any = true
+
+## Standard library modifications
+[assert]
+any = true
+
+
+

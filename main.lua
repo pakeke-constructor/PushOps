@@ -60,9 +60,11 @@ math.roman = require "libs.math.NM_roman" -- roman numeral converter
 local success, luasteam = pcall(require, "luasteam")
 if success then
     rawset(_G, "luasteam", luasteam)
+    luasteam.init()
 else
     rawset(_G, "luasteam", false)
 end
+
 
 
 -- Entity construction helper functions / util

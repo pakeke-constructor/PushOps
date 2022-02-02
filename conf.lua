@@ -71,6 +71,13 @@ local function error_printer(msg, layer)
 end
  
 function _G.love.errorhandler(msg)
+
+    -- close luasteam if it is open
+    if rawget(_G, "luasteam") then
+        luasteam.shutdown()
+    end
+
+
 	msg = tostring(msg)
  
 	error_printer(msg, 2)
