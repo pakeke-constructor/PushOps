@@ -42,12 +42,11 @@ end
 
 -- TEMP DEBUG STUFF
 -- TODO: remove all of this later.
---[[
 local _temp_canv = love.graphics.newCanvas(1200,1000)
 love.graphics.setCanvas(_temp_canv)
 love.graphics.push()
 
-local str = "2 bosses"
+local str = "bosses"
 love.graphics.scale(2)
 love.graphics.setColor(0.9,0.9,0.9)
 for i=1,#str do
@@ -57,17 +56,32 @@ for i=1,#str do
 end
 love.graphics.pop()
 love.graphics.setCanvas()
-]]
+
+
+local _temp_canv_2 = love.graphics.newCanvas(1200,1000)
+love.graphics.setCanvas(_temp_canv_2)
+love.graphics.push()
+
+local str = "and minibosses"
+love.graphics.scale(2)
+love.graphics.setColor(0.9,0.9,0.9)
+for i=1,#str do
+    local c = str:sub(i,i)
+    local r = math.floor(love.math.random(-3,3))
+    Atlas:draw(Atlas.quads["letter_" .. c], 28 * i, r + 10)
+end
+love.graphics.pop()
+love.graphics.setCanvas()
 
 
 function DEBUG_SYS:drawUI()
-    --[[
     love.graphics.push()
     love.graphics.scale(1.2)
     love.graphics.setColor(1,1,1)
     love.graphics.draw(_temp_canv, 120, -10, 0.05)
+    love.graphics.scale(0.6)
+    love.graphics.draw(_temp_canv_2, -100, 100, 0.05)
     love.graphics.pop()
-    ]]
 end
 
 

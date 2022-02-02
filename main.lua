@@ -56,6 +56,15 @@ math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
 
 
+-- load steam module
+local success, luasteam = pcall(require, "luasteam")
+if success then
+    rawset(_G, "luasteam", luasteam)
+else
+    rawset(_G, "luasteam", false)
+end
+
+
 -- Entity construction helper functions / util
 rawset(_G, "EH", require 'src.entities._EH')
 
