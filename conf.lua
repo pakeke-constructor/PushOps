@@ -74,7 +74,9 @@ function _G.love.errorhandler(msg)
 
     -- close luasteam if it is open
     if rawget(_G, "luasteam") then
-        luasteam.shutdown()
+        pcall(function()
+            luasteam.shutdown()
+        end)
     end
 
 

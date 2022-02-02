@@ -19,6 +19,9 @@ any = true
 [ccall]
 any = true
 
+[luasteam]
+any=true
+
 [table]
 any = true
 

@@ -97,6 +97,9 @@ return{
             rainbow = false;
         };
 
+        achievements = {}; -- [achievement_name] -> boolean, 
+                           -- (whether its been achieved)
+
         colourblind = false;
         devilblind = false;
         navyblind = false;
@@ -132,7 +135,7 @@ return{
 ,
     SFX_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1
 ,
-    MUSIC_VOLUME = 0.17 --   0 --> 1
+    MUSIC_VOLUME = 0.13 --   0 --> 1
 ,
     DEBUG = true
 ,

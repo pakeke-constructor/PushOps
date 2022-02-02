@@ -95,9 +95,7 @@ function WinSys:update(dt)
         end
     end
 
-    --print("bossct:",bossCount)
-    
-    if bossCount <= 0 then
+    if (bossCount < bossCountTotal) and (bossCount == 0) then
         if not bossWinDone then
             ccall("bossWin")
             bossWinDone = true

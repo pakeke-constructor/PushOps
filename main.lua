@@ -55,12 +55,20 @@ math.dot   = require "libs.math.dot"
 math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
 
+local USE_STEAM = true
 
--- load steam module
-local success, luasteam = pcall(require, "luasteam")
-if success then
-    rawset(_G, "luasteam", luasteam)
-    luasteam.init()
+if USE_STEAM then
+    -- load steam module
+    local success, luasteam = pcall(require, "luasteam")
+    if success then
+        print("[luasteam]: successfully loaded")
+        rawset(_G, "luasteam", luasteam)
+        luasteam.init()
+        luasteam.userStats.resetAllStats() -- TODO: remove this!!! This is for testing
+        luasteam.friends.activateGameOverlay("achievements")
+    else
+        rawset(_G, "luasteam", false)
+    end
 else
     rawset(_G, "luasteam", false)
 end

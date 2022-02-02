@@ -40,7 +40,7 @@ end
 
 
 
--- TEMP DEBUG STUFF
+--[[ TEMP DEBUG STUFF
 -- TODO: remove all of this later.
 local _temp_canv = love.graphics.newCanvas(1200,1000)
 love.graphics.setCanvas(_temp_canv)
@@ -83,7 +83,7 @@ function DEBUG_SYS:drawUI()
     love.graphics.draw(_temp_canv_2, -100, 100, 0.05)
     love.graphics.pop()
 end
-
+]]
 
 --[[
 

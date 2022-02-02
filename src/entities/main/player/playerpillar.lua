@@ -39,7 +39,6 @@ local function onInteract(self, player, type)
             end
             
             if savedata.tokens >= self.playerCost then
-                -- TODO: add feedback when player unlocks and cant afford, etc
                 savedata.owned_players[self.playerType] = true
                 savedata.tokens = savedata.tokens - self.playerCost
                 if self._cost_text then

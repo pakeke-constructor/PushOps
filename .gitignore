@@ -4,3 +4,7 @@ release
 *.exe
 txt_and_images/personal
 makelove-build
+*.dll
+*.lib
+
+steam_appid.txt
