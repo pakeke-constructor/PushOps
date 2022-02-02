@@ -69,6 +69,9 @@ Emits a crafting event a x,y. All materials will be consumed.
 Gives an item to a player, (see src/misc/items.) 
 If the player already has the item, this callback does nothing.
 
+# collectToken()
+called when the player collects a token
+
 # reset( )
 called when the player finishes a run
 (goes back to menu, or restarts run, etc)

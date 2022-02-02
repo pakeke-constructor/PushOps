@@ -86,7 +86,10 @@ return{
     SAVE_DATA_DEFAULT = {
         -- The default save data for a program.
         -- Putting this in CONSTANTS.lua ensures future compatibility.
-        tokens = 0; -- the number of tokens player has collected
+        tokens = 0; -- the number of tokens player has in their wallet
+
+        total_tokens = 0; -- the number of tokens the player has EVER collected.
+        -- ^^^ This value never gets smaller when buying stuff!
 
         owned_players = {
             red = true;
@@ -110,7 +113,9 @@ return{
         playerType = "red";
 
         sfx_volume = 0.4;
-        music_volume = 0.3
+        music_volume = 0.3;
+
+        deaths = 0;
     }
 ,
     SPLAT_COLOUR = {255/255, 241/255, 16/255}

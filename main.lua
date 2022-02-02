@@ -64,8 +64,6 @@ if USE_STEAM then
         print("[luasteam]: successfully loaded")
         rawset(_G, "luasteam", luasteam)
         luasteam.init()
-        luasteam.userStats.resetAllStats() -- TODO: remove this!!! This is for testing
-        luasteam.friends.activateGameOverlay("achievements")
     else
         rawset(_G, "luasteam", false)
     end

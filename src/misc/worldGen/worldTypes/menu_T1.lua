@@ -191,8 +191,8 @@ return {
             function(x,y)
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
-                    tier = 11;
-                    map = require("src.misc.worldGen.maps.boss_map");
+                    tier = 1;
+                    --map = require("src.misc.worldGen.maps.boss_map");
                     type = "basic";
                     x = 32;
                     y = 32

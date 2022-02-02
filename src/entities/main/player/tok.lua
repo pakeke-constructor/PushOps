@@ -12,8 +12,9 @@ local savedata = require("src.misc.unique.savedata")
 local function playerColFunc(ent, player, dt)
     ccall("animate", "blit", ent.pos.x,ent.pos.y,ent.pos.z, 0.01, 1)
     ccall("sound", "beep", 0.35, 0.95+r()/10)
+    ccall("collectToken")
     savedata.tokens = savedata.tokens + 1
-    ccall("kill",ent)
+    ccall("kill", ent)
 end
 
 --[[
