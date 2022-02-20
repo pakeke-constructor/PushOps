@@ -288,6 +288,7 @@ function ControlSys:keypressed(key)
 end
 
 
+
 function ControlSys:keytap(key)
     if CONSTANTS.paused then
         return 
@@ -301,6 +302,19 @@ function ControlSys:keytap(key)
 end
 
 
+function ControlSys:mousepressed(_,_,butto)
+    if CONSTANTS.paused then
+        return
+    end
+    print(butto)
+    for _, ent in ipairs(self.group) do
+        if butto == 1 then
+            push(ent)
+        elseif butto == 2 then
+            pull(ent)
+        end
+    end
+end
 
 
 

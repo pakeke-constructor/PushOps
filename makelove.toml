@@ -1,4 +1,6 @@
 
+
+
 name = "PushOps"
 
 default_targets = ["win32", "win64"]
@@ -31,17 +33,26 @@ shared_libraries = [
 [appimage]
 
 shared_libraries = [
-    "release/Steam/luasteam_SO/linux64/luasteam.dll",
-    "release/Steam/steam_SO/linux64/libsteam_api.dll"
+    "release/Steam/luasteam_SO/linux64/luasteam.so",
+    "release/Steam/steam_SO/linux64/libsteam_api.so"
 ]
 
+artifacts = "appimage"
 
-## shared_libraries dont work for macos.
-# [macos]
 
-# shared_libraries = [
-#    "release/Steam/luasteam_SO/osx/luasteam.so",
-#    "release/Steam/steam_SO/osx/libsteam_api.dylib"
-# ]
+
+[macos]
+
+[macos.app_metadata]
+CFBundleName = "PushOps"
+CFBundleIdentifier = "tld.pushops"
+NSHumanReadableCopyright = "Copyright 2021-2022 Oliver Garrett"
+CFBundleShortVersionString = "1.0"
+
+
+shared_libraries = [
+    "release/Steam/luasteam_SO/osx/luasteam.so",
+    "release/Steam/steam_SO/osx/libsteam_api.dylib"
+]
 
 

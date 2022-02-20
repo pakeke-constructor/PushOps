@@ -55,7 +55,7 @@ math.dot   = require "libs.math.dot"
 math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
 
-local USE_STEAM = true
+local USE_STEAM = false
 
 if USE_STEAM then
     -- load steam module
