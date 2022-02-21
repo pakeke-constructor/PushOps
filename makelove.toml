@@ -41,13 +41,15 @@ artifacts = "appimage"
 
 
 
+
+
 [macos]
 
 [macos.app_metadata]
 CFBundleName = "PushOps"
-CFBundleIdentifier = "tld.pushops"
+CFBundleIdentifier = "tld.PushOps"
 NSHumanReadableCopyright = "Copyright 2021-2022 Oliver Garrett"
-CFBundleShortVersionString = "1.0"
+CFBundleShortVersionString = "PushOps 1.0"
 
 
 shared_libraries = [

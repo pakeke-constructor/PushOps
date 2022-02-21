@@ -275,7 +275,7 @@ end
 
 
 
-function ControlSys:keypressed(key)
+function ControlSys:keypressed(_, key)
     if CONSTANTS.paused then
         return
     end

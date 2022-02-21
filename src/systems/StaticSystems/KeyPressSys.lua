@@ -42,7 +42,7 @@ end
 
 
 
-function KeyPressSys:keypressed(key, scancode, isrepeat)
+function KeyPressSys:keypressed(_, key, isrepeat)
     keydown[key] = true
     Cyan.call("keydown", key)
 end
@@ -51,7 +51,7 @@ end
 
 
 
-function KeyPressSys:keyreleased(key, scancode, isrepeat)
+function KeyPressSys:keyreleased(_, key, isrepeat)
     keydown[key] = nil
     keyheld_called[key] = false
     if time_between_press_and_release[key] then
