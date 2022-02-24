@@ -306,7 +306,6 @@ function ControlSys:mousepressed(_,_,butto)
     if CONSTANTS.paused then
         return
     end
-    print(butto)
     for _, ent in ipairs(self.group) do
         if butto == 1 then
             push(ent)
