@@ -5,7 +5,6 @@ assets/_NM_NEW_LUA_VISUAL.lua
 txt_and_images/personal
 makelove-build
 *.dll
-*.lib
 
 *.love
 
