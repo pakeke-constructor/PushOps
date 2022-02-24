@@ -10,8 +10,8 @@ local atlas_mt = { __index = atlas }
 
 atlas.__new = function(_,x, y, maxSprites)
     maxSprites = maxSprites or 15000
-    local x = x or 2048
-    local y = y or 2048
+    x = x or 2048
+    y = y or 2048
     local image = lg.newImage(love.image.newImageData(x, y))
 
     return setmetatable({
