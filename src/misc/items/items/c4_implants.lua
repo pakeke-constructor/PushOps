@@ -11,7 +11,7 @@ Player loses 10% speed
 local cooldown = 0.3
 
 local function physics(player, oth, speed)
-    if oth.targetID ~= "enemy" and oth.targetID ~= "boss" and cooldown <= 0 then
+    if oth.targetID ~= "physics" and oth.targetID ~= "enemy" and oth.targetID ~= "boss" and cooldown <= 0 then
         ccall("damage", oth, 9999)
         cooldown = 1
     end
