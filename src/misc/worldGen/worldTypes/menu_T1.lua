@@ -192,7 +192,6 @@ return {
                 local portal = Ents.portal(x,y)
                 portal.portalDestination = {
                     tier = 1;
-                    map = require("src.misc.worldGen.maps.boss_map");
                     type = "basic";
                     x = 32;
                     y = 32
