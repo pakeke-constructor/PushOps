@@ -12,8 +12,6 @@ git push origin master
 
 ]]
 
-local sfile = error
-
 
 _G.love.graphics.setDefaultFilter("nearest", "nearest")
 
@@ -56,8 +54,6 @@ math.vec3  = require "libs.math.NM_vec3"
 math.dot   = require "libs.math.dot"
 math.roman = require "libs.math.NM_roman" -- roman numeral converter
 
--- Load important stuff here.  :^)
-sfile("assets/images")
 
 local USE_STEAM = false
 
