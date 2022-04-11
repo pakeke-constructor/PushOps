@@ -195,7 +195,8 @@ function SoundSys:update(dt)
             current_music:pause()
         else
             if not current_music:isPlaying() then
-                current_music:resume()
+                current_music:seek(0)
+                current_music:play()
             end
         end
     end
