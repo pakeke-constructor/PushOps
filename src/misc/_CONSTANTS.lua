@@ -136,6 +136,8 @@ return{
 ,
     SCALE_FACTOR = 2.5
 ,
+    UI_SCALE_FACTOR = love.graphics.getWidth() / 800
+,
     minimap_enabled = true
 ,
     SFX_VOLUME = 0.4--.4-- = 0.4 -- volume is always a number:   0 --> 1

@@ -77,7 +77,7 @@ called when the player finishes a run
 (goes back to menu, or restarts run, etc)
 
 
-# emit ( emitter_type, x, y, z,  num_particles )
+# emit ( emitter_type, x, y, z,  num_particles, colour=WHITE )
 emits a burst of particles of `emitter_type` at x,y,z.
 types:  {  guts  beam  dust   smoke  ... }
 

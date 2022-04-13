@@ -117,7 +117,7 @@ function UISys:finalizeWorld(world, wmap)
 end
 
 
-local NEW_ALPHA = 0.5
+local NEW_ALPHA = 0.8
 
 
 --[[
@@ -182,7 +182,7 @@ local function drawMiniMap()
 
     if love.keyboard.isDown("tab") and (not CONSTANTS.paused) then
         alpha = NEW_ALPHA
-        love.graphics.scale(3)
+        love.graphics.scale(CONSTANTS.UI_SCALE_FACTOR * 3)
     end
 
     local BORDER_WIDTH = MINIMAP_BORDER_WIDTH
@@ -259,6 +259,9 @@ local YLO = {1,1,0.1}
 local GRN = {0.1,1,0.1}
 local BLU = {0.05,0.05,1}
 
+
+
+
 function UISys:drawUI()
     -- check that a player exists
     if self.group[1] then
@@ -277,7 +280,8 @@ function UISys:drawUI()
         local lg = love.graphics
         lg.setColor(0,0,0,0.7)
 
-        local w,h = lg.getWidth()/2,lg.getHeight()/2
+        local sf = CONSTANTS.UI_SCALE_FACTOR
+        local w,h = lg.getWidth()/sf,lg.getHeight()/sf
         lg.rectangle("fill",-10,-10,w+20,h+20)
 
         Tools.drawText("( PAUSED )", w/2, h/16, WHITE, BLACK)

@@ -31,6 +31,8 @@ IDEA:
 
 ]]
 
+local atlas = require("assets.atlas")
+
 
 local WinSys = Cyan.System("targetID")
 
@@ -41,7 +43,7 @@ local enemyCountTotal = 0
 
 local bossCountTotal = 0
 local bossCount = 0
-
+local bossTotalHealth = 0
 
 
 
@@ -105,6 +107,39 @@ end
 
 
 
+function WinSys:drawUI()
+    if bossCount >= 1 then
+        local hp = 0
+
+        for i, ent in ipairs(self.group) do
+            if ent.targetID == "boss" and ent.hp then
+                hp = hp + ent.hp.hp
+            end
+        end
+
+        love.graphics.push("all")
+        love.graphics.setLineWidth(4)
+        local sf = CONSTANTS.UI_SCALE_FACTOR
+        local w,h = love.graphics.getWidth(), love.graphics.getHeight()
+
+        local ww = 60
+        local hh = 30
+        local hp_ratio = hp / bossTotalHealth
+        love.graphics.setColor(0.6,0.3,0.2,0.8)
+        love.graphics.rectangle("fill", sf * ww, h/sf - hh*sf, (w/sf) - (sf*ww*2), sf * hh/2)
+        love.graphics.setColor(0.9,0,0)
+        love.graphics.rectangle("fill", sf * ww, h/sf - hh*sf, hp_ratio * ((w/sf) - (sf*ww*2)), sf * hh/2)
+        love.graphics.setColor(0,0,0)
+        love.graphics.rectangle("line", sf * ww, h/sf - hh*sf, (w/sf) - (sf*ww*2), sf * hh/2)
+        love.graphics.setColor(1,1,1)
+        atlas:draw(atlas.quads.death_32, sf * ww + ((w/sf) - (sf*ww*2))/2 ,
+                    h/sf - hh*sf, 0, 4,4, 16, 16)
+        love.graphics.pop()
+    end
+end
+
+
+
 function WinSys:removed(e)
     if e.targetID == "enemy" then
         enemyCount = enemyCount - 1
@@ -118,6 +153,7 @@ end
 function WinSys:newWorld()
     bossCountTotal  = 0
     enemyCountTotal = 0
+    bossTotalHealth = 0
 
     enemyCount = 0
     bossCount  = 0
@@ -129,6 +165,9 @@ function WinSys:newWorld()
         elseif ent.targetID=="boss" then
             bossCountTotal = bossCountTotal + 1
             bossCount = bossCount + 1
+            if ent.hp then
+                bossTotalHealth = bossTotalHealth + ent.hp.hp
+            end
         end
     end
 end

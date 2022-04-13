@@ -175,12 +175,12 @@ return function(parent, sanity_check)
     e._node_index = 0 -- the index in _bound_nodes that was last changed by
     --`chooseNewNodes()`.
 
-    e.targetID = "boss"
-
     e.hp = {
         hp = 3000;
         max_hp = 3000
     }
+
+    e.targetID = "boss"
 
     e.onDeath = onDeath
 

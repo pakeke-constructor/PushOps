@@ -82,6 +82,8 @@ end
 
 
 local function spawn_portal(x, y)
+    ccall("shockwave", x, y, 10,550,30,1)
+    ccall("emit", "dust", x, y, 0, 10)
     local portal = EH.Ents.portal(x, y)
     portal.portalDestination = {
         x = 30;
@@ -104,7 +106,7 @@ return {
 
     ratioWin = function(cam_x, cam_y)
         ccall("apply", purge_fn, cam_x, cam_y)
-        ccall("await", spawn_portal, 0, cam_x, cam_y)
+        ccall("await", spawn_portal, 0.8, cam_x, cam_y)
         ccall("shockwave", cam_x,cam_y, 10,250,4,0.43)
     end;
     

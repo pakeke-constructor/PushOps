@@ -243,7 +243,8 @@ function DrawSys:draw()
     lightDraw()
 
     lg.push()
-    lg.scale(2)
+
+    lg.scale(CONSTANTS.UI_SCALE_FACTOR)
     ccall("drawUI")
     lg.pop()
 end
