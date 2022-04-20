@@ -226,7 +226,7 @@ return function(x,y)
     }
 
     for i=1,5 do
-        EH.Ents.wormheart(worm)
+        EH.Ents.boss_wormheart(worm)
     end
 
     return worm

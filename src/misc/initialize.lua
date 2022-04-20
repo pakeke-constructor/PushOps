@@ -27,6 +27,7 @@ function DEBUG_SYS:keypressed(k)
     if k == "e" then
         -- DEBUG ONLY
         -- EH.Ents.multiblock(cam.x,cam.y)
+        EH.Ents.worm(cam.x, cam.y)
 
         --Ents.crafter(cam.x, cam.y)
     end

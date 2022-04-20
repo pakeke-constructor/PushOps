@@ -182,7 +182,7 @@ local function drawMiniMap()
 
     if love.keyboard.isDown("tab") and (not CONSTANTS.paused) then
         alpha = NEW_ALPHA
-        love.graphics.scale(CONSTANTS.UI_SCALE_FACTOR * 3)
+        love.graphics.scale(4)
     end
 
     local BORDER_WIDTH = MINIMAP_BORDER_WIDTH

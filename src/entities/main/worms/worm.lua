@@ -21,7 +21,7 @@ local ccall = Cyan.call
 
 local Entity = Cyan.Entity
 
-local DISTANCE = 14 -- The distance between worm nodes
+local DISTANCE = 8 -- The distance between worm nodes
 
 
 local MIN_LEN = 30

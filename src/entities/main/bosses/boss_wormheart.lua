@@ -180,7 +180,7 @@ return function(parent, sanity_check)
         max_hp = 3000
     }
 
-    e.targetID = "enemy"
+    e.targetID = "boss"
 
     e.onDeath = onDeath
 
